@@ -1,0 +1,13 @@
+{
+  "name": "@bleu/op-govquests-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "bin/dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@9.11.0"
+}
