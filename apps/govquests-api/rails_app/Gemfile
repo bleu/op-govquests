@@ -56,8 +56,8 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # Types
-  # gem "sorbet"
-  # gem "tapioca"
+  gem "sorbet"
+  gem "tapioca"
 end
 
 group :test do

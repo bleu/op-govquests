@@ -7,4 +7,7 @@ test:
 lint:
 	@bundle exec rubocop -A
 
-.PHONY: install test
+sorbet:
+	@bundle exec srb tc
+
+.PHONY: install test lint sorbet

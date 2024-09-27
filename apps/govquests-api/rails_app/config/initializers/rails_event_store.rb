@@ -14,5 +14,4 @@ Rails.configuration.to_prepare do
   end
 
   Configuration.new.call(Rails.configuration.event_store, Rails.configuration.command_bus)
-  puts " JOaNA"
 end
