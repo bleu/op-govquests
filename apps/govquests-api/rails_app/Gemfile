@@ -41,8 +41,23 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
+  # Pry
+  gem "pry-byebug"
+  gem "pry-meta"
+  gem "pry-rails", "~> 0.3.9"
+
+  # Rubocop
+  gem "rubocop"
+  gem "rubocop-performance"
+  gem "rubocop-rails"
+  gem "rubocop-rake"
+  # gem "rubocop-sorbet", require: false
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Types
+  # gem "sorbet"
+  # gem "tapioca"
 end
 
 group :test do

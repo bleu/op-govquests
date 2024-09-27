@@ -5,7 +5,7 @@ module ClientAuthentication
 
   class Configuration
     def call(event_store)
-      event_store.subscribe(CreateAccount, to: [Authentication::AccountRegistered])
+      event_store.subscribe(CreateAccount, to: [ Authentication::AccountRegistered ])
     end
   end
 end

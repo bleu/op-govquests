@@ -6,7 +6,6 @@ require "mutant/minitest/coverage"
 ActiveJob::Base.logger = Logger.new(nil)
 
 class InMemoryTestCase < ActiveSupport::TestCase
-
   def before_setup
     result = super
     @previous_event_store = Rails.configuration.event_store
@@ -33,14 +32,12 @@ class InMemoryTestCase < ActiveSupport::TestCase
 end
 
 class RealRESIntegrationTestCase < ActionDispatch::IntegrationTest
-
   def run_command(command)
     Rails.configuration.command_bus.call(command)
   end
 end
 
 class InMemoryRESIntegrationTestCase < ActionDispatch::IntegrationTest
-
   def before_setup
     result = super
     @previous_event_store = Rails.configuration.event_store
@@ -88,7 +85,7 @@ class InMemoryRESIntegrationTestCase < ActionDispatch::IntegrationTest
           params: {
             "authenticity_token" => "[FILTERED]",
             "product_id" => product_id,
-            price: new_price,
+            price: new_price
           }
   end
 
