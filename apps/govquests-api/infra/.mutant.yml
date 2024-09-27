@@ -1,0 +1,26 @@
+---
+mutation:
+  timeout: 10.0
+includes:
+  - test
+integration:
+  name: minitest
+usage: opensource
+coverage_criteria:
+  timeout: true
+  process_abort: true
+requires:
+  - ./lib/infra.rb
+matcher:
+  subjects:
+    - Infra*
+  ignore:
+    - Infra::Event*
+    - Infra::Command*
+    - Infra::AggregateRootRepository*
+    - Infra::TestPlumbing*
+    - Infra::NoEvent*
+    - Infra::EventStore*
+    - Infra::Mapper*
+    - Infra::Process*
+    - Infra::EventHandler*
