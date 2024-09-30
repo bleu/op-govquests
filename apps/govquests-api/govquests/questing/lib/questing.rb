@@ -7,7 +7,7 @@ require_relative "questing/quest"
 module Questing
   class Configuration
     def call(event_store, command_bus)
-      command_bus.register(RegisterQuest, RegisterQuestHandler.new(event_store))
+      command_bus.register(RegisterQuest, OnQuestCreated.new(event_store))
     end
   end
 end

@@ -11,13 +11,14 @@ module Questing
     def register
       raise AlreadyRegistered if @registered
 
-      apply QuestRegistered.new(data: { quest_id: @id })
+      apply QuestCreated.new(data: {quest_id: @id})
     end
 
     private
 
-    on QuestRegistered do |event|
+    on QuestCreated do |event|
       @registered = true
+      @status = :draft
     end
   end
 end

@@ -1,6 +1,6 @@
+# lib/questing/events.rb
 module Questing
-  class QuestRegistered < Infra::Event
+  class QuestCreated < Infra::Event
     attribute :quest_id, Infra::Types::UUID
-
   end
 end
