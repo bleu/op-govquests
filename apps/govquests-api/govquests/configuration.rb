@@ -1,4 +1,5 @@
 require_relative "authentication/lib/authentication"
+require_relative "questing/lib/questing"
 
 
 module Govquests
@@ -12,6 +13,7 @@ module Govquests
     def configure_bounded_contexts(event_store, command_bus)
       [
         Authentication::Configuration.new,
+        Questing::Configuration.new,
       ].each { |c| c.call(event_store, command_bus) }
     end
 

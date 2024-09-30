@@ -6,6 +6,7 @@ class Configuration
     enable_res_infra_event_linking(event_store)
 
     enable_authentication_read_model(event_store)
+    enable_quests_read_model(event_store)
 
     Govquests::Configuration.new.call(event_store, command_bus)
   end
@@ -15,6 +16,10 @@ class Configuration
 
   def enable_authentication_read_model(event_store)
     ClientAuthentication::Configuration.new.call(event_store)
+  end
+
+  def enable_quests_read_model(event_store)
+    Quests::Configuration.new.call(event_store)
   end
 
 
