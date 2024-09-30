@@ -1,5 +1,5 @@
 module Authentication
-  class RegisterAccountHandler
+  class OnRegisterAccount
     def initialize(event_store)
       @repository = Infra::AggregateRootRepository.new(event_store)
     end
