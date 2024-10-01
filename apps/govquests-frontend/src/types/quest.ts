@@ -1,13 +1,18 @@
 export interface Step {
   content: string;
   duration: number;
-  status: string;
+}
+
+export interface Reward {
+  type: string;
+  amount: number;
 }
 
 export interface Quest {
   img_url: string;
   title: string;
-  reward_type: string;
+  rewards: Reward[];
   intro: string;
   steps: Step[];
+  status: string;
 }
