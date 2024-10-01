@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-scree">
+      <body>
         {/* MOCKED HEADER AND SIDE BAR */}
         <header className="h-16 bg-red-500 flex-1">
           <div />

@@ -15,3 +15,19 @@ export async function getQuests(): Promise<Quest[]> {
     throw error;
   }
 }
+
+export async function getQuestById(id: number): Promise<Quest> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/quests/${id}`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(
+      `There was a problem fetching the quest with id ${id}:`,
+      error,
+    );
+    throw error;
+  }
+}
