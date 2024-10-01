@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  img_url: MyString
+  title: MyString
+  reward_type: MyString
+  intro: MyText
+  steps: MyText
+
+two:
+  img_url: MyString
+  title: MyString
+  reward_type: MyString
+  intro: MyText
+  steps: MyText
