@@ -32,7 +32,7 @@ export default function Home() {
       <span className="text-lg bg-green mb-4">
         We selected them based on your profile
       </span>
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-5">
         {quests.map((quest) => (
           <Quest
             key={quest.title}

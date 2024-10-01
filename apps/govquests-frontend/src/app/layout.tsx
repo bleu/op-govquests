@@ -31,7 +31,7 @@ export default function RootLayout({
           <div />
         </header>
         <div className="flex">
-          <aside className="w-32 bg-red-100 min-h-screen p-6">
+          <aside className="w-32 bg-red-100 min-h-screen p-6 hidden md:flex">
             <div />
           </aside>
           {children}
