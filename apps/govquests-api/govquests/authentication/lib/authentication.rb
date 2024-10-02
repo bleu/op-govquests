@@ -10,7 +10,6 @@ module Authentication
       command_handler = OnUserCommands.new(event_store)
       command_bus.register(RegisterUser, command_handler)
       command_bus.register(UpdateQuestProgress, command_handler)
-      command_bus.register(ClaimReward, command_handler)
       command_bus.register(LogUserActivity, command_handler)
     end
   end

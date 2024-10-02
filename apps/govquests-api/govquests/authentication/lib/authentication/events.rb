@@ -27,10 +27,4 @@ module Authentication
     attribute :session_token, Infra::Types::String
     attribute :expired_at, Infra::Types::Time
   end
-
-  class QuestProgressUpdated < Infra::Event
-    attribute :user_id, Infra::Types::UUID
-    attribute :quest_id, Infra::Types::UUID
-    attribute :progress_measure, Infra::Types::Integer
-  end
 end

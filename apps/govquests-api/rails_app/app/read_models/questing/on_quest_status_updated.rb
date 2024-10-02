@@ -1,5 +1,5 @@
-module Quests
-  class UpdateQuestStatus
+module Questing
+  class OnQuestStatusUpdated
     def call(event)
       quest_id = event.data.fetch(:quest_id)
       status = event.data.fetch(:status)

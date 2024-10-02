@@ -1,6 +1,5 @@
-# app/read_models/quests/create_quest.rb
-module Quests
-  class CreateQuest
+module Questing
+  class OnQuestCreated
     def call(event)
       quest_id = event.data.fetch(:quest_id)
       audience = event.data.fetch(:audience)

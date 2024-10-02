@@ -17,13 +17,6 @@ module Authentication
     alias_method :aggregate_id, :user_id
   end
 
-  class ClaimReward < Infra::Command
-    attribute :user_id, Infra::Types::UUID
-    attribute :reward_id, Infra::Types::UUID
-
-    alias_method :aggregate_id, :user_id
-  end
-
   class LogUserActivity < Infra::Command
     attribute :user_id, Infra::Types::UUID
     attribute :action_type, Infra::Types::String

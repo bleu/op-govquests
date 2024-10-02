@@ -1,4 +1,4 @@
-module ClientAuthentication
+module Authentication
   class UpdateUserQuestProgress
     def call(event)
       user_id = event.data.fetch(:user_id)

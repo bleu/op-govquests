@@ -35,14 +35,6 @@ module Questing
       apply ActionAssociatedWithQuest.new(data: {quest_id: @id, action_id: action_id})
     end
 
-    def update_progress(user_id, progress_measure)
-      apply QuestProgressUpdated.new(data: {
-        user_id: user_id,
-        quest_id: @id,
-        progress_measure: progress_measure
-      })
-    end
-
     private
 
     on QuestCreated do |event|
@@ -59,10 +51,6 @@ module Questing
     on ActionAssociatedWithQuest do |event|
       @actions ||= []
       @actions << event.data[:action_id]
-    end
-
-    on QuestProgressUpdated do |event|
-      @progress[event.data[:user_id]] = event.data[:progress_measure]
     end
   end
 end

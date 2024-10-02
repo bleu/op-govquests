@@ -1,6 +1,6 @@
 # app/read_models/client_authentication/create_user.rb
-module ClientAuthentication
-  class CreateUser
+module Authentication
+  class OnCreateUser
     def call(event)
       user_id = event.data.fetch(:user_id)
       email = event.data[:email]

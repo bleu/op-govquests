@@ -62,23 +62,6 @@ module Authentication
       })
     end
 
-    def update_quest_progress(quest_id, progress_measure)
-      apply QuestProgressUpdated.new(data: {
-        user_id: @id,
-        quest_id: quest_id,
-        progress_measure: progress_measure
-      })
-    end
-
-    def claim_reward(reward_id)
-      raise AlreadyClaimed if @claimed_rewards.include?(reward_id)
-
-      apply RewardClaimed.new(data: {
-        user_id: @id,
-        reward_id: reward_id
-      })
-    end
-
     private
 
     on UserRegistered do |event|
@@ -109,10 +92,6 @@ module Authentication
 
     on SessionExpired do |event|
       @sessions.reject! { |s| s[:session_token] == event.data[:session_token] }
-    end
-
-    on QuestProgressUpdated do |event|
-      @quests_progress[event.data[:quest_id]] = event.data[:progress_measure]
     end
   end
 end

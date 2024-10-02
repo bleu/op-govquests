@@ -1,5 +1,5 @@
-module ClientAuthentication
-  class LogUserActivity
+module Authentication
+  class OnLogUserActivity
     def call(event)
       user_id = event.data.fetch(:user_id)
       action_type = event.data.fetch(:action_type)
@@ -8,7 +8,7 @@ module ClientAuthentication
       user = User.find_by(user_id: user_id)
       if user
         user.activities ||= []
-        user.activities << {action_type: action_type, timestamp: action_timestamp}
+        user.activities << { action_type: action_type, timestamp: action_timestamp }
         user.save
       end
     end

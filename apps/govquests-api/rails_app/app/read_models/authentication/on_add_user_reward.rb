@@ -1,5 +1,5 @@
-module ClientAuthentication
-  class AddUserReward
+module Authentication
+  class OnAddUserReward
     def call(event)
       user_id = event.data.fetch(:user_id)
       reward_id = event.data.fetch(:reward_id)
