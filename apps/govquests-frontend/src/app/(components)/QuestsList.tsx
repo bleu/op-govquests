@@ -1,5 +1,3 @@
-"use client";
-
 import Quest from "@/components/Quest";
 import type { Reward } from "@/types/quest";
 import type React from "react";
