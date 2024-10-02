@@ -1,23 +1,24 @@
 import type { Reward } from "@/types/quest";
 import Image from "next/image";
+import Link from "next/link";
 import type React from "react";
 
 interface QuestProps {
+  id: string;
   imageSrc: string;
   altText: string;
   title: string;
   rewards: Reward[];
   status: string;
-  onClick: () => void;
 }
 
 const Quest: React.FC<QuestProps> = ({
+  id,
   imageSrc,
   altText,
   title,
   rewards,
   status,
-  onClick,
 }) => {
   return (
     <div className="flex flex-col bg-red-300 rounded-lg">
@@ -36,13 +37,12 @@ const Quest: React.FC<QuestProps> = ({
             </span>
           ))}
         </div>
-        <button
-          type="button"
-          onClick={onClick}
-          className="bg-white py-1 rounded-lg hover:bg-zinc-100"
+        <Link
+          href={id}
+          className="bg-white py-1 rounded-lg hover:bg-zinc-100 text-center"
         >
           {status}
-        </button>
+        </Link>
       </div>
     </div>
   );

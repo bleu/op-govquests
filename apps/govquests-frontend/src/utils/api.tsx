@@ -16,7 +16,7 @@ export async function getQuests(): Promise<Quest[]> {
   }
 }
 
-export async function getQuestById(id: number): Promise<Quest> {
+export async function getQuestById(id: string): Promise<Quest> {
   try {
     const response = await fetch(`${API_BASE_URL}/quests/${id}`);
     if (!response.ok) {

@@ -3,6 +3,7 @@ class QuestsController < ApplicationController
   def index
     quests = [
       {
+        id: "1",
         img_url: "https://file.coinexstatic.com/2023-11-16/BB3FDB00283C55B4C36B94CFAC0C3271.png",
         title: "Governance 101",
         status: "start",
@@ -37,6 +38,7 @@ class QuestsController < ApplicationController
         ]
       },
       {
+        id: "2",
         img_url: "https://file.coinexstatic.com/2023-11-16/BB3FDB00283C55B4C36B94CFAC0C3271.png",
         title: "Governance 101",
         status: "start",
@@ -68,6 +70,7 @@ class QuestsController < ApplicationController
         ]
       },
       {
+        id: "3",
         img_url: "https://file.coinexstatic.com/2023-11-16/BB3FDB00283C55B4C36B94CFAC0C3271.png",
         title: "Governance 101",
         status: "start",
@@ -103,6 +106,7 @@ class QuestsController < ApplicationController
         ]
       },
       {
+        id: "4",
         img_url: "https://file.coinexstatic.com/2023-11-16/BB3FDB00283C55B4C36B94CFAC0C3271.png",
         title: "Governance 101",
         status: "start",
