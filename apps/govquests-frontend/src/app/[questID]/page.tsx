@@ -1,17 +1,14 @@
 "use server";
 
 import api from "@/utils/api";
-import type React from "react";
 import QuestDetails from "../(components)/QuestDetails";
 
-interface QuestDetailsProps {
+interface Params {
   questID: string;
 }
 
-const QuestDetailsPage: React.FC<QuestDetailsProps> = async ({ questID }) => {
-  const quest = await api(`quests/${questID}`);
+export default async function QuestDetailsPage({ params }: { params: Params }) {
+  const quest = await api(`quests/${params.questID}`);
 
   return <QuestDetails quest={quest} />;
-};
-
-export default QuestDetailsPage;
+}
