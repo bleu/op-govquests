@@ -6,7 +6,7 @@ require_relative "../lib/authentication"
 module Authentication
   class Test < Infra::InMemoryTest
     def before_setup
-      super()
+      super
       Configuration.new.call(event_store, command_bus)
     end
 
