@@ -1,12 +1,12 @@
 require_relative "test_helper"
 
 module Questing
-  class RegisterQuestTest < Test
+  class CreateQuestTest < Test
     cover "Questing*"
 
     def setup
       @uid = SecureRandom.uuid
-      @data = { quest_id: @uid, }
+      @data = {quest_id: @uid}
     end
 
     def test_quest_should_get_registered
@@ -26,7 +26,7 @@ module Questing
     private
 
     def register_quest(quest_id)
-      run_command(RegisterQuest.new(quest_id: quest_id))
+      run_command(CreateQuest.new(quest_id: quest_id))
     end
   end
 end
