@@ -1,7 +1,7 @@
 import type { Reward } from "@/types/quest";
-import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
+import Image from "./Image";
 
 interface QuestProps {
   id: string;
@@ -23,7 +23,11 @@ const Quest: React.FC<QuestProps> = ({
   return (
     <div className="flex flex-col bg-red-300 rounded-lg">
       <div className="relative w-full border border-black h-36">
-        <Image src={imageSrc} alt={altText} layout="fill" objectFit="cover" />
+        <Image
+          src={imageSrc}
+          alt={altText}
+          className="object-cover w-full h-full"
+        />
       </div>
       <div className="flex flex-col p-4">
         <h3>{title}</h3>

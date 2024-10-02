@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* MOCKED HEADER AND SIDE BAR */}
+        {/* MOCKED HEADER AND SIDE BAR, SHOUDL BE REMOVED: OP-299 & OP-300 */}
         <header className="h-16 bg-red-500 flex-1">
           <div />
         </header>
