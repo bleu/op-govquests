@@ -2,7 +2,7 @@
 
 import type { Quest } from "@/types/quest";
 import { getQuestById } from "@/utils/api";
-import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
 import { useEffect, useState } from "react";
@@ -60,7 +60,7 @@ const QuestDetails: React.FC = () => {
                 <span className="flex items-center gap-1">
                   {step.content}
                   <Link href="https://www.google.com.br">
-                    <ExternalLinkIcon />
+                    <ExternalLink />
                   </Link>
                 </span>
                 <div className="flex items-center">
