@@ -8,13 +8,19 @@ module Authentication
       @repository.with_aggregate(User, command.aggregate_id) do |user|
         case command
         when RegisterUser
-          user.register(command.email, command.user_type)
-        when UpdateQuestProgress
-          user.update_quest_progress(command.quest_id, command.progress_measure)
-        when ClaimReward
-          user.claim_reward(command.reward_id)
-        when LogUserActivity
-          user.log_activity(command.action_type, command.action_timestamp)
+          user.register(
+            command.email,
+            command.user_type,
+            command.address,
+            command.chain_id
+          )
+        when LogIn
+          user.log_in(
+            command.session_token,
+            command.timestamp
+          )
+        else
+          raise "Unknown command: #{command.class}"
         end
       end
     end

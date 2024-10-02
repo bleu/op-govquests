@@ -11,6 +11,10 @@ module Authentication
       command_bus.register(RegisterUser, command_handler)
       command_bus.register(UpdateQuestProgress, command_handler)
       command_bus.register(LogUserActivity, command_handler)
+      command_bus.register(ConnectWallet, command_handler)
+      command_bus.register(LogIn, command_handler)
+      command_bus.register(LogOut, command_handler)
+      command_bus.register(ExpireSession, command_handler)
     end
   end
 end

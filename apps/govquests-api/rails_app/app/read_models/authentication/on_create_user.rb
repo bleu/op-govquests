@@ -3,12 +3,16 @@ module Authentication
   class OnCreateUser
     def call(event)
       user_id = event.data.fetch(:user_id)
-      email = event.data[:email]
-      user_type = event.data[:user_type]
+      email = event.data.fetch(:email)
+      user_type = event.data.fetch(:user_type)
+      wallet_address = event.data.fetch(:wallet_address)
+      chain_id = event.data.fetch(:chain_id)
 
       User.find_or_create_by(user_id: user_id).update(
         email: email,
-        user_type: user_type
+        user_type: user_type,
+        wallet_address: wallet_address,
+        chain_id: chain_id
       )
     end
   end
