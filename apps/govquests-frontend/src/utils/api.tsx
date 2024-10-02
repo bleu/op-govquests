@@ -1,33 +1,37 @@
-import type { Quest } from "../types/quest";
+async function api(
+  endpoint: string,
+  { body, ...customConfig }: { body?: any; [key: string]: any } = {},
+) {
+  const headers = { "Content-Type": "application/json" };
+  const config: RequestInit = {
+    method: body ? "POST" : "GET",
+    ...customConfig,
+    headers: {
+      ...headers,
+      ...customConfig.headers,
+    },
+  };
 
-const API_BASE_URL = "http://localhost:3001";
+  if (body) {
+    config.body = JSON.stringify(body);
+  }
 
-export async function getQuests(): Promise<Quest[]> {
+  const apiUrl = "http://localhost:3001";
+  const url = `${apiUrl}/${endpoint}`;
+
   try {
-    const response = await fetch(`${API_BASE_URL}/quests`);
+    const response = await fetch(url, config);
+
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      const errorMessage = await response.text();
+      return Promise.reject(new Error(errorMessage));
     }
-    const data: Quest[] = await response.json();
+
+    const data = await response.json();
     return data;
   } catch (error) {
-    console.error("There was a problem fetching the quests:", error);
-    throw error;
+    return Promise.reject(error);
   }
 }
 
-export async function getQuestById(id: string): Promise<Quest> {
-  try {
-    const response = await fetch(`${API_BASE_URL}/quests/${id}`);
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return await response.json();
-  } catch (error) {
-    console.error(
-      `There was a problem fetching the quest with id ${id}:`,
-      error,
-    );
-    throw error;
-  }
-}
+export default api;
