@@ -1,6 +1,6 @@
 async function api(
   endpoint: string,
-  { body, ...customConfig }: { body?: any; [key: string]: any } = {},
+  { body, ...customConfig }: { body?: any; [key: string]: any } = {}
 ) {
   const headers = { "Content-Type": "application/json" };
   const config: RequestInit = {
@@ -10,6 +10,7 @@ async function api(
       ...headers,
       ...customConfig.headers,
     },
+    cache: "no-store",
   };
 
   if (body) {
