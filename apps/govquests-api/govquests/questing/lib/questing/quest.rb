@@ -1,19 +1,10 @@
-# app/models/quest.rb
 module Questing
   class Quest
     include AggregateRoot
 
     def initialize(id)
       @id = id
-      @audience = nil
-      @quest_type = nil
-      @duration = nil
-      @difficulty = nil
-      @requirements = []
-      @reward = {}
-      @subquests = []
       @status = "created"
-      @progress = {}
     end
 
     def create(audience, quest_type, duration, difficulty, requirements = [], reward = {}, subquests = [])
@@ -32,7 +23,10 @@ module Questing
     end
 
     def associate_action(action_id)
-      apply ActionAssociatedWithQuest.new(data: {quest_id: @id, action_id: action_id})
+      apply ActionAssociatedWithQuest.new(data: {
+        quest_id: @id,
+        action_id: action_id
+      })
     end
 
     private
@@ -45,7 +39,7 @@ module Questing
       @requirements = event.data[:requirements]
       @reward = event.data[:reward]
       @subquests = event.data[:subquests]
-      @status = "created"
+      @status = "active"  # Change status to prevent re-creation
     end
 
     on ActionAssociatedWithQuest do |event|

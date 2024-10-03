@@ -11,7 +11,7 @@ module Authentication
           user.register(
             command.email,
             command.user_type,
-            command.address,
+            command.wallet_address,
             command.chain_id
           )
         when LogIn

@@ -1,10 +1,10 @@
 module Authentication
   class RegisterUser < Infra::Command
     attribute :user_id, Infra::Types::UUID
-    attribute :address, Infra::Types::String
-    attribute :chain_id, Infra::Types::Integer
     attribute :email, Infra::Types::String.optional
     attribute :user_type, Infra::Types::String
+    attribute :wallet_address, Infra::Types::String
+    attribute :chain_id, Infra::Types::Integer
 
     alias_method :aggregate_id, :user_id
   end

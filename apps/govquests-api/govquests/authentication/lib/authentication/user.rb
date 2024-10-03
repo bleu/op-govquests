@@ -10,8 +10,6 @@ module Authentication
       @id = id
       @email = nil
       @user_type = "non_delegate"
-      @wallet_address = nil
-      @chain_id = nil
       @settings = {}
       @wallets = []
       @sessions = []
@@ -33,6 +31,8 @@ module Authentication
     end
 
     def log_in(session_token, timestamp)
+      raise "User not registered" unless @registered
+
       apply UserLoggedIn.new(data: {
         user_id: @id,
         session_token: session_token,
@@ -46,8 +46,10 @@ module Authentication
       @registered = true
       @email = event.data[:email]
       @user_type = event.data[:user_type]
-      @wallet_address = event.data[:wallet_address]
-      @chain_id = event.data[:chain_id]
+      @wallets << {
+        wallet_address: event.data[:wallet_address],
+        chain_id: event.data[:chain_id]
+      }
     end
 
     on UserLoggedIn do |event|

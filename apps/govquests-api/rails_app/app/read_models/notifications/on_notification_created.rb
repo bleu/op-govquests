@@ -1,6 +1,5 @@
-# app/read_models/notifications/create_notification.rb
 module Notifications
-  class CreateNotificationHandler
+  class OnNotificationCreated
     def call(event)
       notification_id = event.data.fetch(:notification_id)
       content = event.data[:content]
@@ -8,7 +7,7 @@ module Notifications
       channel = event.data[:channel]
       template_id = event.data[:template_id]
 
-      Notification.find_or_create_by(notification_id: notification_id).update(
+      NotificationReadModel.find_or_create_by(notification_id: notification_id).update(
         content: content,
         priority: priority,
         channel: channel,

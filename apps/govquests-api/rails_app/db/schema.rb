@@ -10,15 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_30_172742) do
-  create_table "accounts", force: :cascade do |t|
-    t.string "account_id"
-    t.string "string"
-    t.string "address"
-    t.integer "chain_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema[8.0].define(version: 2024_09_30_201737) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "event_store_events", force: :cascade do |t|
     t.string "event_id", limit: 36, null: false
@@ -44,10 +38,76 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_30_172742) do
     t.index ["stream", "position"], name: "index_event_store_events_in_streams_on_stream_and_position", unique: true
   end
 
-  create_table "quests", force: :cascade do |t|
-    t.string "quest_id"
+  create_table "notification_templates", force: :cascade do |t|
+    t.string "template_id", null: false
+    t.string "name", null: false
+    t.text "content", null: false
+    t.string "content_type", default: "text/plain", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["template_id"], name: "index_notification_templates_on_template_id", unique: true
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "notification_id", null: false
+    t.string "content", null: false
+    t.string "priority", null: false
+    t.string "channel", null: false
+    t.string "template_id"
+    t.string "status", default: "Pending"
+    t.datetime "scheduled_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notification_id"], name: "index_notifications_on_notification_id", unique: true
+  end
+
+  create_table "quests", force: :cascade do |t|
+    t.string "quest_id", null: false
+    t.string "audience", null: false
+    t.string "quest_type", null: false
+    t.integer "duration", null: false
+    t.string "difficulty", null: false
+    t.jsonb "requirements", default: []
+    t.jsonb "reward", default: {}
+    t.jsonb "subquests", default: []
+    t.string "status", default: "created"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quest_id"], name: "index_quests_on_quest_id", unique: true
+  end
+
+  create_table "user_rewards", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.string "reward_id", null: false
+    t.string "status", default: "pending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "reward_id"], name: "index_user_rewards_on_user_id_and_reward_id", unique: true
+  end
+
+  create_table "user_sessions", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.string "session_token", null: false
+    t.datetime "logged_in_at", null: false
+    t.datetime "logged_out_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_sessions_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.string "email", null: false
+    t.string "user_type", default: "non_delegate", null: false
+    t.jsonb "settings", default: {}
+    t.jsonb "wallets", default: []
+    t.jsonb "sessions", default: []
+    t.jsonb "quests_progress", default: {}
+    t.jsonb "activity_log", default: []
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["user_id"], name: "index_users_on_user_id", unique: true
   end
 
   add_foreign_key "event_store_events_in_streams", "event_store_events", column: "event_id", primary_key: "event_id"

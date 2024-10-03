@@ -21,7 +21,7 @@ module Questing
   end
 
   class QuestRequirement < Dry::Struct
-    attribute :type, Infra::Types::String
+    attribute :quest_type, Infra::Types::String
     attribute :description, Infra::Types::String
   end
 end

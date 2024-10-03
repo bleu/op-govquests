@@ -3,10 +3,8 @@ module Authentication
     self.table_name = "users"
 
     validates :user_id, presence: true, uniqueness: true
-    validates :email, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
-    validates :user_type, presence: true, inclusion: {in: %w[delegate non_delegate]}
-    validates :address, presence: true
-    validates :chain_id, presence: true
+    validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+    validates :user_type, presence: true, inclusion: { in: %w[delegate non_delegate] }
   end
 
   class SessionReadModel < ApplicationRecord
@@ -20,8 +18,8 @@ module Authentication
 
   class ReadModelConfiguration
     def call(event_store)
-      event_store.subscribe(OnCreateUser.new, to: [Authentication::UserRegistered])
-      event_store.subscribe(OnUserLoggedIn.new, to: [Authentication::UserLoggedIn])
+      event_store.subscribe(OnUserRegistered.new, to: [ Authentication::UserRegistered ])
+      event_store.subscribe(OnUserLoggedIn.new, to: [ Authentication::UserLoggedIn ])
     end
   end
 end
