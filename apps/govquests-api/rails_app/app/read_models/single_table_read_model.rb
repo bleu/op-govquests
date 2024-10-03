@@ -16,7 +16,7 @@ class SingleTableReadModel
   private
 
   def create_handler(event)
-    handler_class_name = "Create#{@active_record_name.name.gsub('::', '')}On#{event.name.gsub('::', '')}"
+    handler_class_name = "Create#{@active_record_name.name.gsub("::", "")}On#{event.name.gsub("::", "")}"
     Object.send(:remove_const, handler_class_name) if self.class.const_defined?(handler_class_name)
     _active_record_name_, _id_column_, _event_store_ = @active_record_name, @id_column, @event_store
     Object.const_set(
@@ -30,7 +30,7 @@ class SingleTableReadModel
   end
 
   def copy_handler(event, sequence_of_keys, column)
-    handler_class_name = "Set#{@active_record_name.name.gsub('::', '')}#{column.to_s.camelcase}On#{event.name.gsub('::', '')}"
+    handler_class_name = "Set#{@active_record_name.name.gsub("::", "")}#{column.to_s.camelcase}On#{event.name.gsub("::", "")}"
     Object.send(:remove_const, handler_class_name) if self.class.const_defined?(handler_class_name)
     _active_record_name_, _id_column_, _event_store_ = @active_record_name, @id_column, @event_store
     Object.const_set(
@@ -47,37 +47,25 @@ class SingleTableReadModel
 end
 
 class ReadModelHandler
-  def initialize(*args)
-    if args.present?
-      @event_store = args[0]
-      @active_record_name = args[1]
-      @id_column = args[2]
-    end
-    super()
+  def initialize(event_store, active_record_name, id_column)
+    @event_store = event_store
+    @active_record_name = active_record_name
+    @id_column = id_column
   end
 
   private
 
   attr_reader :active_record_name, :id_column, :event_store
 
+  # Concurrency-safe block for handling events
   def concurrent_safely(event)
     stream_name = "#{active_record_name}$#{record_id(event)}$#{event.event_type}"
-    read_scope = event_store.read.as_at.stream(stream_name)
-    begin
-      last_event = read_scope.last
-      return if last_event && last_event.timestamp > event.timestamp
-      ApplicationRecord.with_advisory_lock(active_record_name, record_id(event)) do
-        yield
-        event_store.link(
-          event.event_id,
-          stream_name: stream_name,
-          expected_version: last_event ? read_scope.to(last_event.event_id).count : -1
-        )
-      end
-    rescue RubyEventStore::WrongExpectedEventVersion
-      retry
-    rescue RubyEventStore::EventDuplicatedInStream
+    ApplicationRecord.with_advisory_lock(active_record_name, record_id(event)) do
+      yield
+      link_event_to_stream(event, stream_name)
     end
+  rescue RubyEventStore::WrongExpectedEventVersion, RubyEventStore::EventDuplicatedInStream
+    Rails.logger.warn "Event #{event.event_id} is already processed in stream #{stream_name}"
   end
 
   def find_or_initialize_record(event)
@@ -87,23 +75,26 @@ class ReadModelHandler
   def record_id(event)
     event.data.fetch(id_column)
   end
+
+  # Links the event to a stream for consistency
+  def link_event_to_stream(event, stream_name)
+    event_store.link(event.event_id, stream_name: stream_name)
+  end
 end
 
 class CreateRecord < ReadModelHandler
   def call(event)
     concurrent_safely(event) do
-      find_or_initialize_record(event).save
+      find_or_initialize_record(event).save!
     end
   end
 end
 
 class CopyEventAttribute < ReadModelHandler
-  def initialize(*args)
-    if args.present?
-      @sequence_of_keys = args[3]
-      @column = args[4]
-    end
-    super
+  def initialize(event_store, active_record_name, id_column, sequence_of_keys, column)
+    super(event_store, active_record_name, id_column)
+    @sequence_of_keys = sequence_of_keys
+    @column = column
   end
 
   def call(event)
@@ -113,5 +104,6 @@ class CopyEventAttribute < ReadModelHandler
   end
 
   private
+
   attr_reader :sequence_of_keys, :column
 end

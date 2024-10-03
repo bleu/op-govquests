@@ -13,7 +13,7 @@ class InMemoryTestCase < ActiveSupport::TestCase
     Rails.configuration.event_store = Infra::EventStore.in_memory
     Rails.configuration.command_bus = Arkency::CommandBus.new
 
-    Configuration.new.call(
+    ::ReadModelsConfiguration.new.call(
       Rails.configuration.event_store, Rails.configuration.command_bus
     )
     result
@@ -82,11 +82,11 @@ class InMemoryRESIntegrationTestCase < ActionDispatch::IntegrationTest
 
   def update_price(product_id, new_price)
     patch "/products/#{product_id}",
-          params: {
-            "authenticity_token" => "[FILTERED]",
-            "product_id" => product_id,
-            price: new_price
-          }
+      params: {
+        "authenticity_token" => "[FILTERED]",
+        "product_id" => product_id,
+        :price => new_price
+      }
   end
 
   def login(client_id)
@@ -96,12 +96,12 @@ class InMemoryRESIntegrationTestCase < ActionDispatch::IntegrationTest
 
   def submit_order(customer_id, order_id)
     post "/orders",
-         params: {
-           "authenticity_token" => "[FILTERED]",
-           "order_id" => order_id,
-           "customer_id" => customer_id,
-           "commit" => "Submit order"
-         }
+      params: {
+        "authenticity_token" => "[FILTERED]",
+        "order_id" => order_id,
+        "customer_id" => customer_id,
+        "commit" => "Submit order"
+      }
   end
 
   def visit_customers_index

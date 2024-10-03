@@ -10,6 +10,11 @@ module Questing
     attribute :subquests, Infra::Types::Array.optional
   end
 
+  class UserStartedQuest < Infra::Event
+    attribute :quest_id, Infra::Types::UUID
+    attribute :user_id, Infra::Types::UUID
+  end
+
   class QuestRequirementAdded < Infra::Event
     attribute :quest_id, Infra::Types::UUID
     attribute :requirement, Infra::Types::Hash

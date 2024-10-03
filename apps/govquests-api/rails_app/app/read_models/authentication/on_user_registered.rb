@@ -1,4 +1,3 @@
-# app/read_models/client_authentication/create_user.rb
 module Authentication
   class OnUserRegistered
     def call(event)
@@ -8,11 +7,11 @@ module Authentication
       wallet_address = event.data.fetch(:wallet_address)
       chain_id = event.data.fetch(:chain_id)
 
-      UserReadModel.find_or_create_by(user_id: user_id).update(
-        email: email,
-        user_type: user_type,
-        wallets: [ { wallet_address: wallet_address, chain_id: chain_id } ]
-      )
+      user = UserReadModel.find_or_initialize_by(user_id: user_id)
+      user.email = email
+      user.user_type = user_type
+      user.wallets = [ { wallet_address: wallet_address, chain_id: chain_id } ]
+      user.save!
     end
   end
 end

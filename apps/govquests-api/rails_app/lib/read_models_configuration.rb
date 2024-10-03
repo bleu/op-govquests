@@ -7,8 +7,12 @@ class ReadModelsConfiguration
 
     enable_authentication_read_model(event_store)
     enable_quests_read_model(event_store)
+    enable_rewarding_read_model(event_store)
+    enable_action_tracking_read_model(event_store)
+    enable_gamification_read_model(event_store)
+    enable_notifications_read_model(event_store)
 
-    Govquests::Configuration.new.call(event_store, command_bus)
+    GovQuests::Configuration.new.call(event_store, command_bus)
   end
 
   private
@@ -19,6 +23,22 @@ class ReadModelsConfiguration
 
   def enable_quests_read_model(event_store)
     Questing::ReadModelConfiguration.new.call(event_store)
+  end
+
+  def enable_rewarding_read_model(event_store)
+    Rewarding::ReadModelConfiguration.new.call(event_store)
+  end
+
+  def enable_action_tracking_read_model(event_store)
+    ActionTracking::ReadModelConfiguration.new.call(event_store)
+  end
+
+  def enable_gamification_read_model(event_store)
+    Gamification::ReadModelConfiguration.new.call(event_store)
+  end
+
+  def enable_notifications_read_model(event_store)
+    Notifications::ReadModelConfiguration.new.call(event_store)
   end
 
   def enable_res_infra_event_linking(event_store)

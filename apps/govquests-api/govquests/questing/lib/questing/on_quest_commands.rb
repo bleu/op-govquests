@@ -1,4 +1,3 @@
-# govquests/questing/lib/questing/on_quest_commands.rb
 module Questing
   class OnQuestCommands
     def initialize(event_store)
@@ -11,7 +10,7 @@ module Questing
         when CreateQuest
           quest.create(
             command.audience,
-            command.type,
+            command.quest_type,
             command.duration,
             command.difficulty,
             command.requirements,

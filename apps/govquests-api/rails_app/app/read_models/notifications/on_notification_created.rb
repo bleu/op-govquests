@@ -2,17 +2,21 @@ module Notifications
   class OnNotificationCreated
     def call(event)
       notification_id = event.data.fetch(:notification_id)
+      template_id = event.data.fetch(:template_id)
+      user_id = event.data.fetch(:user_id)
+      channel = event.data.fetch(:channel)
+      priority = event.data.fetch(:priority)
       content = event.data[:content]
-      priority = event.data[:priority]
-      channel = event.data[:channel]
-      template_id = event.data[:template_id]
+      notification_type = event.data[:notification_type]
 
       NotificationReadModel.find_or_create_by(notification_id: notification_id).update(
-        content: content,
-        priority: priority,
-        channel: channel,
         template_id: template_id,
-        status: "Created"
+        user_id: user_id,
+        channel: channel,
+        priority: priority,
+        content: content,
+        notification_type: notification_type,
+        status: "created"
       )
     end
   end

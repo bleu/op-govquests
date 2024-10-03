@@ -58,5 +58,29 @@ module Authentication
       assert_equal @wallet_address, existing_user.wallets.first["wallet_address"]
       assert_equal @chain_id, existing_user.wallets.first["chain_id"]
     end
+
+    test "does not create duplicate users when handling UserRegistered event" do
+      existing_user = UserReadModel.create!(
+        user_id: @user_id,
+        email: @email,
+        user_type: @user_type,
+        wallets: [ { wallet_address: @wallet_address, chain_id: @chain_id } ]
+      )
+
+      event = UserRegistered.new(data: {
+        user_id: @user_id,
+        email: @email,
+        user_type: @user_type,
+        wallet_address: @wallet_address,
+        chain_id: @chain_id
+      })
+
+      assert_no_difference "UserReadModel.count" do
+        @handler.call(event)
+      end
+
+      existing_user.reload
+      assert_equal @email, existing_user.email
+    end
   end
 end
