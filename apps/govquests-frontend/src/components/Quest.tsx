@@ -24,7 +24,7 @@ const Quest: React.FC<QuestProps> = ({
     <>
       <Link
         href={id}
-        className="flex flex-col bg-primary rounded-lg hover:bg-primary/70"
+        className="flex flex-col bg-primary rounded-lg hover:bg-primary/70 transition"
       >
         <div className="relative w-full h-40 rounded-t-lg overflow-hidden">
           <div className="absolute right-3 top-3">
