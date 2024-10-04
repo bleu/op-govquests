@@ -1,5 +1,5 @@
 import Quest from "@/components/Quest";
-import type { Quest as IQuest, Reward } from "@/types/quest";
+import type { Quest as IQuest } from "@/types/quest";
 import { MapIcon } from "lucide-react";
 import type React from "react";
 
