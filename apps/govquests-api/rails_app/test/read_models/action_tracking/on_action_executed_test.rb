@@ -7,7 +7,7 @@ module ActionTracking
       @action_id = SecureRandom.uuid
       @user_id = SecureRandom.uuid
       @timestamp = Time.current
-      @completion_data = { "result" => "success" }
+      @completion_data = {"result" => "success"}
     end
 
     test "creates a new action log when handling ActionExecuted event" do

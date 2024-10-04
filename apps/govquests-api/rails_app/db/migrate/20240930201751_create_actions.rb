@@ -2,7 +2,7 @@
 class CreateActions < ActiveRecord::Migration[8.0]
   def change
     create_table :actions do |t|
-      t.string :action_id, null: false, index: { unique: true }
+      t.string :action_id, null: false, index: {unique: true}
       t.string :action_type, null: false
       t.jsonb :completion_criteria, null: false, default: {}
       t.jsonb :display_data, null: false, default: {}
@@ -10,7 +10,7 @@ class CreateActions < ActiveRecord::Migration[8.0]
     end
 
     create_table :action_logs do |t|
-      t.string :action_log_id, null: false, index: { unique: true }
+      t.string :action_log_id, null: false, index: {unique: true}
       t.string :action_id, null: false
       t.string :user_id, null: false
       t.datetime :executed_at, null: false
@@ -26,7 +26,7 @@ class CreateActions < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :quest_actions, [ :quest_id, :action_id ], unique: true
-    add_index :quest_actions, [ :quest_id, :position ], unique: true
+    add_index :quest_actions, [:quest_id, :action_id], unique: true
+    add_index :quest_actions, [:quest_id, :position], unique: true
   end
 end

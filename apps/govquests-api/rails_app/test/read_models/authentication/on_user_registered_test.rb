@@ -36,7 +36,7 @@ module Authentication
         user_id: @user_id,
         email: "old@example.com",
         user_type: "delegate",
-        wallets: [ { wallet_address: "0x0987654321fedcba", chain_id: 2 } ]
+        wallets: [{wallet_address: "0x0987654321fedcba", chain_id: 2}]
       )
       existing_user.save!
 
@@ -64,7 +64,7 @@ module Authentication
         user_id: @user_id,
         email: @email,
         user_type: @user_type,
-        wallets: [ { wallet_address: @wallet_address, chain_id: @chain_id } ]
+        wallets: [{wallet_address: @wallet_address, chain_id: @chain_id}]
       )
 
       event = UserRegistered.new(data: {

@@ -10,7 +10,7 @@ module Questing
       @intro = "Learn about governance basics"
       @quest_type = "Onboarding"
       @audience = "AllUsers"
-      @reward = { type: "Points", amount: 50 }.transform_keys(&:to_s)
+      @reward = {type: "Points", amount: 50}.transform_keys(&:to_s)
     end
 
     test "creates a new quest when handling QuestCreated event" do

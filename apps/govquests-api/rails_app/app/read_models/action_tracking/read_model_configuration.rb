@@ -26,8 +26,8 @@ module ActionTracking
 
   class ReadModelConfiguration
     def call(event_store)
-      event_store.subscribe(OnActionCreated, to: [ ActionTracking::ActionCreated ])
-      event_store.subscribe(OnActionExecuted, to: [ ActionTracking::ActionExecuted ])
+      event_store.subscribe(OnActionCreated, to: [ActionTracking::ActionCreated])
+      event_store.subscribe(OnActionExecuted, to: [ActionTracking::ActionExecuted])
     end
   end
 end

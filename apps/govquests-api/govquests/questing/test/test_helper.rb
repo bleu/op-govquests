@@ -6,7 +6,7 @@ require_relative "../lib/questing"
 module Questing
   class Test < Infra::InMemoryTest
     def before_setup
-      super()
+      super
       Configuration.new.call(event_store, command_bus)
     end
 

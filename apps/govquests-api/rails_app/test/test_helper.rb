@@ -58,26 +58,26 @@ class InMemoryRESIntegrationTestCase < ActionDispatch::IntegrationTest
 
   def register_customer(name)
     customer_id = SecureRandom.uuid
-    post "/customers", params: { customer_id: customer_id, name: name }
+    post "/customers", params: {customer_id: customer_id, name: name}
     customer_id
   end
 
   def register_product(name, price, vat_rate_code)
     product_id = SecureRandom.uuid
-    post "/products", params: { product_id: product_id, name: name, price: price, vat_rate_code: vat_rate_code }
+    post "/products", params: {product_id: product_id, name: name, price: price, vat_rate_code: vat_rate_code}
     product_id
   end
 
   def register_coupon(name, code, discount)
-    post "/coupons", params: { coupon_id: SecureRandom.uuid, name: name, code: code, discount: discount }
+    post "/coupons", params: {coupon_id: SecureRandom.uuid, name: name, code: code, discount: discount}
   end
 
   def add_available_vat_rate(rate, code = rate.to_s)
-    post "/available_vat_rates", params: { code: code, rate: rate }
+    post "/available_vat_rates", params: {code: code, rate: rate}
   end
 
   def supply_product(product_id, quantity)
-    post "/products/#{product_id}/supplies", params: { quantity: quantity }
+    post "/products/#{product_id}/supplies", params: {quantity: quantity}
   end
 
   def update_price(product_id, new_price)
@@ -90,7 +90,7 @@ class InMemoryRESIntegrationTestCase < ActionDispatch::IntegrationTest
   end
 
   def login(client_id)
-    post "/login", params: { client_id: client_id }
+    post "/login", params: {client_id: client_id}
     follow_redirect!
   end
 

@@ -14,9 +14,9 @@ module Infra
 
     def self.included(klass)
       klass.include TestPlumbing.with(
-                      event_store: -> { EventStore.in_memory },
-                      command_bus: -> { CommandBus.new }
-                    )
+        event_store: -> { EventStore.in_memory },
+        command_bus: -> { CommandBus.new }
+      )
     end
 
     module TestMethods
@@ -27,9 +27,9 @@ module Infra
       end
 
       def act(command)
-        command_bus.(command)
+        command_bus.call(command)
       end
-      alias run_command act
+      alias_method :run_command, :act
 
       def assert_events(stream_name, *expected_events)
         scope = event_store.read.stream(stream_name)
@@ -37,9 +37,9 @@ module Infra
         yield
         actual_events =
           before.nil? ? scope.to_a : scope.from(before.event_id).to_a
-        to_compare = ->(ev) { { type: ev.event_type, data: ev.data } }
+        to_compare = ->(ev) { {type: ev.event_type, data: ev.data} }
         assert_equal expected_events.map(&to_compare),
-                     actual_events.map(&to_compare)
+          actual_events.map(&to_compare)
       end
 
       def assert_events_contain(stream_name, *expected_events)
@@ -48,7 +48,7 @@ module Infra
         yield
         actual_events =
           before.nil? ? scope.to_a : scope.from(before.event_id).to_a
-        to_compare = ->(ev) { { type: ev.event_type, data: ev.data } }
+        to_compare = ->(ev) { {type: ev.event_type, data: ev.data} }
         expected_events.map(&to_compare).each do |expected|
           assert_includes(actual_events.map(&to_compare), expected)
         end

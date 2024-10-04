@@ -1,7 +1,7 @@
 class CreateNotifications < ActiveRecord::Migration[8.0]
   def change
     create_table :notifications do |t|
-      t.string :notification_id, null: false, index: { unique: true }
+      t.string :notification_id, null: false, index: {unique: true}
       t.string :content, null: false
       t.integer :priority, null: false
       t.string :template_id, null: false
@@ -17,8 +17,8 @@ class CreateNotifications < ActiveRecord::Migration[8.0]
     end
 
     create_table :notification_templates do |t|
-      t.string :template_id, null: false, index: { unique: true }
-      t.string :name, null: false, index: { unique: true }
+      t.string :template_id, null: false, index: {unique: true}
+      t.string :name, null: false, index: {unique: true}
       t.text :content, null: false
       t.string :template_type, null: false
       t.timestamps

@@ -10,7 +10,7 @@ module Gamification
         if badges.include?(badge)
           Rails.logger.info "Badge '#{badge}' already exists for GameProfile #{profile_id}"
         else
-          game_profile.update(badges: badges + [ badge ])
+          game_profile.update(badges: badges + [badge])
           Rails.logger.info "Added badge '#{badge}' to GameProfile #{profile_id}"
         end
       else

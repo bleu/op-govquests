@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :quests, only: [ :index, :show ]
+  resources :quests, only: [:index, :show]
 
   post "/actions/:action_id/start", to: "action_completions#start"
   post "/actions/:action_id/complete", to: "action_completions#complete"

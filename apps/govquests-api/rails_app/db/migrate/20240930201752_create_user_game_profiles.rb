@@ -1,7 +1,7 @@
 class CreateUserGameProfiles < ActiveRecord::Migration[8.0]
   def change
     create_table :user_game_profiles do |t|
-      t.string :profile_id, null: false, index: { unique: true }
+      t.string :profile_id, null: false, index: {unique: true}
       t.integer :tier, default: 0
       t.integer :track, default: 0
       t.integer :streak, default: 0
@@ -11,7 +11,7 @@ class CreateUserGameProfiles < ActiveRecord::Migration[8.0]
     end
 
     create_table :leaderboards, id: false, primary_key: :leaderboard_id do |t|
-      t.string :leaderboard_id, null: false, index: { unique: true }
+      t.string :leaderboard_id, null: false, index: {unique: true}
       t.string :name, null: false
       t.timestamps
     end

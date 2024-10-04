@@ -5,7 +5,7 @@ module Notifications
       opened_at = event.data.fetch(:opened_at)
 
       notification = NotificationReadModel.find_by(notification_id: notification_id)
-      notification.update(opened_at: opened_at, status: "opened") if notification
+      notification&.update(opened_at: opened_at, status: "opened")
     end
   end
 end

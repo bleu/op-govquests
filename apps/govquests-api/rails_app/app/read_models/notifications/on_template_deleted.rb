@@ -4,7 +4,7 @@ module Notifications
       template_id = event.data.fetch(:template_id)
 
       template = NotificationTemplateReadModel.find_by(template_id: template_id)
-      template.destroy if template
+      template&.destroy
     end
   end
 end

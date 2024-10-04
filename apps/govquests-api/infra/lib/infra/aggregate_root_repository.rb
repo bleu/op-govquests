@@ -11,11 +11,11 @@ module Infra
         )
     end
 
-    def with_aggregate(aggregate_class, aggregate_id, &block)
+    def with_aggregate(aggregate_class, aggregate_id, &)
       @repository.with_aggregate(
         aggregate_class.new(aggregate_id),
         stream_name(aggregate_class, aggregate_id),
-        &block
+        &
       )
     end
 

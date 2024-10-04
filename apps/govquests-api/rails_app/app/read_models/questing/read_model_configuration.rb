@@ -29,8 +29,8 @@ module Questing
 
   class ReadModelConfiguration
     def call(event_store)
-      event_store.subscribe(OnQuestCreated, to: [ Questing::QuestCreated ])
-      event_store.subscribe(OnActionAssociatedWithQuest, to: [ Questing::ActionAssociatedWithQuest ])
+      event_store.subscribe(OnQuestCreated, to: [Questing::QuestCreated])
+      event_store.subscribe(OnActionAssociatedWithQuest, to: [Questing::ActionAssociatedWithQuest])
       # event_store.subscribe(OnUserStartedQuest, to: [Questing::UserStartedQuest])
     end
   end

@@ -10,11 +10,9 @@ module Infra
         ->(event) do
           @command_bus.call(
             command.new(
-              Hash[
-                command_data_keys.zip(
-                  event_data_keys.map { |key| event.data.fetch(key) }
-                )
-              ]
+              command_data_keys.zip(
+                event_data_keys.map { |key| event.data.fetch(key) }
+              ).to_h
             )
           )
         end,

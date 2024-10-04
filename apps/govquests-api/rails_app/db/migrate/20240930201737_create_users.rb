@@ -1,8 +1,8 @@
 class CreateUsers < ActiveRecord::Migration[8.0]
   def change
     create_table :users do |t|
-      t.string :user_id, null: false, index: { unique: true }
-      t.string :email, null: false, index: { unique: true }
+      t.string :user_id, null: false, index: {unique: true}
+      t.string :email, null: false, index: {unique: true}
       t.string :user_type, null: false, default: "non_delegate"
       t.jsonb :settings, default: {}
       t.jsonb :wallets, default: []
@@ -28,6 +28,6 @@ class CreateUsers < ActiveRecord::Migration[8.0]
     end
 
     add_index :user_sessions, :user_id
-    add_index :user_rewards, [ :user_id, :reward_id ], unique: true
+    add_index :user_rewards, [:user_id, :reward_id], unique: true
   end
 end

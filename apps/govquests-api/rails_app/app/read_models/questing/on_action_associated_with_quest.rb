@@ -5,7 +5,7 @@ module Questing
       action = ActionTracking::ActionReadModel.find_by(action_id: event.data[:action_id])
 
       if quest && action
-        quest_action = QuestActionReadModel.create!(
+        QuestActionReadModel.create!(
           quest: quest,
           action: action,
           position: event.data[:position]

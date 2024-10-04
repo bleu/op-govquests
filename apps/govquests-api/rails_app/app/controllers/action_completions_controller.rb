@@ -3,9 +3,9 @@ class ActionCompletionsController < ApplicationController
     action = ActionTracking::ActionReadModel.find_by(action_id: params[:action_id])
     if action
       token = generate_completion_token(action.action_id)
-      render json: { token: token, expires_at: 30.minutes.from_now }
+      render json: {token: token, expires_at: 30.minutes.from_now}
     else
-      render json: { error: "Action not found" }, status: :not_found
+      render json: {error: "Action not found"}, status: :not_found
     end
   end
 
@@ -18,9 +18,9 @@ class ActionCompletionsController < ApplicationController
         completion_data: params[:completion_data]
       )
       Rails.configuration.command_bus.call(command)
-      render json: { message: "Action completed successfully" }
+      render json: {message: "Action completed successfully"}
     else
-      render json: { error: "Invalid completion attempt" }, status: :unprocessable_entity
+      render json: {error: "Invalid completion attempt"}, status: :unprocessable_entity
     end
   end
 

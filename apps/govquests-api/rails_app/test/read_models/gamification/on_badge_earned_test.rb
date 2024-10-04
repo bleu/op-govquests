@@ -28,7 +28,7 @@ module Gamification
 
     test "does not duplicate badges in game profile" do
       profile = GameProfileReadModel.find_by(profile_id: @profile_id)
-      profile.update(badges: [ @badge ])
+      profile.update(badges: [@badge])
 
       event = BadgeEarned.new(data: {
         profile_id: @profile_id,

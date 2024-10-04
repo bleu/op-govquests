@@ -5,7 +5,7 @@ module Notifications
       scheduled_time = event.data.fetch(:scheduled_time)
 
       notification = NotificationReadModel.find_by(notification_id: notification_id)
-      notification.update(scheduled_time: scheduled_time, status: "scheduled") if notification
+      notification&.update(scheduled_time: scheduled_time, status: "scheduled")
     end
   end
 end

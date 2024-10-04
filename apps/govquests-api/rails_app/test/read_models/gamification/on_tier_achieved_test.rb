@@ -9,7 +9,7 @@ module Gamification
     end
 
     test "updates tier when handling TierAchieved event" do
-      event = Gamification::TierAchieved.new(data: { profile_id: @profile_id, tier: "2" })
+      event = Gamification::TierAchieved.new(data: {profile_id: @profile_id, tier: "2"})
       @handler.call(event)
 
       @game_profile.reload
@@ -18,7 +18,7 @@ module Gamification
 
     test "handles non-existent game profile gracefully" do
       non_existent_profile_id = SecureRandom.uuid
-      event = Gamification::TierAchieved.new(data: { profile_id: non_existent_profile_id, tier: "2" })
+      event = Gamification::TierAchieved.new(data: {profile_id: non_existent_profile_id, tier: "2"})
       @handler.call(event)
 
       assert_nil GameProfileReadModel.find_by(profile_id: non_existent_profile_id)

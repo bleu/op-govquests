@@ -7,7 +7,7 @@ module ActionTracking
       @action_id = SecureRandom.uuid
       @content = "Complete survey"
       @action_type = "ReadDocument"
-      @completion_criteria = { document_url: "https://example.com/survey" }.transform_keys(&:to_s)
+      @completion_criteria = {document_url: "https://example.com/survey"}.transform_keys(&:to_s)
     end
 
     test "creates a new action when handling ActionCreated event" do

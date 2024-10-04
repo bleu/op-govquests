@@ -32,7 +32,7 @@ class QuestsController < ApplicationController
         rewards: quest.rewards
       }
     else
-      render json: { error: "Quest not found" }, status: :not_found
+      render json: {error: "Quest not found"}, status: :not_found
     end
   end
 end
