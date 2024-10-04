@@ -13,7 +13,7 @@ module Rewarding
     def test_create_a_new_reward
       reward_type = "points"
       value = 100
-      expiry_date = Time.now + 30.days
+      expiry_date = Time.now + 30 * 24 * 60 * 60
 
       @reward.create(reward_type, value, expiry_date)
 

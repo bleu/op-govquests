@@ -4,6 +4,10 @@ module ActionTracking
 
     def initialize(id)
       @id = id
+      @content = nil
+      @action_type = nil
+      @completion_criteria = {}
+      @completed = false
     end
 
     def create(content, action_type, completion_criteria)
@@ -16,12 +20,16 @@ module ActionTracking
     end
 
     def complete(user_id, completion_data)
+      raise "Action already completed" if @completed
+
       apply ActionExecuted.new(data: {
         action_id: @id,
         user_id: user_id,
         completion_data: completion_data
       })
     end
+
+    private
 
     on ActionCreated do |event|
       @content = event.data[:content]
@@ -30,7 +38,8 @@ module ActionTracking
     end
 
     on ActionExecuted do |event|
-      # Handle completion logic if needed
+      @completed = true
+      # Additional logic for completion can be added here
     end
   end
 end

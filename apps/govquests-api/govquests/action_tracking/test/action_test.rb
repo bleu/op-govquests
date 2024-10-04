@@ -12,9 +12,10 @@ module ActionTracking
 
     def test_create_a_new_action
       content = "Complete survey"
-      channel = "Email"
+      action_type = "ReadDocument"
+      completion_criteria = {document_url: "https://example.com/survey"}
 
-      @action.create(content, channel)
+      @action.create(content, action_type, completion_criteria)
 
       events = @action.unpublished_events.to_a
       assert_equal 1, events.size
@@ -22,15 +23,16 @@ module ActionTracking
       assert_instance_of ActionCreated, event
       assert_equal @action_id, event.data[:action_id]
       assert_equal content, event.data[:content]
-      assert_equal channel, event.data[:channel]
+      assert_equal action_type, event.data[:action_type]
+      assert_equal completion_criteria, event.data[:completion_criteria]
     end
 
-    def test_execute_an_action
-      @action.create("Complete survey", "High", "Email")
+    def test_complete_an_action
+      @action.create("Complete survey", "ReadDocument", {document_url: "https://example.com/survey"})
       user_id = SecureRandom.uuid
-      timestamp = Time.now
+      completion_data = {result: "success"}
 
-      @action.execute(user_id, timestamp)
+      @action.complete(user_id, completion_data)
 
       events = @action.unpublished_events.to_a
       assert_equal 2, events.size
@@ -38,7 +40,7 @@ module ActionTracking
       assert_instance_of ActionExecuted, event
       assert_equal @action_id, event.data[:action_id]
       assert_equal user_id, event.data[:user_id]
-      assert_equal timestamp, event.data[:timestamp]
+      assert_equal completion_data, event.data[:completion_data]
     end
   end
 end

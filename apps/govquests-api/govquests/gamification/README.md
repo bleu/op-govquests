@@ -1,4 +1,4 @@
-# Questing
+# Gamification
 
 #### Up and running
 

@@ -6,6 +6,6 @@ coverage_criteria:
   process_abort: true
 matcher:
   subjects:
-    - Questing*
+    - Rewarding*
   ignore:
-    - Questing::Configuration#call
+    - Rewarding::Configuration#call

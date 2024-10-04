@@ -1,8 +1,7 @@
 module Questing
   class CreateQuest < Infra::Command
     attribute :quest_id, Infra::Types::UUID
-    attribute :title, Infra::Types::String
-    attribute :intro, Infra::Types::String
+    attribute :display_data, Infra::Types::Hash
     attribute :quest_type, Infra::Types::String
     attribute :audience, Infra::Types::String
     attribute :rewards, Infra::Types::Array

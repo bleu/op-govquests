@@ -1,4 +1,3 @@
-# govquests/gamification/lib/gamification/leaderboard.rb
 module Gamification
   class Leaderboard
     include AggregateRoot

@@ -10,7 +10,7 @@ export interface Reward {
 
 export interface Quest {
   id: string;
-  img_url: string;
+  image_url: string;
   title: string;
   rewards: Reward[];
   intro: string;

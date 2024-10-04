@@ -3,7 +3,7 @@ require "mutant/minitest/coverage"
 
 require_relative "../lib/action_tracking"
 
-module Questing
+module ActionTracking
   class Test < Infra::InMemoryTest
     def before_setup
       super

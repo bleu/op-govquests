@@ -3,7 +3,7 @@ require "mutant/minitest/coverage"
 
 require_relative "../lib/notifications"
 
-module Questing
+module Notifications
   class Test < Infra::InMemoryTest
     def before_setup
       super

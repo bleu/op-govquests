@@ -1,4 +1,3 @@
-# govquests/gamification/lib/gamification/game_profile.rb
 module Gamification
   class GameProfile
     include AggregateRoot

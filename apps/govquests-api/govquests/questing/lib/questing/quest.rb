@@ -7,11 +7,10 @@ module Questing
       @actions = []
     end
 
-    def create(title, intro, quest_type, audience, rewards)
+    def create(display_data, quest_type, audience, rewards)
       apply QuestCreated.new(data: {
         quest_id: @id,
-        title: title,
-        intro: intro,
+        display_data: display_data,
         quest_type: quest_type,
         audience: audience,
         rewards: rewards
@@ -27,8 +26,7 @@ module Questing
     end
 
     on QuestCreated do |event|
-      @title = event.data[:title]
-      @intro = event.data[:intro]
+      @display_data = event.data[:display_data]
       @quest_type = event.data[:quest_type]
       @audience = event.data[:audience]
       @rewards = event.data[:rewards]

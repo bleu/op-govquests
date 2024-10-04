@@ -6,6 +6,6 @@ coverage_criteria:
   process_abort: true
 matcher:
   subjects:
-    - Questing*
+    - Notifications*
   ignore:
-    - Questing::Configuration#call
+    - Notifications::Configuration#call

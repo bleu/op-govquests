@@ -2,21 +2,17 @@
 module ActionTracking
   class OnActionExecuted
     def call(event)
-      action_log_id = SecureRandom.uuid
-      action_id = event.data[:action_id]
-      user_id = event.data[:user_id]
-      timestamp = event.data[:timestamp]
-      completion_data = event.data[:completion_data]
-      status = "Executed"
-
       ActionLogReadModel.create!(
-        action_log_id: action_log_id,
-        action_id: action_id,
-        user_id: user_id,
-        executed_at: timestamp,
-        completion_data: completion_data,
-        status: status
+        action_log_id: SecureRandom.uuid,
+        action_id: event.data[:action_id],
+        user_id: event.data[:user_id],
+        executed_at: event.data[:completion_data][:timestamp] || Time.current,
+        completion_data: event.data[:completion_data],
+        status: "Executed"
       )
+      Rails.logger.info "Action executed and logged: #{event.data[:action_id]} by User #{event.data[:user_id]}"
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.error "Failed to create action log: #{e.message}"
     end
   end
 end

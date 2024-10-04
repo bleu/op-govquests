@@ -3,6 +3,7 @@ require_relative "gamification/commands"
 require_relative "gamification/events"
 require_relative "gamification/on_game_profile_commands"
 require_relative "gamification/game_profile"
+require_relative "gamification/leaderboard"
 
 module Gamification
   class Configuration

@@ -128,3 +128,13 @@ class InMemoryRESIntegrationTestCase < ActionDispatch::IntegrationTest
     Rails.configuration.command_bus.call(command)
   end
 end
+
+class IntegrationTest < ActionDispatch::IntegrationTest
+  # Setup runs before each test
+  def setup
+    super
+    # Reset the database or use transactional fixtures if necessary
+    Rails.application.load_tasks
+    # Rake::Task["db:reset"].invoke
+  end
+end

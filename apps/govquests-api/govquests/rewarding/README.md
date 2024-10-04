@@ -1,4 +1,4 @@
-# Questing
+# Rewarding
 
 #### Up and running
 

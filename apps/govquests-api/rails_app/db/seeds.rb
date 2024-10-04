@@ -56,8 +56,9 @@ puts "Actions created successfully!"
 
 quests_data = [
   {
-    title: "Governance 101",
-    intro: "Understand the Optimism Values and your role in governance.",
+    display_data: {title: "Governance 101",
+                   intro: "Understand the Optimism Values and your role in governance.",
+                   image_url: "https://miro.medium.com/v2/resize:fit:810/1*jodPL02xnDRKg_7rV93QSA.jpeg"},
     quest_type: "Onboarding",
     audience: "AllUsers",
     rewards: [{type: "Points", amount: 50}],
@@ -69,8 +70,9 @@ quests_data = [
     ]
   },
   {
-    title: "Advanced Governance Practices",
-    intro: "Dive deeper into governance processes and decision-making.",
+    display_data: {title: "Advanced Governance Practices",
+                   intro: "Dive deeper into governance processes and decision-making.",
+                   image_url: "https://miro.medium.com/v2/resize:fit:810/1*jodPL02xnDRKg_7rV93QSA.jpeg"},
     quest_type: "Governance",
     audience: "Delegates",
     rewards: [{type: "Points", amount: 100}],
@@ -87,8 +89,7 @@ def create_quest(quest_data)
   quest_id = SecureRandom.uuid
   command = Questing::CreateQuest.new(
     quest_id: quest_id,
-    title: quest_data[:title],
-    intro: quest_data[:intro],
+    display_data: quest_data[:display_data],
     quest_type: quest_data[:quest_type],
     audience: quest_data[:audience],
     rewards: quest_data[:rewards]

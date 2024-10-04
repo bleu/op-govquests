@@ -7,11 +7,7 @@ module Questing
         audience: event.data[:audience],
         rewards: event.data[:rewards],
         status: "created",
-        display_data: {
-          title: event.data[:title],
-          intro: event.data[:intro],
-          image_url: event.data[:image_url]
-        }
+        display_data: event.data[:display_data]
       )
       Rails.logger.info "Quest created in read model: #{quest.quest_id}"
     rescue ActiveRecord::RecordInvalid => e

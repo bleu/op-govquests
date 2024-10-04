@@ -3,7 +3,7 @@ require "mutant/minitest/coverage"
 
 require_relative "../lib/gamification"
 
-module Questing
+module Gamification
   class Test < Infra::InMemoryTest
     def before_setup
       super

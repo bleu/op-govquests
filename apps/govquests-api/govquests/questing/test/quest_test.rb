@@ -16,9 +16,9 @@ module Questing
       intro = "Learn about governance basics"
       quest_type = "Standard"
       audience = "AllUsers"
-      reward = {type: "points", value: 100}
+      rewards = [{type: "points", value: 100}]
 
-      @quest.create(title, intro, quest_type, audience, reward)
+      @quest.create(title, intro, quest_type, audience, rewards)
 
       events = @quest.unpublished_events.to_a
       assert_equal 1, events.size
@@ -29,11 +29,11 @@ module Questing
       assert_equal intro, event.data[:intro]
       assert_equal quest_type, event.data[:quest_type]
       assert_equal audience, event.data[:audience]
-      assert_equal reward, event.data[:rewards]
+      assert_equal rewards, event.data[:rewards]
     end
 
     def test_associate_an_action_with_a_quest
-      @quest.create("Test Quest", "Test Intro", "Standard", "AllUsers", {type: "points", value: 10})
+      @quest.create("Test Quest", "Test Intro", "Standard", "AllUsers", [{type: "points", value: 10}])
       action_id = SecureRandom.uuid
       position = 1
 

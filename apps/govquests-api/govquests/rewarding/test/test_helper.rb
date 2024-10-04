@@ -3,7 +3,7 @@ require "mutant/minitest/coverage"
 
 require_relative "../lib/rewarding"
 
-module Questing
+module Rewarding
   class Test < Infra::InMemoryTest
     def before_setup
       super
