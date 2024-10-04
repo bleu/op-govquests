@@ -10,10 +10,12 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "lucide-react": "^0.447.0",
     "next": "14.2.13",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwind-merge": "^2.5.3"
   },
   "devDependencies": {
     "@types/node": "^22",
