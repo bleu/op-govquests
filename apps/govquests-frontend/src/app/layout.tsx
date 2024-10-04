@@ -24,18 +24,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
+    <html className="bg-background text-foreground" lang="en">
+      <body className="min-h-screen">
         {/* MOCKED HEADER AND SIDE BAR, SHOUDL BE REMOVED: OP-299 & OP-300 */}
         <header className="h-16 bg-red-500 flex-1">
           <div />
         </header>
-        <div className="flex">
-          <aside className="w-64 bg-red-100 min-h-screen p-6 hidden md:flex">
-            <div />
-          </aside>
-          {children}
-        </div>
+        <div className="flex">{children}</div>
       </body>
     </html>
   );
