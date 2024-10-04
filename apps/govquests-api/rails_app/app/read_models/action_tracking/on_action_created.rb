@@ -3,9 +3,12 @@ module ActionTracking
     def call(event)
       action = ActionReadModel.create!(
         action_id: event.data[:action_id],
-        content: event.data[:content],
         action_type: event.data[:action_type],
-        completion_criteria: event.data[:completion_criteria]
+        completion_criteria: event.data[:completion_criteria],
+        display_data: {
+          content: event.data[:content],
+          duration: event.data[:duration]
+        }
       )
       Rails.logger.info "Action created in read model: #{action.action_id}"
     rescue ActiveRecord::RecordInvalid => e

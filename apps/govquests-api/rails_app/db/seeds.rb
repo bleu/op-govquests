@@ -16,32 +16,32 @@ actions_data = [
   {
     content: "Read the Code of Conduct",
     action_type: "ReadDocument",
-    completion_criteria: { document_url: "https://example.com/code-of-conduct" }
+    completion_criteria: {document_url: "https://example.com/code-of-conduct"}
   },
   {
     content: "Watch the Optimistic Vision video",
     action_type: "WatchVideo",
-    completion_criteria: { video_url: "https://example.com/optimistic-vision", minimum_watch_time: 540 }
+    completion_criteria: {video_url: "https://example.com/optimistic-vision", minimum_watch_time: 540}
   },
   {
     content: "Complete the Constitution Quiz",
     action_type: "Quiz",
-    completion_criteria: { quiz_id: "const101", passing_score: 80 }
+    completion_criteria: {quiz_id: "const101", passing_score: 80}
   },
   {
     content: "Submit your Delegate Statement",
     action_type: "TextSubmission",
-    completion_criteria: { min_words: 200, max_words: 500 }
+    completion_criteria: {min_words: 200, max_words: 500}
   },
   {
     content: "Participate in a Mock Proposal Vote",
     action_type: "VotingSimulation",
-    completion_criteria: { proposal_id: "mock001", options: [ "Yes", "No", "Abstain" ] }
+    completion_criteria: {proposal_id: "mock001", options: ["Yes", "No", "Abstain"]}
   },
   {
     content: "Analyze Governance Analytics Dashboard",
     action_type: "DashboardInteraction",
-    completion_criteria: { dashboard_id: "gov_analytics_01", min_interaction_time: 1200 }
+    completion_criteria: {dashboard_id: "gov_analytics_01", min_interaction_time: 1200}
   }
 ]
 
@@ -60,7 +60,7 @@ quests_data = [
     intro: "Understand the Optimism Values and your role in governance.",
     quest_type: "Onboarding",
     audience: "AllUsers",
-    reward: { type: "Points", amount: 50 },
+    reward: {type: "Points", amount: 50},
     actions: [
       "Read the Code of Conduct",
       "Watch the Optimistic Vision video",
@@ -73,7 +73,7 @@ quests_data = [
     intro: "Dive deeper into governance processes and decision-making.",
     quest_type: "Governance",
     audience: "Delegates",
-    reward: { type: "Points", amount: 100 },
+    reward: {type: "Points", amount: 100},
     actions: [
       "Participate in a Mock Proposal Vote",
       "Analyze Governance Analytics Dashboard",
@@ -122,7 +122,7 @@ quests_data.each do |quest_data|
   end
 
   quest_data[:actions].each_with_index do |action_content, index|
-    action = ActionTracking::ActionReadModel.find_by(content: action_content)
+    action = ActionTracking::ActionReadModel.find_by("display_data @> ?", {content: action_content}.to_json)
     if action
       associate_action_with_quest(quest_id, action.action_id, index + 1)
     else

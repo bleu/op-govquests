@@ -8,6 +8,7 @@ class CreateRewards < ActiveRecord::Migration[8.0]
       t.string :issued_to
       t.string :delivery_status, default: "Pending"
       t.boolean :claimed, default: false
+      t.jsonb :display_data, null: false, default: {}
       t.timestamps
     end
   end

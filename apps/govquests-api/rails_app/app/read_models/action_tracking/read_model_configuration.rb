@@ -4,7 +4,14 @@ module ActionTracking
     self.table_name = "actions"
 
     validates :action_id, presence: true, uniqueness: true
-    validates :content, presence: true
+
+    def content
+      display_data["content"]
+    end
+
+    def duration
+      display_data["duration"]
+    end
   end
 
   class ActionLogReadModel < ApplicationRecord

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_04_125857) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_30_201752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -20,17 +20,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_04_125857) do
     t.string "user_id", null: false
     t.datetime "executed_at", null: false
     t.string "status", null: false
+    t.jsonb "completion_data", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "completion_data", default: {}
     t.index ["action_log_id"], name: "index_action_logs_on_action_log_id", unique: true
   end
 
   create_table "actions", force: :cascade do |t|
     t.string "action_id", null: false
-    t.string "content", null: false
     t.string "action_type", null: false
     t.jsonb "completion_criteria", default: {}, null: false
+    t.jsonb "display_data", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["action_id"], name: "index_actions_on_action_id", unique: true
@@ -122,12 +122,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_04_125857) do
 
   create_table "quests", force: :cascade do |t|
     t.string "quest_id", null: false
-    t.string "title", null: false
-    t.text "intro", null: false
     t.string "quest_type", null: false
     t.string "audience", null: false
     t.string "status", null: false
     t.jsonb "rewards", default: {}, null: false
+    t.jsonb "display_data", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["quest_id"], name: "index_quests_on_quest_id", unique: true
@@ -141,6 +140,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_04_125857) do
     t.string "issued_to"
     t.string "delivery_status", default: "Pending"
     t.boolean "claimed", default: false
+    t.jsonb "display_data", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_rewards_on_reward_id", unique: true

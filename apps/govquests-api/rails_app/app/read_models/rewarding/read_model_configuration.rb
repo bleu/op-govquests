@@ -2,8 +2,13 @@ module Rewarding
   class RewardReadModel < ApplicationRecord
     self.table_name = "rewards"
 
-    validates :reward_id, presence: true, uniqueness: true
-    # Other validations...
+    def description
+      display_data["description"]
+    end
+
+    def image_url
+      display_data["image_url"]
+    end
   end
 
   class ReadModelConfiguration
