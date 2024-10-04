@@ -2,7 +2,7 @@ module Questing
   class QuestReadModel < ApplicationRecord
     self.table_name = "quests"
 
-    has_many :quest_actions, class_name: "Questing::QuestActionReadModel", foreign_key: "quest_id"
+    has_many :quest_actions, class_name: "Questing::QuestActionReadModel", foreign_key: "quest_id", primary_key: "quest_id"
 
     def title
       display_data["title"]

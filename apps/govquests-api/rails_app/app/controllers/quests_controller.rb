@@ -10,7 +10,16 @@ class QuestsController < ApplicationController
         quest_type: quest.quest_type,
         audience: quest.audience,
         status: quest.status,
-        rewards: quest.rewards
+        rewards: [quest.rewards],
+        actions: quest.quest_actions.map do |quest_action|
+          action = quest_action.action
+
+          {
+            id: action.action_id,
+            content: action.content,
+            action_type: action.action_type
+          }
+        end
       }
     end
 
@@ -29,7 +38,16 @@ class QuestsController < ApplicationController
         quest_type: quest.quest_type,
         audience: quest.audience,
         status: quest.status,
-        rewards: quest.rewards
+        rewards: [quest.rewards],
+        actions: quest.quest_actions.map do |quest_action|
+          action = quest_action.action
+
+          {
+            id: action.action_id,
+            content: action.content,
+            action_type: action.action_type
+          }
+        end
       }
     else
       render json: {error: "Quest not found"}, status: :not_found

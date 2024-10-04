@@ -1,4 +1,4 @@
-export interface Step {
+export interface Action {
   content: string;
   duration: number;
 }
@@ -14,6 +14,6 @@ export interface Quest {
   title: string;
   rewards: Reward[];
   intro: string;
-  steps: Step[];
+  actions: Action[];
   status: string;
 }
