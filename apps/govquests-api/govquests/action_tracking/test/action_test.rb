@@ -12,10 +12,9 @@ module ActionTracking
 
     def test_create_a_new_action
       content = "Complete survey"
-      priority = "High"
       channel = "Email"
 
-      @action.create(content, priority, channel)
+      @action.create(content, channel)
 
       events = @action.unpublished_events.to_a
       assert_equal 1, events.size
@@ -23,7 +22,6 @@ module ActionTracking
       assert_instance_of ActionCreated, event
       assert_equal @action_id, event.data[:action_id]
       assert_equal content, event.data[:content]
-      assert_equal priority, event.data[:priority]
       assert_equal channel, event.data[:channel]
     end
 

@@ -4,17 +4,18 @@ module ActionTracking
   class OnActionExecutedTest < ActiveSupport::TestCase
     def setup
       @handler = OnActionExecuted.new
-      @action_log_id = SecureRandom.uuid
       @action_id = SecureRandom.uuid
       @user_id = SecureRandom.uuid
       @timestamp = Time.current
+      @completion_data = { "result" => "success" }
     end
 
     test "creates a new action log when handling ActionExecuted event" do
       event = ActionExecuted.new(data: {
         action_id: @action_id,
         user_id: @user_id,
-        timestamp: @timestamp
+        timestamp: @timestamp,
+        completion_data: @completion_data
       })
 
       assert_difference "ActionLogReadModel.count", 1 do

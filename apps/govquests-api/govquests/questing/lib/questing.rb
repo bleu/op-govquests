@@ -10,7 +10,6 @@ module Questing
       command_handler = OnQuestCommands.new(event_store)
       command_bus.register(CreateQuest, command_handler)
       command_bus.register(AssociateActionWithQuest, command_handler)
-      command_bus.register(UpdateQuestProgress, command_handler)
     end
   end
 end

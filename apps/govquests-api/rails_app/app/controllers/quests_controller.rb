@@ -1,182 +1,47 @@
-# app/controllers/quests_controller.rb
 class QuestsController < ApplicationController
   def index
-    quests = [
-      {
-        id: "1",
-        img_url: "https://file.coinexstatic.com/2023-11-16/BB3FDB00283C55B4C36B94CFAC0C3271.png",
-        title: "Governance 101",
-        status: "start",
-        rewards: [
-          {
-            type: "Points",
-            amount: 50
-          },
-          {
-            type: "OP",
-            amount: 2
-          }
-        ],
-        intro: "First things first: understand what are the Optimism Values and what is expect of you in this important role.",
-        steps: [
-          {
-            content: "Code of Conduct",
-            duration: 15,
-          },
-          {
-            content: "Optimistic Vision",
-            duration: 10,
-          },
-          {
-            content: "Working Constitution",
-            duration: 15,
-          },
-          {
-            content: "Delegate Expectations",
-            duration: 12,
-          },
-        ]
-      },
-      {
-        id: "2",
-        img_url: "https://file.coinexstatic.com/2023-11-16/BB3FDB00283C55B4C36B94CFAC0C3271.png",
-        title: "Governance 101",
-        status: "start",
-        rewards: [
-          {
-            type: "Points",
-            amount: 100
-          }
-        ],
-        intro: "First things first: understand what are the Optimism Values and what is expect of you in this important role.",
-        steps: [
-          {
-            content: "Code of Conduct",
-            duration: 15,
-          },
-          {
-            content: "Optimistic Vision",
-            duration: 15,
-            
-          },
-          {
-            content: "Working Constitution",
-            duration: 20,
-          },
-          {
-            content: "Delegate Expectations",
-            duration: 25,
-          },
-        ]
-      },
-      {
-        id: "3",
-        img_url: "https://file.coinexstatic.com/2023-11-16/BB3FDB00283C55B4C36B94CFAC0C3271.png",
-        title: "Governance 101",
-        status: "start",
-        rewards: [
-          {
-            type: "Points",
-            amount: 50
-          },
-          {
-            type: "OP",
-            amount: 2
-          }
-        ],
-        intro: "First things first: understand what are the Optimism Values and what is expect of you in this important role.",
-        steps: [
-          {
-            content: "Code of Conduct",
-            duration: 15,
-          },
-          {
-            content: "Optimistic Vision",
-            duration: 10,
-            
-          },
-          {
-            content: "Working Constitution",
-            duration: 15,
-          },
-          {
-            content: "Delegate Expectations",
-            duration: 12,
-          },
-        ]
-      },
-      {
-        id: "4",
-        img_url: "https://file.coinexstatic.com/2023-11-16/BB3FDB00283C55B4C36B94CFAC0C3271.png",
-        title: "Governance 101",
-        status: "start",
-        rewards: [
-          {
-            type: "Points",
-            amount: 100
-          }
-        ],
-        intro: "First things first: understand what are the Optimism Values and what is expect of you in this important role.",
-        steps: [
-          {
-            content: "Code of Conduct",
-            duration: 15,
-          },
-          {
-            content: "Optimistic Vision",
-            duration: 15,
-            
-          },
-          {
-            content: "Working Constitution",
-            duration: 20,
-          },
-          {
-            content: "Delegate Expectations",
-            duration: 25,
-          },
-        ]
-      },
-    ]
-
+    quests = Questing::QuestReadModel.all.map { |quest| quest_data(quest) }
     render json: quests
   end
-  def show
-    quest = {
-      img_url: "https://file.coinexstatic.com/2023-11-16/BB3FDB00283C55B4C36B94CFAC0C3271.png",
-      title: "Governance 101",
-      status: "start",
-      rewards: [
-        {
-          type: "Points",
-          amount: 50
-        },
-        {
-          type: "OP",
-          amount: 2
-        }
-      ],
-      intro: "First things first: understand what are the Optimism Values and what is expect of you in this important role.",
-      steps: [
-        {
-          content: "Code of Conduct",
-          duration: 15,
-        },
-        {
-          content: "Optimistic Vision",
-          duration: 10,
-        },
-        {
-          content: "Working Constitution",
-          duration: 15,
-        },
-        {
-          content: "Delegate Expectations",
-          duration: 12,
-        },
-      ]
-    }
 
-    render json: quest
+  def show
+    quest = Questing::QuestReadModel.find_by(quest_id: params[:id])
+    if quest
+      render json: quest_data(quest)
+    else
+      render json: { error: "Quest not found" }, status: :not_found
+    end
+  end
+
+  private
+
+  def quest_data(quest)
+    {
+      id: quest.quest_id,
+      title: quest.title,
+      intro: quest.intro,
+      quest_type: quest.quest_type,
+      audience: quest.audience,
+      status: quest.status,
+      # TODO: rewards is a map, should be an array
+      rewards: [ quest.rewards ],
+      # add img_url
+      actions: fetch_quest_actions(quest.quest_id)
+    }
+  end
+
+  def fetch_quest_actions(quest_id)
+    Questing::QuestActionReadModel.where(quest_id: quest_id)
+      .order(:position)
+      .includes(:action)
+      .map do |quest_action|
+      {
+        id: quest_action.action.action_id,
+        content: quest_action.action.content,
+        action_type: quest_action.action.action_type,
+        completion_criteria: quest_action.action.completion_criteria,
+        position: quest_action.position
+      }
+    end
   end
 end

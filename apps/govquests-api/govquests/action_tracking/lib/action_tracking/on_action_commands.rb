@@ -8,9 +8,9 @@ module ActionTracking
       @repository.with_aggregate(Action, command.aggregate_id) do |action|
         case command
         when CreateAction
-          action.create(command.content, command.priority, command.channel)
-        when ExecuteAction
-          action.execute(command.user_id, command.timestamp)
+          action.create(command.content, command.action_type, command.completion_criteria)
+        when CompleteAction
+          action.complete(command.user_id, command.completion_data)
         end
       end
     end

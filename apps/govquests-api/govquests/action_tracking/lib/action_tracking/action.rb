@@ -4,42 +4,33 @@ module ActionTracking
 
     def initialize(id)
       @id = id
-      @content = nil
-      @priority = nil
-      @channel = nil
-      @executions = []
     end
 
-    def create(content, priority, channel)
+    def create(content, action_type, completion_criteria)
       apply ActionCreated.new(data: {
         action_id: @id,
         content: content,
-        priority: priority,
-        channel: channel
+        action_type: action_type,
+        completion_criteria: completion_criteria
       })
     end
 
-    def execute(user_id, timestamp)
+    def complete(user_id, completion_data)
       apply ActionExecuted.new(data: {
         action_id: @id,
         user_id: user_id,
-        timestamp: timestamp
+        completion_data: completion_data
       })
     end
 
-    private
-
     on ActionCreated do |event|
       @content = event.data[:content]
-      @priority = event.data[:priority]
-      @channel = event.data[:channel]
+      @action_type = event.data[:action_type]
+      @completion_criteria = event.data[:completion_criteria]
     end
 
     on ActionExecuted do |event|
-      @executions << {
-        user_id: event.data[:user_id],
-        timestamp: event.data[:timestamp]
-      }
+      # Handle completion logic if needed
     end
   end
 end

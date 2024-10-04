@@ -5,9 +5,6 @@ module ActionTracking
 
     validates :action_id, presence: true, uniqueness: true
     validates :content, presence: true
-    validates :priority, presence: true
-    validates :channel, presence: true
-    validates :status, presence: true
   end
 
   class ActionLogReadModel < ApplicationRecord

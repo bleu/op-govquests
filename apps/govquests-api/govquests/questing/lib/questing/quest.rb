@@ -4,47 +4,38 @@ module Questing
 
     def initialize(id)
       @id = id
-      @status = "created"
+      @actions = []
     end
 
-    def create(audience, quest_type, duration, difficulty, requirements = [], reward = {}, subquests = [])
-      raise "Quest already created" unless @status == "created"
-
+    def create(title, intro, quest_type, audience, reward)
       apply QuestCreated.new(data: {
         quest_id: @id,
-        audience: audience,
+        title: title,
+        intro: intro,
         quest_type: quest_type,
-        duration: duration,
-        difficulty: difficulty,
-        requirements: requirements,
-        reward: reward,
-        subquests: subquests
+        audience: audience,
+        reward: reward
       })
     end
 
-    def associate_action(action_id)
+    def associate_action(action_id, position)
       apply ActionAssociatedWithQuest.new(data: {
         quest_id: @id,
-        action_id: action_id
+        action_id: action_id,
+        position: position
       })
     end
 
-    private
-
     on QuestCreated do |event|
-      @audience = event.data[:audience]
+      @title = event.data[:title]
+      @intro = event.data[:intro]
       @quest_type = event.data[:quest_type]
-      @duration = event.data[:duration]
-      @difficulty = event.data[:difficulty]
-      @requirements = event.data[:requirements]
+      @audience = event.data[:audience]
       @reward = event.data[:reward]
-      @subquests = event.data[:subquests]
-      @status = "active"  # Change status to prevent re-creation
     end
 
     on ActionAssociatedWithQuest do |event|
-      @actions ||= []
-      @actions << event.data[:action_id]
+      @actions << {id: event.data[:action_id], position: event.data[:position]}
     end
   end
 end

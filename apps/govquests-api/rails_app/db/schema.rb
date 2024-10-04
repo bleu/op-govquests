@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_30_201752) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_04_125857) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -22,15 +22,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_30_201752) do
     t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "completion_data", default: {}
     t.index ["action_log_id"], name: "index_action_logs_on_action_log_id", unique: true
   end
 
   create_table "actions", force: :cascade do |t|
     t.string "action_id", null: false
     t.string "content", null: false
-    t.string "priority", null: false
-    t.string "channel", null: false
-    t.string "status", default: "Pending"
+    t.string "action_type", null: false
+    t.jsonb "completion_criteria", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["action_id"], name: "index_actions_on_action_id", unique: true
@@ -110,16 +110,24 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_30_201752) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "quest_actions", force: :cascade do |t|
+    t.string "quest_id", null: false
+    t.string "action_id", null: false
+    t.integer "position", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quest_id", "action_id"], name: "index_quest_actions_on_quest_id_and_action_id", unique: true
+    t.index ["quest_id", "position"], name: "index_quest_actions_on_quest_id_and_position", unique: true
+  end
+
   create_table "quests", force: :cascade do |t|
     t.string "quest_id", null: false
-    t.string "audience", null: false
+    t.string "title", null: false
+    t.text "intro", null: false
     t.string "quest_type", null: false
-    t.integer "duration", null: false
-    t.string "difficulty", null: false
-    t.jsonb "requirements", default: []
-    t.jsonb "reward", default: {}
-    t.jsonb "subquests", default: []
-    t.string "status", default: "created"
+    t.string "audience", null: false
+    t.string "status", null: false
+    t.jsonb "rewards", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["quest_id"], name: "index_quests_on_quest_id", unique: true

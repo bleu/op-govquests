@@ -1,17 +1,18 @@
+# govquests/action_tracking/lib/action_tracking/commands.rb
 module ActionTracking
   class CreateAction < Infra::Command
     attribute :action_id, Infra::Types::UUID
     attribute :content, Infra::Types::String
-    attribute :priority, Infra::Types::String
-    attribute :channel, Infra::Types::String
+    attribute :action_type, Infra::Types::String
+    attribute :completion_criteria, Infra::Types::Hash
 
     alias_method :aggregate_id, :action_id
   end
 
-  class ExecuteAction < Infra::Command
+  class CompleteAction < Infra::Command
     attribute :action_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
-    attribute :timestamp, Infra::Types::Time
+    attribute :completion_data, Infra::Types::Hash
 
     alias_method :aggregate_id, :action_id
   end

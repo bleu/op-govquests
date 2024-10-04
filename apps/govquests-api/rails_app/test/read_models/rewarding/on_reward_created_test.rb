@@ -1,3 +1,6 @@
+# rails_app/test/read_models/rewarding/on_reward_created_test.rb
+require "test_helper"
+
 module Rewarding
   class OnRewardCreatedTest < ActiveSupport::TestCase
     def setup

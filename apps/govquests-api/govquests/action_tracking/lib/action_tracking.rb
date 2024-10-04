@@ -9,7 +9,7 @@ module ActionTracking
     def call(event_store, command_bus)
       command_handler = OnActionCommands.new(event_store)
       command_bus.register(CreateAction, command_handler)
-      command_bus.register(ExecuteAction, command_handler)
+      command_bus.register(CompleteAction, command_handler)
     end
   end
 end
