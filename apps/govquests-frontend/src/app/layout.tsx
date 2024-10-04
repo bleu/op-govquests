@@ -25,10 +25,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body>
+        {/* MOCKED HEADER AND SIDE BAR, SHOUDL BE REMOVED: OP-299 & OP-300 */}
+        <header className="h-16 bg-red-500 flex-1">
+          <div />
+        </header>
+        <div className="flex">
+          <aside className="w-64 bg-red-100 min-h-screen p-6 hidden md:flex">
+            <div />
+          </aside>
+          {children}
+        </div>
       </body>
     </html>
   );
