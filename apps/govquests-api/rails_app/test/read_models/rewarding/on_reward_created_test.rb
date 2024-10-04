@@ -1,4 +1,3 @@
-# rails_app/test/read_models/rewarding/on_reward_created_test.rb
 require "test_helper"
 
 module Rewarding
@@ -12,7 +11,7 @@ module Rewarding
     end
 
     test "creates a new reward when handling RewardCreated event" do
-      event = RewardCreated.new(data: {
+      event = Rewarding::OnRewardCreated.new(data: {
         reward_id: @reward_id,
         reward_type: @reward_type,
         value: @value,

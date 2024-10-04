@@ -1,4 +1,3 @@
-# rails_app/test/read_models/questing/on_quest_created_test.rb
 require "test_helper"
 
 module Questing

@@ -1,4 +1,3 @@
-# rails_app/app/read_models/action_tracking/on_action_executed.rb
 module ActionTracking
   class OnActionExecuted
     def call(event)

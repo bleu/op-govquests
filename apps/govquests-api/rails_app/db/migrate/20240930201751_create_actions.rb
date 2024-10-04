@@ -1,4 +1,3 @@
-# rails_app/db/migrate/20240930201751_create_actions.rb
 class CreateActions < ActiveRecord::Migration[8.0]
   def change
     create_table :actions do |t|

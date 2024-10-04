@@ -48,7 +48,6 @@ actions_data = [
 puts "Creating actions..."
 actions_data.each do |action_data|
   action_id = create_action(action_data)
-  # rails_app/db/seeds/actions.rb (continued)
   puts "Created action: #{action_data[:content]} (#{action_id})"
 end
 
