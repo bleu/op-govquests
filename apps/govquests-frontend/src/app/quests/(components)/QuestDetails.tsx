@@ -1,3 +1,4 @@
+import Button from "@/components/Button";
 import RewardIndicator from "@/components/RewardIndicator";
 import type { Quest } from "@/types/quest";
 import { ExternalLink, MapIcon, RouteIcon } from "lucide-react";
@@ -49,12 +50,9 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
                 </div>
               ))}
             </div>
-            <button
-              type="button"
-              className="bg-optimism hover:bg-optimism/70 text-optimismForeground font-bold p-4 rounded-lg mt-8 md:mt-0  md:self-end md:ml-auto"
-            >
+            <Button className="font-bold md:self-end md:ml-auto p-4">
               Complete quest
-            </button>
+            </Button>
           </div>
         </div>
       </div>

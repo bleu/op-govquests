@@ -1,6 +1,7 @@
 import { HomeIcon, MapIcon, StarIcon, TrophyIcon } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
+import Button from "./Button";
 
 const Header: React.FC = () => {
   return (
@@ -45,12 +46,9 @@ const Header: React.FC = () => {
           </ul>
         </nav>
 
-        <button
-          type="button"
-          className="bg-optimism text-optimismForeground px-12 py-1 rounded-md hover:bg-optimism/70 transition"
-        >
+        <Button type="button" className="px-12 py-1 rounded-md ">
           Log in
-        </button>
+        </Button>
       </div>
     </header>
   );

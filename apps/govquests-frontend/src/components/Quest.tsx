@@ -23,7 +23,7 @@ const Quest: React.FC<QuestProps> = ({
   return (
     <>
       <Link
-        href={id}
+        href={`/quests/${id}`}
         className="flex flex-col bg-primary rounded-lg hover:bg-primary/70 transition"
       >
         <div className="relative w-full h-40 rounded-t-lg overflow-hidden">
