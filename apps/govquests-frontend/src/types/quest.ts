@@ -1,6 +1,7 @@
 export interface Action {
+  id: string;
   content: string;
-  duration: number;
+  action_type: string;
 }
 
 export interface Reward {

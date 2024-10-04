@@ -3,6 +3,7 @@ import { Map as MapIcon } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
 import Image from "./Image";
+import RewardIndicator from "./RewardIndicator";
 
 interface QuestProps {
   id: string;
@@ -28,12 +29,7 @@ const Quest: React.FC<QuestProps> = ({
         <div className="relative w-full h-40 rounded-t-lg overflow-hidden">
           <div className="absolute right-3 top-3">
             {rewards.map((reward) => (
-              <span
-                key={reward.type}
-                className="bg-optimism text-optimismForeground py-1 px-2 rounded-md text-sm ml-1"
-              >
-                {reward.amount} {reward.type}
-              </span>
+              <RewardIndicator key={reward.type} reward={reward} />
             ))}
           </div>
           <Image
