@@ -29,7 +29,7 @@ module Questing
       assert_equal intro, event.data[:intro]
       assert_equal quest_type, event.data[:quest_type]
       assert_equal audience, event.data[:audience]
-      assert_equal reward, event.data[:reward]
+      assert_equal reward, event.data[:rewards]
     end
 
     def test_associate_an_action_with_a_quest

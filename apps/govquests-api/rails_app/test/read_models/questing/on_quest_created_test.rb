@@ -10,7 +10,7 @@ module Questing
       @intro = "Learn about governance basics"
       @quest_type = "Onboarding"
       @audience = "AllUsers"
-      @reward = {type: "Points", amount: 50}.transform_keys(&:to_s)
+      @rewards = [{type: "Points", amount: 50}.transform_keys(&:to_s)]
     end
 
     test "creates a new quest when handling QuestCreated event" do
@@ -20,7 +20,7 @@ module Questing
         intro: @intro,
         quest_type: @quest_type,
         audience: @audience,
-        reward: @reward
+        rewards: @rewards
       })
 
       assert_difference -> { QuestReadModel.count }, 1 do
@@ -32,7 +32,7 @@ module Questing
       assert_equal @intro, quest.intro
       assert_equal @quest_type, quest.quest_type
       assert_equal @audience, quest.audience
-      assert_equal @reward, quest.rewards
+      assert_equal @rewards, quest.rewards
       assert_equal "created", quest.status
     end
   end

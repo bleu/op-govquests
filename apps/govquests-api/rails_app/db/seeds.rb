@@ -60,7 +60,7 @@ quests_data = [
     intro: "Understand the Optimism Values and your role in governance.",
     quest_type: "Onboarding",
     audience: "AllUsers",
-    reward: {type: "Points", amount: 50},
+    rewards: [{type: "Points", amount: 50}],
     actions: [
       "Read the Code of Conduct",
       "Watch the Optimistic Vision video",
@@ -73,7 +73,7 @@ quests_data = [
     intro: "Dive deeper into governance processes and decision-making.",
     quest_type: "Governance",
     audience: "Delegates",
-    reward: {type: "Points", amount: 100},
+    rewards: [{type: "Points", amount: 100}],
     actions: [
       "Participate in a Mock Proposal Vote",
       "Analyze Governance Analytics Dashboard",
@@ -91,7 +91,7 @@ def create_quest(quest_data)
     intro: quest_data[:intro],
     quest_type: quest_data[:quest_type],
     audience: quest_data[:audience],
-    reward: quest_data[:reward]
+    rewards: quest_data[:rewards]
   )
   Rails.configuration.command_bus.call(command)
   quest_id

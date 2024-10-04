@@ -8,7 +8,7 @@ module Questing
       @repository.with_aggregate(Quest, command.aggregate_id) do |quest|
         case command
         when CreateQuest
-          quest.create(command.title, command.intro, command.quest_type, command.audience, command.reward)
+          quest.create(command.title, command.intro, command.quest_type, command.audience, command.rewards)
         when AssociateActionWithQuest
           quest.associate_action(command.action_id, command.position)
         end

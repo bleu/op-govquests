@@ -5,7 +5,7 @@ module Questing
     attribute :intro, Infra::Types::String
     attribute :quest_type, Infra::Types::String
     attribute :audience, Infra::Types::String
-    attribute :reward, Infra::Types::Hash
+    attribute :rewards, Infra::Types::Array
   end
 
   class ActionAssociatedWithQuest < Infra::Event
