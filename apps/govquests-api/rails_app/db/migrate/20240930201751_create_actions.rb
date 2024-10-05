@@ -3,8 +3,7 @@ class CreateActions < ActiveRecord::Migration[8.0]
     create_table :actions do |t|
       t.string :action_id, null: false, index: {unique: true}
       t.string :action_type, null: false
-      t.jsonb :completion_criteria, null: false, default: {}
-      t.jsonb :display_data, null: false, default: {}
+      t.jsonb :action_data, null: false, default: {}
       t.timestamps
     end
 

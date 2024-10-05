@@ -13,10 +13,13 @@ module Questing
     end
 
     test "creates a new quest when handling QuestCreated event" do
-      event = QuestCreated.new(data: {
+      event = Questing::OnQuestCreated.new(data: {
         quest_id: @quest_id,
-        title: @title,
-        intro: @intro,
+        display_data: {
+
+          title: @title,
+          intro: @intro
+        },
         quest_type: @quest_type,
         audience: @audience,
         rewards: @rewards

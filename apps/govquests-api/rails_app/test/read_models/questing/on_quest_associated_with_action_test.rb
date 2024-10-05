@@ -9,7 +9,7 @@ module Questing
       @position = 1
 
       QuestReadModel.create!(quest_id: @quest_id, display_data: {title: "Test Quest", intro: "Test Intro"}, quest_type: "Test", audience: "All", status: "created")
-      ActionTracking::ActionReadModel.create!(action_id: @action_id, display_data: {content: "Test Action"}, action_type: "Test", completion_criteria: {})
+      ActionTracking::ActionReadModel.create!(action_id: @action_id, display_data: {content: "Test Action"}, action_type: "Test", action_data: {})
     end
 
     test "associates an action with a quest when handling ActionAssociatedWithQuest event" do

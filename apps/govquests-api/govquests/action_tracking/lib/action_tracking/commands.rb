@@ -2,18 +2,25 @@
 module ActionTracking
   class CreateAction < Infra::Command
     attribute :action_id, Infra::Types::UUID
-    attribute :content, Infra::Types::String
     attribute :action_type, Infra::Types::String
-    attribute :completion_criteria, Infra::Types::Hash
+    attribute :action_data, Infra::Types::Hash
 
     alias_method :aggregate_id, :action_id
   end
 
-  class CompleteAction < Infra::Command
+  class StartActionExecution < Infra::Command
+    attribute :execution_id, Infra::Types::UUID
     attribute :action_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
-    attribute :completion_data, Infra::Types::Hash
+    attribute :data, Infra::Types::Hash
 
-    alias_method :aggregate_id, :action_id
+    alias_method :aggregate_id, :execution_id
+  end
+
+  class CompleteActionExecution < Infra::Command
+    attribute :execution_id, Infra::Types::UUID
+    attribute :data, Infra::Types::Hash
+
+    alias_method :aggregate_id, :execution_id
   end
 end

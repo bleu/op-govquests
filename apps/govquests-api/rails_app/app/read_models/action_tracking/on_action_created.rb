@@ -4,7 +4,7 @@ module ActionTracking
       ActionReadModel.create!(
         action_id: event.data[:action_id],
         action_type: event.data[:action_type],
-        completion_criteria: event.data[:completion_criteria],
+        action_data: event.data[:action_data],
         display_data: {
           content: event.data[:content]
         }

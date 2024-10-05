@@ -1,15 +1,41 @@
 module ActionTracking
   class ActionStrategy
-    def initialize(action, event)
-      raise NotImplementedError, "Subclasses must implement the `initialize` method."
+    def create_action(data)
+      {
+        action_type: action_type,
+        description: description,
+        action_data: action_data(data)
+      }
     end
 
-    def execute(action, event)
-      raise NotImplementedError, "Subclasses must implement the `execute` method."
+    def start_execution(data)
+      {message: "Action execution started"}
     end
 
-    def complete(action, event)
-      raise NotImplementedError, "Subclasses must implement the `complete` method."
+    def complete_execution(data)
+      if verify_completion(data)
+        {status: "completed", message: "Action successfully completed"}
+      else
+        {status: "failed", message: "Action completion criteria not met"}
+      end
+    end
+
+    private
+
+    def action_type
+      raise NotImplementedError, "#{self.class} must implement #action_type"
+    end
+
+    def description
+      raise NotImplementedError, "#{self.class} must implement #description"
+    end
+
+    def action_data(data)
+      raise NotImplementedError, "#{self.class} must implement #action_data"
+    end
+
+    def verify_completion(data)
+      raise NotImplementedError, "#{self.class} must implement #verify_completion"
     end
   end
 end

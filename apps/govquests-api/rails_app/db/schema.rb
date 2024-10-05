@@ -29,7 +29,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_30_201752) do
   create_table "actions", force: :cascade do |t|
     t.string "action_id", null: false
     t.string "action_type", null: false
-    t.jsonb "completion_criteria", default: {}, null: false
+    t.jsonb "action_data", default: {}, null: false
     t.jsonb "display_data", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

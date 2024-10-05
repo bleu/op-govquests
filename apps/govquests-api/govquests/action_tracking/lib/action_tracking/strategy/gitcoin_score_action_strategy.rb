@@ -1,39 +1,68 @@
-# lib/action_tracking/strategy/gitcoin_score_action_strategy.rb
+require_relative "action_strategy"
 module ActionTracking
   class GitcoinScoreActionStrategy < ActionStrategy
-    def initialize(action, event)
-      @action = action
-      @event = event
+    private
+
+    def action_type
+      "gitcoin_score"
     end
 
-    def execute(action, event)
-      # 1. Request nonce and message from Gitcoin API
-      response = GitcoinApi.request_message(event.user_id, event.wallet_address)
-      action.update(state: "message_requested", nonce: response["nonce"], message: response["message"])
+    def description
+      "Complete Gitcoin Passport verification"
     end
 
-    def complete(action, event)
-      # 2. Submit signed message to Gitcoin API and get score
-      response = GitcoinApi.submit_signature(event.wallet_address, event.signature)
+    def action_data(data)
+      {min_score: 20}
+    end
+
+    def start_execution(data)
+      user_id = data[:user_id]
+      wallet_address = data[:wallet_address]
+
+      response = api.request_message(user_id, wallet_address)
+
+      {
+        state: "message_requested",
+        nonce: response["nonce"],
+        message: response["message"]
+      }
+    end
+
+    def complete_execution(data)
+      wallet_address = data[:wallet_address]
+      signature = data[:signature]
+
+      response = api.submit_signature(wallet_address, signature)
       score = response["score"]
 
-      # 3. Check if the score meets criteria
       if score > 20
-        action.update(state: "done", status: "completed")
+        {
+          status: "completed",
+          state: "done",
+          score: score,
+          message: "Gitcoin Passport verified successfully"
+        }
       else
-        action.update(state: "done", status: "failed")
+        {
+          status: "failed",
+          state: "done",
+          score: score,
+          message: "Gitcoin Passport score too low"
+        }
       end
+    end
+
+    def verify_completion(data)
+      data[:score] > 20
     end
 
     private
 
-    memoize def api
-      gitcoin_keys = Rails.application.credentials.gitcoin_api
-
-      GitcoinPassport.new(
-        gitcoin_keys.api_key,
-        gitcoin_keys.scorer_id
-      )
+    def api
+      @api ||= begin
+        gitcoin_keys = Rails.application.credentials.gitcoin_api
+        GitcoinPassport.new(gitcoin_keys.api_key, gitcoin_keys.scorer_id)
+      end
     end
   end
 end
