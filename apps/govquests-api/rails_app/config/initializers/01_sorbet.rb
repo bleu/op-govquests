@@ -2,5 +2,6 @@
 # frozen_string_literal: true
 
 class Object
-  include Memery
+  extend T::Sig
+  extend T::Helpers
 end

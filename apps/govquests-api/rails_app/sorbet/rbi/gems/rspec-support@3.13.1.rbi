@@ -52,6 +52,9 @@ module RSpec
     # source://rspec-core/3.13.1/lib/rspec/core/dsl.rb#42
     def fdescribe(*args, &example_group_block); end
 
+    # source://rspec-core/3.13.1/lib/rspec/core/dsl.rb#42
+    def feature(*args, &example_group_block); end
+
     # source://rspec-core/3.13.1/lib/rspec/core.rb#58
     def reset; end
 

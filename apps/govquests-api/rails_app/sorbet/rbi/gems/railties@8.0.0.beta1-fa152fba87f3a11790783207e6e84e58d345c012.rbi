@@ -5492,8 +5492,6 @@ end
 
 # source://railties//lib/rails/mailers_controller.rb#0
 module Rails::MailersController::HelperMethods
-  include ::ActionText::ContentHelper
-  include ::ActionText::TagHelper
   include ::ActionController::Base::HelperMethods
 
   # source://railties//lib/rails/mailers_controller.rb#13

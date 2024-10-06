@@ -13,14 +13,10 @@ module ActionTracking::CreateAction; end
 module ActionTracking::StartActionExecution; end
 module Authentication::UserLoggedIn; end
 module Authentication::UserRegistered; end
-module Gamification::Gamification::BadgeEarned; end
-module Gamification::Gamification::LeaderboardUpdated; end
-module Gamification::Gamification::StreakMaintained; end
-module Gamification::Gamification::TrackCompleted; end
+module Gamification::BadgeEarned; end
 module Gamification::LeaderboardUpdated; end
-module Gamification::OnBadgeEarned::GameProfileReadModel; end
-module Gamification::OnStreakMaintained::GameProfileReadModel; end
-module Gamification::OnTrackCompleted::GameProfileReadModel; end
+module Gamification::StreakMaintained; end
+module Gamification::TrackCompleted; end
 module InMemoryRESIntegrationCase::Configuration; end
 module Integrations::GitcoinPassportScoresController::GitcoinPassport; end
 module Notifications::NotificationCreated; end

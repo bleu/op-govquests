@@ -2483,9 +2483,6 @@ end
 
 # source://actionpack//lib/action_controller/base.rb#0
 module ActionController::Base::HelperMethods
-  include ::ActionText::ContentHelper
-  include ::ActionText::TagHelper
-
   # source://actionpack//lib/action_controller/metal/flash.rb#41
   def alert(*_arg0, **_arg1, &_arg2); end
 
@@ -20422,11 +20419,6 @@ ActionPack::VERSION::STRING = T.let(T.unsafe(nil), String)
 
 # source://actionpack//lib/action_pack/gem_version.rb#14
 ActionPack::VERSION::TINY = T.let(T.unsafe(nil), Integer)
-
-module ActionView::RoutingUrlFor
-  include ::ActionDispatch::Routing::PolymorphicRoutes
-  include ::ActionDispatch::Routing::UrlFor
-end
 
 # source://actionpack//lib/action_dispatch/http/mime_type.rb#7
 module Mime

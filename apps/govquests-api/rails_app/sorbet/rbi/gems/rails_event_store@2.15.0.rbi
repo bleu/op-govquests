@@ -116,10 +116,10 @@ end
 # source://rails_event_store//lib/rails_event_store/browser.rb#7
 class RailsEventStore::Browser < ::Rails::Engine
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
   end
 end

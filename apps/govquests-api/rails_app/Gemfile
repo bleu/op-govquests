@@ -34,6 +34,7 @@ gem "thruster", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 gem "rack-cors"
 
+gem "sorbet-runtime"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
@@ -46,18 +47,8 @@ group :development, :test do
   gem "pry-meta"
   gem "pry-rails", "~> 0.3.9"
 
-  # Rubocop
-  gem "rubocop"
-  gem "rubocop-performance"
-  gem "rubocop-rails"
-  gem "rubocop-rake"
-  # gem "rubocop-sorbet", require: false
-  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
-  gem "rubocop-rails-omakase", require: false
-
-  # Types
   gem "sorbet"
-  gem "tapioca"
+  gem "tapioca", require: false
 
   gem "rspec", "~> 3.13"
 
@@ -82,3 +73,5 @@ gem "infra", path: "../infra"
 gem "httparty", "~> 0.22.0"
 gem "jwt"
 gem "memery"
+gem "oj"
+gem "blueprinter"

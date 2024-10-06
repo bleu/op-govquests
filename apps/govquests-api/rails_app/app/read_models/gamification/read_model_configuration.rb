@@ -1,5 +1,5 @@
 module Gamification
-  class Gamification::GameProfileReadModel < ApplicationRecord
+  class GameProfileReadModel < ApplicationRecord
     self.table_name = "user_game_profiles"
 
     attribute :tier, :string

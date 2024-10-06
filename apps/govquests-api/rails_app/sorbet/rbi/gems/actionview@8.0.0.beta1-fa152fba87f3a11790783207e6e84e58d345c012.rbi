@@ -1718,6 +1718,33 @@ class ActionView::FileSystemResolver < ::ActionView::Resolver
   def unbound_templates_from_path(path); end
 end
 
+# Use FixtureResolver in your tests to simulate the presence of files on the
+# file system. This is used internally by Rails' own test suite, and is
+# useful for testing extensions that have no way of knowing what the file
+# system will look like at runtime.
+#
+# source://actionview//lib/action_view/testing/resolvers.rb#10
+class ActionView::FixtureResolver < ::ActionView::FileSystemResolver
+  # @return [FixtureResolver] a new instance of FixtureResolver
+  #
+  # source://actionview//lib/action_view/testing/resolvers.rb#11
+  def initialize(hash = T.unsafe(nil)); end
+
+  # source://actionview//lib/action_view/testing/resolvers.rb#17
+  def data; end
+
+  # source://actionview//lib/action_view/testing/resolvers.rb#21
+  def to_s; end
+
+  private
+
+  # source://actionview//lib/action_view/testing/resolvers.rb#32
+  def source_for_template(template); end
+
+  # source://actionview//lib/action_view/testing/resolvers.rb#26
+  def template_glob(glob); end
+end
+
 # source://actionview//lib/action_view/helpers/capture_helper.rb#6
 module ActionView::Helpers
   include ::ActiveSupport::Benchmarkable
@@ -13355,6 +13382,12 @@ module ActionView::ModelNaming
   def model_name_from_record_or_class(record_or_class); end
 end
 
+# source://actionview//lib/action_view/testing/resolvers.rb#37
+class ActionView::NullResolver < ::ActionView::Resolver
+  # source://actionview//lib/action_view/testing/resolvers.rb#38
+  def find_templates(name, prefix, partial, details, locals = T.unsafe(nil)); end
+end
+
 # source://actionview//lib/action_view/renderer/object_renderer.rb#4
 class ActionView::ObjectRenderer < ::ActionView::PartialRenderer
   include ::ActionView::AbstractRenderer::ObjectRendering
@@ -16013,6 +16046,12 @@ class ActionView::TestCase::TestController < ::ActionController::Base
   def _layout(lookup_context, formats); end
 
   class << self
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
+    def __callbacks; end
+
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
+    def __callbacks=(new_value); end
+
     # source://actionview//lib/action_view/test_case.rb#30
     def controller_name; end
 
