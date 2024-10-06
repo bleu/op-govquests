@@ -16,6 +16,12 @@ module GeneratedPathHelpersModule
   def new_rails_conductor_inbound_email_source_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def quest_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def quests_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def rails_blob_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

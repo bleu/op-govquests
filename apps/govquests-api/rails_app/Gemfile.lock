@@ -219,6 +219,7 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
+    memery (1.6.0)
     method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.25.0)
@@ -473,6 +474,7 @@ DEPENDENCIES
   infra!
   jwt
   kamal (>= 2.0.0.rc2)
+  memery
   minitest (= 5.25.0)!
   mutant-license!
   mutant-minitest (= 0.12.4)!

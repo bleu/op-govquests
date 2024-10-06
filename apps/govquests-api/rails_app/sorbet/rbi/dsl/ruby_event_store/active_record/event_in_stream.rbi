@@ -16,6 +16,16 @@ class RubyEventStore::ActiveRecord::EventInStream
   sig { returns(NilClass) }
   def to_ary; end
 
+  class << self
+    sig do
+      params(
+        attributes: T.untyped,
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(::RubyEventStore::ActiveRecord::EventInStream)
+    end
+    def new(attributes = nil, &block); end
+  end
+
   module CommonRelationMethods
     sig do
       params(
@@ -27,6 +37,17 @@ class RubyEventStore::ActiveRecord::EventInStream
     sig { params(column_name: T.any(String, Symbol)).returns(T.any(Integer, Float, BigDecimal)) }
     def average(column_name); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(::RubyEventStore::ActiveRecord::EventInStream)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::EventInStream])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -49,12 +70,34 @@ class RubyEventStore::ActiveRecord::EventInStream
 
     sig do
       params(
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(::RubyEventStore::ActiveRecord::EventInStream)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::EventInStream])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
       ).returns(::RubyEventStore::ActiveRecord::EventInStream)
     end
     def create(attributes = nil, &block); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(::RubyEventStore::ActiveRecord::EventInStream)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::EventInStream])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -65,12 +108,24 @@ class RubyEventStore::ActiveRecord::EventInStream
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::EventInStream])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
       ).returns(::RubyEventStore::ActiveRecord::EventInStream)
     end
     def create_or_find_by(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::EventInStream])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -159,6 +214,12 @@ class RubyEventStore::ActiveRecord::EventInStream
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::EventInStream])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
       ).returns(::RubyEventStore::ActiveRecord::EventInStream)
@@ -167,12 +228,24 @@ class RubyEventStore::ActiveRecord::EventInStream
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::EventInStream])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
       ).returns(::RubyEventStore::ActiveRecord::EventInStream)
     end
     def find_or_create_by!(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::EventInStream])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -195,7 +268,7 @@ class RubyEventStore::ActiveRecord::EventInStream
     sig { params(arg: T.untyped, args: T.untyped).returns(::RubyEventStore::ActiveRecord::EventInStream) }
     def find_sole_by(arg, *args); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::RubyEventStore::ActiveRecord::EventInStream)) }
+    sig { returns(T.nilable(::RubyEventStore::ActiveRecord::EventInStream)) }
     sig { params(limit: Integer).returns(T::Array[::RubyEventStore::ActiveRecord::EventInStream]) }
     def first(limit = nil); end
 
@@ -245,7 +318,7 @@ class RubyEventStore::ActiveRecord::EventInStream
     sig { params(record: T.untyped).returns(T::Boolean) }
     def include?(record); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::RubyEventStore::ActiveRecord::EventInStream)) }
+    sig { returns(T.nilable(::RubyEventStore::ActiveRecord::EventInStream)) }
     sig { params(limit: Integer).returns(T::Array[::RubyEventStore::ActiveRecord::EventInStream]) }
     def last(limit = nil); end
 
@@ -268,6 +341,17 @@ class RubyEventStore::ActiveRecord::EventInStream
     sig { params(column_name: T.any(String, Symbol)).returns(T.untyped) }
     def minimum(column_name); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(::RubyEventStore::ActiveRecord::EventInStream)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::EventInStream).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::EventInStream])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -321,7 +405,7 @@ class RubyEventStore::ActiveRecord::EventInStream
     end
     def sum(initial_value_or_column = nil, &block); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::RubyEventStore::ActiveRecord::EventInStream)) }
+    sig { returns(T.nilable(::RubyEventStore::ActiveRecord::EventInStream)) }
     sig { params(limit: Integer).returns(T::Array[::RubyEventStore::ActiveRecord::EventInStream]) }
     def take(limit = nil); end
 
@@ -356,6 +440,12 @@ class RubyEventStore::ActiveRecord::EventInStream
 
     sig { params(value: T.nilable(::RubyEventStore::ActiveRecord::Event)).void }
     def event=(value); end
+
+    sig { returns(T::Boolean) }
+    def event_changed?; end
+
+    sig { returns(T::Boolean) }
+    def event_previously_changed?; end
 
     sig { returns(T.nilable(::RubyEventStore::ActiveRecord::Event)) }
     def reload_event; end

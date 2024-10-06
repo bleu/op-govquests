@@ -21,6 +21,16 @@ class ActionText::RichText
   sig { returns(NilClass) }
   def to_ary; end
 
+  class << self
+    sig do
+      params(
+        attributes: T.untyped,
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(::ActionText::RichText)
+    end
+    def new(attributes = nil, &block); end
+  end
+
   module CommonRelationMethods
     sig do
       params(
@@ -32,6 +42,17 @@ class ActionText::RichText
     sig { params(column_name: T.any(String, Symbol)).returns(T.any(Integer, Float, BigDecimal)) }
     def average(column_name); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(::ActionText::RichText)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(T::Array[::ActionText::RichText])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -49,12 +70,34 @@ class ActionText::RichText
 
     sig do
       params(
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(::ActionText::RichText)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(T::Array[::ActionText::RichText])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
       ).returns(::ActionText::RichText)
     end
     def create(attributes = nil, &block); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(::ActionText::RichText)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(T::Array[::ActionText::RichText])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -65,12 +108,24 @@ class ActionText::RichText
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(T::Array[::ActionText::RichText])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
       ).returns(::ActionText::RichText)
     end
     def create_or_find_by(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(T::Array[::ActionText::RichText])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -159,6 +214,12 @@ class ActionText::RichText
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(T::Array[::ActionText::RichText])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
       ).returns(::ActionText::RichText)
@@ -167,12 +228,24 @@ class ActionText::RichText
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(T::Array[::ActionText::RichText])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
       ).returns(::ActionText::RichText)
     end
     def find_or_create_by!(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(T::Array[::ActionText::RichText])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -190,7 +263,7 @@ class ActionText::RichText
     sig { params(arg: T.untyped, args: T.untyped).returns(::ActionText::RichText) }
     def find_sole_by(arg, *args); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::ActionText::RichText)) }
+    sig { returns(T.nilable(::ActionText::RichText)) }
     sig { params(limit: Integer).returns(T::Array[::ActionText::RichText]) }
     def first(limit = nil); end
 
@@ -240,7 +313,7 @@ class ActionText::RichText
     sig { params(record: T.untyped).returns(T::Boolean) }
     def include?(record); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::ActionText::RichText)) }
+    sig { returns(T.nilable(::ActionText::RichText)) }
     sig { params(limit: Integer).returns(T::Array[::ActionText::RichText]) }
     def last(limit = nil); end
 
@@ -263,6 +336,17 @@ class ActionText::RichText
     sig { params(column_name: T.any(String, Symbol)).returns(T.untyped) }
     def minimum(column_name); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(::ActionText::RichText)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionText::RichText).void)
+      ).returns(T::Array[::ActionText::RichText])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -316,7 +400,7 @@ class ActionText::RichText
     end
     def sum(initial_value_or_column = nil, &block); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::ActionText::RichText)) }
+    sig { returns(T.nilable(::ActionText::RichText)) }
     sig { params(limit: Integer).returns(T::Array[::ActionText::RichText]) }
     def take(limit = nil); end
 
@@ -370,6 +454,12 @@ class ActionText::RichText
 
     sig { params(value: T.untyped).void }
     def record=(value); end
+
+    sig { returns(T::Boolean) }
+    def record_changed?; end
+
+    sig { returns(T::Boolean) }
+    def record_previously_changed?; end
 
     sig { returns(T.untyped) }
     def reload_record; end

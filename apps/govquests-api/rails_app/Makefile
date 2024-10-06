@@ -2,7 +2,7 @@ install:
 	@bundle install
 
 test:
-	@bin/rails test
+	@bin/rspec
 
 lint:
 	@bundle exec rubocop -A

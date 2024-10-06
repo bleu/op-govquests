@@ -81,3 +81,4 @@ gem "infra", path: "../infra"
 
 gem "httparty", "~> 0.22.0"
 gem "jwt"
+gem "memery"
