@@ -1,11 +1,7 @@
 module ActionTracking
   class ActionStrategy
     def create_action(data)
-      {
-        action_type: action_type,
-        description: description,
-        action_data: action_data(data)
-      }
+      action_data(data)
     end
 
     def start_execution(data)

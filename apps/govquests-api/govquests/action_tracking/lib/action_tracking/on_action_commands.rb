@@ -21,13 +21,15 @@ module ActionTracking
 
     def handle_create_action(command)
       @repository.with_aggregate(Action, command.aggregate_id) do |action|
-        action.create(command.action_type, command.action_data)
+        action.create(command.action_type, command.action_data, command.display_data)
       end
     end
 
     def handle_start_action_execution(command)
-      @repository.with_aggregate(ActionExecution, command.aggregate_id) do |execution|
-        execution.start(command.action_id, command.user_id, command.data)
+      @repository.with_aggregate(Action, command.action_id) do |action|
+        @repository.with_aggregate(ActionExecution, command.aggregate_id) do |execution|
+          execution.start(command.action_id, action.action_type, command.user_id, command.data)
+        end
       end
     end
 

@@ -3,6 +3,7 @@ module ActionTracking
     attribute :action_id, Infra::Types::UUID
     attribute :action_type, Infra::Types::String
     attribute :action_data, Infra::Types::Hash
+    attribute :display_data, Infra::Types::Hash
   end
 
   class ActionExecutionStarted < Infra::Event

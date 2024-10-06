@@ -171,6 +171,13 @@ GEM
     erubi (1.13.0)
     et-orbi (1.2.11)
       tzinfo
+    factory_bot (6.5.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
+    faker (3.4.2)
+      i18n (>= 1.8.11, < 2)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
@@ -188,6 +195,8 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     json (2.7.2)
+    jwt (2.9.3)
+      base64
     kamal (2.1.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -316,6 +325,27 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.10)
       io-console (~> 0.5)
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.1)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-rails (7.0.1)
+      actionpack (>= 7.0)
+      activesupport (>= 7.0)
+      railties (>= 7.0)
+      rspec-core (~> 3.13)
+      rspec-expectations (~> 3.13)
+      rspec-mocks (~> 3.13)
+      rspec-support (~> 3.13)
+    rspec-support (3.13.1)
     rubocop (1.66.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -436,13 +466,18 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
+  factory_bot (~> 6.5)
+  factory_bot_rails (~> 6.4)
+  faker (~> 3.4)
   httparty (~> 0.22.0)
   infra!
+  jwt
   kamal (>= 2.0.0.rc2)
   minitest (= 5.25.0)!
   mutant-license!
   mutant-minitest (= 0.12.4)!
   pg (~> 1.1)
+  pry (~> 0.14.2)!
   pry-byebug
   pry-meta
   pry-rails (~> 0.3.9)
@@ -450,6 +485,9 @@ DEPENDENCIES
   rack-cors
   rails!
   rails_event_store (~> 2.15.0)
+  rspec (~> 3.13)
+  rspec-expectations (~> 3.13)
+  rspec-rails (~> 7.0)
   rubocop
   rubocop-performance
   rubocop-rails

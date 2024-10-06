@@ -8,7 +8,6 @@ module ActionTracking
       "gitcoin_score" => GitcoinScoreActionStrategy,
       "proposal_vote" => ProposalVoteActionStrategy,
       "read_document" => ReadDocumentActionStrategy
-
     }.freeze
 
     def self.for(action_type)

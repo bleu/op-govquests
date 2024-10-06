@@ -6,29 +6,23 @@ module ActionTracking
     def initialize(id)
       @id = id
       @state = "draft"
-      @data = {}
+      @action_data = {}
       @action_type = nil
+      @display_data = {}
     end
 
-    def create(action_type, data)
+    def create(action_type, action_data, display_data)
       raise AlreadyCreatedError if @state != "draft"
 
       strategy = ActionTracking::ActionStrategyFactory.for(action_type)
-      action_data = strategy.create_action(data)
+      action_data = strategy.create_action(action_data)
 
       apply ActionCreated.new(data: {
         action_id: @id,
         action_type: action_type,
-        action_data: action_data
+        action_data: action_data,
+        display_data: display_data
       })
-    end
-
-    def self.load(action_id)
-      stream_name = "Action$#{action_id}"
-      action = new(action_id)
-
-      action.load(stream_name)
-      action
     end
 
     attr_reader :action_type
@@ -37,8 +31,9 @@ module ActionTracking
 
     on ActionCreated do |event|
       @state = "created"
-      @data = event.data[:action_data]
+      @action_data = event.data[:action_data]
       @action_type = event.data[:action_type]
+      @display_data = event.data[:display_data]
     end
   end
 end

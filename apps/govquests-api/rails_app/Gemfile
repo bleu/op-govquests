@@ -58,6 +58,17 @@ group :development, :test do
   # Types
   gem "sorbet"
   gem "tapioca"
+
+  gem "rspec", "~> 3.13"
+
+  gem "rspec-rails", "~> 7.0"
+
+  gem "rspec-expectations", "~> 3.13"
+
+  gem "factory_bot", "~> 6.5"
+
+  gem "factory_bot_rails", "~> 6.4"
+  gem "faker", "~> 3.4"
 end
 
 group :test do
@@ -69,3 +80,4 @@ gem "rails_event_store", "~> 2.15.0"
 gem "infra", path: "../infra"
 
 gem "httparty", "~> 0.22.0"
+gem "jwt"

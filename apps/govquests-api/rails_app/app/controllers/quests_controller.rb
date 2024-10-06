@@ -16,7 +16,7 @@ class QuestsController < ApplicationController
 
           {
             id: action.action_id,
-            content: action.content,
+            content: action.display_data[:content],
             action_type: action.action_type
           }
         end
@@ -44,7 +44,7 @@ class QuestsController < ApplicationController
 
           {
             id: action.action_id,
-            content: action.content,
+            content: action.display_data[:content],
             action_type: action.action_type
           }
         end

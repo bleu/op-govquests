@@ -4,6 +4,7 @@ module ActionTracking
     attribute :action_id, Infra::Types::UUID
     attribute :action_type, Infra::Types::String
     attribute :action_data, Infra::Types::Hash
+    attribute :display_data, Infra::Types::Hash
 
     alias_method :aggregate_id, :action_id
   end

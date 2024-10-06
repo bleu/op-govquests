@@ -1,5 +1,3 @@
-# govquests/action_tracking/lib/action_tracking/action.rb
-
 module ActionTracking
   class ActionExecution
     include AggregateRoot
@@ -10,24 +8,24 @@ module ActionTracking
       @id = id
       @action_id = nil
       @user_id = nil
+      @action_type = nil
       @state = "not_started"
       @data = {}
     end
 
-    def start(action_id, user_id, data)
+    def start(action_id, action_type, user_id, data)
       raise AlreadyStartedError if @state != "not_started"
 
-      action = Action.load(action_id)
-      strategy = ActionTracking::ActionStrategyFactory.for(action.action_type)
-      result = strategy.start_execution(data)
+      strategy = ActionTracking::ActionStrategyFactory.for(action_type)
+      data = strategy.start_execution(data)
 
       apply ActionExecutionStarted.new(data: {
         execution_id: @id,
         action_id: action_id,
         user_id: user_id,
-        action_type: action.action_type,
+        action_type: action_type,
         started_at: Time.now,
-        result: result
+        data: data
       })
     end
 
@@ -35,21 +33,13 @@ module ActionTracking
       raise NotStartedError if @state == "not_started"
       raise AlreadyCompletedError if @state == "completed"
 
-      action = Action.load(@action_id)
-      strategy = ActionTracking::ActionStrategyFactory.for(action.action_type)
-      result = strategy.complete_execution(data.merge(@data))
+      strategy = ActionTracking::ActionStrategyFactory.for(@action_type)
+      data = strategy.complete_execution(data.merge(@data))
 
       apply ActionExecutionCompleted.new(data: {
         execution_id: @id,
-        result: result
+        data: data
       })
-    end
-
-    def self.load(execution_id)
-      stream_name = "ActionExecution$#{execution_id}"
-      execution = new(execution_id)
-      execution.load(stream_name)
-      execution
     end
 
     private
@@ -58,12 +48,13 @@ module ActionTracking
       @state = "started"
       @action_id = event.data[:action_id]
       @user_id = event.data[:user_id]
-      @data = event.data[:result]
+      @action_type = event.data[:action_type]
+      @data = event.data[:data]
     end
 
     on ActionExecutionCompleted do |event|
-      @state = event.data[:result][:status]
-      @data.merge!(event.data[:result])
+      @state = event.data[:data][:status]
+      @data.merge!(event.data[:data])
     end
   end
 end

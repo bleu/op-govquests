@@ -2,20 +2,27 @@ class ActionCompletionsController < ApplicationController
   def start
     action = ActionTracking::ActionReadModel.find_by(action_id: params[:action_id])
     if action
-      token = generate_completion_token(action.action_id)
-      render json: {token: token, expires_at: 30.minutes.from_now}
+      execution_id = SecureRandom.uuid
+      token = generate_completion_token(execution_id)
+      command = ActionTracking::StartActionExecution.new(
+        execution_id: execution_id,
+        action_id: action.action_id,
+        user_id: params[:user_id],
+        data: params[:start_data].to_unsafe_h # This allows unpermitted parameters
+      )
+      Rails.configuration.command_bus.call(command)
+      render json: {token: token, execution_id: execution_id, expires_at: 30.minutes.from_now}
     else
       render json: {error: "Action not found"}, status: :not_found
     end
   end
 
   def complete
-    action = ActionTracking::ActionReadModel.find_by(action_id: params[:action_id])
-    if action && valid_completion_token?(params[:token], action.action_id)
-      command = ActionTracking::CompleteAction.new(
-        action_id: action.action_id,
-        user_id: current_user.id,
-        completion_data: params[:completion_data]
+    execution = ActionTracking::ActionExecutionReadModel.find_by(execution_id: params[:execution_id])
+    if execution && valid_completion_token?(params[:token], execution.execution_id)
+      command = ActionTracking::CompleteActionExecution.new(
+        execution_id: execution.execution_id,
+        data: params[:completion_data]
       )
       Rails.configuration.command_bus.call(command)
       render json: {message: "Action completed successfully"}
@@ -26,20 +33,20 @@ class ActionCompletionsController < ApplicationController
 
   private
 
-  def generate_completion_token(action_id)
+  def generate_completion_token(execution_id)
     expiration = 30.minutes.from_now.to_i
     payload = {
-      action_id: action_id,
-      user_id: current_user.id,
+      execution_id: execution_id,
+      user_id: params[:user_id],
       exp: expiration
     }
-    JWT.encode(payload, Rails.application.secrets.secret_key_base)
+    JWT.encode(payload, Rails.application.credentials.secret_key_base)
   end
 
-  def valid_completion_token?(token, action_id)
-    decoded_token = JWT.decode(token, Rails.application.secrets.secret_key_base)
+  def valid_completion_token?(token, execution_id)
+    decoded_token = JWT.decode(token, Rails.application.credentials.secret_key_base)
     payload = decoded_token.first
-    payload["action_id"] == action_id &&
+    payload["execution_id"] == execution_id &&
       payload["user_id"] == current_user.id &&
       Time.at(payload["exp"]) > Time.now
   rescue JWT::DecodeError
