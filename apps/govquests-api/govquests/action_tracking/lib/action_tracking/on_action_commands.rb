@@ -12,6 +12,8 @@ module ActionTracking
         handle_start_action_execution(command)
       when ActionTracking::CompleteActionExecution
         handle_complete_action_execution(command)
+      when ActionTracking::ExpireActionExecution
+        handle_expire_action_execution(command)
       else
         raise UnknownCommandError, "Unknown command: #{command.class}"
       end
@@ -35,7 +37,13 @@ module ActionTracking
 
     def handle_complete_action_execution(command)
       @repository.with_aggregate(ActionExecution, command.aggregate_id) do |execution|
-        execution.complete(command.data)
+        execution.complete(command.salt, command.data)
+      end
+    end
+
+    def handle_expire_action_execution(command)
+      @repository.with_aggregate(ActionExecution, command.aggregate_id) do |execution|
+        execution.expire if execution.expired?
       end
     end
   end

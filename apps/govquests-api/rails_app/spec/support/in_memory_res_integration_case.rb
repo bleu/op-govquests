@@ -1,4 +1,3 @@
-# spec/support/in_memory_res_integration_case.rb
 module InMemoryRESIntegrationCase
   extend ActiveSupport::Concern
 
@@ -9,7 +8,7 @@ module InMemoryRESIntegrationCase
       Rails.configuration.event_store = Infra::EventStore.in_memory_rails
       Rails.configuration.command_bus = Arkency::CommandBus.new
 
-      Configuration.new.call(Rails.configuration.event_store, Rails.configuration.command_bus)
+      ::ReadModelsConfiguration.new.call(Rails.configuration.event_store, Rails.configuration.command_bus)
     end
 
     after(:each) do

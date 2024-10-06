@@ -7,10 +7,18 @@ Rails.application.routes.draw do
 
   mount RailsEventStore::Browser => "/res" if Rails.env.development?
 
-  # Defines the root path route ("/")
-  # root "posts#index"
   resources :quests, only: [:index, :show]
+  resources :users, only: [] do
+    member do
+      get "points"
+      get "available_rewards"
+      post "claim_rewards"
+      get "reward_inventory"
+    end
+  end
 
-  post "/actions/:action_id/start", to: "action_completions#start"
-  post "/actions/:action_id/complete", to: "action_completions#complete"
+  resources :action_executions, only: [] do
+    post "start", on: :collection
+    post "complete", on: :collection
+  end
 end

@@ -11,3 +11,4 @@ if Rails.env.development?
       system("bundle exec tapioca dsl", exception: true)
     end
   end
+end

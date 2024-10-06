@@ -20,7 +20,14 @@ module ActionTracking
 
   class CompleteActionExecution < Infra::Command
     attribute :execution_id, Infra::Types::UUID
+    attribute :salt, Infra::Types::String
     attribute :data, Infra::Types::Hash
+
+    alias_method :aggregate_id, :execution_id
+  end
+
+  class ExpireActionExecution < Infra::Command
+    attribute :execution_id, Infra::Types::UUID
 
     alias_method :aggregate_id, :execution_id
   end

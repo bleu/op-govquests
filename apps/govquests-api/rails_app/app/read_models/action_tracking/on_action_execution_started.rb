@@ -8,7 +8,8 @@ module ActionTracking
         action_type: event.data[:action_type],
         started_at: event.data[:started_at],
         status: "started",
-        result: event.data[:result]
+        result: event.data[:data],
+        salt: event.data[:salt]
       )
       Rails.logger.info "Action execution started: #{event.data[:execution_id]}"
     rescue ActiveRecord::RecordInvalid => e

@@ -25,7 +25,7 @@ FactoryBot.define do
     execution_id { SecureRandom.uuid }
     action_id { create(:action_read_model).action_id }
     user_id { SecureRandom.uuid }
-    action_type { "test_action" }
+    action_type { "read_document" }
     started_at { Time.current }
     status { "started" }
   end
