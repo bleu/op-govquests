@@ -1,0 +1,11 @@
+requires:
+  - ./test/test_helper
+integration: minitest
+usage: opensource
+coverage_criteria:
+  process_abort: true
+matcher:
+  subjects:
+    - Rewarding*
+  ignore:
+    - Rewarding::Configuration#call

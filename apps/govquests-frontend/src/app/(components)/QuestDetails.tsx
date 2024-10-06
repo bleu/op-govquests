@@ -1,16 +1,10 @@
-import type { Step } from "@/types/quest";
+import type { Quest } from "@/types/quest";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
 
-interface Quest {
-  title: string;
-  intro: string;
-  steps: Step[];
-}
-
 interface QuestDetailsProps {
-  quest: Quest;
+  quest: Pick<Quest, "title" | "intro" | "actions">;
 }
 
 const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
@@ -37,7 +31,7 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
             <div className="w-4 h-4 bg-zinc-300" />
             <h2 className="ml-4 text-xl font-medium">Steps to earn</h2>
           </div>
-          {quest.steps.map((step) => (
+          {quest.actions.map((step) => (
             <div
               className="flex flex-1 justify-between items-center mt-3"
               key={step.content}

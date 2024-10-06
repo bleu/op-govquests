@@ -23,7 +23,7 @@ module Infra
       end
 
       def self.included(klass)
-        klass.extend  WithSchema::ClassMethods
+        klass.extend WithSchema::ClassMethods
         klass.include WithSchema::Constructor
       end
     end

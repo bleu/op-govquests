@@ -2041,9 +2041,6 @@ class URI::MailTo < ::URI::Generic
   end
 end
 
-# source://uri//lib/uri/common.rb#22
-URI::RFC2396_PARSER = T.let(T.unsafe(nil), URI::RFC2396_Parser)
-
 # Class that parses String's into URI's.
 #
 # It contains a Hash set of patterns and Regexp's that match and validate.
@@ -2316,30 +2313,30 @@ URI::Schemes::WS = URI::WS
 URI::Schemes::WSS = URI::WSS
 
 class URI::Source < ::URI::File
-  # source://tapioca/0.15.0/lib/tapioca/helpers/source_uri.rb#58
+  # source://tapioca/0.16.2/lib/tapioca/helpers/source_uri.rb#58
   sig { params(v: T.nilable(::String)).returns(T::Boolean) }
   def check_host(v); end
 
   # source://uri//lib/uri/generic.rb#243
   def gem_name; end
 
-  # source://tapioca/0.15.0/lib/tapioca/helpers/source_uri.rb#25
+  # source://tapioca/0.16.2/lib/tapioca/helpers/source_uri.rb#25
   sig { returns(T.nilable(::String)) }
   def gem_version; end
 
   # source://uri//lib/uri/generic.rb#283
   def line_number; end
 
-  # source://tapioca/0.15.0/lib/tapioca/helpers/source_uri.rb#51
+  # source://tapioca/0.16.2/lib/tapioca/helpers/source_uri.rb#51
   sig { params(v: T.nilable(::String)).void }
   def set_path(v); end
 
-  # source://tapioca/0.15.0/lib/tapioca/helpers/source_uri.rb#70
+  # source://tapioca/0.16.2/lib/tapioca/helpers/source_uri.rb#70
   sig { returns(::String) }
   def to_s; end
 
   class << self
-    # source://tapioca/0.15.0/lib/tapioca/helpers/source_uri.rb#38
+    # source://tapioca/0.16.2/lib/tapioca/helpers/source_uri.rb#38
     sig do
       params(
         gem_name: ::String,

@@ -2011,8 +2011,16 @@ class I18n::InvalidPluralizationData < ::I18n::ArgumentError
   def key; end
 end
 
-# source://i18n//lib/i18n/backend/key_value.rb#21
-I18n::JSON = ActiveSupport::JSON
+# source://i18n//lib/i18n/backend/key_value.rb#9
+class I18n::JSON
+  class << self
+    # source://i18n//lib/i18n/backend/key_value.rb#14
+    def decode(value); end
+
+    # source://i18n//lib/i18n/backend/key_value.rb#11
+    def encode(value); end
+  end
+end
 
 # source://i18n//lib/i18n/locale.rb#4
 module I18n::Locale; end

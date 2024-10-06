@@ -1,4 +1,4 @@
-export interface Step {
+export interface Action {
   content: string;
   duration: number;
 }
@@ -10,10 +10,10 @@ export interface Reward {
 
 export interface Quest {
   id: string;
-  img_url: string;
+  image_url: string;
   title: string;
   rewards: Reward[];
   intro: string;
-  steps: Step[];
+  actions: Action[];
   status: string;
 }

@@ -2,13 +2,13 @@
 
 # Ignore git directory.
 /.git/
-/.gitignore
 
 # Ignore bundler config.
 /.bundle
 
-# Ignore all environment files.
+# Ignore all environment files (except templates).
 /.env*
+!/.env*.erb
 
 # Ignore all default key files.
 /config/master.key
@@ -29,13 +29,3 @@
 !/storage/.keep
 /tmp/storage/*
 !/tmp/storage/.keep
-
-# Ignore CI service files.
-/.github
-
-# Ignore development files
-/.devcontainer
-
-# Ignore Docker-related files
-/.dockerignore
-/Dockerfile*

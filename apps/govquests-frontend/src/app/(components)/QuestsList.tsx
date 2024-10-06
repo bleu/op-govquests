@@ -1,17 +1,9 @@
 import Quest from "@/components/Quest";
-import type { Reward } from "@/types/quest";
+import type { Quest as IQuest, Reward } from "@/types/quest";
 import type React from "react";
 
-interface QuestProps {
-  id: string;
-  title: string;
-  img_url: string;
-  rewards: Reward[];
-  status: string;
-}
-
 interface QuestsListProps {
-  quests: QuestProps[];
+  quests: Pick<IQuest, "id" | "title" | "image_url" | "rewards" | "status">[];
 }
 
 const QuestsList: React.FC<QuestsListProps> = ({ quests }) => {
@@ -28,7 +20,7 @@ const QuestsList: React.FC<QuestsListProps> = ({ quests }) => {
             id={quest.id}
             title={quest.title}
             altText={quest.title}
-            imageSrc={quest.img_url}
+            imageSrc={quest.image_url}
             rewards={quest.rewards}
             status={quest.status}
           />
