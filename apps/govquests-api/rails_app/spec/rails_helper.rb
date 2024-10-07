@@ -6,6 +6,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require "rspec/rails"
 require "mutant/minitest/coverage"
 require "factory_bot_rails"
+require_relative "factories"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -22,8 +23,6 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
-  config.include FactoryBot::Syntax::Methods
-
   config.fixture_paths = [
     Rails.root.join("spec/fixtures")
   ]
