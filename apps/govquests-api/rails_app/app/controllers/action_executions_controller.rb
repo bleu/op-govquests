@@ -17,7 +17,7 @@ class ActionExecutionsController < ApplicationController
   def complete
     result = ActionTracking::ActionExecutionService.complete(
       execution_id: params[:execution_id],
-      salt: params[:salt],
+      nonce: params[:nonce],
       # TODO: user_id will be removed once we derive the user from the session
       user_id: params[:user_id],
       completion_data: params[:completion_data]&.to_unsafe_h || {}

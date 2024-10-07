@@ -15,25 +15,25 @@ module ActionTracking
 
       execution = ActionTracking::ActionExecutionReadModel.find_by(execution_id: execution_id)
 
-      {salt: execution.salt, execution_id: execution_id, expires_at: execution.started_at + ActionTracking::ActionExecution::EXPIRATION_TIME_IN_SECONDS}
+      {nonce: execution.nonce, execution_id: execution_id, expires_at: execution.started_at + ActionTracking::ActionExecution::EXPIRATION_TIME_IN_SECONDS}
     end
 
-    def self.complete(execution_id:, salt:, user_id:, completion_data:)
+    def self.complete(execution_id:, nonce:, user_id:, completion_data:)
       execution = ActionTracking::ActionExecutionReadModel.find_by(execution_id: execution_id)
       return {error: "Execution not found"} unless execution
       return {error: "Invalid execution attempt"} unless execution.user_id == user_id
 
       command = ActionTracking::CompleteActionExecution.new(
         execution_id: execution.execution_id,
-        salt: salt,
+        nonce: nonce,
         completion_data: completion_data.to_h
       )
 
       begin
         Rails.configuration.command_bus.call(command)
         {message: "Action completed successfully"}
-      rescue ActionTracking::ActionExecution::InvalidSaltError
-        {error: "Invalid salt"}
+      rescue ActionTracking::ActionExecution::InvalidNonceError
+        {error: "Invalid nonce"}
       rescue ActionTracking::ActionExecution::NotStartedError
         {error: "Execution not started"}
       rescue ActionTracking::ActionExecution::AlreadyCompletedError

@@ -12,7 +12,7 @@ module ActionTracking
     attribute :user_id, Infra::Types::UUID
     attribute :started_at, Infra::Types::Time
     attribute :start_data, Infra::Types::Hash
-    attribute :salt, Infra::Types::String
+    attribute :nonce, Infra::Types::String
   end
 
   class ActionExecutionCompleted < Infra::Event

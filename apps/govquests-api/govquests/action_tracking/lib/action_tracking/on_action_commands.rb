@@ -37,7 +37,7 @@ module ActionTracking
 
     def handle_complete_action_execution(command)
       @repository.with_aggregate(ActionExecution, command.aggregate_id) do |execution|
-        execution.complete(command.salt, command.completion_data)
+        execution.complete(command.nonce, command.completion_data)
       end
     end
 

@@ -11,7 +11,7 @@ RSpec.describe ActionExecutionsController, type: :controller do
 
       expect(response).to have_http_status(:success)
       json_response = JSON.parse(response.body)
-      expect(json_response["salt"]).to be_present
+      expect(json_response["nonce"]).to be_present
       expect(json_response["execution_id"]).to be_present
       expect(json_response["expires_at"]).to be_present
     end
@@ -26,11 +26,11 @@ RSpec.describe ActionExecutionsController, type: :controller do
   describe "POST #complete" do
     let(:execution) { start_action_execution(action, user) }
 
-    it "completes action execution with valid salt" do
+    it "completes action execution with valid nonce" do
       post :complete, params: {
         execution_id: execution.execution_id,
         user_id: user.user_id,
-        salt: execution.salt,
+        nonce: execution.nonce,
         completion_data: {foo: "bar"}
       }
 
@@ -38,10 +38,10 @@ RSpec.describe ActionExecutionsController, type: :controller do
       expect(JSON.parse(response.body)["message"]).to eq("Action completed successfully")
     end
 
-    it "does not complete action with invalid salt" do
+    it "does not complete action with invalid nonce" do
       post :complete, params: {
         execution_id: execution.execution_id,
-        salt: "invalid_salt",
+        nonce: "invalid_nonce",
         user_id: user.user_id,
         completion_data: {foo: "bar"}
       }

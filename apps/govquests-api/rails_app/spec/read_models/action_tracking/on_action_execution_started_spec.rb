@@ -15,7 +15,7 @@ RSpec.describe ActionTracking::OnActionExecutionStarted do
         action_type: "read_document",
         started_at: timestamp,
         start_data: {},
-        salt: SecureRandom.hex(16)
+        nonce: SecureRandom.hex(16)
       })
 
       expect {

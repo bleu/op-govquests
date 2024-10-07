@@ -25,7 +25,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_07_101211) do
     t.string "action_type"
     t.jsonb "result"
     t.datetime "completed_at"
-    t.string "salt", null: false
+    t.string "nonce", null: false
     t.jsonb "start_data", default: {}, null: false
     t.jsonb "completion_data", default: {}, null: false
     t.index ["execution_id"], name: "index_action_executions_on_execution_id", unique: true

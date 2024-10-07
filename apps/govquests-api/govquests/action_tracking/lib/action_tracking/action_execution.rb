@@ -10,7 +10,7 @@ module ActionTracking
 
     class ExecutionExpiredError < StandardError; end
 
-    class InvalidSaltError < StandardError; end
+    class InvalidNonceError < StandardError; end
 
     EXPIRATION_TIME_IN_SECONDS = 30 * 60
 
@@ -21,14 +21,14 @@ module ActionTracking
       @action_type = nil
       @state = "not_started"
       @data = {}
-      @salt = nil
+      @nonce = nil
       @started_at = nil
     end
 
     def start(action_id, action_type, user_id, start_data)
       raise AlreadyStartedError if @state != "not_started"
 
-      salt = SecureRandom.hex(16)
+      nonce = SecureRandom.hex(16)
       strategy = ActionTracking::ActionStrategyFactory.for(action_type)
       data = strategy.start_execution(start_data)
 
@@ -39,12 +39,12 @@ module ActionTracking
         action_type: action_type,
         started_at: Time.now,
         start_data: start_data.merge(data || {}),
-        salt: salt
+        nonce: nonce
       })
     end
 
-    def complete(salt, completion_data)
-      raise InvalidSaltError unless valid_salt?(salt)
+    def complete(nonce, completion_data)
+      raise InvalidNonceError unless valid_nonce?(nonce)
       raise NotStartedError if @state == "not_started"
       raise AlreadyCompletedError if @state == "completed"
       raise ExecutionExpiredError if expired?
@@ -71,8 +71,8 @@ module ActionTracking
       @started_at && Time.now - @started_at > EXPIRATION_TIME_IN_SECONDS
     end
 
-    def valid_salt?(salt)
-      @salt == salt && !expired?
+    def valid_nonce?(nonce)
+      @nonce == nonce && !expired?
     end
 
     private
@@ -83,7 +83,7 @@ module ActionTracking
       @user_id = event.data[:user_id]
       @action_type = event.data[:action_type]
       @data = event.data[:start_data] || {}
-      @salt = event.data[:salt]
+      @nonce = event.data[:nonce]
       @started_at = event.data[:started_at]
     end
 
