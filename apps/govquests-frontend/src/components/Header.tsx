@@ -1,13 +1,7 @@
-import {
-  HomeIcon,
-  MapIcon,
-  SmileIcon,
-  StarIcon,
-  TrophyIcon,
-} from "lucide-react";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { HomeIcon, MapIcon, StarIcon } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
-import Button from "./ui/Button";
 
 const Header: React.FC = () => {
   return (
@@ -51,10 +45,7 @@ const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
-
-        <Button type="button" className="px-12 py-1 rounded-md ">
-          Log in
-        </Button>
+        <ConnectButton />
       </div>
     </header>
   );
