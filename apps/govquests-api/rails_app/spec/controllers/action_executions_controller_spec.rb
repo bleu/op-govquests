@@ -31,7 +31,7 @@ RSpec.describe ActionExecutionsController, type: :controller do
         execution_id: execution.execution_id,
         user_id: user.user_id,
         salt: execution.salt,
-        data: {foo: "bar"}
+        completion_data: {foo: "bar"}
       }
 
       expect(response).to have_http_status(:success)
@@ -43,7 +43,7 @@ RSpec.describe ActionExecutionsController, type: :controller do
         execution_id: execution.execution_id,
         salt: "invalid_salt",
         user_id: user.user_id,
-        data: {foo: "bar"}
+        completion_data: {foo: "bar"}
       }
 
       expect(response).to have_http_status(:unprocessable_entity)
@@ -81,7 +81,7 @@ RSpec.describe ActionExecutionsController, type: :controller do
       execution_id: execution_id,
       action_id: action.action_id,
       user_id: user.user_id,
-      data: {start: "data"}
+      start_data: {start: "data"}
     )
     run_command(command)
     ActionTracking::ActionExecutionReadModel.find_by(execution_id: execution_id)

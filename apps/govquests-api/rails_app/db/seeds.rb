@@ -5,7 +5,8 @@ def create_action(action_data)
   command = ActionTracking::CreateAction.new(
     action_id: action_id,
     action_type: action_data[:action_type],
-    action_data: action_data[:action_data]
+    action_data: action_data[:action_data],
+    display_data: action_data[:display_data]
   )
   Rails.configuration.command_bus.call(command)
   action_id
@@ -13,63 +14,26 @@ end
 
 actions_data = [
   {
-    action_type: "ReadDocument",
+    action_type: "read_document",
+    display_data: {content: "Read the Code of Conduct"},
     action_data: {
-      content: "Read the Code of Conduct",
+
       document_url: "https://example.com/code-of-conduct"
     }
   },
   {
-    action_type: "WatchVideo",
-    action_data: {
-      content: "Watch the Optimistic Vision video",
-      video_url: "https://example.com/optimistic-vision",
-      minimum_watch_time: 540
-    }
-  },
-  {
-    action_type: "Quiz",
-    action_data: {
-      content: "Complete the Constitution Quiz",
-      quiz_id: "const101",
-      passing_score: 80
-    }
-  },
-  {
-    action_type: "TextSubmission",
-    action_data: {
-      content: "Submit your Delegate Statement",
-      min_words: 200,
-      max_words: 500
-    }
-  },
-  {
-    action_type: "VotingSimulation",
-    action_data: {
-      content: "Participate in a Mock Proposal Vote",
-      proposal_id: "mock001",
-      options: ["Yes", "No", "Abstain"]
-    }
-  },
-  {
-    action_type: "DashboardInteraction",
-    action_data: {
-      content: "Analyze Governance Analytics Dashboard",
-      dashboard_id: "gov_analytics_01",
-      min_interaction_time: 1200
-    }
-  },
-  {
     action_type: "gitcoin_score",
+    display_data: {content: "Complete Gitcoin Passport verification"},
     action_data: {
-      content: "Complete Gitcoin Passport verification",
+
       min_score: 20
     }
   },
   {
     action_type: "proposal_vote",
+    display_data: {content: "Vote on Governance Proposal XYZ"},
     action_data: {
-      content: "Vote on Governance Proposal XYZ",
+
       proposal_id: "proposal_xyz"
     }
   }

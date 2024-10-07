@@ -24,7 +24,7 @@ module ActionTracking
       assert_instance_of ActionExecutionStarted, event
       assert_equal @execution_id, event.data[:execution_id]
       assert_equal @user_id, event.data[:user_id]
-      assert_kind_of Hash, event.data[:data]
+      assert_kind_of Hash, event.data[:start_data]
     end
 
     def test_complete_action_execution
@@ -38,7 +38,7 @@ module ActionTracking
       event = events.last
       assert_instance_of ActionExecutionCompleted, event
       assert_equal @execution_id, event.data[:execution_id]
-      assert_kind_of Hash, event.data[:data]
+      assert_kind_of Hash, event.data[:completion_data]
     end
   end
 end

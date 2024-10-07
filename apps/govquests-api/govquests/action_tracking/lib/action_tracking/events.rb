@@ -11,13 +11,13 @@ module ActionTracking
     attribute :action_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
     attribute :started_at, Infra::Types::Time
-    attribute :data, Infra::Types::Hash
+    attribute :start_data, Infra::Types::Hash
     attribute :salt, Infra::Types::String
   end
 
   class ActionExecutionCompleted < Infra::Event
     attribute :execution_id, Infra::Types::UUID
-    attribute :data, Infra::Types::Hash
+    attribute :completion_data, Infra::Types::Hash
   end
 
   class ActionExecutionExpired < Infra::Event

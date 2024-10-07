@@ -710,6 +710,51 @@ class ActionTracking::ActionExecutionReadModel
     sig { void }
     def completed_at_will_change!; end
 
+    sig { returns(T.untyped) }
+    def completion_data; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def completion_data=(value); end
+
+    sig { returns(T::Boolean) }
+    def completion_data?; end
+
+    sig { returns(T.untyped) }
+    def completion_data_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def completion_data_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def completion_data_came_from_user?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def completion_data_change; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def completion_data_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def completion_data_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def completion_data_in_database; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def completion_data_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def completion_data_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def completion_data_previously_was; end
+
+    sig { returns(T.untyped) }
+    def completion_data_was; end
+
+    sig { void }
+    def completion_data_will_change!; end
+
     sig { returns(::ActiveSupport::TimeWithZone) }
     def created_at; end
 
@@ -900,6 +945,9 @@ class ActionTracking::ActionExecutionReadModel
     def restore_completed_at!; end
 
     sig { void }
+    def restore_completion_data!; end
+
+    sig { void }
     def restore_created_at!; end
 
     sig { void }
@@ -916,6 +964,9 @@ class ActionTracking::ActionExecutionReadModel
 
     sig { void }
     def restore_salt!; end
+
+    sig { void }
+    def restore_start_data!; end
 
     sig { void }
     def restore_started_at!; end
@@ -1037,6 +1088,12 @@ class ActionTracking::ActionExecutionReadModel
     sig { returns(T::Boolean) }
     def saved_change_to_completed_at?; end
 
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def saved_change_to_completion_data; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_completion_data?; end
+
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_created_at; end
 
@@ -1073,6 +1130,12 @@ class ActionTracking::ActionExecutionReadModel
     sig { returns(T::Boolean) }
     def saved_change_to_salt?; end
 
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def saved_change_to_start_data; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_start_data?; end
+
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_started_at; end
 
@@ -1096,6 +1159,51 @@ class ActionTracking::ActionExecutionReadModel
 
     sig { returns(T::Boolean) }
     def saved_change_to_user_id?; end
+
+    sig { returns(T.untyped) }
+    def start_data; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def start_data=(value); end
+
+    sig { returns(T::Boolean) }
+    def start_data?; end
+
+    sig { returns(T.untyped) }
+    def start_data_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def start_data_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def start_data_came_from_user?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def start_data_change; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def start_data_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def start_data_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def start_data_in_database; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def start_data_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def start_data_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def start_data_previously_was; end
+
+    sig { returns(T.untyped) }
+    def start_data_was; end
+
+    sig { void }
+    def start_data_will_change!; end
 
     sig { returns(::ActiveSupport::TimeWithZone) }
     def started_at; end
@@ -1287,6 +1395,9 @@ class ActionTracking::ActionExecutionReadModel
     def will_save_change_to_completed_at?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_completion_data?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end
 
     sig { returns(T::Boolean) }
@@ -1303,6 +1414,9 @@ class ActionTracking::ActionExecutionReadModel
 
     sig { returns(T::Boolean) }
     def will_save_change_to_salt?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_start_data?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_started_at?; end

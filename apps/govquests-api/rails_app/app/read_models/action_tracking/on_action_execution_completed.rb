@@ -3,10 +3,9 @@ module ActionTracking
     def call(event)
       execution = ActionExecutionReadModel.find_by(execution_id: event.data[:execution_id])
       if execution
-        result = event.data[:result] || {}
         execution.update!(
-          status: result[:status] || "completed",
-          result: result,
+          status: "completed",
+          completion_data: event.data[:completion_data],
           completed_at: Time.current
         )
         Rails.logger.info "Action execution completed: #{event.data[:execution_id]}"

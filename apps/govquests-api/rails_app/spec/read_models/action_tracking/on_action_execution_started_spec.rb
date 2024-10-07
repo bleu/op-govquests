@@ -14,7 +14,7 @@ RSpec.describe ActionTracking::OnActionExecutionStarted do
         user_id: user_id,
         action_type: "read_document",
         started_at: timestamp,
-        data: {},
+        start_data: {},
         salt: SecureRandom.hex(16)
       })
 

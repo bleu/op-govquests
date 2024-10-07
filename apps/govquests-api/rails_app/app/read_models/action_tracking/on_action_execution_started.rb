@@ -8,7 +8,7 @@ module ActionTracking
         action_type: event.data[:action_type],
         started_at: event.data[:started_at],
         status: "started",
-        result: event.data[:data],
+        start_data: event.data[:start_data],
         salt: event.data[:salt]
       )
       Rails.logger.info "Action execution started: #{event.data[:execution_id]}"

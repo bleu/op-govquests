@@ -4,7 +4,7 @@ class ActionExecutionsController < ApplicationController
       action_id: params[:action_id],
       # TODO: user_id will be removed once we derive the user from the session
       user_id: params[:user_id],
-      data: params[:data]&.to_unsafe_h || {}
+      start_data: params[:start_data]&.to_unsafe_h || {}
     )
 
     if result[:error]
@@ -20,7 +20,7 @@ class ActionExecutionsController < ApplicationController
       salt: params[:salt],
       # TODO: user_id will be removed once we derive the user from the session
       user_id: params[:user_id],
-      data: params[:data]&.to_unsafe_h || {}
+      completion_data: params[:completion_data]&.to_unsafe_h || {}
     )
 
     if result[:error]

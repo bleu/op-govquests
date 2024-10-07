@@ -13,7 +13,7 @@ module ActionTracking
     attribute :execution_id, Infra::Types::UUID
     attribute :action_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
-    attribute :data, Infra::Types::Hash
+    attribute :start_data, Infra::Types::Hash
 
     alias_method :aggregate_id, :execution_id
   end
@@ -21,7 +21,7 @@ module ActionTracking
   class CompleteActionExecution < Infra::Command
     attribute :execution_id, Infra::Types::UUID
     attribute :salt, Infra::Types::String
-    attribute :data, Infra::Types::Hash
+    attribute :completion_data, Infra::Types::Hash
 
     alias_method :aggregate_id, :execution_id
   end

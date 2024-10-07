@@ -1,5 +1,4 @@
 require "rails_event_store"
-require "aggregate_root"
 require "arkency/command_bus"
 
 require_relative "../../lib/read_models_configuration"

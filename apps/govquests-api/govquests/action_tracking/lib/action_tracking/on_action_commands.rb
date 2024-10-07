@@ -30,14 +30,14 @@ module ActionTracking
     def handle_start_action_execution(command)
       @repository.with_aggregate(Action, command.action_id) do |action|
         @repository.with_aggregate(ActionExecution, command.aggregate_id) do |execution|
-          execution.start(command.action_id, action.action_type, command.user_id, command.data)
+          execution.start(command.action_id, action.action_type, command.user_id, command.start_data)
         end
       end
     end
 
     def handle_complete_action_execution(command)
       @repository.with_aggregate(ActionExecution, command.aggregate_id) do |execution|
-        execution.complete(command.salt, command.data)
+        execution.complete(command.salt, command.completion_data)
       end
     end
 

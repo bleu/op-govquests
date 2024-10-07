@@ -25,12 +25,12 @@ module ActionTracking
       @started_at = nil
     end
 
-    def start(action_id, action_type, user_id, data)
+    def start(action_id, action_type, user_id, start_data)
       raise AlreadyStartedError if @state != "not_started"
 
       salt = SecureRandom.hex(16)
       strategy = ActionTracking::ActionStrategyFactory.for(action_type)
-      data = strategy.start_execution(data)
+      data = strategy.start_execution(start_data)
 
       apply ActionExecutionStarted.new(data: {
         execution_id: @id,
@@ -38,23 +38,23 @@ module ActionTracking
         user_id: user_id,
         action_type: action_type,
         started_at: Time.now,
-        data: data,
+        start_data: start_data.merge(data || {}),
         salt: salt
       })
     end
 
-    def complete(salt, data)
+    def complete(salt, completion_data)
       raise InvalidSaltError unless valid_salt?(salt)
       raise NotStartedError if @state == "not_started"
       raise AlreadyCompletedError if @state == "completed"
       raise ExecutionExpiredError if expired?
 
       strategy = ActionTracking::ActionStrategyFactory.for(@action_type)
-      data = strategy.complete_execution(data.merge(@data))
+      data = strategy.complete_execution(completion_data.merge(@data))
 
       apply ActionExecutionCompleted.new(data: {
         execution_id: @id,
-        data: data
+        completion_data: completion_data.merge(data || {})
       })
     end
 
@@ -82,14 +82,14 @@ module ActionTracking
       @action_id = event.data[:action_id]
       @user_id = event.data[:user_id]
       @action_type = event.data[:action_type]
-      @data = event.data[:data] || {}
+      @data = event.data[:start_data] || {}
       @salt = event.data[:salt]
       @started_at = event.data[:started_at]
     end
 
     on ActionExecutionCompleted do |event|
       @state = "completed"
-      @data.merge!(event.data[:data])
+      @data.merge!(event.data[:completion_data])
     end
 
     on ActionExecutionExpired do |event|
