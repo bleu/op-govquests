@@ -1,7 +1,7 @@
 import { HomeIcon, MapIcon, StarIcon, TrophyIcon } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
-import Button from "./Button";
+import Button from "./ui/Button";
 
 const Header: React.FC = () => {
   return (

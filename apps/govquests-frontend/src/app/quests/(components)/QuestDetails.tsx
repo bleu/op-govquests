@@ -1,9 +1,9 @@
-import React from "react";
+import RewardIndicator from "@/components/RewardIndicator";
+import Button from "@/components/ui/Button";
+import type { Action, Quest } from "@/types/quest";
 import { ExternalLink, MapIcon, RouteIcon } from "lucide-react";
 import Link from "next/link";
-import Button from "@/components/Button";
-import RewardIndicator from "@/components/RewardIndicator";
-import type { Quest, Action } from "@/types/quest";
+import type React from "react";
 
 interface QuestDetailsProps {
   quest: Pick<Quest, "display_data" | "actions" | "rewards">;

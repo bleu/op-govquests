@@ -2,8 +2,8 @@ import type { Reward } from "@/types/quest";
 import { Map as MapIcon } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
-import Image from "./Image";
 import RewardIndicator from "./RewardIndicator";
+import Image from "./ui/Image";
 
 interface QuestProps {
   id: string;
