@@ -23,6 +23,14 @@ class ActionMailbox::InboundEmail
   def to_ary; end
 
   class << self
+    sig do
+      params(
+        attributes: T.untyped,
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(::ActionMailbox::InboundEmail)
+    end
+    def new(attributes = nil, &block); end
+
     sig { returns(T::Hash[T.any(String, Symbol), Integer]) }
     def statuses; end
   end
@@ -38,6 +46,17 @@ class ActionMailbox::InboundEmail
     sig { params(column_name: T.any(String, Symbol)).returns(T.any(Integer, Float, BigDecimal)) }
     def average(column_name); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(::ActionMailbox::InboundEmail)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -60,12 +79,34 @@ class ActionMailbox::InboundEmail
 
     sig do
       params(
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(::ActionMailbox::InboundEmail)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
       ).returns(::ActionMailbox::InboundEmail)
     end
     def create(attributes = nil, &block); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(::ActionMailbox::InboundEmail)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -76,12 +117,24 @@ class ActionMailbox::InboundEmail
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
       ).returns(::ActionMailbox::InboundEmail)
     end
     def create_or_find_by(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -170,6 +223,12 @@ class ActionMailbox::InboundEmail
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
       ).returns(::ActionMailbox::InboundEmail)
@@ -178,12 +237,24 @@ class ActionMailbox::InboundEmail
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
       ).returns(::ActionMailbox::InboundEmail)
     end
     def find_or_create_by!(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -201,7 +272,7 @@ class ActionMailbox::InboundEmail
     sig { params(arg: T.untyped, args: T.untyped).returns(::ActionMailbox::InboundEmail) }
     def find_sole_by(arg, *args); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::ActionMailbox::InboundEmail)) }
+    sig { returns(T.nilable(::ActionMailbox::InboundEmail)) }
     sig { params(limit: Integer).returns(T::Array[::ActionMailbox::InboundEmail]) }
     def first(limit = nil); end
 
@@ -251,7 +322,7 @@ class ActionMailbox::InboundEmail
     sig { params(record: T.untyped).returns(T::Boolean) }
     def include?(record); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::ActionMailbox::InboundEmail)) }
+    sig { returns(T.nilable(::ActionMailbox::InboundEmail)) }
     sig { params(limit: Integer).returns(T::Array[::ActionMailbox::InboundEmail]) }
     def last(limit = nil); end
 
@@ -274,6 +345,17 @@ class ActionMailbox::InboundEmail
     sig { params(column_name: T.any(String, Symbol)).returns(T.untyped) }
     def minimum(column_name); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(::ActionMailbox::InboundEmail)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -327,7 +409,7 @@ class ActionMailbox::InboundEmail
     end
     def sum(initial_value_or_column = nil, &block); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::ActionMailbox::InboundEmail)) }
+    sig { returns(T.nilable(::ActionMailbox::InboundEmail)) }
     sig { params(limit: Integer).returns(T::Array[::ActionMailbox::InboundEmail]) }
     def take(limit = nil); end
 

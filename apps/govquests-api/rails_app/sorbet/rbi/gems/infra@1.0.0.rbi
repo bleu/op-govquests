@@ -19,7 +19,7 @@ class Infra::AggregateRootRepository
   def stream_name(aggregate_class, aggregate_id); end
 
   # source://infra//lib/infra/aggregate_root_repository.rb#14
-  def with_aggregate(aggregate_class, aggregate_id, &block); end
+  def with_aggregate(aggregate_class, aggregate_id, &_arg2); end
 end
 
 # source://infra//lib/infra/command.rb#2

@@ -10,29 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_30_201752) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_07_101211) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "action_logs", force: :cascade do |t|
-    t.string "action_log_id", null: false
+  create_table "action_executions", force: :cascade do |t|
+    t.string "execution_id", null: false
     t.string "action_id", null: false
     t.string "user_id", null: false
-    t.datetime "executed_at", null: false
+    t.datetime "started_at", null: false
     t.string "status", null: false
-    t.jsonb "completion_data", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["action_log_id"], name: "index_action_logs_on_action_log_id", unique: true
+    t.string "action_type"
+    t.jsonb "result"
+    t.datetime "completed_at"
+    t.string "salt", null: false
+    t.jsonb "start_data", default: {}, null: false
+    t.jsonb "completion_data", default: {}, null: false
+    t.index ["execution_id"], name: "index_action_executions_on_execution_id", unique: true
   end
 
   create_table "actions", force: :cascade do |t|
     t.string "action_id", null: false
     t.string "action_type", null: false
-    t.jsonb "completion_criteria", default: {}, null: false
-    t.jsonb "display_data", default: {}, null: false
+    t.jsonb "action_data", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "display_data", default: {}
     t.index ["action_id"], name: "index_actions_on_action_id", unique: true
   end
 

@@ -14,6 +14,16 @@ class SolidQueue::Pause
   sig { returns(NilClass) }
   def to_ary; end
 
+  class << self
+    sig do
+      params(
+        attributes: T.untyped,
+        block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
+      ).returns(::SolidQueue::Pause)
+    end
+    def new(attributes = nil, &block); end
+  end
+
   module CommonRelationMethods
     sig { params(block: T.nilable(T.proc.params(record: ::SolidQueue::Pause).returns(T.untyped))).returns(T::Boolean) }
     def any?(&block); end
@@ -21,6 +31,13 @@ class SolidQueue::Pause
     sig { params(column_name: T.any(String, Symbol)).returns(T.any(Integer, Float, BigDecimal)) }
     def average(column_name); end
 
+    sig { params(block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)).returns(::SolidQueue::Pause) }
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
+      ).returns(T::Array[::SolidQueue::Pause])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -36,6 +53,13 @@ class SolidQueue::Pause
     sig { params(column_name: NilClass, block: T.proc.params(object: ::SolidQueue::Pause).void).returns(Integer) }
     def count(column_name = nil, &block); end
 
+    sig { params(block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)).returns(::SolidQueue::Pause) }
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
+      ).returns(T::Array[::SolidQueue::Pause])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -44,6 +68,13 @@ class SolidQueue::Pause
     end
     def create(attributes = nil, &block); end
 
+    sig { params(block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)).returns(::SolidQueue::Pause) }
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
+      ).returns(T::Array[::SolidQueue::Pause])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -54,12 +85,24 @@ class SolidQueue::Pause
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
+      ).returns(T::Array[::SolidQueue::Pause])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
       ).returns(::SolidQueue::Pause)
     end
     def create_or_find_by(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
+      ).returns(T::Array[::SolidQueue::Pause])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -148,6 +191,12 @@ class SolidQueue::Pause
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
+      ).returns(T::Array[::SolidQueue::Pause])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
       ).returns(::SolidQueue::Pause)
@@ -156,12 +205,24 @@ class SolidQueue::Pause
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
+      ).returns(T::Array[::SolidQueue::Pause])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
       ).returns(::SolidQueue::Pause)
     end
     def find_or_create_by!(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
+      ).returns(T::Array[::SolidQueue::Pause])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -179,7 +240,7 @@ class SolidQueue::Pause
     sig { params(arg: T.untyped, args: T.untyped).returns(::SolidQueue::Pause) }
     def find_sole_by(arg, *args); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::SolidQueue::Pause)) }
+    sig { returns(T.nilable(::SolidQueue::Pause)) }
     sig { params(limit: Integer).returns(T::Array[::SolidQueue::Pause]) }
     def first(limit = nil); end
 
@@ -229,7 +290,7 @@ class SolidQueue::Pause
     sig { params(record: T.untyped).returns(T::Boolean) }
     def include?(record); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::SolidQueue::Pause)) }
+    sig { returns(T.nilable(::SolidQueue::Pause)) }
     sig { params(limit: Integer).returns(T::Array[::SolidQueue::Pause]) }
     def last(limit = nil); end
 
@@ -248,6 +309,13 @@ class SolidQueue::Pause
     sig { params(column_name: T.any(String, Symbol)).returns(T.untyped) }
     def minimum(column_name); end
 
+    sig { params(block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)).returns(::SolidQueue::Pause) }
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::SolidQueue::Pause).void)
+      ).returns(T::Array[::SolidQueue::Pause])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -293,7 +361,7 @@ class SolidQueue::Pause
     end
     def sum(initial_value_or_column = nil, &block); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::SolidQueue::Pause)) }
+    sig { returns(T.nilable(::SolidQueue::Pause)) }
     sig { params(limit: Integer).returns(T::Array[::SolidQueue::Pause]) }
     def take(limit = nil); end
 

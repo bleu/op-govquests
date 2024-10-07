@@ -499,94 +499,94 @@ module Net::SSH::Connection; end
 
 # source://net-scp//lib/net/scp.rb#442
 class Net::SSH::Connection::Session
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#68
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#68
   def initialize(transport, options = T.unsafe(nil)); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#94
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#94
   def [](key); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#99
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#99
   def []=(key, value); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#152
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#152
   def busy?(include_invisible = T.unsafe(nil)); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#51
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#51
   def channel_open_handlers; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#44
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#44
   def channels; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#522
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#522
   def cleanup_channel(channel); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#121
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#121
   def close; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#114
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#114
   def closed?; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#255
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#255
   def ev_do_calculate_rw_wait(wait); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#270
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#270
   def ev_do_handle_events(readers, writers); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#289
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#289
   def ev_do_postprocess(was_events); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#248
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#248
   def ev_preprocess(&block); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#379
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#379
   def exec(command, status: T.unsafe(nil), &block); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#420
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#420
   def exec!(command, status: T.unsafe(nil), &block); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#493
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#493
   def forward; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#105
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#105
   def host; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#481
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#481
   def listen_to(io, &callback); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#47
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#47
   def listeners; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#177
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#177
   def loop(wait = T.unsafe(nil), &block); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#532
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#532
   def max_select_wait_time; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#517
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#517
   def on_global_request(type, &block); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#507
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#507
   def on_open_channel(type, &block); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#338
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#338
   def open_channel(type = T.unsafe(nil), *extra, &on_confirm); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#38
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#38
   def options; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#54
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#54
   def pending_requests; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#262
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#262
   def postprocess(readers, writers); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#237
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#237
   def preprocess(&block); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#225
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#225
   def process(wait = T.unsafe(nil), &block); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#41
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#41
   def properties; end
 
   # Provides a convenient way to initialize a SCP session given a Net::SSH
@@ -595,82 +595,82 @@ class Net::SSH::Connection::Session
   # source://net-scp//lib/net/scp.rb#445
   def scp; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#311
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#311
   def send_global_request(type, *extra, &callback); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#443
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#443
   def send_message(message); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#136
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#136
   def shutdown!; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#487
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#487
   def stop_listening_to(io); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#35
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#35
   def transport; end
 
   private
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#682
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#682
   def channel_close(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#568
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#568
   def channel_closed(channel); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#667
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#667
   def channel_data(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#677
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#677
   def channel_eof(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#672
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#672
   def channel_extended_data(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#694
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#694
   def channel_failure(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#612
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#612
   def channel_open(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#645
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#645
   def channel_open_confirmation(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#651
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#651
   def channel_open_failure(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#662
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#662
   def channel_request(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#689
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#689
   def channel_success(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#657
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#657
   def channel_window_adjust(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#545
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#545
   def dispatch_incoming_packets(raise_disconnect_errors: T.unsafe(nil)); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#539
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#539
   def each_channel(&block); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#562
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#562
   def force_channel_cleanup_on_close; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#558
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#558
   def get_next_channel_id; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#579
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#579
   def global_request(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#699
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#699
   def io_select_wait(wait); end
 
   def loop_forever; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#602
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#602
   def request_failure(packet); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/connection/session.rb#595
+  # source://net-ssh/7.3.0/lib/net/ssh/connection/session.rb#595
   def request_success(packet); end
 end

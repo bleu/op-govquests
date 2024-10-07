@@ -35,10 +35,6 @@ mutate:
 		$(MAKE) -C $$dir mutate; \
 	done
 
-# Prepare development environment
-prepare-dev:
-	@$(MAKE) -C . prepare-dev
-
 # Clean up (you can define cleanup tasks here if needed)
 clean:
 	@echo "Cleaning up..."

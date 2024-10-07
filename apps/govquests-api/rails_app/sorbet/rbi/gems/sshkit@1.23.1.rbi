@@ -27,21 +27,21 @@ end
 # source://sshkit//lib/sshkit/backends/netssh.rb#6
 module Net::SSH
   class << self
-    # source://net-ssh/7.2.3/lib/net/ssh.rb#298
+    # source://net-ssh/7.3.0/lib/net/ssh.rb#298
     def assign_defaults(options); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh.rb#288
+    # source://net-ssh/7.3.0/lib/net/ssh.rb#288
     def configuration_for(host, use_ssh_config); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh.rb#225
+    # source://net-ssh/7.3.0/lib/net/ssh.rb#225
     def start(host, user = T.unsafe(nil), options = T.unsafe(nil), &block); end
 
     private
 
-    # source://net-ssh/7.2.3/lib/net/ssh.rb#311
+    # source://net-ssh/7.3.0/lib/net/ssh.rb#311
     def _sanitize_options(options); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh.rb#320
+    # source://net-ssh/7.3.0/lib/net/ssh.rb#320
     def _support_deprecated_option_paranoid(options); end
   end
 end
@@ -49,57 +49,57 @@ end
 # source://sshkit//lib/sshkit/backends/netssh.rb#7
 class Net::SSH::Config
   class << self
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#60
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#60
     def default_auth_methods; end
 
     # source://sshkit//lib/sshkit/backends/netssh.rb#11
     def default_files; end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#186
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#186
     def expandable_default_files; end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#68
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#68
     def for(host, files = T.unsafe(nil)); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#80
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#80
     def load(path, host, settings = T.unsafe(nil), base_dir = T.unsafe(nil)); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#176
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#176
     def translate(settings); end
 
     private
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#365
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#365
     def eval_match_conditions(condition, host, settings); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#353
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#353
     def included_file_paths(base_dir, config_paths); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#336
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#336
     def interpret_size(size); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#345
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#345
     def merge_challenge_response_with_keyboard_interactive(hash); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#316
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#316
     def pattern2regex(pattern); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#301
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#301
     def setup_proxy(type, value); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#361
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#361
     def tokenize_config_value(str); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#235
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#235
     def translate_config_key(hash, key, value, settings); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#208
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#208
     def translate_keepalive(hash, value); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#197
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#197
     def translate_verify_host_key(value); end
 
-    # source://net-ssh/7.2.3/lib/net/ssh/config.rb#400
+    # source://net-ssh/7.3.0/lib/net/ssh/config.rb#400
     def unquote(string); end
   end
 end
@@ -108,16 +108,16 @@ module Net::SSH::Proxy; end
 
 # source://sshkit//lib/sshkit/backends/connection_pool.rb#15
 class Net::SSH::Proxy::Command
-  # source://net-ssh/7.2.3/lib/net/ssh/proxy/command.rb#32
+  # source://net-ssh/7.3.0/lib/net/ssh/proxy/command.rb#32
   def initialize(command_line_template); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/proxy/command.rb#116
+  # source://net-ssh/7.3.0/lib/net/ssh/proxy/command.rb#116
   def close_on_error(io); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/proxy/command.rb#23
+  # source://net-ssh/7.3.0/lib/net/ssh/proxy/command.rb#23
   def command_line; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/proxy/command.rb#20
+  # source://net-ssh/7.3.0/lib/net/ssh/proxy/command.rb#20
   def command_line_template; end
 
   # Ensure a stable string value is used, rather than memory address.
@@ -125,13 +125,13 @@ class Net::SSH::Proxy::Command
   # source://sshkit//lib/sshkit/backends/connection_pool.rb#17
   def inspect; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/proxy/command.rb#40
+  # source://net-ssh/7.3.0/lib/net/ssh/proxy/command.rb#40
   def open(host, port, connection_options = T.unsafe(nil)); end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/proxy/command.rb#26
+  # source://net-ssh/7.3.0/lib/net/ssh/proxy/command.rb#26
   def timeout; end
 
-  # source://net-ssh/7.2.3/lib/net/ssh/proxy/command.rb#26
+  # source://net-ssh/7.3.0/lib/net/ssh/proxy/command.rb#26
   def timeout=(_arg0); end
 end
 
@@ -195,13 +195,13 @@ class SSHKit::Backend::Abstract
   # source://sshkit//lib/sshkit/backends/abstract.rb#64
   def capture(*args); end
 
-  # source://kamal/2.0.0/lib/kamal/sshkit_with_ext.rb#13
+  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#13
   def capture_with_debug(*args, **kwargs); end
 
-  # source://kamal/2.0.0/lib/kamal/sshkit_with_ext.rb#9
+  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#9
   def capture_with_info(*args, **kwargs); end
 
-  # source://kamal/2.0.0/lib/kamal/sshkit_with_ext.rb#17
+  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#17
   def capture_with_pretty_json(*args, **kwargs); end
 
   # source://forwardable/1.3.3/forwardable.rb#231
@@ -235,7 +235,7 @@ class SSHKit::Backend::Abstract
   # source://sshkit//lib/sshkit/backends/abstract.rb#51
   def make(commands = T.unsafe(nil)); end
 
-  # source://kamal/2.0.0/lib/kamal/sshkit_with_ext.rb#21
+  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#21
   def puts_by_host(host, output, type: T.unsafe(nil)); end
 
   # source://sshkit//lib/sshkit/backends/abstract.rb#55
@@ -270,7 +270,7 @@ class SSHKit::Backend::Abstract
 
   private
 
-  # source://kamal/2.0.0/lib/kamal/sshkit_with_ext.rb#36
+  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#36
   def command(args, options); end
 
   # source://sshkit//lib/sshkit/backends/abstract.rb#147
@@ -562,7 +562,7 @@ class SSHKit::Backend::Netssh < ::SSHKit::Backend::Abstract
   # source://sshkit//lib/sshkit/backends/netssh.rb#116
   def transfer_summarizer(action, options = T.unsafe(nil)); end
 
-  # source://kamal/2.0.0/lib/kamal/sshkit_with_ext.rb#83
+  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#83
   def with_ssh(&block); end
 
   # source://sshkit//lib/sshkit/backends/netssh.rb#201
@@ -579,7 +579,7 @@ class SSHKit::Backend::Netssh < ::SSHKit::Backend::Abstract
 
     # @yield [config]
     #
-    # source://kamal/2.0.0/lib/kamal/sshkit_with_ext.rb#68
+    # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#68
     def configure(&block); end
 
     # Returns the value of attribute pool.
@@ -615,10 +615,10 @@ class SSHKit::Backend::Netssh::Configuration
   # source://sshkit//lib/sshkit/backends/netssh.rb#31
   def connection_timeout=(_arg0); end
 
-  # source://kamal/2.0.0/lib/kamal/sshkit_with_ext.rb#61
+  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#61
   def max_concurrent_starts; end
 
-  # source://kamal/2.0.0/lib/kamal/sshkit_with_ext.rb#61
+  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#61
   def max_concurrent_starts=(_arg0); end
 
   # Returns the value of attribute pty.
@@ -1734,7 +1734,7 @@ end
 
 # source://sshkit//lib/sshkit/runners/parallel.rb#7
 class SSHKit::Runner::Parallel < ::SSHKit::Runner::Abstract
-  # source://kamal/2.0.0/lib/kamal/sshkit_with_ext.rb#115
+  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#115
   def execute; end
 end
 

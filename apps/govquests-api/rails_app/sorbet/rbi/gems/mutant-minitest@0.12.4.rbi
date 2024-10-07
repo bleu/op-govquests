@@ -5,5 +5,46 @@
 # Please instead update this file by running `bin/tapioca gem mutant-minitest`.
 
 
-# THIS IS AN EMPTY RBI FILE.
-# see https://github.com/Shopify/tapioca#manually-requiring-parts-of-a-gem
+class Minitest::Test < ::Minitest::Runnable
+  extend ::Mutant::Minitest::Coverage
+end
+
+# Minitest
+#
+# source://mutant-minitest//lib/mutant/minitest/coverage.rb#5
+module Mutant; end
+
+# source://mutant-minitest//lib/mutant/minitest/coverage.rb#6
+module Mutant::Minitest; end
+
+# source://mutant-minitest//lib/mutant/minitest/coverage.rb#7
+module Mutant::Minitest::Coverage
+  # Setup coverage declaration for current class
+  #
+  # @api public
+  # @example
+  #
+  #   class MyTest < MiniTest::Test
+  #   cover 'MyCode*'
+  #
+  #   def test_some_stuff
+  #   end
+  #   end
+  # @param [String]
+  #
+  # source://mutant-minitest//lib/mutant/minitest/coverage.rb#22
+  def cover(expression); end
+
+  # Effective coverage expression
+  #
+  # @api private
+  # @return [Set<String>]
+  #
+  # source://mutant-minitest//lib/mutant/minitest/coverage.rb#33
+  def resolve_cover_expressions; end
+
+  private
+
+  # source://mutant-minitest//lib/mutant/minitest/coverage.rb#41
+  def try_superclass_cover_expressions; end
+end

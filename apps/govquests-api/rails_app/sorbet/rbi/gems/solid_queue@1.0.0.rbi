@@ -8,63 +8,63 @@
 # source://solid_queue//lib/active_job/concurrency_controls.rb#3
 module ActiveJob
   class << self
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/queue_adapter.rb#7
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/queue_adapter.rb#7
     def adapter_name(adapter); end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/deprecator.rb#4
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/deprecator.rb#4
     def deprecator; end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/gem_version.rb#5
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/gem_version.rb#5
     def gem_version; end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/enqueuing.rb#14
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/enqueuing.rb#14
     def perform_all_later(*jobs); end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job.rb#52
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job.rb#52
     def use_big_decimal_serializer; end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job.rb#58
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job.rb#58
     def use_big_decimal_serializer=(value); end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job.rb#69
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job.rb#69
     def verbose_enqueue_logs; end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job.rb#69
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job.rb#69
     def verbose_enqueue_logs=(_arg0); end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/version.rb#7
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/version.rb#7
     def version; end
 
     private
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/instrumentation.rb#6
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/instrumentation.rb#6
     def instrument_enqueue_all(queue_adapter, jobs); end
   end
 end
 
 class ActiveJob::Base
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#69
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#69
   def __callbacks; end
 
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#923
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#923
   def _enqueue_callbacks; end
 
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#923
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#923
   def _perform_callbacks; end
 
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#911
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#911
   def _run_enqueue_callbacks(&block); end
 
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#911
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#911
   def _run_perform_callbacks(&block); end
 
-  # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/exceptions.rb#12
+  # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/exceptions.rb#12
   def after_discard_procs; end
 
-  # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/exceptions.rb#12
+  # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/exceptions.rb#12
   def after_discard_procs=(_arg0); end
 
-  # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/exceptions.rb#12
+  # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/exceptions.rb#12
   def after_discard_procs?; end
 
   # source://solid_queue//lib/active_job/concurrency_controls.rb#14
@@ -85,185 +85,185 @@ class ActiveJob::Base
   # source://solid_queue//lib/active_job/concurrency_controls.rb#13
   def concurrency_limit?; end
 
-  # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/logging.rb#15
+  # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/logging.rb#15
   def logger; end
 
-  # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/logging.rb#15
+  # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/logging.rb#15
   def logger=(val); end
 
-  # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/queue_adapter.rb#27
+  # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/queue_adapter.rb#27
   def queue_adapter(&_arg0); end
 
-  # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/queue_name.rb#57
+  # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/queue_name.rb#57
   def queue_name_prefix; end
 
-  # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/queue_name.rb#57
+  # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/queue_name.rb#57
   def queue_name_prefix=(_arg0); end
 
-  # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/queue_name.rb#57
+  # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/queue_name.rb#57
   def queue_name_prefix?; end
 
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/rescuable.rb#15
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/rescuable.rb#15
   def rescue_handlers; end
 
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/rescuable.rb#15
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/rescuable.rb#15
   def rescue_handlers=(_arg0); end
 
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/rescuable.rb#15
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/rescuable.rb#15
   def rescue_handlers?; end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#915
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#915
     def _enqueue_callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#919
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#919
     def _enqueue_callbacks=(value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#915
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#915
     def _perform_callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#919
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#919
     def _perform_callbacks=(value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _queue_adapter; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _queue_adapter=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _queue_adapter_name; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _queue_adapter_name=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _test_adapter; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _test_adapter=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def after_discard_procs; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def after_discard_procs=(new_value); end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/exceptions.rb#12
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/exceptions.rb#12
     def after_discard_procs?; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def concurrency_duration; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def concurrency_duration=(new_value); end
 
     # source://solid_queue//lib/active_job/concurrency_controls.rb#14
     def concurrency_duration?; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def concurrency_group; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def concurrency_group=(new_value); end
 
     # source://solid_queue//lib/active_job/concurrency_controls.rb#11
     def concurrency_group?; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def concurrency_key; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def concurrency_key=(new_value); end
 
     # source://solid_queue//lib/active_job/concurrency_controls.rb#10
     def concurrency_key?; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def concurrency_limit; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def concurrency_limit=(new_value); end
 
     # source://solid_queue//lib/active_job/concurrency_controls.rb#13
     def concurrency_limit?; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def enqueue_after_transaction_commit; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def enqueue_after_transaction_commit=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def log_arguments; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def log_arguments=(new_value); end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/logging.rb#26
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/logging.rb#26
     def log_arguments?; end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/logging.rb#15
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/logging.rb#15
     def logger; end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/logging.rb#15
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/logging.rb#15
     def logger=(val); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def priority; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def priority=(new_value); end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/queue_priority.rb#49
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/queue_priority.rb#49
     def priority?; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def queue_name; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def queue_name=(new_value); end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/queue_name.rb#55
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/queue_name.rb#55
     def queue_name?; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def queue_name_delimiter; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def queue_name_delimiter=(new_value); end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/queue_name.rb#56
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/queue_name.rb#56
     def queue_name_delimiter?; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def queue_name_prefix; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def queue_name_prefix=(new_value); end
 
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/queue_name.rb#57
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/queue_name.rb#57
     def queue_name_prefix?; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def rescue_handlers; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def rescue_handlers=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/rescuable.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/rescuable.rb#15
     def rescue_handlers?; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def retry_jitter; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def retry_jitter=(new_value); end
   end
 end
@@ -329,7 +329,7 @@ ActiveJob::ConcurrencyControls::DEFAULT_CONCURRENCY_GROUP = T.let(T.unsafe(nil),
 # source://solid_queue//lib/active_job/queue_adapters/solid_queue_adapter.rb#4
 module ActiveJob::QueueAdapters
   class << self
-    # source://activejob/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_job/queue_adapters.rb#135
+    # source://activejob/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_job/queue_adapters.rb#135
     def lookup(name); end
   end
 end
@@ -530,13 +530,13 @@ module SolidQueue
     # source://solid_queue//lib/solid_queue.rb#30
     def process_heartbeat_interval=(val); end
 
-    # source://railties/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/rails/engine.rb#413
+    # source://railties/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/rails/engine.rb#413
     def railtie_helpers_paths; end
 
-    # source://railties/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/rails/engine.rb#396
+    # source://railties/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/rails/engine.rb#396
     def railtie_namespace; end
 
-    # source://railties/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/rails/engine.rb#417
+    # source://railties/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/rails/engine.rb#417
     def railtie_routes_url_helpers(include_path_helpers = T.unsafe(nil)); end
 
     # source://solid_queue//lib/solid_queue.rb#33
@@ -563,10 +563,10 @@ module SolidQueue
     # source://solid_queue//lib/solid_queue.rb#37
     def supervisor_pidfile=(val); end
 
-    # source://railties/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/rails/engine.rb#402
+    # source://railties/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/rails/engine.rb#402
     def table_name_prefix; end
 
-    # source://railties/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/rails/engine.rb#409
+    # source://railties/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/rails/engine.rb#409
     def use_relative_model_naming?; end
 
     # source://solid_queue//lib/solid_queue.rb#28
@@ -590,7 +590,7 @@ class SolidQueue::BlockedExecution < ::SolidQueue::Execution
   include ::SolidQueue::BlockedExecution::GeneratedAttributeMethods
   include ::SolidQueue::BlockedExecution::GeneratedAssociationMethods
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_semaphore(*args); end
 
   def release; end
@@ -603,37 +603,37 @@ class SolidQueue::BlockedExecution < ::SolidQueue::Execution
   def set_expires_at; end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _reflections; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _reflections=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def assumable_attributes_from_job; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def assumable_attributes_from_job=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def expired(*args, **_arg1); end
 
     def release_many(concurrency_keys); end
@@ -647,25 +647,25 @@ class SolidQueue::BlockedExecution < ::SolidQueue::Execution
 end
 
 module SolidQueue::BlockedExecution::GeneratedAssociationMethods
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#32
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#32
   def build_semaphore(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#36
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#36
   def create_semaphore(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#40
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#40
   def create_semaphore!(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#19
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#19
   def reload_semaphore; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#23
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#23
   def reset_semaphore; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def semaphore; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def semaphore=(value); end
 end
 
@@ -675,7 +675,7 @@ class SolidQueue::ClaimedExecution < ::SolidQueue::Execution
   include ::SolidQueue::ClaimedExecution::GeneratedAttributeMethods
   include ::SolidQueue::ClaimedExecution::GeneratedAssociationMethods
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_process(*args); end
 
   def discard; end
@@ -689,37 +689,37 @@ class SolidQueue::ClaimedExecution < ::SolidQueue::Execution
   def finished; end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _reflections; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _reflections=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
     def claiming(job_ids, process_id, &block); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
 
     def discard_all_from_jobs(*_arg0); end
     def discard_all_in_batches(*_arg0); end
     def fail_all_with(error); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def orphaned(*args, **_arg1); end
 
     def release_all; end
@@ -727,31 +727,31 @@ class SolidQueue::ClaimedExecution < ::SolidQueue::Execution
 end
 
 module SolidQueue::ClaimedExecution::GeneratedAssociationMethods
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#32
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#32
   def build_process(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#36
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#36
   def create_process(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#40
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#40
   def create_process!(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def process; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def process=(value); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/belongs_to.rb#146
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/belongs_to.rb#146
   def process_changed?; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/belongs_to.rb#150
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/belongs_to.rb#150
   def process_previously_changed?; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#19
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#19
   def reload_process; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#23
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#23
   def reset_process; end
 end
 
@@ -930,10 +930,10 @@ class SolidQueue::Dispatcher < ::SolidQueue::Processes::Poller
   def unschedule_recurring_tasks; end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
   end
 end
@@ -969,10 +969,10 @@ end
 # source://solid_queue//lib/solid_queue/engine.rb#4
 class SolidQueue::Engine < ::Rails::Engine
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
   end
 end
@@ -983,51 +983,51 @@ class SolidQueue::Execution < ::SolidQueue::Record
   include ::SolidQueue::Execution::JobAttributes
   extend ::SolidQueue::Execution::JobAttributes::ClassMethods
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_job(*args); end
 
   def discard; end
   def type; end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _reflections; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _reflections=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def assumable_attributes_from_job; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def assumable_attributes_from_job=(new_value); end
 
     def assumable_attributes_from_job?; end
     def create_all_from_jobs(jobs); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
 
     def discard_all_from_jobs(jobs); end
     def discard_all_in_batches(batch_size: T.unsafe(nil)); end
     def execution_data_from_jobs(jobs); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def ordered(*args, **_arg1); end
 
     def type; end
@@ -1050,31 +1050,31 @@ module SolidQueue::Execution::Dispatching::ClassMethods
 end
 
 module SolidQueue::Execution::GeneratedAssociationMethods
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#32
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#32
   def build_job(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#36
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#36
   def create_job(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#40
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#40
   def create_job!(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def job; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def job=(value); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/belongs_to.rb#146
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/belongs_to.rb#146
   def job_changed?; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/belongs_to.rb#150
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/belongs_to.rb#150
   def job_previously_changed?; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#19
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#19
   def reload_job; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#23
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#23
   def reset_job; end
 end
 
@@ -1130,22 +1130,22 @@ class SolidQueue::FailedExecution < ::SolidQueue::Execution
   def truncate_backtrace(lines, limit); end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
 
     def retry_all(jobs); end
@@ -1170,65 +1170,65 @@ class SolidQueue::Job < ::SolidQueue::Record
   extend ::SolidQueue::Job::Schedulable::ClassMethods
   extend ::SolidQueue::Job::ConcurrencyControls::ClassMethods
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_blocked_execution(*args); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_claimed_execution(*args); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_failed_execution(*args); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_ready_execution(*args); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_recurring_execution(*args); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_scheduled_execution(*args); end
 
   def concurrency_duration(*_arg0, **_arg1, &_arg2); end
   def concurrency_limit(*_arg0, **_arg1, &_arg2); end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _reflections; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _reflections=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def clearable(*args, **_arg1); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
 
     def enqueue(active_job, scheduled_at: T.unsafe(nil)); end
     def enqueue_all(active_jobs); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def failed(*args, **_arg1); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def finished(*args, **_arg1); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def scheduled(*args, **_arg1); end
 
     private
@@ -1308,130 +1308,130 @@ module SolidQueue::Job::Executable::ClassMethods
 end
 
 module SolidQueue::Job::GeneratedAssociationMethods
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def blocked_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def blocked_execution=(value); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#32
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#32
   def build_blocked_execution(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#32
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#32
   def build_claimed_execution(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#32
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#32
   def build_failed_execution(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#32
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#32
   def build_ready_execution(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#32
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#32
   def build_recurring_execution(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#32
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#32
   def build_scheduled_execution(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def claimed_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def claimed_execution=(value); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#36
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#36
   def create_blocked_execution(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#40
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#40
   def create_blocked_execution!(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#36
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#36
   def create_claimed_execution(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#40
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#40
   def create_claimed_execution!(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#36
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#36
   def create_failed_execution(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#40
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#40
   def create_failed_execution!(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#36
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#36
   def create_ready_execution(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#40
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#40
   def create_ready_execution!(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#36
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#36
   def create_recurring_execution(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#40
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#40
   def create_recurring_execution!(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#36
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#36
   def create_scheduled_execution(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#40
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#40
   def create_scheduled_execution!(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def failed_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def failed_execution=(value); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def ready_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def ready_execution=(value); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def recurring_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def recurring_execution=(value); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#19
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#19
   def reload_blocked_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#19
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#19
   def reload_claimed_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#19
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#19
   def reload_failed_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#19
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#19
   def reload_ready_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#19
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#19
   def reload_recurring_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#19
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#19
   def reload_scheduled_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#23
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#23
   def reset_blocked_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#23
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#23
   def reset_claimed_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#23
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#23
   def reset_failed_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#23
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#23
   def reset_ready_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#23
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#23
   def reset_recurring_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#23
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#23
   def reset_scheduled_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def scheduled_execution; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def scheduled_execution=(value); end
 end
 
@@ -1592,16 +1592,16 @@ class SolidQueue::Pause < ::SolidQueue::Record
   include ::SolidQueue::Pause::GeneratedAssociationMethods
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
   end
 end
@@ -1674,22 +1674,22 @@ class SolidQueue::Process < ::SolidQueue::Record
   include ::SolidQueue::Process::Executor
   extend ::SolidQueue::Process::Prunable::ClassMethods
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_claimed_executions(*args); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_supervisees(*args); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_supervisor(*args); end
 
   def deregister(pruned: T.unsafe(nil)); end
   def heartbeat; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def validate_associated_records_for_claimed_executions(*args); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def validate_associated_records_for_supervisees(*args); end
 
   private
@@ -1697,31 +1697,31 @@ class SolidQueue::Process < ::SolidQueue::Record
   def supervised?; end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _reflections; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _reflections=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def prunable(*args, **_arg1); end
 
     def register(**attributes); end
@@ -1740,55 +1740,55 @@ module SolidQueue::Process::Executor
 end
 
 module SolidQueue::Process::GeneratedAssociationMethods
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#32
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#32
   def build_supervisor(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/collection_association.rb#62
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/collection_association.rb#62
   def claimed_execution_ids; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/collection_association.rb#72
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/collection_association.rb#72
   def claimed_execution_ids=(ids); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def claimed_executions; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def claimed_executions=(value); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#36
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#36
   def create_supervisor(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#40
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#40
   def create_supervisor!(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#19
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#19
   def reload_supervisor; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#23
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#23
   def reset_supervisor; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/collection_association.rb#62
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/collection_association.rb#62
   def supervisee_ids; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/collection_association.rb#72
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/collection_association.rb#72
   def supervisee_ids=(ids); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def supervisees; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def supervisees=(value); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def supervisor; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def supervisor=(value); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/belongs_to.rb#146
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/belongs_to.rb#146
   def supervisor_changed?; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/belongs_to.rb#150
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/belongs_to.rb#150
   def supervisor_previously_changed?; end
 end
 
@@ -1826,19 +1826,19 @@ class SolidQueue::Processes::Base
   # source://solid_queue//lib/solid_queue/processes/base.rb#11
   def initialize(*_arg0); end
 
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#69
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#69
   def __callbacks; end
 
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#923
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#923
   def _boot_callbacks; end
 
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#911
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#911
   def _run_boot_callbacks(&block); end
 
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#911
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#911
   def _run_shutdown_callbacks(&block); end
 
-  # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#923
+  # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#923
   def _shutdown_callbacks; end
 
   # source://solid_queue//lib/solid_queue/processes/base.rb#20
@@ -1872,40 +1872,40 @@ class SolidQueue::Processes::Base
   def stopped?; end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#915
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#915
     def _boot_callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#919
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#919
     def _boot_callbacks=(value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#915
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#915
     def _shutdown_callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/callbacks.rb#919
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/callbacks.rb#919
     def _shutdown_callbacks=(value); end
 
-    # source://activemodel/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_model/callbacks.rb#144
+    # source://activemodel/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_model/callbacks.rb#144
     def after_boot(*args, **options, &block); end
 
-    # source://activemodel/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_model/callbacks.rb#144
+    # source://activemodel/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_model/callbacks.rb#144
     def after_shutdown(*args, **options, &block); end
 
-    # source://activemodel/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_model/callbacks.rb#137
+    # source://activemodel/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_model/callbacks.rb#137
     def around_boot(*args, **options, &block); end
 
-    # source://activemodel/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_model/callbacks.rb#137
+    # source://activemodel/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_model/callbacks.rb#137
     def around_shutdown(*args, **options, &block); end
 
-    # source://activemodel/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_model/callbacks.rb#130
+    # source://activemodel/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_model/callbacks.rb#130
     def before_boot(*args, **options, &block); end
 
-    # source://activemodel/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_model/callbacks.rb#130
+    # source://activemodel/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_model/callbacks.rb#130
     def before_shutdown(*args, **options, &block); end
   end
 end
@@ -2221,35 +2221,35 @@ class SolidQueue::ReadyExecution < ::SolidQueue::Execution
   include ::SolidQueue::ReadyExecution::GeneratedAssociationMethods
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
     def aggregated_count_across(queue_list); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def assumable_attributes_from_job; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def assumable_attributes_from_job=(new_value); end
 
     def claim(queue_list, limit, process_id); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def queued_as(*args, **_arg1); end
 
     private
@@ -2269,16 +2269,16 @@ class SolidQueue::Record < ::ActiveRecord::Base
   include ::SolidQueue::Record::GeneratedAssociationMethods
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
 
     def non_blocking_lock; end
@@ -2293,23 +2293,23 @@ class SolidQueue::RecurringExecution < ::SolidQueue::Execution
   include ::SolidQueue::RecurringExecution::GeneratedAssociationMethods
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
     def clear_in_batches(batch_size: T.unsafe(nil)); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def clearable(*args, **_arg1); end
 
     def create_or_insert!(**attributes); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
 
     def record(task_key, run_at, &block); end
@@ -2324,10 +2324,10 @@ class SolidQueue::RecurringJob < ::ActiveJob::Base
   def perform(command); end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def queue_name; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def queue_name=(new_value); end
   end
 end
@@ -2358,31 +2358,31 @@ class SolidQueue::RecurringTask < ::SolidQueue::Record
   def using_solid_queue_adapter?; end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
     def create_or_update_all(tasks); end
     def default_job_class; end
     def default_job_class=(val); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
 
     def from_configuration(key, **options); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def static(*args, **_arg1); end
 
     def wrap(args); end
@@ -2406,39 +2406,39 @@ class SolidQueue::ScheduledExecution < ::SolidQueue::Execution
   extend ::SolidQueue::Execution::Dispatching::ClassMethods
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def assumable_attributes_from_job; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def assumable_attributes_from_job=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
 
     def dispatch_next_batch(batch_size); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def due(*args, **_arg1); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def next_batch(*args, **_arg1); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def ordered(*args, **_arg1); end
   end
 end
@@ -2491,10 +2491,10 @@ class SolidQueue::Scheduler < ::SolidQueue::Processes::Base
   def unschedule_recurring_tasks; end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
   end
 end
@@ -2549,24 +2549,24 @@ class SolidQueue::Semaphore < ::SolidQueue::Record
   include ::SolidQueue::Semaphore::GeneratedAssociationMethods
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def available(*args, **_arg1); end
 
     def create_unique_by(attributes); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
 
-    # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/scoping/named.rb#174
+    # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/scoping/named.rb#174
     def expired(*args, **_arg1); end
 
     def signal(job); end
@@ -2694,10 +2694,10 @@ class SolidQueue::Supervisor < ::SolidQueue::Processes::Base
   def terminate_immediately; end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
     # source://solid_queue//lib/solid_queue/lifecycle_hooks.rb#8
@@ -2882,10 +2882,10 @@ class SolidQueue::Worker < ::SolidQueue::Processes::Poller
   def shutdown; end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
     # source://solid_queue//lib/solid_queue/lifecycle_hooks.rb#8

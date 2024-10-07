@@ -1,7 +1,7 @@
 module Infra
   class EventStore < SimpleDelegator
     def self.main
-      new(RailsEventStore::JSONClient.new)
+      new(RailsEventStore::Client.new)
     end
 
     def self.in_memory
