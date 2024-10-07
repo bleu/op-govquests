@@ -25,7 +25,4 @@ require "rails/test_unit/railtie"
 require "rspec/rails"
 require "securerandom"
 require_relative "../../lib/read_models_configuration"
-
-loader = Zeitwerk::Loader.new
-loader.setup
-loader.eager_load
+require_relative "../../../govquests/configuration"

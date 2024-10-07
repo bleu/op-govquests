@@ -20554,7 +20554,7 @@ end
 
 # source://activesupport//lib/active_support/core_ext/thread/backtrace/location.rb#3
 class Thread::Backtrace::Location
-  # source://activesupport//lib/active_support/core_ext/thread/backtrace/location.rb#5
+  # source://activesupport//lib/active_support/core_ext/thread/backtrace/location.rb#4
   def spot(ex); end
 end
 
