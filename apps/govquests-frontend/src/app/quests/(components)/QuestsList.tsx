@@ -4,10 +4,7 @@ import { MapIcon } from "lucide-react";
 import type React from "react";
 
 interface QuestsListProps {
-  quests: Pick<
-    IQuest,
-    "id" | "title" | "intro" | "image_url" | "rewards" | "status"
-  >[];
+  quests: IQuest[];
 }
 
 const QuestsList: React.FC<QuestsListProps> = ({ quests }) => {
@@ -19,14 +16,7 @@ const QuestsList: React.FC<QuestsListProps> = ({ quests }) => {
       </div>
       <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-7">
         {quests.map((quest) => (
-          <Quest
-            key={quest.id}
-            id={quest.id}
-            title={quest.title}
-            intro={quest.intro}
-            imageSrc={quest.image_url}
-            rewards={quest.rewards}
-          />
+          <Quest key={quest.id} quest={quest} />
         ))}
       </div>
     </main>
