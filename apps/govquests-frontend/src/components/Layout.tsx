@@ -2,6 +2,7 @@
 import { useSignMessage, WagmiProvider } from "wagmi";
 import { config } from "@/wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Header from "./Header";
 
 const queryClient = new QueryClient();
 
@@ -22,16 +23,9 @@ export default function Layout({
 }>) {
   return (
     <Providers>
-      {/* MOCKED HEADER AND SIDE BAR, SHOUDL BE REMOVED: OP-299 & OP-300 */}
-      <header className="h-16 bg-red-500 flex-1">
-        <div />
-      </header>
-      <div className="flex">
-        <aside className="w-64 bg-red-100 min-h-screen p-6 hidden md:flex">
-          <div />
-        </aside>
-        {children}
-      </div>
+      <Header />
+
+      <div className="h-full">{children}</div>
     </Providers>
   );
 }
