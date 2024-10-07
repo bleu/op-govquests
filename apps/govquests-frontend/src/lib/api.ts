@@ -1,6 +1,6 @@
-async function api(
+async function api<T>(
   endpoint: string,
-  { body, ...customConfig }: { body?: any; [key: string]: any } = {},
+  { body, ...customConfig }: { body?: any; [key: string]: any } = {}
 ) {
   const headers = { "Content-Type": "application/json" };
   const config: RequestInit = {
@@ -14,7 +14,7 @@ async function api(
   };
 
   if (body) {
-    config.body = JSON.stringify(body);
+    config.body = body;
   }
 
   const apiUrl = "http://localhost:3001";
@@ -29,7 +29,7 @@ async function api(
     }
 
     const data = await response.json();
-    return data;
+    return data as T;
   } catch (error) {
     return Promise.reject(error);
   }

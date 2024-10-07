@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get "integrations/gitcoin_passport_scores/get_signing_message", to: "integrations/gitcoin_passport_scores#get_signing_message"
+  post "integrations/gitcoin_passport_scores/submit_passport", to: "integrations/gitcoin_passport_scores#submit_passport"
+
   resources :action_executions, only: [] do
     post "start", on: :collection
     post "complete", on: :collection
