@@ -10,10 +10,28 @@ module GeneratedUrlHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
+  def available_rewards_user_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def claim_rewards_user_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def complete_action_executions_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_source_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def points_user_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def quest_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def quests_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_representation_proxy_url(*args); end
@@ -97,7 +115,13 @@ module GeneratedUrlHelpersModule
   def rails_storage_redirect_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def reward_inventory_user_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def ruby_event_store_browser_app_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def start_action_executions_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_url(*args); end

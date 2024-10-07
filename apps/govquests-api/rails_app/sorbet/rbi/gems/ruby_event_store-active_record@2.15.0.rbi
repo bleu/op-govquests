@@ -135,16 +135,16 @@ class RubyEventStore::ActiveRecord::Event < ::ActiveRecord::Base
   include ::RubyEventStore::ActiveRecord::Event::GeneratedAssociationMethods
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
   end
 end
@@ -189,63 +189,63 @@ class RubyEventStore::ActiveRecord::EventInStream < ::ActiveRecord::Base
   include ::RubyEventStore::ActiveRecord::EventInStream::GeneratedAttributeMethods
   include ::RubyEventStore::ActiveRecord::EventInStream::GeneratedAssociationMethods
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/autosave_association.rb#162
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/autosave_association.rb#162
   def autosave_associated_records_for_event(*args); end
 
   class << self
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _reflections; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _reflections=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def _validators; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def _validators=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#12
     def defined_enums; end
 
-    # source://activesupport/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_support/class_attribute.rb#15
     def defined_enums=(new_value); end
   end
 end
 
 # source://ruby_event_store-active_record//lib/ruby_event_store/active_record/event.rb#0
 module RubyEventStore::ActiveRecord::EventInStream::GeneratedAssociationMethods
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#32
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#32
   def build_event(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#36
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#36
   def create_event(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#40
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#40
   def create_event!(*args, &block); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#104
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#104
   def event; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/association.rb#112
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/association.rb#112
   def event=(value); end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/belongs_to.rb#146
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/belongs_to.rb#146
   def event_changed?; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/belongs_to.rb#150
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/belongs_to.rb#150
   def event_previously_changed?; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#19
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#19
   def reload_event; end
 
-  # source://activerecord/8.0.0.beta1-15ddce90583bdf169ae69449b42db10be9f714c9/lib/active_record/associations/builder/singular_association.rb#23
+  # source://activerecord/8.0.0.beta1-fa152fba87f3a11790783207e6e84e58d345c012/lib/active_record/associations/builder/singular_association.rb#23
   def reset_event; end
 end
 

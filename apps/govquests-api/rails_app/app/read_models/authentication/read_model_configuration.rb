@@ -13,7 +13,6 @@ module Authentication
     validates :user_id, presence: true
     validates :session_token, presence: true, uniqueness: true
     validates :logged_in_at, presence: true
-    # logged_out_at can be nil for active sessions
   end
 
   class ReadModelConfiguration

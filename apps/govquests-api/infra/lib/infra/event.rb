@@ -2,6 +2,10 @@ require "active_support/core_ext/hash"
 
 module Infra
   class Event < RubyEventStore::Event
+    def data
+      ActiveSupport::HashWithIndifferentAccess.new(super)
+    end
+
     module WithSchema
       class Schema < Dry::Struct
         transform_keys(&:to_sym)

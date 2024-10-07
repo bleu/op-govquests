@@ -9,11 +9,5 @@ module Gamification
       super
       Configuration.new.call(event_store, command_bus)
     end
-
-    private
-
-    def fake_login
-      "fake_login"
-    end
   end
 end

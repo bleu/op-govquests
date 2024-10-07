@@ -15,6 +15,16 @@ class RubyEventStore::ActiveRecord::Event
   sig { returns(NilClass) }
   def to_ary; end
 
+  class << self
+    sig do
+      params(
+        attributes: T.untyped,
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(::RubyEventStore::ActiveRecord::Event)
+    end
+    def new(attributes = nil, &block); end
+  end
+
   module CommonRelationMethods
     sig do
       params(
@@ -26,6 +36,17 @@ class RubyEventStore::ActiveRecord::Event
     sig { params(column_name: T.any(String, Symbol)).returns(T.any(Integer, Float, BigDecimal)) }
     def average(column_name); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(::RubyEventStore::ActiveRecord::Event)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::Event])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -48,12 +69,34 @@ class RubyEventStore::ActiveRecord::Event
 
     sig do
       params(
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(::RubyEventStore::ActiveRecord::Event)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::Event])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
       ).returns(::RubyEventStore::ActiveRecord::Event)
     end
     def create(attributes = nil, &block); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(::RubyEventStore::ActiveRecord::Event)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::Event])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -64,12 +107,24 @@ class RubyEventStore::ActiveRecord::Event
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::Event])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
       ).returns(::RubyEventStore::ActiveRecord::Event)
     end
     def create_or_find_by(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::Event])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -158,6 +213,12 @@ class RubyEventStore::ActiveRecord::Event
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::Event])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
       ).returns(::RubyEventStore::ActiveRecord::Event)
@@ -166,12 +227,24 @@ class RubyEventStore::ActiveRecord::Event
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::Event])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
       ).returns(::RubyEventStore::ActiveRecord::Event)
     end
     def find_or_create_by!(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::Event])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -189,7 +262,7 @@ class RubyEventStore::ActiveRecord::Event
     sig { params(arg: T.untyped, args: T.untyped).returns(::RubyEventStore::ActiveRecord::Event) }
     def find_sole_by(arg, *args); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::RubyEventStore::ActiveRecord::Event)) }
+    sig { returns(T.nilable(::RubyEventStore::ActiveRecord::Event)) }
     sig { params(limit: Integer).returns(T::Array[::RubyEventStore::ActiveRecord::Event]) }
     def first(limit = nil); end
 
@@ -239,7 +312,7 @@ class RubyEventStore::ActiveRecord::Event
     sig { params(record: T.untyped).returns(T::Boolean) }
     def include?(record); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::RubyEventStore::ActiveRecord::Event)) }
+    sig { returns(T.nilable(::RubyEventStore::ActiveRecord::Event)) }
     sig { params(limit: Integer).returns(T::Array[::RubyEventStore::ActiveRecord::Event]) }
     def last(limit = nil); end
 
@@ -262,6 +335,17 @@ class RubyEventStore::ActiveRecord::Event
     sig { params(column_name: T.any(String, Symbol)).returns(T.untyped) }
     def minimum(column_name); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(::RubyEventStore::ActiveRecord::Event)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::RubyEventStore::ActiveRecord::Event).void)
+      ).returns(T::Array[::RubyEventStore::ActiveRecord::Event])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -315,7 +399,7 @@ class RubyEventStore::ActiveRecord::Event
     end
     def sum(initial_value_or_column = nil, &block); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::RubyEventStore::ActiveRecord::Event)) }
+    sig { returns(T.nilable(::RubyEventStore::ActiveRecord::Event)) }
     sig { params(limit: Integer).returns(T::Array[::RubyEventStore::ActiveRecord::Event]) }
     def take(limit = nil); end
 
@@ -521,16 +605,16 @@ class RubyEventStore::ActiveRecord::Event
     sig { void }
     def created_at_will_change!; end
 
-    sig { returns(T.untyped) }
+    sig { returns(::String) }
     def data; end
 
-    sig { params(value: T.untyped).returns(T.untyped) }
+    sig { params(value: ::String).returns(::String) }
     def data=(value); end
 
     sig { returns(T::Boolean) }
     def data?; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def data_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -539,28 +623,28 @@ class RubyEventStore::ActiveRecord::Event
     sig { returns(T::Boolean) }
     def data_came_from_user?; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def data_change; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def data_change_to_be_saved; end
 
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def data_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def data_in_database; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def data_previous_change; end
 
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def data_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def data_previously_was; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def data_was; end
 
     sig { void }
@@ -746,16 +830,16 @@ class RubyEventStore::ActiveRecord::Event
     sig { void }
     def id_will_change!; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def metadata; end
 
-    sig { params(value: T.untyped).returns(T.untyped) }
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
     def metadata=(value); end
 
     sig { returns(T::Boolean) }
     def metadata?; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def metadata_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -764,28 +848,28 @@ class RubyEventStore::ActiveRecord::Event
     sig { returns(T::Boolean) }
     def metadata_came_from_user?; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def metadata_change; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def metadata_change_to_be_saved; end
 
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
     def metadata_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def metadata_in_database; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def metadata_previous_change; end
 
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
     def metadata_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def metadata_previously_was; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def metadata_was; end
 
     sig { void }
@@ -821,7 +905,7 @@ class RubyEventStore::ActiveRecord::Event
     sig { returns(T::Boolean) }
     def saved_change_to_created_at?; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_data; end
 
     sig { returns(T::Boolean) }
@@ -851,7 +935,7 @@ class RubyEventStore::ActiveRecord::Event
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_metadata; end
 
     sig { returns(T::Boolean) }

@@ -2,7 +2,7 @@ module Gamification
   class GameProfileReadModel < ApplicationRecord
     self.table_name = "user_game_profiles"
 
-    validates :profile_id, presence: true, uniqueness: true
+    attribute :tier, :string
   end
 
   # app/models/gamification/leaderboard_read_model.rb
@@ -34,7 +34,7 @@ module Gamification
 
   class ReadModelConfiguration
     def call(event_store)
-      event_store.subscribe(OnTierAchieved, to: [Gamification::TierAchieved])
+      # event_store.subscribe(OnTierAchieved, to: [Gamification::TierAchieved])
       event_store.subscribe(OnTrackCompleted, to: [Gamification::TrackCompleted])
       event_store.subscribe(OnStreakMaintained, to: [Gamification::StreakMaintained])
       event_store.subscribe(OnBadgeEarned, to: [Gamification::BadgeEarned])

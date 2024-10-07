@@ -4,7 +4,78 @@
 
 # typed: false
 
-module ClientAuthentication::Configuration::Authentication::AccountRegistered; end
-module ClientAuthentication::CreateTest::Authentication::RegisterAccount; end
-module Configuration::Govquests::Configuration; end
-module ReadModelHandlerTest::PublicOffer::Product; end
+module ActionTracking::ActionCreated; end
+
+module ActionTracking::ActionExecutionCompleted; end
+
+module ActionTracking::ActionExecutionStarted; end
+
+module ActionTracking::CompleteActionExecution; end
+
+module ActionTracking::CreateAction; end
+
+module ActionTracking::ExpireActionExecution; end
+
+module ActionTracking::StartActionExecution; end
+
+module Authentication::ActionExecution::AlreadyCompletedError; end
+
+module Authentication::ActionExecution::EXPIRATION_TIME_IN_SECONDS; end
+
+module Authentication::ActionExecution::ExecutionExpiredError; end
+
+module Authentication::ActionExecution::InvalidSaltError; end
+
+module Authentication::ActionExecution::NotStartedError; end
+
+module Authentication::RegisterUser; end
+
+module Authentication::UserLoggedIn; end
+
+module Authentication::UserRegistered; end
+
+module Gamification::BadgeEarned; end
+
+module Gamification::LeaderboardUpdated; end
+
+module Gamification::StreakMaintained; end
+
+module Gamification::TrackCompleted; end
+
+module Integrations::GitcoinPassportScoresController::GitcoinPassport; end
+
+module Notifications::NotificationCreated; end
+
+module Notifications::NotificationOpened; end
+
+module Notifications::NotificationReceived; end
+
+module Notifications::NotificationScheduled; end
+
+module Notifications::NotificationSent; end
+
+module Notifications::NotificationTemplateCreated; end
+
+module Notifications::NotificationTemplateDeleted; end
+
+module Notifications::NotificationTemplateUpdated; end
+
+module Questing::ActionAssociatedWithQuest; end
+
+module Questing::AssociateActionWithQuest; end
+
+module Questing::CreateQuest; end
+
+module Questing::QuestCreated; end
+
+module ReadModelsConfiguration::GovQuests::Configuration; end
+
+module Rewarding::RewardClaimed; end
+
+module Rewarding::RewardCreated; end
+
+module Rewarding::RewardExpired; end
+
+module Rewarding::RewardInventoryDepleted; end
+
+module Rewarding::RewardIssued; end
