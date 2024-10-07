@@ -40,12 +40,6 @@ module ActionTracking
         execution.complete(command.nonce, command.completion_data)
       end
     end
-
-    def handle_expire_action_execution(command)
-      @repository.with_aggregate(ActionExecution, command.aggregate_id) do |execution|
-        execution.expire if execution.expired?
-      end
-    end
   end
 
   class UnknownCommandError < StandardError; end

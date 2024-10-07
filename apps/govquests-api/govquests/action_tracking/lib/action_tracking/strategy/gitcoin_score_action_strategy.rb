@@ -1,41 +1,29 @@
 require_relative "action_strategy"
 module ActionTracking
   class GitcoinScoreActionStrategy < ActionStrategy
-    private
-
-    def action_type
-      "gitcoin_score"
-    end
-
-    def description
-      "Complete Gitcoin Passport verification"
-    end
-
-    def action_data(data)
-      {min_score: 20}
-    end
+    GITCOIN_SCORE_HUMANITY_THRESHOLD = 20
 
     def start_execution(data)
-      user_id = data[:user_id]
-      wallet_address = data[:wallet_address]
-
-      response = api.request_message(user_id, wallet_address)
+      response = api.get_signing_message
 
       {
-        state: "message_requested",
+        state: "started",
+        step: 0,
+        stepCount: 1,
         nonce: response["nonce"],
         message: response["message"]
       }
     end
 
     def complete_execution(data)
-      wallet_address = data[:wallet_address]
-      signature = data[:signature]
+      wallet_address = data["address"]
+      signature = data["signature"]
+      nonce = data["nonce"]
 
-      response = api.submit_signature(wallet_address, signature)
-      score = response["score"]
+      response = api.submit_passport(wallet_address, signature, nonce)
+      score = response["score"].to_i
 
-      if score > 20
+      if score > GITCOIN_SCORE_HUMANITY_THRESHOLD
         {
           status: "completed",
           state: "done",
@@ -52,8 +40,22 @@ module ActionTracking
       end
     end
 
+    private
+
+    def action_type
+      "gitcoin_score"
+    end
+
+    def description
+      "Complete Gitcoin Passport verification"
+    end
+
+    def action_data(data)
+      {min_score: GITCOIN_SCORE_HUMANITY_THRESHOLD}
+    end
+
     def verify_completion(data)
-      data[:score] > 20
+      data[:score] > GITCOIN_SCORE_HUMANITY_THRESHOLD
     end
 
     private
@@ -61,7 +63,7 @@ module ActionTracking
     def api
       @api ||= begin
         gitcoin_keys = Rails.application.credentials.gitcoin_api
-        GitcoinPassport.new(gitcoin_keys.api_key, gitcoin_keys.scorer_id)
+        GitcoinPassportApi.new(gitcoin_keys.api_key, gitcoin_keys.scorer_id)
       end
     end
   end

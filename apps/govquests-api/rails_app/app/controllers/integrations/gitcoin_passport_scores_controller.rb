@@ -28,3 +28,10 @@ module Integrations
     end
   end
 end
+
+# TODOS
+# - first do e2e flow with gitcoin and a custom frontend page - DONE
+# - then, connect this custom frontend page with the action tracking domain
+# - then, connect the action tracking domain with the gitcoin passport scores controller
+# - then, connect this with the actual frontend in an actual quest
+# - then, write tests

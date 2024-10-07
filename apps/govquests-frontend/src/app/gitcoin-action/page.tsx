@@ -1,14 +1,20 @@
 "use client";
 import api from "@/lib/api";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useCallback, useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { useAccount, useSignMessage } from "wagmi";
 
 type ApiSuccessResponse = {
-  status: "success";
-  data: {
-    message: string;
+  execution_id: string;
+  action_type: string;
+  completion_data: Record<string, unknown>;
+  nonce: string;
+  start_data: {
+    step: number;
     nonce: string;
+    state: string;
+    message: string;
+    stepCount: number;
   };
 };
 
@@ -22,101 +28,122 @@ type ApiErrorResponse = {
 type ApiResponse = ApiSuccessResponse | ApiErrorResponse;
 
 export default function Page() {
-  const query = useQuery({
-    queryKey: ["gitcoin_passport_scores"],
-    queryFn: async () => {
+  const startMutation = useMutation({
+    mutationFn: async () => {
       return await api<ApiResponse>(
-        "/integrations/gitcoin_passport_scores/get_signing_message"
-      );
-    },
-    enabled(query) {
-      return !query.state.data;
-    },
-  });
-
-  const mutation = useMutation({
-    mutationFn: async (data: {
-      nonce: string;
-      address: string;
-      signature: string;
-    }) => {
-      return await api<ApiResponse>(
-        "/integrations/gitcoin_passport_scores/submit_passport",
+        "/action_executions/54d24d70-1c89-4a0a-88ad-e24a1926a2f3/start",
         {
           method: "POST",
-          body: JSON.stringify({
-            signature: data.signature,
-            nonce: data.nonce,
-            address: data.address,
-          }),
         }
       );
     },
   });
 
-  const callback = useCallback(
-    ({ address, signature }: { address: string; signature: string }) => {
-      if (!query.data) return;
-      if (query.data.status === "error") return;
-      if (mutation.isSuccess) return;
-
-      mutation.mutate({
-        address,
-        signature,
-        nonce: query.data.data.nonce,
-      });
+  const submitMutation = useMutation({
+    mutationFn: async (data: {
+      execution_id: string;
+      nonce: string;
+      completion_data: { nonce: string; address: string; signature: string };
+    }) => {
+      return await api<ApiResponse>(
+        "/action_executions/54d24d70-1c89-4a0a-88ad-e24a1926a2f3/complete",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
     },
-    [query.data]
-  );
+  });
 
   const { signMessage, data: signature } = useSignMessage();
   const { address } = useAccount();
 
-  useEffect(() => {
-    if (!signature || !callback || !address) return;
+  const handleStart = () => {
+    startMutation.mutate();
+  };
 
-    callback({ address, signature });
-  }, [signature, callback]);
+  const handleSign = () => {
+    if (startMutation.isError || !startMutation.data) return;
+    signMessage({
+      message: startMutation.data.start_data.message,
+    });
+  };
 
-  if (query.data?.status === "error") {
-    return <div>{query.data.error.message}</div>;
+  const handleSubmit = () => {
+    console.log(startMutation.data);
+    if (!signature || !address || !startMutation.data) return;
+    submitMutation.mutate({
+      execution_id: startMutation.data?.execution_id,
+      nonce: startMutation.data.nonce,
+      completion_data: {
+        address,
+        signature,
+        nonce: startMutation.data.start_data.nonce,
+      },
+    });
+  };
+
+  if (startMutation.isPending) {
+    return <div>Starting action...</div>;
   }
 
-  if (query.isLoading) {
-    return <div>Loading...</div>;
+  if (startMutation.isError) {
+    return <div>Error starting action: {startMutation.error.message}</div>;
   }
 
-  if (query.isError) {
-    return <div>{query.error.message}</div>;
+  if (submitMutation.isPending) {
+    return <div>Submitting passport...</div>;
   }
 
-  if (!query.data?.data.message) {
-    return <div>No message to sign</div>;
-  }
-
-  if (mutation.isPending) {
-    return <div>Submitting...</div>;
+  if (submitMutation.isSuccess) {
+    return (
+      <div>
+        Passport submitted successfully:{" "}
+        {submitMutation.data.completion_data.message}
+      </div>
+    );
   }
 
   return (
     <div>
-      <div>
-        <div>message: {signature}</div>
+      {!startMutation.data && (
         <button
           type="button"
-          className="p-2 bg-green-200"
-          onClick={() => {
-            if (!query.data) return;
-            if (query.data.status === "error") return;
-
-            signMessage({
-              message: query.data.data.message,
-            });
-          }}
+          className="p-2 bg-blue-200 mr-2"
+          onClick={handleStart}
         >
-          sign something
+          Start Action
         </button>
-      </div>
+      )}
+      {startMutation.data && (
+        <div>
+          <div>Action Type: {startMutation.data.action_type}</div>
+          <div>Execution ID: {startMutation.data.execution_id}</div>
+          <div>
+            Step: {startMutation.data.start_data.step + 1} of{" "}
+            {startMutation.data.start_data.stepCount}
+          </div>
+          <div>State: {startMutation.data.start_data.state}</div>
+          <div>Message to sign: {startMutation.data.start_data.message}</div>
+          {!signature ? (
+            <button
+              type="button"
+              className="p-2 bg-green-200 mt-2"
+              onClick={handleSign}
+            >
+              Sign Message
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="p-2 bg-yellow-200 mt-2"
+              onClick={handleSubmit}
+            >
+              Submit Signed Message
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

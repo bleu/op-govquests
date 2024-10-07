@@ -19,9 +19,4 @@ module ActionTracking
     attribute :execution_id, Infra::Types::UUID
     attribute :completion_data, Infra::Types::Hash
   end
-
-  class ActionExecutionExpired < Infra::Event
-    attribute :execution_id, Infra::Types::UUID
-    attribute :expired_at, Infra::Types::Time
-  end
 end

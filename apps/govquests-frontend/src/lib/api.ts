@@ -14,7 +14,7 @@ async function api<T>(
   };
 
   if (body) {
-    config.body = body;
+    config.body = JSON.stringify(body);
   }
 
   const apiUrl = "http://localhost:3001";

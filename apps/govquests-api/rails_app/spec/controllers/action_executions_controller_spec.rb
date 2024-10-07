@@ -13,7 +13,6 @@ RSpec.describe ActionExecutionsController, type: :controller do
       json_response = JSON.parse(response.body)
       expect(json_response["nonce"]).to be_present
       expect(json_response["execution_id"]).to be_present
-      expect(json_response["expires_at"]).to be_present
     end
 
     it "returns not found for non-existent action" do
