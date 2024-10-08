@@ -4,9 +4,10 @@ import Link from "next/link";
 import type React from "react";
 import RewardIndicator from "./RewardIndicator";
 import Image from "./ui/Image";
+import { QuestsListProps } from "@/app/quests/(components)/quests-list";
 
 interface QuestProps {
-  quest: Pick<IQuest, "id" | "display_data" | "rewards">;
+  quest: QuestsListProps["quests"][number];
 }
 
 const Quest: React.FC<QuestProps> = ({ quest }) => {
@@ -22,20 +23,22 @@ const Quest: React.FC<QuestProps> = ({ quest }) => {
               <RewardIndicator key={reward.type} reward={reward} />
             ))}
           </div>
-          <Image
-            src={quest.display_data.image_url}
-            alt={`Quest ${quest.display_data.title} image`}
-            className="object-cover w-full h-full"
-          />
+          {!!quest.displayData.imageUrl && (
+            <Image
+              src={quest.displayData.imageUrl}
+              alt={`Quest ${quest.displayData.title} image`}
+              className="object-cover w-full h-full"
+            />
+          )}{" "}
         </div>
         <div className="flex flex-col pl-6 pr-4 pb-6">
           <div className="flex items-center gap-3 mt-2 mb-1 min-h-16">
             <MapIcon width={25} height={25} />
             <h3 className="font-bold text-lg line-clamp-2">
-              {quest.display_data.title}
+              {quest.displayData.title}
             </h3>
           </div>
-          <p className="text-md line-clamp-3">{quest.display_data.intro}</p>
+          <p className="text-md line-clamp-3">{quest.displayData.intro}</p>
         </div>
       </Link>
     </>

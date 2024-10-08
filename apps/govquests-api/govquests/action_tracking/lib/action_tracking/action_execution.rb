@@ -19,6 +19,7 @@ module ActionTracking
       @data = {}
       @nonce = nil
       @started_at = nil
+      @completed_at = nil
     end
 
     def start(action_id, action_type, user_id, start_data)

@@ -1,10 +1,11 @@
 import Quest from "@/components/Quest";
-import type { Quest as IQuest } from "@/types/quest";
+import { ResultOf } from "gql.tada";
 import { MapIcon } from "lucide-react";
 import type React from "react";
+import { QuestsQuery } from "./quests-query";
 
-interface QuestsListProps {
-  quests: IQuest[];
+export interface QuestsListProps {
+  quests: Pick<ResultOf<typeof QuestsQuery>, "quests">["quests"];
 }
 
 const QuestsList: React.FC<QuestsListProps> = ({ quests }) => {

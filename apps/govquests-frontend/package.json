@@ -10,8 +10,10 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
     "@tanstack/react-query": "^5.59.0",
+    "clsx": "^2.1.1",
+    "gql.tada": "^1.8.10",
+    "graphql-request": "^7.1.0",
     "lucide-react": "^0.447.0",
     "next": "14.2.14",
     "react": "^18",
@@ -21,6 +23,7 @@
     "wagmi": "^2.12.17"
   },
   "devDependencies": {
+    "@0no-co/graphqlsp": "^1.12.16",
     "@types/node": "^22",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -28,7 +31,7 @@
     "lint-staged": "^15.2.10",
     "postcss": "^8",
     "tailwindcss": "^3.4.13",
-    "typescript": "^5"
+    "typescript": "^5.5"
   },
   "packageManager": "pnpm@9.12.0"
 }

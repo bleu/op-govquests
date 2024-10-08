@@ -8,8 +8,6 @@ module ActionTracking
 
       {
         state: "started",
-        step: 0,
-        stepCount: 1,
         nonce: response["nonce"],
         message: response["message"]
       }

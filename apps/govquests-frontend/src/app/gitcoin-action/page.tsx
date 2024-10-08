@@ -1,39 +1,75 @@
+// src/app/gitcoin-action/page.tsx
 "use client";
-import api from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
 import { useAccount, useSignMessage } from "wagmi";
+import { graphql } from "gql.tada";
+import request from "graphql-request";
+import Button from "@/components/ui/Button";
+import { useState } from "react";
 
-type ApiSuccessResponse = {
-  execution_id: string;
-  action_type: string;
-  completion_data: Record<string, unknown>;
-  nonce: string;
-  start_data: {
-    step: number;
-    nonce: string;
-    state: string;
-    message: string;
-    stepCount: number;
-  };
-};
+const START_ACTION_EXECUTION = graphql(`
+  mutation StartActionExecution($actionId: ID!, $startData: JSON) {
+    startActionExecution(
+      input: { actionId: $actionId, startData: $startData }
+    ) {
+      actionExecution {
+        id
+        actionId
+        userId
+        actionType
+        startData
+        status
+        nonce
+        startedAt
+      }
+      errors
+    }
+  }
+`);
 
-type ApiErrorResponse = {
-  status: "error";
-  error: {
-    message: string;
-  };
-};
+const COMPLETE_ACTION_EXECUTION = graphql(`
+  mutation CompleteActionExecution(
+    $executionId: ID!
+    $nonce: String!
+    $completionData: JSON
+  ) {
+    completeActionExecution(
+      input: {
+        executionId: $executionId
+        nonce: $nonce
+        completionData: $completionData
+      }
+    ) {
+      actionExecution {
+        id
+        actionId
+        userId
+        actionType
+        startData
+        completionData
+        status
+        nonce
+        startedAt
+        completedAt
+      }
+      errors
+    }
+  }
+`);
 
-type ApiResponse = ApiSuccessResponse | ApiErrorResponse;
+export default function GitcoinActionPage() {
+  const [step, setStep] = useState<"start" | "sign" | "submit" | "complete">(
+    "start"
+  );
 
-export default function Page() {
   const startMutation = useMutation({
     mutationFn: async () => {
-      return await api<ApiResponse>(
-        "/action_executions/54d24d70-1c89-4a0a-88ad-e24a1926a2f3/start",
+      return await request(
+        "http://localhost:3001/graphql",
+        START_ACTION_EXECUTION,
         {
-          method: "POST",
+          actionId: "54d24d70-1c89-4a0a-88ad-e24a1926a2f3",
+          startData: {},
         }
       );
     },
@@ -41,16 +77,14 @@ export default function Page() {
 
   const submitMutation = useMutation({
     mutationFn: async (data: {
-      execution_id: string;
+      executionId: string;
       nonce: string;
-      completion_data: { nonce: string; address: string; signature: string };
+      completionData: { nonce: string; address: string; signature: string };
     }) => {
-      return await api<ApiResponse>(
-        "/action_executions/54d24d70-1c89-4a0a-88ad-e24a1926a2f3/complete",
-        {
-          method: "POST",
-          body: data,
-        }
+      return await request(
+        "http://localhost:3001/graphql",
+        COMPLETE_ACTION_EXECUTION,
+        data
       );
     },
   });
@@ -59,28 +93,48 @@ export default function Page() {
   const { address } = useAccount();
 
   const handleStart = () => {
-    startMutation.mutate();
+    startMutation.mutate(undefined, {
+      onSuccess: () => setStep("sign"),
+    });
   };
 
   const handleSign = () => {
-    if (startMutation.isError || !startMutation.data) return;
+    if (
+      startMutation.isError ||
+      !startMutation.data?.startActionExecution?.actionExecution
+    )
+      return;
     signMessage({
-      message: startMutation.data.start_data.message,
+      message:
+        startMutation.data.startActionExecution.actionExecution.startData
+          .message,
     });
+    setStep("submit");
   };
 
   const handleSubmit = () => {
-    console.log(startMutation.data);
-    if (!signature || !address || !startMutation.data) return;
-    submitMutation.mutate({
-      execution_id: startMutation.data?.execution_id,
-      nonce: startMutation.data.nonce,
-      completion_data: {
-        address,
-        signature,
-        nonce: startMutation.data.start_data.nonce,
+    if (
+      !signature ||
+      !address ||
+      !startMutation.data?.startActionExecution?.actionExecution
+    )
+      return;
+    submitMutation.mutate(
+      {
+        executionId: startMutation.data.startActionExecution.actionExecution.id,
+        nonce: startMutation.data.startActionExecution.actionExecution.nonce,
+        completionData: {
+          address,
+          signature,
+          nonce:
+            startMutation.data.startActionExecution.actionExecution.startData
+              .nonce,
+        },
       },
-    });
+      {
+        onSuccess: () => setStep("complete"),
+      }
+    );
   };
 
   if (startMutation.isPending) {
@@ -95,55 +149,79 @@ export default function Page() {
     return <div>Submitting passport...</div>;
   }
 
-  if (submitMutation.isSuccess) {
+  if (step === "complete" && submitMutation.isSuccess) {
     return (
       <div>
         Passport submitted successfully:{" "}
-        {submitMutation.data.completion_data.message}
+        {
+          submitMutation.data.completeActionExecution.actionExecution
+            .completionData.message
+        }
       </div>
     );
   }
 
   return (
-    <div>
-      {!startMutation.data && (
-        <button
-          type="button"
-          className="p-2 bg-blue-200 mr-2"
-          onClick={handleStart}
-        >
-          Start Action
-        </button>
-      )}
-      {startMutation.data && (
-        <div>
-          <div>Action Type: {startMutation.data.action_type}</div>
-          <div>Execution ID: {startMutation.data.execution_id}</div>
-          <div>
-            Step: {startMutation.data.start_data.step + 1} of{" "}
-            {startMutation.data.start_data.stepCount}
-          </div>
-          <div>State: {startMutation.data.start_data.state}</div>
-          <div>Message to sign: {startMutation.data.start_data.message}</div>
-          {!signature ? (
-            <button
-              type="button"
-              className="p-2 bg-green-200 mt-2"
-              onClick={handleSign}
-            >
-              Sign Message
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="p-2 bg-yellow-200 mt-2"
-              onClick={handleSubmit}
-            >
-              Submit Signed Message
-            </button>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
+        <h1 className="text-2xl font-bold mb-6 text-center">
+          Gitcoin Passport Verification
+        </h1>
+
+        {step === "start" && (
+          <Button
+            onClick={handleStart}
+            className="w-full bg-blue-500 text-white"
+          >
+            Start Verification
+          </Button>
+        )}
+
+        {step === "sign" &&
+          startMutation.data?.startActionExecution?.actionExecution && (
+            <div>
+              <p className="mb-4">Please sign the following message:</p>
+              <pre className="bg-gray-100 p-3 rounded mb-4 overflow-x-auto">
+                {
+                  startMutation.data.startActionExecution.actionExecution
+                    .startData.message
+                }
+              </pre>
+              <Button
+                onClick={handleSign}
+                className="w-full bg-green-500 text-white"
+              >
+                Sign Message
+              </Button>
+            </div>
           )}
-        </div>
-      )}
+
+        {step === "submit" && (
+          <Button
+            onClick={handleSubmit}
+            className="w-full bg-purple-500 text-white"
+            disabled={!signature}
+          >
+            Submit Signed Message
+          </Button>
+        )}
+
+        {startMutation.data?.startActionExecution?.actionExecution && (
+          <div className="mt-6 text-sm text-gray-600">
+            <p>
+              Action Type:{" "}
+              {
+                startMutation.data.startActionExecution.actionExecution
+                  .actionType
+              }
+            </p>
+            <p>
+              Execution ID:{" "}
+              {startMutation.data.startActionExecution.actionExecution.id}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

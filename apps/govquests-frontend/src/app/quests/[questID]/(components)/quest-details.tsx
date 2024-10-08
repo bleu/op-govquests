@@ -1,13 +1,13 @@
 import RewardIndicator from "@/components/RewardIndicator";
 import Button from "@/components/ui/Button";
-import type { Action, Quest } from "@/types/quest";
+import { ResultOf } from "gql.tada";
 import { ExternalLink, MapIcon, RouteIcon } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
+import { QuestQuery } from "./quest-query";
 
-interface QuestDetailsProps {
-  quest: Pick<Quest, "display_data" | "actions" | "rewards">;
-}
+type QuestDetailsProps = ResultOf<typeof QuestQuery>;
+type Action = NonNullable<QuestDetailsProps["quest"]>["actions"][number];
 
 interface ActionRenderStrategy {
   render: (action: Action) => React.ReactNode;
@@ -16,10 +16,8 @@ interface ActionRenderStrategy {
 const ReadDocumentStrategy: ActionRenderStrategy = {
   render: (action) => (
     <span className="flex items-center gap-2">
-      {action.display_data.content}
-      <Link
-        href={(action.action_data as { document_url: string }).document_url}
-      >
+      {action.displayData.content}
+      <Link href={(action.actionData as { document_url: string }).document_url}>
         <ExternalLink />
       </Link>
     </span>
@@ -29,9 +27,9 @@ const ReadDocumentStrategy: ActionRenderStrategy = {
 const GitcoinScoreStrategy: ActionRenderStrategy = {
   render: (action) => (
     <span className="flex items-center gap-2">
-      {action.display_data.content}
+      {action.displayData.content}
       <span className="text-sm text-gray-500">
-        (Min score: {(action.action_data as { min_score: number }).min_score})
+        (Min score: {(action.actionData as { min_score: number }).min_score})
       </span>
     </span>
   ),
@@ -40,10 +38,10 @@ const GitcoinScoreStrategy: ActionRenderStrategy = {
 const ProposalVoteStrategy: ActionRenderStrategy = {
   render: (action) => (
     <span className="flex items-center gap-2">
-      {action.display_data.content}
+      {action.displayData.content}
       <span className="text-sm text-gray-500">
         (Proposal ID:{" "}
-        {(action.action_data as { proposal_id: string }).proposal_id})
+        {(action.actionData as { proposal_id: string }).proposal_id})
       </span>
     </span>
   ),
@@ -56,20 +54,24 @@ const ActionRenderer: React.FC<{ action: Action }> = ({ action }) => {
     proposal_vote: ProposalVoteStrategy,
   };
 
-  const strategy = strategies[action.action_type] || {
-    render: () => <span>{action.display_data.content}</span>,
+  const strategy = strategies[action.actionType] || {
+    render: () => <span>{action.displayData.content}</span>,
   };
 
   return <>{strategy.render(action)}</>;
 };
 
 const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
+  if (!quest) {
+    return null;
+  }
+
   return (
     <main className="flex items-center justify-center h-full">
       <div className="flex flex-col max-w-[85%]">
         <div className="flex flex-1 items-center p-5 md:p-8 bg-black/60 text-optimismForeground rounded-lg mb-3">
           <MapIcon width={50} height={50} />
-          <h1 className="text-3xl flex-1 ml-5">{quest.display_data.title}</h1>
+          <h1 className="text-3xl flex-1 ml-5">{quest.displayData.title}</h1>
           <div className="flex items-center">
             {quest.rewards.map((reward) => (
               <RewardIndicator key={reward.type} reward={reward} />
@@ -81,7 +83,7 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
             <div className="w-24 h-24 bg-optimism" />
             <div className="ml-7">
               <h2 className="text-2xl font-medium mb-2">About this quest</h2>
-              <p className="text-lg">{quest.display_data.intro}</p>
+              <p className="text-lg">{quest.displayData.intro}</p>
             </div>
           </div>
           <div className="flex items-center my-6">

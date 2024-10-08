@@ -1,16 +1,17 @@
 "use server";
 
-import api from "@/lib/api";
 import { Suspense } from "react";
-import QuestsList from "./(components)/QuestsList";
+import QuestsList from "./(components)/quests-list";
 import Loading from "./loading";
+import { QuestsQuery } from "./(components)/quests-query";
+import request from "graphql-request";
 
 export default async function Quests() {
-  const quests = await api("quests");
+  const data = await request("http://localhost:3001/graphql", QuestsQuery);
 
   return (
     <Suspense fallback={<Loading />}>
-      <QuestsList quests={quests} />
+      <QuestsList quests={data.quests} />
     </Suspense>
   );
 }

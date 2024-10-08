@@ -2,24 +2,13 @@ module Questing
   class QuestReadModel < ApplicationRecord
     self.table_name = "quests"
 
-    has_many :quest_actions, class_name: "Questing::QuestActionReadModel", foreign_key: "quest_id", primary_key: "quest_id"
-    has_many :actions, through: :quest_actions, source: :action
-
-    def title
-      display_data["title"]
-    end
-
-    def intro
-      display_data["intro"]
-    end
-
-    def image_url
-      display_data["image_url"]
-    end
+    has_many :quest_actions, -> { order(position: :asc) }, class_name: "Questing::QuestActionReadModel", foreign_key: "quest_id", primary_key: "quest_id"
+    has_many :actions, through: :quest_actions, source: :action, class_name: "ActionTracking::ActionReadModel"
   end
 
   class QuestActionReadModel < ApplicationRecord
     self.table_name = "quest_actions"
+
     belongs_to :quest, class_name: "Questing::QuestReadModel", foreign_key: "quest_id", primary_key: "quest_id"
     belongs_to :action, class_name: "ActionTracking::ActionReadModel", foreign_key: "action_id", primary_key: "action_id"
   end

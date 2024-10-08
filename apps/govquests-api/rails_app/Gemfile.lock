@@ -129,7 +129,6 @@ GEM
     bcrypt_pbkdf (1.1.1-x86_64-darwin)
     benchmark (0.3.0)
     bigdecimal (3.1.8)
-    blueprinter (1.1.2)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
     brakeman (6.2.1)
@@ -179,11 +178,15 @@ GEM
       railties (>= 5.0.0)
     faker (3.4.2)
       i18n (>= 1.8.11, < 2)
+    fiber-storage (1.0.0)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    graphql (2.3.18)
+      base64
+      fiber-storage
     httparty (0.22.0)
       csv
       mini_mime (>= 1.0.0)
@@ -433,13 +436,13 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  blueprinter
   bootsnap
   brakeman
   debug
   factory_bot (~> 6.5)
   factory_bot_rails (~> 6.4)
   faker (~> 3.4)
+  graphql (~> 2.3)
   httparty (~> 0.22.0)
   infra!
   jwt

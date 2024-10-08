@@ -74,4 +74,5 @@ gem "httparty", "~> 0.22.0"
 gem "jwt"
 gem "memery"
 gem "oj"
-gem "blueprinter"
+
+gem "graphql", "~> 2.3"
