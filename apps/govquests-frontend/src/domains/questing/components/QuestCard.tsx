@@ -4,10 +4,10 @@ import type React from "react";
 
 import RewardIndicator from "@/components/RewardIndicator";
 import Image from "@/components/ui/Image";
-import { Quest as QuestI } from "../types/questTypes";
+import { Quests } from "../types/questTypes";
 
 interface QuestProps {
-  quest: QuestI;
+  quest: Quests[number];
 }
 
 const QuestCard: React.FC<QuestProps> = ({ quest }) => {

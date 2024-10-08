@@ -33,7 +33,7 @@ export const ReadDocumentStrategy: ActionStrategy = ({
     }
   };
 
-  if (startMutation.isLoading || completeMutation.isLoading) {
+  if (startMutation.isPending || completeMutation.isPending) {
     return <p>Processing...</p>;
   }
 
