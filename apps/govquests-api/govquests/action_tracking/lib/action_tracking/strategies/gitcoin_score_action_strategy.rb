@@ -1,5 +1,4 @@
 require_relative "action_strategy"
-require_relative "gitcoin_api_interface"
 
 module ActionTracking
   class GitcoinScoreActionStrategy < ActionStrategy

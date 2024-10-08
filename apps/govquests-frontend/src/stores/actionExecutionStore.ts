@@ -1,4 +1,3 @@
-// src/stores/actionExecutionStore.ts
 import { create } from "zustand";
 import { ActionData, ActionExecution } from "../types/actionExecution";
 import { useActionExecution } from "@/services/useActionExecution";
@@ -17,7 +16,6 @@ export const useActionExecutionStore = create<ActionExecutionState>((set) => ({
   setCurrentExecution: (execution) => set({ currentExecution: execution }),
 }));
 
-// Custom hook to combine Zustand store and useActionExecution
 export const useActionExecutionWithStore = () => {
   const { startAction, completeAction } = useActionExecution();
   const {

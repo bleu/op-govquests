@@ -28,6 +28,7 @@ module ActionTracking
       nonce = SecureRandom.hex(16)
       strategy = ActionTracking::ActionStrategyFactory.for(action_type)
       data = strategy.start_execution(start_data)
+
       apply ActionExecutionStarted.new(data: {
         execution_id: @id,
         action_id: action_id,

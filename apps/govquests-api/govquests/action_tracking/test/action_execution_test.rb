@@ -31,7 +31,10 @@ module ActionTracking
       @execution.start(@action_id, @action_type, @user_id, {document_url: "https://example.com/document"})
       completion_data = {data: "success"}
 
-      @execution.complete(completion_data)
+      events = @execution.unpublished_events.to_a
+
+      start_event = events.first
+      @execution.complete(start_event.data[:nonce], completion_data)
 
       events = @execution.unpublished_events.to_a
       assert_equal 2, events.size

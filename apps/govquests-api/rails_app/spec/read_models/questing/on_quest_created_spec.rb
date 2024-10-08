@@ -27,8 +27,10 @@ RSpec.describe Questing::OnQuestCreated do
       }.to change(Questing::QuestReadModel, :count).by(1)
 
       quest = Questing::QuestReadModel.find_by(quest_id: quest_id)
-      expect(quest.title).to eq(title)
-      expect(quest.intro).to eq(intro)
+      expect(quest.display_data).to eq({
+        "title" => title,
+        "intro" => intro
+      })
       expect(quest.quest_type).to eq(quest_type)
       expect(quest.audience).to eq(audience)
       expect(quest.rewards).to eq(rewards)

@@ -1,4 +1,3 @@
-# govquests/action_tracking/lib/action_tracking/strategy/read_document_action_strategy.rb
 module ActionTracking
   class ReadDocumentActionStrategy < ActionStrategy
     def action_type
