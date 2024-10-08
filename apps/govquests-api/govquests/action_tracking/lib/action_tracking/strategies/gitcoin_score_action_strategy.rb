@@ -24,7 +24,7 @@ module ActionTracking
       nonce = data["nonce"]
 
       response = @gitcoin_api.submit_passport(wallet_address, signature, nonce)
-      score = response["score"].to_i
+      score = response["score"].to_f
 
       if score > GITCOIN_SCORE_HUMANITY_THRESHOLD
         {

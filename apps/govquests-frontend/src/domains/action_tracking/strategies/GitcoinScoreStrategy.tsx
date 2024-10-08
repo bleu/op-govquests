@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ActionStrategy } from "./ActionStrategy";
 import Button from "@/components/ui/Button";
-import { useSignMessage } from "wagmi";
+import { useAccount, useSignMessage } from "wagmi";
 
 export const GitcoinScoreStrategy: ActionStrategy = ({
   action,
@@ -15,6 +15,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
     data: signature,
     isPending: isSigning,
   } = useSignMessage();
+  const { address } = useAccount();
 
   useEffect(() => {
     if (completeMutation.isSuccess) {
@@ -46,9 +47,9 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   const handleComplete = async () => {
     if (!execution || !signature) return;
     const completionData = {
-      address: execution.startData.address,
+      address,
       signature,
-      nonce: execution.nonce,
+      nonce: execution.startData.nonce,
     };
     try {
       await completeMutation.mutateAsync({

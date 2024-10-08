@@ -17,14 +17,10 @@ module ActionTracking
     end
 
     def self.complete(execution_id:, nonce:, user_id:, completion_data:)
-      execution = ActionTracking::ActionExecutionReadModel.find_by(execution_id: execution_id)
-      return {error: "Execution not found"} unless execution
-      return {error: "Invalid execution attempt"} unless execution.user_id == user_id
-
       command = ActionTracking::CompleteActionExecution.new(
-        execution_id: execution.execution_id,
+        execution_id: execution_id,
         nonce: nonce,
-        completion_data: completion_data.to_h
+        completion_data: completion_data
       )
 
       begin

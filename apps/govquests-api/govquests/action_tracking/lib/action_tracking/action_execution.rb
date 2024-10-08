@@ -41,7 +41,7 @@ module ActionTracking
       })
     end
 
-    def complete(nonce, completion_data)
+    def complete(nonce, completion_data = {})
       raise InvalidNonceError unless valid_nonce?(nonce)
       raise NotStartedError if @state == "not_started"
       raise AlreadyCompletedError if @state == "completed"
@@ -51,7 +51,7 @@ module ActionTracking
 
       apply ActionExecutionCompleted.new(data: {
         execution_id: @id,
-        completion_data: data
+        completion_data: completion_data.merge(data || {})
       })
     end
 

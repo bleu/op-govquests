@@ -6,7 +6,7 @@ module ActionTracking
         execution.update!(
           status: "completed",
           completion_data: event.data[:completion_data],
-          completed_at: Time.current
+          completed_at: event.data[:timestamp]
         )
         Rails.logger.info "Action execution completed: #{event.data[:execution_id]}"
       else
