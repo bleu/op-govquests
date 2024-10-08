@@ -23,7 +23,8 @@ module ActionTracking
     end
 
     def start(action_id, action_type, user_id, start_data)
-      raise AlreadyStartedError if @state != "not_started"
+      raise AlreadyStartedError if started?
+      raise AlreadyCompletedError if completed?
 
       nonce = SecureRandom.hex(16)
       strategy = ActionTracking::ActionStrategyFactory.for(action_type)
@@ -59,6 +60,14 @@ module ActionTracking
     end
 
     private
+
+    def started?
+      @state == "started"
+    end
+
+    def completed?
+      @state == "completed"
+    end
 
     on ActionExecutionStarted do |event|
       @state = "started"

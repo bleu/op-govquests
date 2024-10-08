@@ -28,14 +28,6 @@ actions_data = [
 
       min_score: 20
     }
-  },
-  {
-    action_type: "proposal_vote",
-    display_data: {content: "Vote on Governance Proposal XYZ"},
-    action_data: {
-
-      proposal_id: "proposal_xyz"
-    }
   }
 ]
 

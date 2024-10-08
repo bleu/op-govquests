@@ -935,6 +935,51 @@ class ActionTracking::ActionExecutionReadModel
     sig { void }
     def id_will_change!; end
 
+    sig { returns(::String) }
+    def nonce; end
+
+    sig { params(value: ::String).returns(::String) }
+    def nonce=(value); end
+
+    sig { returns(T::Boolean) }
+    def nonce?; end
+
+    sig { returns(T.nilable(::String)) }
+    def nonce_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def nonce_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def nonce_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def nonce_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def nonce_change_to_be_saved; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def nonce_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def nonce_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def nonce_previous_change; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def nonce_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def nonce_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def nonce_was; end
+
+    sig { void }
+    def nonce_will_change!; end
+
     sig { void }
     def restore_action_id!; end
 
@@ -960,10 +1005,10 @@ class ActionTracking::ActionExecutionReadModel
     def restore_id_value!; end
 
     sig { void }
-    def restore_result!; end
+    def restore_nonce!; end
 
     sig { void }
-    def restore_salt!; end
+    def restore_result!; end
 
     sig { void }
     def restore_start_data!; end
@@ -1025,51 +1070,6 @@ class ActionTracking::ActionExecutionReadModel
     sig { void }
     def result_will_change!; end
 
-    sig { returns(::String) }
-    def salt; end
-
-    sig { params(value: ::String).returns(::String) }
-    def salt=(value); end
-
-    sig { returns(T::Boolean) }
-    def salt?; end
-
-    sig { returns(T.nilable(::String)) }
-    def salt_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def salt_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def salt_came_from_user?; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def salt_change; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def salt_change_to_be_saved; end
-
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
-    def salt_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def salt_in_database; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def salt_previous_change; end
-
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
-    def salt_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def salt_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def salt_was; end
-
-    sig { void }
-    def salt_will_change!; end
-
     sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_action_id; end
 
@@ -1118,17 +1118,17 @@ class ActionTracking::ActionExecutionReadModel
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
 
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_nonce; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_nonce?; end
+
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def saved_change_to_result; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_result?; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def saved_change_to_salt; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_salt?; end
 
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def saved_change_to_start_data; end
@@ -1410,10 +1410,10 @@ class ActionTracking::ActionExecutionReadModel
     def will_save_change_to_id_value?; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_result?; end
+    def will_save_change_to_nonce?; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_salt?; end
+    def will_save_change_to_result?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_start_data?; end

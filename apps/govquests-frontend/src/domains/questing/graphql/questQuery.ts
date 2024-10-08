@@ -23,6 +23,18 @@ export const QuestQuery = graphql(`
           content
         }
         actionData
+        actionExecutions {
+          id
+          actionId
+          userId
+          actionType
+          startData
+          completionData
+          status
+          nonce
+          startedAt
+          completedAt
+        }
       }
     }
   }

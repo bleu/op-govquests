@@ -6,9 +6,9 @@ module ActionTracking
 
     def setup
       super
-      @execution_id = SecureRandom.uuid
       @action_id = SecureRandom.uuid
       @user_id = SecureRandom.uuid
+      @execution_id = ActionTracking.generate_execution_id(action_id, user_id)
       @execution = ActionExecution.new(@execution_id)
       @action_type = "read_document"
     end

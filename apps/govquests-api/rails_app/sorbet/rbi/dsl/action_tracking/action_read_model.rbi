@@ -6,6 +6,7 @@
 
 
 class ActionTracking::ActionReadModel
+  include GeneratedAssociationMethods
   include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
@@ -417,6 +418,22 @@ class ActionTracking::ActionReadModel
 
     sig { returns(::ActionTracking::ActionReadModel) }
     def third_to_last!; end
+  end
+
+  module GeneratedAssociationMethods
+    sig { returns(T::Array[T.untyped]) }
+    def action_execution_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def action_execution_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `ActionTracking::ActionReadModel` class because it declared `has_many :action_executions`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::ActionTracking::ActionExecutionReadModel::PrivateCollectionProxy) }
+    def action_executions; end
+
+    sig { params(value: T::Enumerable[::ActionTracking::ActionExecutionReadModel]).void }
+    def action_executions=(value); end
   end
 
   module GeneratedAssociationRelationMethods

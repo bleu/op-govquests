@@ -1,14 +1,13 @@
-import Quest from "@/components/Quest";
-import { ResultOf } from "gql.tada";
+import React from "react";
+import { Quests } from "../types/questTypes";
+import QuestCard from "./QuestCard";
 import { MapIcon } from "lucide-react";
-import type React from "react";
-import { QuestsQuery } from "./quests-query";
 
-export interface QuestsListProps {
-  quests: Pick<ResultOf<typeof QuestsQuery>, "quests">["quests"];
+interface QuestListProps {
+  quests: Quests;
 }
 
-const QuestsList: React.FC<QuestsListProps> = ({ quests }) => {
+const QuestList: React.FC<QuestListProps> = ({ quests }) => {
   return (
     <main className="p-12 flex-1">
       <div className="flex items-center">
@@ -17,11 +16,11 @@ const QuestsList: React.FC<QuestsListProps> = ({ quests }) => {
       </div>
       <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-7">
         {quests.map((quest) => (
-          <Quest key={quest.id} quest={quest} />
+          <QuestCard key={quest.id} quest={quest} />
         ))}
       </div>
     </main>
   );
 };
 
-export default QuestsList;
+export default QuestList;

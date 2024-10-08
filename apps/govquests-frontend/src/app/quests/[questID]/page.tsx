@@ -1,18 +1,23 @@
-"use server";
+"use client";
 
-import api from "@/lib/api";
-import QuestDetails from "./(components)/quest-details";
-import request from "graphql-request";
-import { QuestQuery } from "./(components)/quest-query";
+import QuestDetails from "@/domains/questing/components/QuestDetails";
+import { useFetchQuest } from "@/domains/questing/hooks/useFetchQuest";
 
-interface Params {
-  questID: string;
+import LoadingIndicator from "@/components/ui/LoadingIndicator";
+
+interface QuestDetailsPageProps {
+  params: {
+    questID: string;
+  };
 }
 
-export default async function QuestDetailsPage({ params }: { params: Params }) {
-  const data = await request("http://localhost:3001/graphql", QuestQuery, {
-    id: params.questID,
-  });
+export default function QuestDetailsPage({
+  params: { questID },
+}: QuestDetailsPageProps) {
+  const { data, isLoading, isError } = useFetchQuest(questID as string);
+
+  if (isLoading) return <LoadingIndicator />;
+  if (isError || !data?.quest) return <p>Error loading quest details.</p>;
 
   return <QuestDetails quest={data.quest} />;
 }

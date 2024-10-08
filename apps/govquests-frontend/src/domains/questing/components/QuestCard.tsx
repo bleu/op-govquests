@@ -1,16 +1,16 @@
-import type { Quest as IQuest, Reward } from "@/types/quest";
 import { Map as MapIcon } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
-import RewardIndicator from "./RewardIndicator";
-import Image from "./ui/Image";
-import { QuestsListProps } from "@/app/quests/(components)/quests-list";
+
+import RewardIndicator from "@/components/RewardIndicator";
+import Image from "@/components/ui/Image";
+import { Quest as QuestI } from "../types/questTypes";
 
 interface QuestProps {
-  quest: QuestsListProps["quests"][number];
+  quest: QuestI;
 }
 
-const Quest: React.FC<QuestProps> = ({ quest }) => {
+const QuestCard: React.FC<QuestProps> = ({ quest }) => {
   return (
     <>
       <Link
@@ -26,7 +26,7 @@ const Quest: React.FC<QuestProps> = ({ quest }) => {
           {!!quest.displayData.imageUrl && (
             <Image
               src={quest.displayData.imageUrl}
-              alt={`Quest ${quest.displayData.title} image`}
+              alt={`QuestCard ${quest.displayData.title} image`}
               className="object-cover w-full h-full"
             />
           )}{" "}
@@ -45,4 +45,4 @@ const Quest: React.FC<QuestProps> = ({ quest }) => {
   );
 };
 
-export default Quest;
+export default QuestCard;

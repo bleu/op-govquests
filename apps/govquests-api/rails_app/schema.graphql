@@ -1,5 +1,6 @@
 type Action {
   actionData: JSON!
+  actionExecutions: [ActionExecution!]
   actionType: String!
   displayData: DisplayData!
   id: ID!
@@ -77,6 +78,7 @@ type Mutation {
 }
 
 type Query {
+  actionExecutions(actionId: ID!): [ActionExecution!]
   quest(id: ID!): Quest
   quests: [Quest!]!
   user(id: ID!): User

@@ -4,7 +4,7 @@ module ActionTracking
       action = ActionTracking::ActionReadModel.find_by(action_id: action_id)
       return {error: "Action not found"} unless action
 
-      execution_id = SecureRandom.uuid
+      execution_id = ActionTracking.generate_execution_id(action_id, user_id)
       command = ActionTracking::StartActionExecution.new(
         execution_id: execution_id,
         action_id: action.action_id,

@@ -1,4 +1,3 @@
-// src/app/gitcoin-action/page.tsx
 "use client";
 import { useAccount, useSignMessage } from "wagmi";
 import Button from "@/components/ui/Button";

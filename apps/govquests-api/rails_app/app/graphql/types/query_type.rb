@@ -23,5 +23,6 @@ module Types
     field :quests, resolver: Resolvers::FetchQuests
     field :quest, resolver: Resolvers::FetchQuest
     field :user, resolver: Resolvers::FetchUser
+    field :action_executions, resolver: Resolvers::FetchActionExecutions
   end
 end

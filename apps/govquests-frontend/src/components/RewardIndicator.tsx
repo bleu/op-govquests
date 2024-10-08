@@ -1,9 +1,9 @@
+import { Rewards } from "@/domains/questing/types/questTypes";
 import { cn } from "@/lib/utils";
-import type { Reward } from "@/types/quest";
 import type React from "react";
 
 interface RewardIndicator {
-  reward: Pick<Reward, "amount" | "type">;
+  reward: Pick<Rewards[number], "amount" | "type">;
   className?: string;
 }
 
@@ -12,7 +12,7 @@ const RewardIndicator: React.FC<RewardIndicator> = ({ reward, className }) => {
     <span
       className={cn(
         "bg-optimism text-optimismForeground py-1 px-2 rounded-md text-sm ml-1",
-        className,
+        className
       )}
     >
       {reward.amount} {reward.type}

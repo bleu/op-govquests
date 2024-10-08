@@ -4,7 +4,7 @@ module ActionTracking
   class GitcoinScoreActionStrategy < ActionStrategy
     GITCOIN_SCORE_HUMANITY_THRESHOLD = 20
 
-    def initialize(gitcoin_api:)
+    def initialize(gitcoin_api: GitcoinPassportApi.new)
       @gitcoin_api = gitcoin_api
     end
 

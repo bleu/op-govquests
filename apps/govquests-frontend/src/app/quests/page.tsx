@@ -1,17 +1,14 @@
-"use server";
+"use client";
 
-import { Suspense } from "react";
-import QuestsList from "./(components)/quests-list";
-import Loading from "./loading";
-import { QuestsQuery } from "./(components)/quests-query";
-import request from "graphql-request";
+import { useFetchQuests } from "@/domains/questing/hooks/useFetchQuests";
+import QuestList from "@/domains/questing/components/QuestList";
+import LoadingIndicator from "@/components/ui/LoadingIndicator";
 
-export default async function Quests() {
-  const data = await request("http://localhost:3001/graphql", QuestsQuery);
+export default function QuestsPage() {
+  const { data, isLoading, isError } = useFetchQuests();
 
-  return (
-    <Suspense fallback={<Loading />}>
-      <QuestsList quests={data.quests} />
-    </Suspense>
-  );
+  if (isLoading) return <LoadingIndicator />;
+  if (isError || !data) return <p>Error loading quests.</p>;
+
+  return <QuestList quests={data.quests} />;
 }
