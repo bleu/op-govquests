@@ -14,8 +14,8 @@ module Questing
     def test_create_a_new_quest
       quest_type = "Standard"
       audience = "AllUsers"
-      rewards = [{type: "points", value: 100}]
-      display_data = {title: "Governance 101", intro: "Learn about governance basics"}
+      rewards = [{type: "points", value: 100}].map(&:deep_stringify_keys)
+      display_data = {title: "Governance 101", intro: "Learn about governance basics"}.deep_stringify_keys
 
       @quest.create(display_data, quest_type, audience, rewards)
 

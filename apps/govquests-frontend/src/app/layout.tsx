@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html className="bg-background hgtext-foreground h-full" lang="en">
       <body className="flex flex-col h-full">
-        <Layout>{children}</Layout>{" "}
+        <Layout>{children}</Layout>
       </body>
     </html>
   );

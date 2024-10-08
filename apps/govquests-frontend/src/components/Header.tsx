@@ -1,4 +1,10 @@
-import { HomeIcon, MapIcon, StarIcon, TrophyIcon } from "lucide-react";
+import {
+  HomeIcon,
+  MapIcon,
+  SmileIcon,
+  StarIcon,
+  TrophyIcon,
+} from "lucide-react";
 import Link from "next/link";
 import type React from "react";
 import Button from "./ui/Button";
@@ -32,6 +38,15 @@ const Header: React.FC = () => {
               >
                 <HomeIcon className="w-4 h-4 mr-1" />
                 Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/gitcoin-action"
+                className="flex items-center text-optimismForeground px-3 py-1 rounded-full hover:bg-optimism/70 transition"
+              >
+                <SmileIcon className="w-4 h-4 mr-1" />
+                Gitcoin Action demo
               </Link>
             </li>
             <li>

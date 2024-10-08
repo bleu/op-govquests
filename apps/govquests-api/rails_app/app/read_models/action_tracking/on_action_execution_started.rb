@@ -11,6 +11,7 @@ module ActionTracking
         start_data: event.data[:start_data],
         nonce: event.data[:nonce]
       )
+
       Rails.logger.info "Action execution started: #{event.data[:execution_id]}"
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error "Failed to create action execution: #{e.message}"

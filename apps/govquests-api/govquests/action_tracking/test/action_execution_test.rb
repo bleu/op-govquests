@@ -6,9 +6,9 @@ module ActionTracking
 
     def setup
       super
-      @execution_id = SecureRandom.uuid
       @action_id = SecureRandom.uuid
       @user_id = SecureRandom.uuid
+      @execution_id = ActionTracking.generate_execution_id(@action_id, @user_id)
       @execution = ActionExecution.new(@execution_id)
       @action_type = "read_document"
     end
@@ -31,7 +31,10 @@ module ActionTracking
       @execution.start(@action_id, @action_type, @user_id, {document_url: "https://example.com/document"})
       completion_data = {data: "success"}
 
-      @execution.complete(completion_data)
+      events = @execution.unpublished_events.to_a
+
+      start_event = events.first
+      @execution.complete(start_event.data[:nonce], completion_data)
 
       events = @execution.unpublished_events.to_a
       assert_equal 2, events.size

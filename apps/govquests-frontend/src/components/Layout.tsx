@@ -9,9 +9,7 @@ const queryClient = new QueryClient();
 const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        {children}{" "}
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );
 };
@@ -24,7 +22,6 @@ export default function Layout({
   return (
     <Providers>
       <Header />
-
       <div className="h-full">{children}</div>
     </Providers>
   );
