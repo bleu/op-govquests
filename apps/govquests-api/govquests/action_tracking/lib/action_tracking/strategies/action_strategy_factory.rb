@@ -10,11 +10,11 @@ module ActionTracking
       "read_document" => ReadDocumentActionStrategy
     }.freeze
 
-    def self.for(action_type)
+    def self.for(action_type, dependencies = {})
       strategy_class = STRATEGIES[action_type]
       raise UnknownActionTypeError, "Unknown action type: #{action_type}" unless strategy_class
 
-      strategy_class.new
+      strategy_class.new(**dependencies)
     end
   end
 

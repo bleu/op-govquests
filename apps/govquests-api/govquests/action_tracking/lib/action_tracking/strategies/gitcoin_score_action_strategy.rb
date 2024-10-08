@@ -1,10 +1,16 @@
 require_relative "action_strategy"
+require_relative "gitcoin_api_interface"
+
 module ActionTracking
   class GitcoinScoreActionStrategy < ActionStrategy
     GITCOIN_SCORE_HUMANITY_THRESHOLD = 20
 
+    def initialize(gitcoin_api:)
+      @gitcoin_api = gitcoin_api
+    end
+
     def start_execution(data)
-      response = api.get_signing_message
+      response = @gitcoin_api.get_signing_message
 
       {
         state: "started",
@@ -18,7 +24,7 @@ module ActionTracking
       signature = data["signature"]
       nonce = data["nonce"]
 
-      response = api.submit_passport(wallet_address, signature, nonce)
+      response = @gitcoin_api.submit_passport(wallet_address, signature, nonce)
       score = response["score"].to_i
 
       if score > GITCOIN_SCORE_HUMANITY_THRESHOLD
@@ -54,15 +60,6 @@ module ActionTracking
 
     def verify_completion(data)
       data[:score] > GITCOIN_SCORE_HUMANITY_THRESHOLD
-    end
-
-    private
-
-    def api
-      @api ||= begin
-        gitcoin_keys = Rails.application.credentials.gitcoin_api
-        GitcoinPassportApi.new(gitcoin_keys.api_key, gitcoin_keys.scorer_id)
-      end
     end
   end
 end
