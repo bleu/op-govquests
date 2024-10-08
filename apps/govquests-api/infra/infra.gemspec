@@ -10,6 +10,7 @@ Gem::Specification.new do |spec|
   spec.summary = "infrastructure for the application"
 
   spec.add_dependency "rake"
+  spec.add_dependency "activesupport"
   spec.add_dependency "dry-struct"
   spec.add_dependency "dry-types"
   spec.add_dependency "aggregate_root", "~> 2.15"

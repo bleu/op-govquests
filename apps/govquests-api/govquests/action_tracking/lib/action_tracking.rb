@@ -1,3 +1,4 @@
+require "active_support/core_ext/digest/uuid"
 require "infra"
 require_relative "action_tracking/commands"
 require_relative "action_tracking/events"

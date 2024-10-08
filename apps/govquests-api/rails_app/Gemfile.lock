@@ -101,6 +101,7 @@ PATH
   remote: ../infra
   specs:
     infra (1.0.0)
+      activesupport
       aggregate_root (~> 2.15)
       arkency-command_bus
       dry-struct
