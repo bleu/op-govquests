@@ -5,40 +5,24 @@ class ReadModelsConfiguration
   def call(event_store, command_bus)
     enable_res_infra_event_linking(event_store)
 
-    enable_authentication_read_model(event_store)
-    enable_quests_read_model(event_store)
-    enable_rewarding_read_model(event_store)
-    enable_action_tracking_read_model(event_store)
-    enable_gamification_read_model(event_store)
-    enable_notifications_read_model(event_store)
+    enable_read_model(event_store, :authentication)
+    enable_read_model(event_store, :quests)
+    enable_read_model(event_store, :rewarding)
+    enable_read_model(event_store, :action_tracking)
+    enable_read_model(event_store, :gamification)
+    enable_read_model(event_store, :notifications)
 
     GovQuests::Configuration.new.call(event_store, command_bus)
   end
 
   private
 
-  def enable_authentication_read_model(event_store)
-    Authentication::ReadModelConfiguration.new.call(event_store)
-  end
-
-  def enable_quests_read_model(event_store)
-    Questing::ReadModelConfiguration.new.call(event_store)
-  end
-
-  def enable_rewarding_read_model(event_store)
-    Rewarding::ReadModelConfiguration.new.call(event_store)
-  end
-
-  def enable_action_tracking_read_model(event_store)
-    ActionTracking::ReadModelConfiguration.new.call(event_store)
-  end
-
-  def enable_gamification_read_model(event_store)
-    Gamification::ReadModelConfiguration.new.call(event_store)
-  end
-
-  def enable_notifications_read_model(event_store)
-    Notifications::ReadModelConfiguration.new.call(event_store)
+  def enable_read_model(event_store, model_name)
+    klass = "#{model_name.to_s.camelize}::ReadModelConfiguration".constantize
+    klass.new.call(event_store)
+  rescue => e
+    Rails.logger.error "Failed to enable #{model_name} read model: #{e.message}"
+    Rails.logger.error e.backtrace.join("\n")
   end
 
   def enable_res_infra_event_linking(event_store)

@@ -1,10 +1,14 @@
 "use client";
 import "@rainbow-me/rainbowkit/styles.css";
-
+import { authenticationAdapter } from "@/auth";
 import { config } from "@/wagmi";
-import { RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
+import {
+  RainbowKitAuthenticationProvider,
+  RainbowKitProvider,
+  lightTheme,
+} from "@rainbow-me/rainbowkit";
+import { RainbowKitSiweNextAuthProvider } from "@rainbow-me/rainbowkit-siwe-next-auth";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { SessionProvider } from "next-auth/react";
 import { WagmiProvider } from "wagmi";
 import Header from "./Header";
 
@@ -17,8 +21,11 @@ const queryClient = new QueryClient();
 const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <WagmiProvider config={config}>
-      <SessionProvider refetchInterval={0}>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitAuthenticationProvider
+          adapter={authenticationAdapter}
+          status="unauthenticated"
+        >
           <RainbowKitProvider
             theme={lightTheme({
               accentColor: "#FF0421",
@@ -27,8 +34,8 @@ const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           >
             {children}
           </RainbowKitProvider>
-        </QueryClientProvider>
-      </SessionProvider>
+        </RainbowKitAuthenticationProvider>
+      </QueryClientProvider>
     </WagmiProvider>
   );
 };

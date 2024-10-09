@@ -103,5 +103,11 @@ module GeneratedUrlHelpersModule
   def ruby_event_store_browser_app_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def siwe_nonce_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def siwe_verify_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_url(*args); end
 end

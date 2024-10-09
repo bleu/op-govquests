@@ -1,11 +1,10 @@
-import React from "react";
-import { useFetchQuests } from "../hooks/useFetchQuests";
-import QuestList from "../components/QuestList";
 import LoadingIndicator from "@/components/ui/LoadingIndicator";
+import React from "react";
+import QuestList from "../components/QuestList";
+import { useFetchQuests } from "../hooks/useFetchQuests";
 
 const QuestsPage: React.FC = () => {
   const { data, isLoading, isError } = useFetchQuests();
-
   if (isLoading) {
     return <LoadingIndicator />;
   }
