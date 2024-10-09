@@ -1,10 +1,11 @@
-prepare-dev:
+install:
 	@echo "Preparing development environment..."
-	$(MAKE) -C ./apps/govquests-api prepare-dev
-	@echo "Database is running on Docker."
 	@echo "Installing dependencies..."
 	pnpm install
 	$(MAKE) -C ./apps/govquests-api install
 	@echo "Dependencies installed..."
+	@echo "Setting up database..."
+	$(MAKE) -C ./apps/govquests-api/rails_app setup
+	@echo "Database is running on Docker."
 	@echo "Development environment ready."
 

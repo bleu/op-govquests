@@ -1,6 +1,10 @@
 install:
 	@bundle install
 
+setup:
+	docker-compose up -d
+	@bundle exec rails db:setup
+
 test:
 	@bin/rspec
 

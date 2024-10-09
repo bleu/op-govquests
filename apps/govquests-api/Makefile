@@ -48,6 +48,5 @@ help:
 	@echo "  lint       - Run linter on rails_app"
 	@echo "  sorbet     - Run Sorbet type checking on rails_app"
 	@echo "  mutate     - Run mutation tests where applicable"
-	@echo "  prepare-dev - Prepare development environment"
 	@echo "  clean      - Clean up (if defined)"
 	@echo "  help       - Show this help message"
