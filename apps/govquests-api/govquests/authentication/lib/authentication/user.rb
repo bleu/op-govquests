@@ -18,14 +18,14 @@ module Authentication
       @claimed_rewards = []
     end
 
-    def register(email, user_type, wallet_address, chain_id)
+    def register(email, user_type, address, chain_id)
       raise AlreadyRegistered if @registered
 
       apply UserRegistered.new(data: {
         user_id: @id,
         email: email,
         user_type: user_type,
-        wallet_address: wallet_address,
+        address: address,
         chain_id: chain_id
       })
     end
@@ -47,7 +47,7 @@ module Authentication
       @email = event.data[:email]
       @user_type = event.data[:user_type]
       @wallets << {
-        wallet_address: event.data[:wallet_address],
+        address: event.data[:address],
         chain_id: event.data[:chain_id]
       }
     end

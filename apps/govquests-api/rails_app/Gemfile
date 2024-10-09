@@ -76,3 +76,5 @@ gem "memery"
 gem "oj"
 
 gem "graphql", "~> 2.3"
+
+gem "siwe", "~> 2.0"

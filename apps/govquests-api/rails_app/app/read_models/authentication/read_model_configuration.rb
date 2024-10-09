@@ -3,7 +3,6 @@ module Authentication
     self.table_name = "users"
 
     validates :user_id, presence: true, uniqueness: true
-    validates :email, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
     validates :user_type, presence: true, inclusion: {in: %w[delegate non_delegate]}
   end
 

@@ -13,10 +13,10 @@ module Authentication
     def test_register_a_new_user
       email = "test@example.com"
       user_type = "delegate"
-      wallet_address = "0x1234567890abcdef"
+      address = "0x1234567890abcdef"
       chain_id = 1
 
-      @user.register(email, user_type, wallet_address, chain_id)
+      @user.register(email, user_type, address, chain_id)
 
       assert_equal 1, @user.unpublished_events.size
       event = @user.unpublished_events.first
@@ -24,7 +24,7 @@ module Authentication
       assert_equal @user_id, event.data[:user_id]
       assert_equal email, event.data[:email]
       assert_equal user_type, event.data[:user_type]
-      assert_equal wallet_address, event.data[:wallet_address]
+      assert_equal address, event.data[:address]
       assert_equal chain_id, event.data[:chain_id]
     end
 
