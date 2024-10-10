@@ -16,12 +16,11 @@ module Processes
       return unless quest_id
 
       user_quest_id = Questing.generate_user_quest_id(quest_id, user_id)
-      stream_name = "UserQuest$#{user_quest_id}"
+      stream_name = "Questing::UserQuest$#{user_quest_id}"
 
-      if @repository.aggregate_exists?(stream_name)
-        Rails.logger.info "User #{user_id} already has an active quest #{quest_id}."
-        return
-      end
+      events = @event_store.read.stream(stream_name).to_a
+
+      return if events.any? { |event| event.is_a?(Questing::QuestStarted) }
 
       command = ::Questing::StartUserQuest.new(
         user_quest_id: user_quest_id,
@@ -31,9 +30,6 @@ module Processes
 
       @command_bus.call(command)
       Rails.logger.info "Dispatched StartUserQuest command: #{command.inspect}"
-    rescue => e
-      Rails.logger.error "Error in StartQuestOnActionExecutionStarted: #{e.message}"
-      raise
     end
   end
 end

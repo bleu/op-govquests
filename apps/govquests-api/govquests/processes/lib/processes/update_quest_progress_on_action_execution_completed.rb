@@ -33,7 +33,7 @@ module Processes
     private
 
     def reconstruct_action_execution(execution_id)
-      stream_name = "ActionExecution$#{execution_id}"
+      stream_name = "ActionTracking::ActionExecution$#{execution_id}"
       events = @event_store.read.stream(stream_name).to_a
 
       return nil if events.empty?

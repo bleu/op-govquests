@@ -30,8 +30,8 @@ gitcoin_action = {
   }
 }
 actions_data = [
-  gitcoin_action,
-  read_document
+  read_document,
+  gitcoin_action
 ]
 puts "Creating actions..."
 action_ids = actions_data.map do |action_data|

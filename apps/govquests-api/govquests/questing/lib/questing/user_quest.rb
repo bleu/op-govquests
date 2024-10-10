@@ -42,9 +42,7 @@ module Questing
         data: data
       })
 
-      if all_actions_completed?
-        complete
-      end
+      complete if all_actions_completed?
     end
 
     def complete
