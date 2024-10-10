@@ -8,12 +8,13 @@ require "mutant/minitest/coverage"
 require "factory_bot_rails"
 
 # Add additional requires below this line. Rails is not loaded until this point!
-
 ActiveJob::Base.logger = Logger.new(nil)
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec", "support", "**", "*.rb")].sort.each { |f| require f }
+
+require_relative "../../infra/lib/infra/testing"
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -22,6 +23,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
+  config.include InMemoryRESIntegrationCase
   config.include FactoryBot::Syntax::Methods
 
   config.fixture_paths = [

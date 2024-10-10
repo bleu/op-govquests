@@ -19,5 +19,8 @@ module ActionTracking
   class ActionExecutionCompleted < Infra::Event
     attribute :execution_id, Infra::Types::UUID
     attribute :completion_data, Infra::Types::Hash
+    attribute :quest_id, Infra::Types::UUID.optional
+    attribute :action_id, Infra::Types::UUID.optional
+    attribute :user_id, Infra::Types::UUID.optional
   end
 end

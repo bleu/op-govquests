@@ -1,5 +1,5 @@
 module Notifications
-class NotificationTemplateReadModel < ApplicationRecord
+  class NotificationTemplateReadModel < ApplicationRecord
     self.table_name = "notification_templates"
 
     validates :template_id, presence: true, uniqueness: true

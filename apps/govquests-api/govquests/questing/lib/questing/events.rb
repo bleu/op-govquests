@@ -23,7 +23,6 @@ module Questing
     attribute :user_quest_id, Infra::Types::UUID
     attribute :quest_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
-    attribute :rewards, Infra::Types::Array
   end
 
   class QuestProgressUpdated < Infra::Event

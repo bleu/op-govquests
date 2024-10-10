@@ -3,7 +3,7 @@ module Processes
     def initialize(event_store, command_bus)
       @event_store = event_store
       @command_bus = command_bus
-      @processed_event_ids = {}
+      @repository = Infra::AggregateRootRepository.new(event_store)
     end
 
     def subscribe
@@ -11,22 +11,17 @@ module Processes
     end
 
     def call(event)
-      return if event_already_processed?(event)
-
-      event.data[:action_id]
       user_id = event.data[:user_id]
       quest_id = event.data[:quest_id]
-
       return unless quest_id
 
-      existing_user_quest = ::Questing::UserQuestReadModel.find_by(quest_id: quest_id, user_id: user_id)
+      user_quest_id = Questing.generate_user_quest_id(quest_id, user_id)
+      stream_name = "UserQuest$#{user_quest_id}"
 
-      unless existing_user_quest.nil? || existing_user_quest.state == "completed"
+      if @repository.aggregate_exists?(stream_name)
         Rails.logger.info "User #{user_id} already has an active quest #{quest_id}."
         return
       end
-
-      user_quest_id = SecureRandom.uuid
 
       command = ::Questing::StartUserQuest.new(
         user_quest_id: user_quest_id,
@@ -36,21 +31,9 @@ module Processes
 
       @command_bus.call(command)
       Rails.logger.info "Dispatched StartUserQuest command: #{command.inspect}"
-
-      mark_event_as_processed(event)
     rescue => e
       Rails.logger.error "Error in StartQuestOnActionExecutionStarted: #{e.message}"
       raise
-    end
-
-    private
-
-    def event_already_processed?(event)
-      @processed_event_ids[event.event_id]
-    end
-
-    def mark_event_as_processed(event)
-      @processed_event_ids[event.event_id] = true
     end
   end
 end

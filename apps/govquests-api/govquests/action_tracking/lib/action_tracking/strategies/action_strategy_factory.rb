@@ -3,6 +3,8 @@ require_relative "read_document_action_strategy"
 
 module ActionTracking
   class ActionStrategyFactory
+    class UnknownActionTypeError < StandardError; end
+
     STRATEGIES = {
       "gitcoin_score" => GitcoinScoreActionStrategy,
       "read_document" => ReadDocumentActionStrategy
@@ -15,6 +17,4 @@ module ActionTracking
       strategy_class.new(**dependencies)
     end
   end
-
-  class UnknownActionTypeError < StandardError; end
 end

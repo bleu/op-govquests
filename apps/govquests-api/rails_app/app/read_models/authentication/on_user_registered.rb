@@ -7,7 +7,7 @@ module Authentication
       address = event.data.fetch(:address)
       chain_id = event.data.fetch(:chain_id)
 
-      user = UserReadModel.find_or_initialize_by(user_id: user_id)
+      user = Authentication::UserReadModel.find_or_initialize_by(user_id: user_id)
       user.email = email
       user.user_type = user_type
       user.address = address

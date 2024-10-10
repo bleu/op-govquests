@@ -479,7 +479,6 @@ DEPENDENCIES
   jwt
   kamal (>= 2.0.0.rc2)
   memery
-  minitest (= 5.25.0)!
   mutant-license!
   mutant-minitest (= 0.12.4)!
   oj

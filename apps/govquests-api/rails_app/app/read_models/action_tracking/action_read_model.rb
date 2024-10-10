@@ -1,5 +1,5 @@
 module ActionTracking
-class ActionReadModel < ApplicationRecord
+  class ActionReadModel < ApplicationRecord
     self.table_name = "actions"
 
     validates :action_id, presence: true, uniqueness: true

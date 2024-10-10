@@ -1,8 +1,9 @@
 source "https://rubygems.org" do
   gem 'pry', '~> 0.14.2'
-  gem "minitest", "5.25.0"
   gem "mutant-minitest", "0.12.4"
 end
+
+gem "rspec", "~> 3.13"
 
 source "https://oss:7AXfeZdAfCqL1PvHm2nvDJO6Zd9UW8IK@gem.mutant.dev" do
   gem "mutant-license"

@@ -44,15 +44,18 @@ module ActionTracking
     end
 
     def complete(nonce, completion_data = {})
-      raise InvalidNonceError unless valid_nonce?(nonce)
       raise NotStartedError if @state == "not_started"
-      raise AlreadyCompletedError if @state == "completed"
+      raise InvalidNonceError unless valid_nonce?(nonce)
+      raise AlreadyCompletedError if completed?
 
       strategy = ActionTracking::ActionStrategyFactory.for(@action_type)
       data = strategy.complete_execution(completion_data)
 
       apply ActionExecutionCompleted.new(data: {
         execution_id: @id,
+        quest_id: @quest_id,
+        action_id: @action_id,
+        user_id: @user_id,
         completion_data: completion_data.merge(data || {})
       })
     end

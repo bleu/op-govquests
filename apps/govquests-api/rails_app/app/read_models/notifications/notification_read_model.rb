@@ -1,5 +1,5 @@
 module Notifications
-class NotificationReadModel < ApplicationRecord
+  class NotificationReadModel < ApplicationRecord
     self.table_name = "notifications"
 
     validates :notification_id, presence: true, uniqueness: true

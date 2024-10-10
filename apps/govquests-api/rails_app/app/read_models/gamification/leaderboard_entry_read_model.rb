@@ -1,5 +1,5 @@
 module Gamification
-class LeaderboardEntryReadModel < ApplicationRecord
+  class LeaderboardEntryReadModel < ApplicationRecord
     self.table_name = "leaderboard_entries"
     query_constraints :leaderboard_id, :profile_id
 

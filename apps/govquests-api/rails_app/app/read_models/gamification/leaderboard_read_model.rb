@@ -1,5 +1,5 @@
 module Gamification
-class LeaderboardReadModel < ApplicationRecord
+  class LeaderboardReadModel < ApplicationRecord
     self.table_name = "leaderboards"
     self.primary_key = "leaderboard_id"
 

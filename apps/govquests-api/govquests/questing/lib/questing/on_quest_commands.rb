@@ -36,8 +36,11 @@ module Questing
     end
 
     def handle_start_user_quest(command)
+      quest = @repository.load(Quest.new(command.quest_id), "Quest$#{command.quest_id}")
+      actions = quest.actions.map { |action| action[:id] }
+
       @repository.with_aggregate(UserQuest, command.aggregate_id) do |user_quest|
-        user_quest.start(command.quest_id, command.user_id)
+        user_quest.start(command.quest_id, command.user_id, actions)
       end
     end
 

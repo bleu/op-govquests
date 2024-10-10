@@ -1,4 +1,3 @@
-# spec/support/in_memory_test_case.rb
 module InMemoryTestCase
   extend ActiveSupport::Concern
 

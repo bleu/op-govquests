@@ -1,5 +1,5 @@
 module Authentication
-class SessionReadModel < ApplicationRecord
+  class SessionReadModel < ApplicationRecord
     self.table_name = "user_sessions"
 
     belongs_to :user, class_name: "Authentication::UserReadModel", foreign_key: :user_id, primary_key: :user_id

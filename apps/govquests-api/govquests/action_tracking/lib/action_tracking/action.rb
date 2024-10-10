@@ -1,7 +1,10 @@
 require_relative "strategies/action_strategy_factory"
+
 module ActionTracking
   class Action
     include AggregateRoot
+
+    class AlreadyCreatedError < StandardError; end
 
     def initialize(id)
       @id = id
