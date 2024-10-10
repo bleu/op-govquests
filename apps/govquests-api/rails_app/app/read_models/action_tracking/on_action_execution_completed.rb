@@ -12,8 +12,6 @@ module ActionTracking
       else
         Rails.logger.error "Action execution not found: #{event.data[:execution_id]}"
       end
-    rescue ActiveRecord::RecordInvalid => e
-      Rails.logger.error "Failed to update action execution: #{e.message}"
     end
   end
 end
