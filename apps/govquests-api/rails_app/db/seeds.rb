@@ -99,11 +99,3 @@ quests_data.each do |quest_data|
 end
 
 puts "Quests created and actions associated successfully!"
-
-Rails.configuration.command_bus.call(Authentication::RegisterUser.new(
-  user_id: SecureRandom.uuid,
-  email: "jose@bleu.studio",
-  user_type: "non_delegate",
-  address: "0x26394373F96950025DA55b07809c976a4768c995",
-  chain_id: 10
-))

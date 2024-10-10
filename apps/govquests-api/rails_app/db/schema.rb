@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_09_224134) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_10_140645) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,10 +42,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_09_224134) do
   end
 
   create_table "event_store_events", force: :cascade do |t|
-    t.string "event_id", limit: 36, null: false
+    t.uuid "event_id", null: false
     t.string "event_type", null: false
-    t.binary "metadata"
-    t.binary "data", null: false
+    t.jsonb "metadata"
+    t.jsonb "data", null: false
     t.datetime "created_at", null: false
     t.datetime "valid_at"
     t.index ["created_at"], name: "index_event_store_events_on_created_at"
@@ -57,7 +57,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_09_224134) do
   create_table "event_store_events_in_streams", force: :cascade do |t|
     t.string "stream", null: false
     t.integer "position"
-    t.string "event_id", limit: 36, null: false
+    t.uuid "event_id", null: false
     t.datetime "created_at", null: false
     t.index ["created_at"], name: "index_event_store_events_in_streams_on_created_at"
     t.index ["event_id"], name: "index_event_store_events_in_streams_on_event_id"
@@ -199,12 +199,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_09_224134) do
     t.string "email"
     t.string "user_type", default: "non_delegate", null: false
     t.jsonb "settings", default: {}
-    t.jsonb "wallets", default: []
     t.jsonb "sessions", default: []
     t.jsonb "quests_progress", default: {}
     t.jsonb "activity_log", default: []
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address", null: false
+    t.integer "chain_id", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["user_id"], name: "index_users_on_user_id", unique: true
   end

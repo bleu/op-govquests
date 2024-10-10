@@ -215,13 +215,9 @@ type StartActionExecutionPayload {
 }
 
 type User {
+  address: String!
+  chainId: Int!
   email: String
   id: ID!
   userType: String!
-  wallets: [Wallet!]!
-}
-
-type Wallet {
-  address: String!
-  chainId: Int!
 }

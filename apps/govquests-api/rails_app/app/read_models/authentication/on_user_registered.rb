@@ -10,7 +10,8 @@ module Authentication
       user = UserReadModel.find_or_initialize_by(user_id: user_id)
       user.email = email
       user.user_type = user_type
-      user.wallets = [{address: address, chain_id: chain_id}]
+      user.address = address
+      user.chain_id = chain_id
       user.save!
     end
   end

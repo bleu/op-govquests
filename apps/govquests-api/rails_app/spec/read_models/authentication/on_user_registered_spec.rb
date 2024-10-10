@@ -26,8 +26,8 @@ RSpec.describe Authentication::OnUserRegistered do
         user = Authentication::UserReadModel.find_by(user_id: user_id)
         expect(user.email).to eq(email)
         expect(user.user_type).to eq(user_type)
-        expect(user.wallets.first["address"]).to eq(address)
-        expect(user.wallets.first["chain_id"]).to eq(chain_id)
+        expect(user.address).to eq(address)
+        expect(user.chain_id).to eq(chain_id)
       end
     end
 
@@ -37,7 +37,8 @@ RSpec.describe Authentication::OnUserRegistered do
           user_id: user_id,
           email: "old@example.com",
           user_type: "delegate",
-          wallets: [{address: "0x0987654321fedcba", chain_id: 2}]
+          address: "0x0987654321fedcba",
+          chain_id: 2
         )
       end
 
@@ -57,8 +58,8 @@ RSpec.describe Authentication::OnUserRegistered do
         existing_user.reload
         expect(existing_user.email).to eq(email)
         expect(existing_user.user_type).to eq(user_type)
-        expect(existing_user.wallets.first["address"]).to eq(address)
-        expect(existing_user.wallets.first["chain_id"]).to eq(chain_id)
+        expect(existing_user.address).to eq(address)
+        expect(existing_user.chain_id).to eq(chain_id)
       end
     end
 
@@ -67,7 +68,8 @@ RSpec.describe Authentication::OnUserRegistered do
         user_id: user_id,
         email: email,
         user_type: user_type,
-        wallets: [{address: address, chain_id: chain_id}]
+        address: address,
+        chain_id: chain_id
       )
 
       event = Authentication::UserRegistered.new(data: {

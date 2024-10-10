@@ -11,29 +11,21 @@ const API_URL =
 export const generateSiweMessage = async (
   variables: VariablesOf<typeof GENERATE_SIWE_MESSAGE>,
 ) => {
-  return await request(API_URL, GENERATE_SIWE_MESSAGE, variables, {
-    credentials: "include",
-  });
+  return await request(API_URL, GENERATE_SIWE_MESSAGE, variables);
 };
 
 export const signInWithEthereum = async (
   variables: VariablesOf<typeof SIGN_IN_WITH_ETHEREUM>,
 ) => {
-  return await request(API_URL, SIGN_IN_WITH_ETHEREUM, variables, {
-    credentials: "include",
-  });
+  return await request(API_URL, SIGN_IN_WITH_ETHEREUM, variables);
 };
 
 export const signOut = async () => {
-  return await request(API_URL, SIGN_OUT, {
-    credentials: "include",
-  });
+  return await request(API_URL, SIGN_OUT);
 };
 
 export const fetchCurrentUser = async (): Promise<
   ResultOf<typeof CURRENT_USER>
 > => {
-  return await request(API_URL, CURRENT_USER, {
-    credentials: "include",
-  });
+  return await request(API_URL, CURRENT_USER);
 };

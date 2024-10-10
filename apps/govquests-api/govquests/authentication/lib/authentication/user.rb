@@ -11,7 +11,9 @@ module Authentication
       @email = nil
       @user_type = "non_delegate"
       @settings = {}
-      @wallets = []
+      @address = nil
+      @chain_id = nil
+      @ens = nil
       @sessions = []
       @quests_progress = {}
       @activity_log = []
@@ -46,10 +48,8 @@ module Authentication
       @registered = true
       @email = event.data[:email]
       @user_type = event.data[:user_type]
-      @wallets << {
-        address: event.data[:address],
-        chain_id: event.data[:chain_id]
-      }
+      @address = event.data[:address]
+      @chain_id = event.data[:chain_id]
     end
 
     on UserLoggedIn do |event|

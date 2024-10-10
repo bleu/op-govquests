@@ -56,8 +56,8 @@ export const siweConfig: SIWEConfig = {
     if (!currentUser) return null;
 
     return {
-      address: currentUser.wallets[0].address as `0x${string}`,
-      chainId: currentUser.wallets[0].chainId,
+      address: currentUser.address as `0x${string}`,
+      chainId: currentUser.chainId as number,
     };
   },
   signOut: async () => {

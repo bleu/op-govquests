@@ -4,10 +4,8 @@ export const CURRENT_USER = graphql(`
   query CurrentUser {
     currentUser {
       id
-      wallets {
-        address
-        chainId
-      }
+      address
+      chainId
     }
   }
 `);
