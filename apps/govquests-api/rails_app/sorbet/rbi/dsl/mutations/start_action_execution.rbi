@@ -6,6 +6,12 @@
 
 
 class Mutations::StartActionExecution
-  sig { params(action_id: ::String, start_data: T.nilable(T::Hash[::String, T.untyped])).returns(T.untyped) }
-  def resolve(action_id:, start_data: T.unsafe(nil)); end
+  sig do
+    params(
+      quest_id: ::String,
+      action_id: ::String,
+      start_data: T.nilable(T::Hash[::String, T.untyped])
+    ).returns(T.untyped)
+  end
+  def resolve(quest_id:, action_id:, start_data: T.unsafe(nil)); end
 end
