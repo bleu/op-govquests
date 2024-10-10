@@ -1,4 +1,3 @@
-# govquests/processes/lib/processes/start_quest_on_action_execution_started.rb
 module Processes
   class StartQuestOnActionExecutionStarted
     def initialize(event_store, command_bus)
@@ -20,7 +19,6 @@ module Processes
 
       return unless quest_id
 
-      # Check if the user already has an active quest
       existing_user_quest = ::Questing::UserQuestReadModel.find_by(quest_id: quest_id, user_id: user_id)
 
       unless existing_user_quest.nil? || existing_user_quest.state == "completed"

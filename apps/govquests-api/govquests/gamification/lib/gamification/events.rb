@@ -1,4 +1,3 @@
-# govquests/gamification/lib/gamification/events.rb
 module Gamification
   class ScoreUpdated < Infra::Event
     attribute :profile_id, Infra::Types::UUID

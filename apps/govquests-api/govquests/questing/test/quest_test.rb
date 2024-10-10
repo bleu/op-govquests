@@ -1,4 +1,3 @@
-# govquests/questing/test/quest_test.rb
 require_relative "test_helper"
 
 module Questing

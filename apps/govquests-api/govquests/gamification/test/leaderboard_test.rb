@@ -15,7 +15,6 @@ module Gamification
       profile_id2 = SecureRandom.uuid
       profile_id3 = SecureRandom.uuid
 
-      # Update scores
       @leaderboard.update_score(profile_id1, 300)
       @leaderboard.update_score(profile_id2, 500)
       @leaderboard.update_score(profile_id3, 300)

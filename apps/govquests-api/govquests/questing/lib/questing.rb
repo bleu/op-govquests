@@ -5,8 +5,6 @@ require_relative "questing/on_quest_commands"
 require_relative "questing/quest"
 require_relative "questing/user_quest"
 
-# govquests/questing/lib/questing/configuration.rb
-
 module Questing
   class Configuration
     def call(event_store, command_bus)
