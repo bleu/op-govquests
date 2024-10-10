@@ -22,7 +22,10 @@ module Types
     # They will be entry points for queries on your schema.
     field :quests, resolver: Resolvers::FetchQuests
     field :quest, resolver: Resolvers::FetchQuest
-    field :user, resolver: Resolvers::FetchUser
+
     field :action_executions, resolver: Resolvers::FetchActionExecutions
+
+    field :user, resolver: Resolvers::FetchUser
+    field :current_user, resolver: Resolvers::CurrentUser
   end
 end

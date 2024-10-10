@@ -8,6 +8,7 @@ import {
 import Link from "next/link";
 import type React from "react";
 import Button from "./ui/Button";
+import SignInButton from "@/domains/authentication/components/SignInButton";
 
 const Header: React.FC = () => {
   return (
@@ -52,9 +53,7 @@ const Header: React.FC = () => {
           </ul>
         </nav>
 
-        <Button type="button" className="px-12 py-1 rounded-md ">
-          Log in
-        </Button>
+        <SignInButton />
       </div>
     </header>
   );

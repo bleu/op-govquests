@@ -14,12 +14,20 @@ module Questing
   end
 
   class QuestStarted < Infra::Event
+    attribute :user_quest_id, Infra::Types::UUID
     attribute :quest_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
   end
 
   class QuestCompleted < Infra::Event
+    attribute :user_quest_id, Infra::Types::UUID
     attribute :quest_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
+  end
+
+  class QuestProgressUpdated < Infra::Event
+    attribute :user_quest_id, Infra::Types::UUID
+    attribute :action_id, Infra::Types::UUID
+    attribute :data, Infra::Types::Hash
   end
 end

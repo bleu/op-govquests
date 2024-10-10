@@ -1,4 +1,3 @@
-# spec/read_models/authentication/on_user_logged_in_spec.rb
 require "rails_helper"
 
 RSpec.describe Authentication::OnUserLoggedIn do
@@ -8,6 +7,16 @@ RSpec.describe Authentication::OnUserLoggedIn do
   let(:timestamp) { Time.current }
 
   describe "#call" do
+    before do
+      Rails.configuration.command_bus.call(Authentication::RegisterUser.new(
+        user_id: user_id,
+        email: "",
+        user_type: "non_delegate",
+        address: "0x0987654321fedcba",
+        chain_id: 2
+      ))
+    end
+
     it "creates a new user session when handling UserLoggedIn event" do
       event = Authentication::UserLoggedIn.new(data: {
         user_id: user_id,

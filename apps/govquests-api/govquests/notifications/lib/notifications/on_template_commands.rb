@@ -1,5 +1,3 @@
-# govquests/notifications/lib/notifications/on_template_commands.rb
-
 module Notifications
   class OnTemplateCommands
     def initialize(event_store)

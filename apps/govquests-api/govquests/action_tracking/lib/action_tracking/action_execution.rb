@@ -12,6 +12,7 @@ module ActionTracking
 
     def initialize(id)
       @id = id
+      @quest_id = nil
       @action_id = nil
       @user_id = nil
       @action_type = nil
@@ -22,7 +23,7 @@ module ActionTracking
       @completed_at = nil
     end
 
-    def start(action_id, action_type, user_id, start_data)
+    def start(quest_id, action_id, action_type, user_id, start_data)
       raise AlreadyStartedError if started?
       raise AlreadyCompletedError if completed?
 
@@ -32,6 +33,7 @@ module ActionTracking
 
       apply ActionExecutionStarted.new(data: {
         execution_id: @id,
+        quest_id: quest_id,
         action_id: action_id,
         user_id: user_id,
         action_type: action_type,
@@ -42,15 +44,18 @@ module ActionTracking
     end
 
     def complete(nonce, completion_data = {})
-      raise InvalidNonceError unless valid_nonce?(nonce)
       raise NotStartedError if @state == "not_started"
-      raise AlreadyCompletedError if @state == "completed"
+      raise InvalidNonceError unless valid_nonce?(nonce)
+      raise AlreadyCompletedError if completed?
 
       strategy = ActionTracking::ActionStrategyFactory.for(@action_type)
       data = strategy.complete_execution(completion_data)
 
       apply ActionExecutionCompleted.new(data: {
         execution_id: @id,
+        quest_id: @quest_id,
+        action_id: @action_id,
+        user_id: @user_id,
         completion_data: completion_data.merge(data || {})
       })
     end

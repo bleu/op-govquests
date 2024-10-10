@@ -2,7 +2,7 @@ install:
 	@bundle install
 
 test:
-	@bundle exec ruby -e "require \"rake/rake_test_loader\"" test/*_test.rb
+	@bundle exec rspec
 
 mutate:
 	@RAILS_ENV=test bundle exec mutant run

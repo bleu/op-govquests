@@ -1,6 +1,8 @@
 require "rails_event_store"
 require "arkency/command_bus"
 
+require_relative "../../../govquests/configuration"
+require_relative "../../../infra/lib/infra"
 require_relative "../../lib/read_models_configuration"
 
 Rails.configuration.to_prepare do

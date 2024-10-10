@@ -11,21 +11,23 @@ module Authentication
       @email = nil
       @user_type = "non_delegate"
       @settings = {}
-      @wallets = []
+      @address = nil
+      @chain_id = nil
+      @ens = nil
       @sessions = []
       @quests_progress = {}
       @activity_log = []
       @claimed_rewards = []
     end
 
-    def register(email, user_type, wallet_address, chain_id)
+    def register(email, user_type, address, chain_id)
       raise AlreadyRegistered if @registered
 
       apply UserRegistered.new(data: {
         user_id: @id,
         email: email,
         user_type: user_type,
-        wallet_address: wallet_address,
+        address: address,
         chain_id: chain_id
       })
     end
@@ -46,10 +48,8 @@ module Authentication
       @registered = true
       @email = event.data[:email]
       @user_type = event.data[:user_type]
-      @wallets << {
-        wallet_address: event.data[:wallet_address],
-        chain_id: event.data[:chain_id]
-      }
+      @address = event.data[:address]
+      @chain_id = event.data[:chain_id]
     end
 
     on UserLoggedIn do |event|

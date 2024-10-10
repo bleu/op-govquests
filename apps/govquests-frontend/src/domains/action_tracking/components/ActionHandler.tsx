@@ -7,10 +7,11 @@ import { ActionStrategyFactory } from "../strategies/ActionStrategyFactory";
 import { ActionExecution } from "../types/actionTypes";
 
 interface ActionHandlerProps {
+  questId: string;
   action: Action;
 }
 
-const ActionHandler: React.FC<ActionHandlerProps> = ({ action }) => {
+const ActionHandler: React.FC<ActionHandlerProps> = ({ questId, action }) => {
   const {
     data: actionExecutions,
     isLoading: isFetchingExecutions,
@@ -32,6 +33,7 @@ const ActionHandler: React.FC<ActionHandlerProps> = ({ action }) => {
 
   return (
     <StrategyComponent
+      questId={questId}
       action={action}
       execution={execution}
       startMutation={startMutation}

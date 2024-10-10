@@ -3,6 +3,7 @@ import { ActionStrategy, ActionStrategyProps } from "./ActionStrategy";
 import Button from "@/components/ui/Button";
 
 export const DefaultActionStrategy: ActionStrategy = ({
+  questId,
   action,
   execution,
   startMutation,
@@ -11,7 +12,11 @@ export const DefaultActionStrategy: ActionStrategy = ({
 }) => {
   const handleStart = async () => {
     try {
-      await startMutation.mutateAsync({ actionId: action.id, startData: {} });
+      await startMutation.mutateAsync({
+        questId,
+        actionId: action.id,
+        startData: {},
+      });
     } catch (error) {
       console.error("Error starting action:", error);
     }

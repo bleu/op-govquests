@@ -1,4 +1,3 @@
-# govquests/action_tracking/lib/action_tracking/commands.rb
 module ActionTracking
   class CreateAction < Infra::Command
     attribute :action_id, Infra::Types::UUID
@@ -11,6 +10,7 @@ module ActionTracking
 
   class StartActionExecution < Infra::Command
     attribute :execution_id, Infra::Types::UUID
+    attribute :quest_id, Infra::Types::UUID
     attribute :action_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
     attribute :start_data, Infra::Types::Hash

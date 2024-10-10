@@ -10,9 +10,5 @@ class UpdateActionTrackingTables < ActiveRecord::Migration[8.0]
       t.datetime :completed_at
       t.remove :completion_data
     end
-
-    change_table :actions do |t|
-      t.remove :display_data
-    end
   end
 end

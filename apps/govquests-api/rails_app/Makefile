@@ -31,4 +31,8 @@ sorbet/bump:
 	bundle exec spoom srb bump --from true --to strict || true;
 	bundle exec spoom srb bump --from strict --to strong || true;
 
+gql/schema:
+	@bin/rails graphql:schema:idl
+
 .PHONY: install test lint sorbet
+

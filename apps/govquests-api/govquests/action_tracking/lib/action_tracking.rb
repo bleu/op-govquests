@@ -12,8 +12,8 @@ module ActionTracking
   class << self
     attr_accessor :event_store, :command_bus
 
-    def generate_execution_id(action_id, user_id)
-      name = "#{action_id}-#{user_id}"
+    def generate_execution_id(quest_id, action_id, user_id)
+      name = "Quest$#{quest_id}-Action$#{action_id}-User$#{user_id}"
       namespace_uuid = ACTION_EXECUTION_NAMESPACE_UUID
       Digest::UUID.uuid_v5(namespace_uuid, name)
     end

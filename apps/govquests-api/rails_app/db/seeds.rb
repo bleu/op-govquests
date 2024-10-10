@@ -12,25 +12,27 @@ def create_action(action_data)
   action_id
 end
 
-actions_data = [
-  {
+read_document = {
+  action_type: "read_document",
+  display_data: {content: "Read the Code of Conduct"},
+  action_data: {
     action_type: "read_document",
-    display_data: {content: "Read the Code of Conduct"},
-    action_data: {
-
-      document_url: "https://example.com/code-of-conduct"
-    }
-  },
-  {
-    action_type: "gitcoin_score",
-    display_data: {content: "Complete Gitcoin Passport verification"},
-    action_data: {
-
-      min_score: 20
-    }
+    document_url: "https://example.com/code-of-conduct"
   }
-]
+}
 
+gitcoin_action = {
+  action_type: "gitcoin_score",
+  display_data: {content: "Complete Gitcoin Passport verification"},
+  action_data: {
+    action_type: "gitcoin_score",
+    min_score: 20
+  }
+}
+actions_data = [
+  gitcoin_action,
+  read_document
+]
 puts "Creating actions..."
 action_ids = actions_data.map do |action_data|
   action_id = create_action(action_data)
@@ -43,25 +45,27 @@ puts "Actions created successfully!"
 quests_data = [
   {
     display_data: {
-      title: "Governance 101",
+      title: "Governance 101 - read document",
       intro: "Understand the Optimism Values and your role in governance.",
       image_url: "https://example.com/governance101.jpg"
     },
     quest_type: "Onboarding",
     audience: "AllUsers",
     rewards: [{type: "Points", amount: 50}],
-    actions: action_ids.take(4) # Use the first 4 actions
+    actions: [
+      action_ids[0]
+    ]
   },
   {
     display_data: {
-      title: "Advanced Governance Practices",
+      title: "gitcoin score quest",
       intro: "Dive deeper into governance processes and decision-making.",
       image_url: "https://example.com/advanced-governance.jpg"
     },
     quest_type: "Governance",
     audience: "Delegates",
     rewards: [{type: "Points", amount: 100}],
-    actions: action_ids.drop(4) # Use the last 4 actions
+    actions: [action_ids[1]]
   }
 ]
 
@@ -99,11 +103,3 @@ quests_data.each do |quest_data|
 end
 
 puts "Quests created and actions associated successfully!"
-
-Rails.configuration.command_bus.call(Authentication::RegisterUser.new(
-  user_id: SecureRandom.uuid,
-  email: "jose@bleu.studio",
-  user_type: "non_delegate",
-  wallet_address: "0x26394373F96950025DA55b07809c976a4768c995",
-  chain_id: 10
-))

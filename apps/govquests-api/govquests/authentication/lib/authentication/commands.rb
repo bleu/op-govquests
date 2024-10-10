@@ -3,7 +3,7 @@ module Authentication
     attribute :user_id, Infra::Types::UUID
     attribute :email, Infra::Types::String.optional
     attribute :user_type, Infra::Types::String
-    attribute :wallet_address, Infra::Types::String
+    attribute :address, Infra::Types::String
     attribute :chain_id, Infra::Types::Integer
 
     alias_method :aggregate_id, :user_id

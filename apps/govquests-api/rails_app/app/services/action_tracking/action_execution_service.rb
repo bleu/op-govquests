@@ -1,13 +1,14 @@
 module ActionTracking
   class ActionExecutionService
-    def self.start(action_id:, user_id:, start_data:)
+    def self.start(quest_id:, action_id:, user_id:, start_data:)
       action = ActionTracking::ActionReadModel.find_by(action_id: action_id)
       return {error: "Action not found"} unless action
 
-      execution_id = ActionTracking.generate_execution_id(action_id, user_id)
+      execution_id = ActionTracking.generate_execution_id(quest_id, action_id, user_id)
       command = ActionTracking::StartActionExecution.new(
+        quest_id: quest_id,
         execution_id: execution_id,
-        action_id: action.action_id,
+        action_id: action_id,
         user_id: user_id,
         start_data: start_data.to_h
       )
@@ -31,9 +32,9 @@ module ActionTracking
         {error: "Execution not started"}
       rescue ActionTracking::ActionExecution::AlreadyCompletedError
         {error: "Execution already completed"}
+      else
+        ActionTracking::ActionExecutionReadModel.find_by(execution_id: execution_id)
       end
-
-      ActionTracking::ActionExecutionReadModel.find_by(execution_id: execution_id)
     end
   end
 end

@@ -1,4 +1,3 @@
-# govquests/gamification/lib/gamification/commands.rb
 module Gamification
   class UpdateScore < Infra::Command
     attribute :profile_id, Infra::Types::UUID
