@@ -17,7 +17,7 @@ actions_data = [
     action_type: "read_document",
     display_data: {content: "Read the Code of Conduct"},
     action_data: {
-
+      action_type: "read_document",
       document_url: "https://example.com/code-of-conduct"
     }
   },
@@ -25,7 +25,7 @@ actions_data = [
     action_type: "gitcoin_score",
     display_data: {content: "Complete Gitcoin Passport verification"},
     action_data: {
-
+      action_type: "gitcoin_score",
       min_score: 20
     }
   }
@@ -104,6 +104,6 @@ Rails.configuration.command_bus.call(Authentication::RegisterUser.new(
   user_id: SecureRandom.uuid,
   email: "jose@bleu.studio",
   user_type: "non_delegate",
-  wallet_address: "0x26394373F96950025DA55b07809c976a4768c995",
+  address: "0x26394373F96950025DA55b07809c976a4768c995",
   chain_id: 10
 ))

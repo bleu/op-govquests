@@ -38,7 +38,7 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
           </div>
           <div className="flex flex-col md:flex-row">
             <div className="flex flex-col">
-              <ActionList actions={quest.actions} />
+              <ActionList questId={quest.id} actions={quest.actions} />
             </div>
             <Button className="font-bold md:self-end md:ml-auto p-4">
               Complete quest

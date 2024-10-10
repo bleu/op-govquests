@@ -19,11 +19,11 @@ module ActionTracking
     end
 
     def complete_execution(data)
-      wallet_address = data["address"]
+      address = data["address"]
       signature = data["signature"]
       nonce = data["nonce"]
 
-      response = @gitcoin_api.submit_passport(wallet_address, signature, nonce)
+      response = @gitcoin_api.submit_passport(address, signature, nonce)
       score = response["score"].to_f
 
       if score > GITCOIN_SCORE_HUMANITY_THRESHOLD

@@ -4,6 +4,7 @@ RSpec.describe ActionTracking::OnActionExecutionStarted do
   let(:handler) { described_class.new }
   let(:action_id) { SecureRandom.uuid }
   let(:user_id) { SecureRandom.uuid }
+  let(:quest_id) { SecureRandom.uuid }
   let(:timestamp) { Time.current }
 
   describe "#call" do
@@ -12,6 +13,7 @@ RSpec.describe ActionTracking::OnActionExecutionStarted do
         execution_id: SecureRandom.uuid,
         action_id: action_id,
         user_id: user_id,
+        quest_id: quest_id,
         action_type: "read_document",
         started_at: timestamp,
         start_data: {},

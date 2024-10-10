@@ -1,9 +1,13 @@
 import { graphql } from "gql.tada";
 
 export const START_ACTION_EXECUTION = graphql(`
-  mutation StartActionExecution($actionId: ID!, $startData: JSON) {
+  mutation StartActionExecution(
+    $questId: ID!
+    $actionId: ID!
+    $startData: JSON
+  ) {
     startActionExecution(
-      input: { actionId: $actionId, startData: $startData }
+      input: { questId: $questId, actionId: $actionId, startData: $startData }
     ) {
       actionExecution {
         id

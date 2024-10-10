@@ -10,22 +10,22 @@ import {
 } from "../types/actionTypes";
 import { ACTION_EXECUTIONS_QUERY } from "../graphql/actionExecutionsQuery";
 
-const API_URL = "http://localhost:3001/graphql";
+const API_URL = "http://localhost:3000/graphql";
 
 export const startActionExecution = async (
-  variables: StartActionExecutionVariables
+  variables: StartActionExecutionVariables,
 ): Promise<StartActionExecutionResult> => {
   return await request(API_URL, START_ACTION_EXECUTION, variables);
 };
 
 export const completeActionExecution = async (
-  variables: CompleteActionExecutionVariables
+  variables: CompleteActionExecutionVariables,
 ): Promise<CompleteActionExecutionResult> => {
   return await request(API_URL, COMPLETE_ACTION_EXECUTION, variables);
 };
 
 export const fetchActionExecutions = async (
-  actionId: string
+  actionId: string,
 ): Promise<ActionExecutionsQueryResult> => {
   return await request(API_URL, ACTION_EXECUTIONS_QUERY, { actionId });
 };

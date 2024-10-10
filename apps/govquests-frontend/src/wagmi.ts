@@ -1,6 +1,6 @@
 import { createConfig, http } from "wagmi";
 import { mainnet, optimism } from "wagmi/chains";
-import { getDefaultConfig } from "connectkit";
+import { getDefaultConfig, SIWEConfig } from "connectkit";
 import { SiweMessage } from "siwe";
 import {
   generateSiweMessage,
@@ -24,29 +24,27 @@ export const config = createConfig(
   }),
 );
 
-export const siweConfig = {
-  getNonce: () => {
-    console.log("got nonce");
-    return Promise.resolve(Date.now().toString());
+export const siweConfig: SIWEConfig = {
+  getNonce: async () => {
+    // Just making TS happy here, we don't need to actually return
+    // a nonce since the backend will handle it when creating the message
+    return Date.now().toString();
   },
-  createMessage: async ({ nonce, address, chainId }) => {
-    console.log("creating message");
-    // return new SiweMessage({
-    //   version: "1",
-    //   domain: window.location.host,
-    //   uri: window.location.origin,
-    //   address,
-    //   chainId,
-    //   nonce,
-    //   statement: "Sign in to GovQuests",
-    // }).prepareMessage();
+  createMessage: async ({
+    address,
+    chainId,
+  }: {
+    nonce: string;
+    address: string;
+    chainId: number;
+  }) => {
     const { generateSiweMessage: messageData } = await generateSiweMessage({
       address,
       chainId,
     });
     return messageData?.message!;
   },
-  verifyMessage: async ({ message, signature }) => {
+  verifyMessage: async ({ signature }: { signature: string }) => {
     const { signInWithEthereum: result } = await signInWithEthereum({
       signature,
     });

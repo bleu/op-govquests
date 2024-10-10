@@ -6,10 +6,10 @@ import { useSIWE } from "connectkit";
 import Button from "@/components/ui/Button";
 
 const SignInButton: React.FC = () => {
-  const { isConnected } = useAccount();
+  const { isConnected, chainId } = useAccount();
   const { signIn, signOut, isSignedIn } = useSIWE();
 
-  if (!isConnected) {
+  if (!isConnected || !chainId) {
     return <ConnectKitButton />;
   }
 

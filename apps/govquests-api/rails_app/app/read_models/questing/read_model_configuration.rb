@@ -13,7 +13,7 @@ module Questing
     belongs_to :action, class_name: "ActionTracking::ActionReadModel", foreign_key: "action_id", primary_key: "action_id"
   end
 
-  class UserQuest < ApplicationRecord
+  class UserQuestReadModel < ApplicationRecord
     self.table_name = "user_quests"
   end
 
@@ -21,7 +21,7 @@ module Questing
     def call(event_store)
       event_store.subscribe(OnQuestCreated, to: [Questing::QuestCreated])
       event_store.subscribe(OnActionAssociatedWithQuest, to: [Questing::ActionAssociatedWithQuest])
-      # event_store.subscribe(OnUserStartedQuest, to: [Questing::UserStartedQuest])
+      event_store.subscribe(OnQuestStarted, to: [Questing::QuestStarted])
     end
   end
 end

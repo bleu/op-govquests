@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { ActionStrategy } from "./ActionStrategy";
 import Button from "@/components/ui/Button";
 import { useAccount, useSignMessage } from "wagmi";
+import { useRouter } from "next/router";
 
 export const GitcoinScoreStrategy: ActionStrategy = ({
+  questId,
   action,
   execution,
   startMutation,
@@ -25,7 +27,11 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
 
   const handleStart = async () => {
     try {
-      await startMutation.mutateAsync({ actionId: action.id, startData: {} });
+      await startMutation.mutateAsync({
+        questId,
+        actionId: action.id,
+        startData: {},
+      });
       refetch();
     } catch (error) {
       console.error("Error starting action:", error);
@@ -33,7 +39,6 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   };
 
   const handleSignMessage = () => {
-    console.log({ execution });
     if (!execution) return;
     try {
       signMessage({

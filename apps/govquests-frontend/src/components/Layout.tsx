@@ -1,7 +1,9 @@
 "use client";
-import { useSignMessage, WagmiProvider } from "wagmi";
-import { config } from "@/wagmi";
+
+import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ConnectKitProvider, SIWEProvider } from "connectkit";
+import { config, siweConfig } from "@/wagmi";
 import Header from "./Header";
 
 const queryClient = new QueryClient();
@@ -9,7 +11,14 @@ const queryClient = new QueryClient();
 const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <SIWEProvider {...siweConfig}>
+          <ConnectKitProvider>
+            <Header />
+            <div className="h-full">{children}</div>
+          </ConnectKitProvider>
+        </SIWEProvider>
+      </QueryClientProvider>
     </WagmiProvider>
   );
 };
@@ -21,7 +30,6 @@ export default function Layout({
 }>) {
   return (
     <Providers>
-      <Header />
       <div className="h-full">{children}</div>
     </Providers>
   );

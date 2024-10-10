@@ -4,6 +4,7 @@ require_relative "rewarding/lib/rewarding"
 require_relative "notifications/lib/notifications"
 require_relative "action_tracking/lib/action_tracking"
 require_relative "gamification/lib/gamification"
+require_relative "processes/lib/processes"
 
 module GovQuests
   class Configuration
@@ -12,6 +13,11 @@ module GovQuests
 
     def call(event_store, command_bus)
       configure_bounded_contexts(event_store, command_bus)
+      configure_processes(event_store, command_bus)
+    end
+
+    def configure_processes(event_store, command_bus)
+      Processes::Configuration.new.call(event_store, command_bus)
     end
 
     def configure_bounded_contexts(event_store, command_bus)
