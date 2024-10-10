@@ -1,4 +1,3 @@
-// src/domains/authentication/components/SignInButton.tsx
 import React from "react";
 import { ConnectKitButton } from "connectkit";
 import { useAccount } from "wagmi";
