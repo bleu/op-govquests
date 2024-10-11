@@ -59,7 +59,7 @@ export const DefaultActionStrategy: ActionStrategy = ({
     return (
       <Button
         onClick={handleStart}
-        className="w-full bg-primary text-primaryForeground"
+        className="w-full bg-primary text-foreground"
       >
         Start {action.actionType}
       </Button>
@@ -68,7 +68,7 @@ export const DefaultActionStrategy: ActionStrategy = ({
     return (
       <Button
         onClick={handleComplete}
-        className="w-full bg-primary text-primaryForeground mt-4"
+        className="w-full bg-primary text-foreground mt-4"
       >
         Complete {action.actionType}
       </Button>

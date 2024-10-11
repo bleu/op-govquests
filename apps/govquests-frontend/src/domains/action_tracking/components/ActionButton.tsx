@@ -41,9 +41,9 @@ const ReadActionButton: React.FC<ReadActionButtonProps> = ({
   return (
     <Button
       className={cn(
-        "bg-[#EDEDED] hover:bg-[#6F6F70] hover:text-white",
+        "bg-secondary hover:bg-secondaryHover hover:text-white px-6",
         disabled &&
-          "bg-[#C4C4C4] hover:bg-[#C4C4C4] text-opacity-60 cursor-not-allowed pointer-events-none",
+          "bg-secondaryDisabled text-opacity-60 cursor-not-allowed pointer-events-none",
       )}
       size="sm"
       onClick={onClick}

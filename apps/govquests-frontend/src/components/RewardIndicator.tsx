@@ -11,7 +11,7 @@ const RewardIndicator: React.FC<RewardIndicator> = ({ reward, className }) => {
   return (
     <span
       className={cn(
-        "bg-primary text-primaryForeground py-1 px-2 rounded-md text-sm ml-1",
+        "bg-secondary font-medium py-1 px-2 rounded-md text-sm ml-1",
         className,
       )}
     >

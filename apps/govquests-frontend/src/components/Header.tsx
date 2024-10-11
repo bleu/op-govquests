@@ -16,7 +16,7 @@ const Header: React.FC = () => {
       <div className="flex justify-between items-center">
         <Link
           href="/"
-          className="bg-primary text-primaryForeground px-12 py-1 rounded-md"
+          className="bg-primary text-foreground px-12 py-1 rounded-md"
         >
           Logo
         </Link>
@@ -26,7 +26,7 @@ const Header: React.FC = () => {
             <li>
               <Link
                 href="/quests"
-                className="flex items-center text-primaryForeground px-3 py-1 rounded-full hover:bg-primary/70 transition"
+                className="flex items-center text-foreground px-3 py-1 rounded-full hover:bg-primary/70 transition"
               >
                 <MapIcon className="w-4 h-4 mr-1" />
                 Quests
@@ -35,7 +35,7 @@ const Header: React.FC = () => {
             <li>
               <Link
                 href="/"
-                className="flex items-center text-primaryForeground px-3 py-1 rounded-full hover:bg-primary/70 transition"
+                className="flex items-center text-foreground px-3 py-1 rounded-full hover:bg-primary/70 transition"
               >
                 <HomeIcon className="w-4 h-4 mr-1" />
                 Home
@@ -44,7 +44,7 @@ const Header: React.FC = () => {
             <li>
               <Link
                 href="/leaderboard"
-                className="flex items-center text-primaryForeground px-3 py-1 rounded-full hover:bg-primary/70 transition"
+                className="flex items-center text-foreground px-3 py-1 rounded-full hover:bg-primary/70 transition"
               >
                 <StarIcon className="w-4 h-4 mr-1" />
                 Leaderboard

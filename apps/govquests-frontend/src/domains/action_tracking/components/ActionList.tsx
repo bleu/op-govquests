@@ -11,7 +11,7 @@ const ActionList: React.FC<ActionListProps> = ({ questId, actions }) => {
   return (
     <div>
       {actions.every((action) => action.actionType === "read_document") && (
-        <h4 className="mb-7">Read</h4>
+        <h4 className="mb-5 text-xl font-semibold">Read</h4>
       )}
       {actions.map((action) => (
         <div key={action.id} className="mb-4">

@@ -55,8 +55,8 @@ export const ReadDocumentStrategy: ActionStrategy = ({
   };
 
   return (
-    <div className="flex w-full justify-between items-center">
-      <span className="">{action.displayData.content}</span>
+    <div className="flex w-full justify-between border-t-2 pt-3">
+      <span className="font-medium">{action.displayData.content}</span>
       <ReadActionButton
         loading={startMutation.isPending || completeMutation.isPending}
         disabled={getStatus() === "completed"}
