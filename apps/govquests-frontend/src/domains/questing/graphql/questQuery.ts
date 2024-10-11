@@ -6,7 +6,6 @@ export const QuestQuery = graphql(`
       id
       questType
       audience
-      status
       rewards {
         type
         amount
@@ -15,6 +14,12 @@ export const QuestQuery = graphql(`
         title
         intro
         imageUrl
+      }
+      userQuests {
+        id
+        status
+        startedAt
+        completedAt
       }
       actions {
         id

@@ -125,7 +125,6 @@ type Query {
   currentUser: User
   quest(id: ID!): Quest
   quests: [Quest!]!
-  user(id: ID!): User
 }
 
 type Quest {
@@ -136,6 +135,7 @@ type Quest {
   questType: String!
   rewards: [Reward!]!
   status: String!
+  userQuests: [UserQuest!]!
 }
 
 type Reward {
@@ -220,4 +220,11 @@ type User {
   email: String
   id: ID!
   userType: String!
+}
+
+type UserQuest {
+  completedAt: ISO8601DateTime
+  id: ID!
+  startedAt: ISO8601DateTime
+  status: String!
 }
