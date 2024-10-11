@@ -1,4 +1,4 @@
-# typed: strong
+# typed: true
 # frozen_string_literal: true
 
 require "action_controller/railtie"
@@ -16,7 +16,6 @@ require "aggregate_root"
 require "arkency/command_bus"
 require "bootsnap/setup"
 require "bundler/setup"
-require "factory_bot_rails"
 require "httparty"
 require "json"
 require "mutant/minitest/coverage"
@@ -24,5 +23,3 @@ require "rails"
 require "rails/test_unit/railtie"
 require "rspec/rails"
 require "securerandom"
-require_relative "../../lib/read_models_configuration"
-require_relative "../../../govquests/configuration"
