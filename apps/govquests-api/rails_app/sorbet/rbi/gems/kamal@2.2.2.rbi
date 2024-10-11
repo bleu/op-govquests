@@ -16,70 +16,70 @@ module Kamal; end
 # source://kamal//lib/kamal/cli.rb#1
 module Kamal::Cli; end
 
-# source://kamal//lib/kamal/cli/accessory.rb#1
+# source://kamal//lib/kamal/cli/accessory.rb#3
 class Kamal::Cli::Accessory < ::Kamal::Cli::Base
-  # source://kamal//lib/kamal/cli/accessory.rb#3
+  # source://kamal//lib/kamal/cli/accessory.rb#5
   def boot(name, prepare: T.unsafe(nil)); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#102
+  # source://kamal//lib/kamal/cli/accessory.rb#104
   def details(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#43
+  # source://kamal//lib/kamal/cli/accessory.rb#45
   def directories(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#116
+  # source://kamal//lib/kamal/cli/accessory.rb#118
   def exec(name, cmd); end
 
   def help(command = T.unsafe(nil), subcommand = T.unsafe(nil)); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#151
+  # source://kamal//lib/kamal/cli/accessory.rb#153
   def logs(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#56
+  # source://kamal//lib/kamal/cli/accessory.rb#58
   def reboot(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#176
+  # source://kamal//lib/kamal/cli/accessory.rb#178
   def remove(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#189
+  # source://kamal//lib/kamal/cli/accessory.rb#191
   def remove_container(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#201
+  # source://kamal//lib/kamal/cli/accessory.rb#203
   def remove_image(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#213
+  # source://kamal//lib/kamal/cli/accessory.rb#215
   def remove_service_directory(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#94
+  # source://kamal//lib/kamal/cli/accessory.rb#96
   def restart(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#70
+  # source://kamal//lib/kamal/cli/accessory.rb#72
   def start(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#82
+  # source://kamal//lib/kamal/cli/accessory.rb#84
   def stop(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#226
+  # source://kamal//lib/kamal/cli/accessory.rb#228
   def upgrade(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#26
+  # source://kamal//lib/kamal/cli/accessory.rb#28
   def upload(name); end
 
   private
 
-  # source://kamal//lib/kamal/cli/accessory.rb#260
+  # source://kamal//lib/kamal/cli/accessory.rb#262
   def accessory_hosts(accessory); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#252
+  # source://kamal//lib/kamal/cli/accessory.rb#254
   def error_on_missing_accessory(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#275
+  # source://kamal//lib/kamal/cli/accessory.rb#277
   def prepare(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#268
+  # source://kamal//lib/kamal/cli/accessory.rb#270
   def remove_accessory(name); end
 
-  # source://kamal//lib/kamal/cli/accessory.rb#243
+  # source://kamal//lib/kamal/cli/accessory.rb#245
   def with_accessory(name); end
 end
 
@@ -610,49 +610,49 @@ class Kamal::Cli::Proxy < ::Kamal::Cli::Base
   # source://kamal//lib/kamal/cli/proxy.rb#3
   def boot; end
 
-  # source://kamal//lib/kamal/cli/proxy.rb#29
+  # source://kamal//lib/kamal/cli/proxy.rb#30
   def boot_config(subcommand); end
 
-  # source://kamal//lib/kamal/cli/proxy.rb#164
+  # source://kamal//lib/kamal/cli/proxy.rb#166
   def details; end
 
   def help(command = T.unsafe(nil), subcommand = T.unsafe(nil)); end
 
-  # source://kamal//lib/kamal/cli/proxy.rb#174
+  # source://kamal//lib/kamal/cli/proxy.rb#176
   def logs; end
 
-  # source://kamal//lib/kamal/cli/proxy.rb#57
+  # source://kamal//lib/kamal/cli/proxy.rb#59
   def reboot; end
 
-  # source://kamal//lib/kamal/cli/proxy.rb#196
+  # source://kamal//lib/kamal/cli/proxy.rb#198
   def remove; end
 
-  # source://kamal//lib/kamal/cli/proxy.rb#208
+  # source://kamal//lib/kamal/cli/proxy.rb#210
   def remove_container; end
 
-  # source://kamal//lib/kamal/cli/proxy.rb#218
+  # source://kamal//lib/kamal/cli/proxy.rb#220
   def remove_image; end
 
-  # source://kamal//lib/kamal/cli/proxy.rb#228
+  # source://kamal//lib/kamal/cli/proxy.rb#230
   def remove_proxy_directory; end
 
-  # source://kamal//lib/kamal/cli/proxy.rb#156
+  # source://kamal//lib/kamal/cli/proxy.rb#158
   def restart; end
 
-  # source://kamal//lib/kamal/cli/proxy.rb#136
+  # source://kamal//lib/kamal/cli/proxy.rb#138
   def start; end
 
-  # source://kamal//lib/kamal/cli/proxy.rb#146
+  # source://kamal//lib/kamal/cli/proxy.rb#148
   def stop; end
 
-  # source://kamal//lib/kamal/cli/proxy.rb#98
+  # source://kamal//lib/kamal/cli/proxy.rb#100
   def upgrade; end
 
   private
 
   # @return [Boolean]
   #
-  # source://kamal//lib/kamal/cli/proxy.rb#237
+  # source://kamal//lib/kamal/cli/proxy.rb#239
   def removal_allowed?(force); end
 end
 
@@ -1295,19 +1295,19 @@ class Kamal::Commands::Base
   # source://kamal//lib/kamal/commands/base.rb#7
   def config=(_arg0); end
 
-  # source://kamal//lib/kamal/commands/base.rb#24
+  # source://kamal//lib/kamal/commands/base.rb#17
   def container_id_for(container_name:, only_running: T.unsafe(nil)); end
 
-  # source://kamal//lib/kamal/commands/base.rb#32
+  # source://kamal//lib/kamal/commands/base.rb#25
   def make_directory(path); end
 
-  # source://kamal//lib/kamal/commands/base.rb#28
+  # source://kamal//lib/kamal/commands/base.rb#21
   def make_directory_for(remote_file); end
 
-  # source://kamal//lib/kamal/commands/base.rb#36
+  # source://kamal//lib/kamal/commands/base.rb#29
   def remove_directory(path); end
 
-  # source://kamal//lib/kamal/commands/base.rb#40
+  # source://kamal//lib/kamal/commands/base.rb#33
   def remove_file(path); end
 
   # source://kamal//lib/kamal/commands/base.rb#13
@@ -1318,40 +1318,43 @@ class Kamal::Commands::Base
 
   private
 
-  # source://kamal//lib/kamal/commands/base.rb#68
+  # source://kamal//lib/kamal/commands/base.rb#61
   def any(*commands); end
 
-  # source://kamal//lib/kamal/commands/base.rb#60
+  # source://kamal//lib/kamal/commands/base.rb#53
   def append(*commands); end
 
-  # source://kamal//lib/kamal/commands/base.rb#52
+  # source://kamal//lib/kamal/commands/base.rb#45
   def chain(*commands); end
 
-  # source://kamal//lib/kamal/commands/base.rb#45
+  # source://kamal//lib/kamal/commands/base.rb#38
   def combine(*commands, by: T.unsafe(nil)); end
 
-  # source://kamal//lib/kamal/commands/base.rb#80
+  # source://kamal//lib/kamal/commands/base.rb#73
   def docker(*args); end
 
-  # source://kamal//lib/kamal/commands/base.rb#84
+  # source://kamal//lib/kamal/commands/base.rb#77
   def git(*args, path: T.unsafe(nil)); end
 
-  # source://kamal//lib/kamal/commands/base.rb#88
+  # source://kamal//lib/kamal/commands/base.rb#81
   def grep(*args); end
 
-  # source://kamal//lib/kamal/commands/base.rb#56
+  # source://kamal//lib/kamal/commands/base.rb#49
   def pipe(*commands); end
 
-  # source://kamal//lib/kamal/commands/base.rb#76
+  # source://kamal//lib/kamal/commands/base.rb#69
   def shell(command); end
 
-  # source://kamal//lib/kamal/commands/base.rb#92
+  # source://kamal//lib/kamal/commands/base.rb#89
+  def ssh_proxy_args; end
+
+  # source://kamal//lib/kamal/commands/base.rb#85
   def tags(**details); end
 
-  # source://kamal//lib/kamal/commands/base.rb#64
+  # source://kamal//lib/kamal/commands/base.rb#57
   def write(*commands); end
 
-  # source://kamal//lib/kamal/commands/base.rb#72
+  # source://kamal//lib/kamal/commands/base.rb#65
   def xargs(command); end
 end
 
@@ -1362,14 +1365,8 @@ Kamal::Commands::Base::DOCKER_HEALTH_STATUS_FORMAT = T.let(T.unsafe(nil), String
 class Kamal::Commands::Builder < ::Kamal::Commands::Base
   include ::Kamal::Commands::Builder::Clone
 
-  # source://kamal//lib/kamal/commands/builder/clone.rb#5
-  def build_directory(*_arg0, **_arg1, &_arg2); end
-
   # source://kamal//lib/kamal/commands/builder.rb#4
   def clean(*_arg0, **_arg1, &_arg2); end
-
-  # source://kamal//lib/kamal/commands/builder/clone.rb#5
-  def clone_directory(*_arg0, **_arg1, &_arg2); end
 
   # source://kamal//lib/kamal/commands/builder.rb#4
   def create(*_arg0, **_arg1, &_arg2); end
@@ -1540,19 +1537,23 @@ Kamal::Commands::Builder::Base::ENDPOINT_DOCKER_HOST_INSPECT = T.let(T.unsafe(ni
 
 # source://kamal//lib/kamal/commands/builder/clone.rb#1
 module Kamal::Commands::Builder::Clone
-  extend ::ActiveSupport::Concern
-
-  # source://kamal//lib/kamal/commands/builder/clone.rb#8
+  # source://kamal//lib/kamal/commands/builder/clone.rb#2
   def clone; end
 
-  # source://kamal//lib/kamal/commands/builder/clone.rb#12
+  # source://kamal//lib/kamal/commands/builder/clone.rb#6
   def clone_reset_steps; end
 
-  # source://kamal//lib/kamal/commands/builder/clone.rb#26
+  # source://kamal//lib/kamal/commands/builder/clone.rb#20
   def clone_revision; end
 
-  # source://kamal//lib/kamal/commands/builder/clone.rb#22
+  # source://kamal//lib/kamal/commands/builder/clone.rb#16
   def clone_status; end
+
+  # source://kamal//lib/kamal/commands/builder/clone.rb#28
+  def escaped_build_directory; end
+
+  # source://kamal//lib/kamal/commands/builder/clone.rb#24
+  def escaped_root; end
 end
 
 # source://kamal//lib/kamal/commands/builder/hybrid.rb#1
@@ -1834,13 +1835,13 @@ class Kamal::Configuration
 
   # @return [Configuration] a new instance of Configuration
   #
-  # source://kamal//lib/kamal/configuration.rb#50
+  # source://kamal//lib/kamal/configuration.rb#51
   def initialize(raw_config, destination: T.unsafe(nil), version: T.unsafe(nil), validate: T.unsafe(nil)); end
 
-  # source://kamal//lib/kamal/configuration.rb#93
+  # source://kamal//lib/kamal/configuration.rb#94
   def abbreviated_version; end
 
-  # source://kamal//lib/kamal/configuration.rb#158
+  # source://kamal//lib/kamal/configuration.rb#159
   def absolute_image; end
 
   # Returns the value of attribute accessories.
@@ -1848,7 +1849,7 @@ class Kamal::Configuration
   # source://kamal//lib/kamal/configuration.rb#13
   def accessories; end
 
-  # source://kamal//lib/kamal/configuration.rb#117
+  # source://kamal//lib/kamal/configuration.rb#118
   def accessory(name); end
 
   # Returns the value of attribute aliases.
@@ -1856,27 +1857,27 @@ class Kamal::Configuration
   # source://kamal//lib/kamal/configuration.rb#13
   def aliases; end
 
-  # source://kamal//lib/kamal/configuration.rb#122
+  # source://kamal//lib/kamal/configuration.rb#123
   def all_hosts; end
 
   # @return [Boolean]
   #
-  # source://kamal//lib/kamal/configuration.rb#138
+  # source://kamal//lib/kamal/configuration.rb#139
   def allow_empty_roles?; end
 
-  # source://kamal//lib/kamal/configuration.rb#217
+  # source://kamal//lib/kamal/configuration.rb#218
   def app_directory; end
 
-  # source://kamal//lib/kamal/configuration.rb#213
+  # source://kamal//lib/kamal/configuration.rb#214
   def apps_directory; end
 
   # source://kamal//lib/kamal/configuration.rb#10
   def argumentize(*_arg0, **_arg1, &_arg2); end
 
-  # source://kamal//lib/kamal/configuration.rb#234
+  # source://kamal//lib/kamal/configuration.rb#235
   def asset_path; end
 
-  # source://kamal//lib/kamal/configuration.rb#225
+  # source://kamal//lib/kamal/configuration.rb#226
   def assets_directory; end
 
   # Returns the value of attribute boot.
@@ -1889,7 +1890,7 @@ class Kamal::Configuration
   # source://kamal//lib/kamal/configuration.rb#13
   def builder; end
 
-  # source://kamal//lib/kamal/configuration.rb#200
+  # source://kamal//lib/kamal/configuration.rb#201
   def deploy_timeout; end
 
   # Returns the value of attribute destination.
@@ -1897,7 +1898,7 @@ class Kamal::Configuration
   # source://kamal//lib/kamal/configuration.rb#12
   def destination; end
 
-  # source://kamal//lib/kamal/configuration.rb#204
+  # source://kamal//lib/kamal/configuration.rb#205
   def drain_timeout; end
 
   # Returns the value of attribute env.
@@ -1905,16 +1906,16 @@ class Kamal::Configuration
   # source://kamal//lib/kamal/configuration.rb#13
   def env; end
 
-  # source://kamal//lib/kamal/configuration.rb#221
+  # source://kamal//lib/kamal/configuration.rb#222
   def env_directory; end
 
-  # source://kamal//lib/kamal/configuration.rb#247
+  # source://kamal//lib/kamal/configuration.rb#248
   def env_tag(name); end
 
-  # source://kamal//lib/kamal/configuration.rb#239
+  # source://kamal//lib/kamal/configuration.rb#240
   def env_tags; end
 
-  # source://kamal//lib/kamal/configuration.rb#230
+  # source://kamal//lib/kamal/configuration.rb#231
   def hooks_path; end
 
   # source://kamal//lib/kamal/configuration.rb#9
@@ -1923,10 +1924,10 @@ class Kamal::Configuration
   # source://kamal//lib/kamal/configuration.rb#9
   def labels(*_arg0, **_arg1, &_arg2); end
 
-  # source://kamal//lib/kamal/configuration.rb#162
+  # source://kamal//lib/kamal/configuration.rb#163
   def latest_image; end
 
-  # source://kamal//lib/kamal/configuration.rb#166
+  # source://kamal//lib/kamal/configuration.rb#167
   def latest_tag; end
 
   # Returns the value of attribute logging.
@@ -1934,22 +1935,22 @@ class Kamal::Configuration
   # source://kamal//lib/kamal/configuration.rb#13
   def logging; end
 
-  # source://kamal//lib/kamal/configuration.rb#191
+  # source://kamal//lib/kamal/configuration.rb#192
   def logging_args; end
 
-  # source://kamal//lib/kamal/configuration.rb#104
+  # source://kamal//lib/kamal/configuration.rb#105
   def minimum_version; end
 
   # source://kamal//lib/kamal/configuration.rb#10
   def optionize(*_arg0, **_arg1, &_arg2); end
 
-  # source://kamal//lib/kamal/configuration.rb#126
+  # source://kamal//lib/kamal/configuration.rb#127
   def primary_host; end
 
-  # source://kamal//lib/kamal/configuration.rb#134
+  # source://kamal//lib/kamal/configuration.rb#135
   def primary_role; end
 
-  # source://kamal//lib/kamal/configuration.rb#130
+  # source://kamal//lib/kamal/configuration.rb#131
   def primary_role_name; end
 
   # Returns the value of attribute proxy.
@@ -1957,31 +1958,34 @@ class Kamal::Configuration
   # source://kamal//lib/kamal/configuration.rb#13
   def proxy; end
 
-  # source://kamal//lib/kamal/configuration.rb#263
+  # source://kamal//lib/kamal/configuration.rb#268
   def proxy_container_name; end
 
-  # source://kamal//lib/kamal/configuration.rb#267
+  # source://kamal//lib/kamal/configuration.rb#272
   def proxy_directory; end
 
-  # source://kamal//lib/kamal/configuration.rb#150
+  # source://kamal//lib/kamal/configuration.rb#151
   def proxy_hosts; end
 
-  # source://kamal//lib/kamal/configuration.rb#259
+  # source://kamal//lib/kamal/configuration.rb#264
   def proxy_image; end
 
-  # source://kamal//lib/kamal/configuration.rb#255
+  # source://kamal//lib/kamal/configuration.rb#256
+  def proxy_logging_args(max_size); end
+
+  # source://kamal//lib/kamal/configuration.rb#260
   def proxy_options_default; end
 
-  # source://kamal//lib/kamal/configuration.rb#271
+  # source://kamal//lib/kamal/configuration.rb#276
   def proxy_options_file; end
 
-  # source://kamal//lib/kamal/configuration.rb#251
+  # source://kamal//lib/kamal/configuration.rb#252
   def proxy_publish_args(http_port, https_port); end
 
-  # source://kamal//lib/kamal/configuration.rb#146
+  # source://kamal//lib/kamal/configuration.rb#147
   def proxy_role_names; end
 
-  # source://kamal//lib/kamal/configuration.rb#142
+  # source://kamal//lib/kamal/configuration.rb#143
   def proxy_roles; end
 
   # Returns the value of attribute raw_config.
@@ -1989,7 +1993,7 @@ class Kamal::Configuration
   # source://kamal//lib/kamal/configuration.rb#12
   def raw_config; end
 
-  # source://kamal//lib/kamal/configuration.rb#196
+  # source://kamal//lib/kamal/configuration.rb#197
   def readiness_delay; end
 
   # Returns the value of attribute registry.
@@ -1997,24 +2001,24 @@ class Kamal::Configuration
   # source://kamal//lib/kamal/configuration.rb#13
   def registry; end
 
-  # source://kamal//lib/kamal/configuration.rb#154
+  # source://kamal//lib/kamal/configuration.rb#155
   def repository; end
 
   # @return [Boolean]
   #
-  # source://kamal//lib/kamal/configuration.rb#174
+  # source://kamal//lib/kamal/configuration.rb#175
   def require_destination?; end
 
-  # source://kamal//lib/kamal/configuration.rb#178
+  # source://kamal//lib/kamal/configuration.rb#179
   def retain_containers; end
 
-  # source://kamal//lib/kamal/configuration.rb#113
+  # source://kamal//lib/kamal/configuration.rb#114
   def role(name); end
 
-  # source://kamal//lib/kamal/configuration.rb#109
+  # source://kamal//lib/kamal/configuration.rb#110
   def roles; end
 
-  # source://kamal//lib/kamal/configuration.rb#209
+  # source://kamal//lib/kamal/configuration.rb#210
   def run_directory; end
 
   # Returns the value of attribute secrets.
@@ -2030,7 +2034,7 @@ class Kamal::Configuration
   # source://kamal//lib/kamal/configuration.rb#9
   def service(*_arg0, **_arg1, &_arg2); end
 
-  # source://kamal//lib/kamal/configuration.rb#170
+  # source://kamal//lib/kamal/configuration.rb#171
   def service_with_version; end
 
   # Returns the value of attribute ssh.
@@ -2043,71 +2047,71 @@ class Kamal::Configuration
   # source://kamal//lib/kamal/configuration.rb#13
   def sshkit; end
 
-  # source://kamal//lib/kamal/configuration.rb#276
+  # source://kamal//lib/kamal/configuration.rb#281
   def to_h; end
 
-  # source://kamal//lib/kamal/configuration.rb#89
+  # source://kamal//lib/kamal/configuration.rb#90
   def version; end
 
-  # source://kamal//lib/kamal/configuration.rb#85
+  # source://kamal//lib/kamal/configuration.rb#86
   def version=(version); end
 
-  # source://kamal//lib/kamal/configuration.rb#183
+  # source://kamal//lib/kamal/configuration.rb#184
   def volume_args; end
 
   private
 
   # Will raise ArgumentError if any required config keys are missing
   #
-  # source://kamal//lib/kamal/configuration.rb#296
+  # source://kamal//lib/kamal/configuration.rb#301
   def ensure_destination_if_required; end
 
-  # source://kamal//lib/kamal/configuration.rb#348
+  # source://kamal//lib/kamal/configuration.rb#353
   def ensure_no_traefik_reboot_hooks; end
 
-  # source://kamal//lib/kamal/configuration.rb#358
+  # source://kamal//lib/kamal/configuration.rb#363
   def ensure_one_host_for_ssl_roles; end
 
-  # source://kamal//lib/kamal/configuration.rb#304
+  # source://kamal//lib/kamal/configuration.rb#309
   def ensure_required_keys_present; end
 
   # @raise [Kamal::ConfigurationError]
   #
-  # source://kamal//lib/kamal/configuration.rb#342
+  # source://kamal//lib/kamal/configuration.rb#347
   def ensure_retain_containers_valid; end
 
   # @raise [Kamal::ConfigurationError]
   #
-  # source://kamal//lib/kamal/configuration.rb#364
+  # source://kamal//lib/kamal/configuration.rb#369
   def ensure_unique_hosts_for_ssl_roles; end
 
-  # source://kamal//lib/kamal/configuration.rb#334
+  # source://kamal//lib/kamal/configuration.rb#339
   def ensure_valid_kamal_version; end
 
   # @raise [Kamal::ConfigurationError]
   #
-  # source://kamal//lib/kamal/configuration.rb#328
+  # source://kamal//lib/kamal/configuration.rb#333
   def ensure_valid_service_name; end
 
-  # source://kamal//lib/kamal/configuration.rb#377
+  # source://kamal//lib/kamal/configuration.rb#382
   def git_version; end
 
-  # source://kamal//lib/kamal/configuration.rb#373
+  # source://kamal//lib/kamal/configuration.rb#378
   def role_names; end
 
   class << self
-    # source://kamal//lib/kamal/configuration.rb#22
+    # source://kamal//lib/kamal/configuration.rb#23
     def create_from(config_file:, destination: T.unsafe(nil), version: T.unsafe(nil)); end
 
     private
 
-    # source://kamal//lib/kamal/configuration.rb#45
+    # source://kamal//lib/kamal/configuration.rb#46
     def destination_config_file(base_config_file, destination); end
 
-    # source://kamal//lib/kamal/configuration.rb#35
+    # source://kamal//lib/kamal/configuration.rb#36
     def load_config_file(file); end
 
-    # source://kamal//lib/kamal/configuration.rb#31
+    # source://kamal//lib/kamal/configuration.rb#32
     def load_config_files(*files); end
   end
 end
@@ -2554,6 +2558,9 @@ Kamal::Configuration::PROXY_HTTPS_PORT = T.let(T.unsafe(nil), Integer)
 
 # source://kamal//lib/kamal/configuration.rb#18
 Kamal::Configuration::PROXY_HTTP_PORT = T.let(T.unsafe(nil), Integer)
+
+# source://kamal//lib/kamal/configuration.rb#20
+Kamal::Configuration::PROXY_LOG_MAX_SIZE = T.let(T.unsafe(nil), String)
 
 # source://kamal//lib/kamal/configuration.rb#17
 Kamal::Configuration::PROXY_MINIMUM_VERSION = T.let(T.unsafe(nil), String)

@@ -6,6 +6,7 @@
 
 
 class ActionTracking::ActionExecutionReadModel
+  include GeneratedAssociationMethods
   include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
@@ -424,6 +425,62 @@ class ActionTracking::ActionExecutionReadModel
     def third_to_last!; end
   end
 
+  module GeneratedAssociationMethods
+    sig { returns(T.nilable(::ActionTracking::ActionReadModel)) }
+    def action; end
+
+    sig { params(value: T.nilable(::ActionTracking::ActionReadModel)).void }
+    def action=(value); end
+
+    sig { returns(T::Boolean) }
+    def action_changed?; end
+
+    sig { returns(T::Boolean) }
+    def action_previously_changed?; end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActionTracking::ActionReadModel) }
+    def build_action(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Authentication::UserReadModel) }
+    def build_user(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActionTracking::ActionReadModel) }
+    def create_action(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActionTracking::ActionReadModel) }
+    def create_action!(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Authentication::UserReadModel) }
+    def create_user(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Authentication::UserReadModel) }
+    def create_user!(*args, &blk); end
+
+    sig { returns(T.nilable(::ActionTracking::ActionReadModel)) }
+    def reload_action; end
+
+    sig { returns(T.nilable(::Authentication::UserReadModel)) }
+    def reload_user; end
+
+    sig { void }
+    def reset_action; end
+
+    sig { void }
+    def reset_user; end
+
+    sig { returns(T.nilable(::Authentication::UserReadModel)) }
+    def user; end
+
+    sig { params(value: T.nilable(::Authentication::UserReadModel)).void }
+    def user=(value); end
+
+    sig { returns(T::Boolean) }
+    def user_changed?; end
+
+    sig { returns(T::Boolean) }
+    def user_previously_changed?; end
+  end
+
   module GeneratedAssociationRelationMethods
     sig { returns(PrivateAssociationRelation) }
     def all; end
@@ -433,6 +490,9 @@ class ActionTracking::ActionExecutionReadModel
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def arel_columns(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def create_with(*args, &blk); end
@@ -980,6 +1040,51 @@ class ActionTracking::ActionExecutionReadModel
     sig { void }
     def nonce_will_change!; end
 
+    sig { returns(::String) }
+    def quest_id; end
+
+    sig { params(value: ::String).returns(::String) }
+    def quest_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def quest_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def quest_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def quest_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def quest_id_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def quest_id_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def quest_id_change_to_be_saved; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def quest_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def quest_id_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def quest_id_previous_change; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def quest_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def quest_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def quest_id_was; end
+
+    sig { void }
+    def quest_id_will_change!; end
+
     sig { void }
     def restore_action_id!; end
 
@@ -1006,6 +1111,9 @@ class ActionTracking::ActionExecutionReadModel
 
     sig { void }
     def restore_nonce!; end
+
+    sig { void }
+    def restore_quest_id!; end
 
     sig { void }
     def restore_result!; end
@@ -1123,6 +1231,12 @@ class ActionTracking::ActionExecutionReadModel
 
     sig { returns(T::Boolean) }
     def saved_change_to_nonce?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_quest_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_quest_id?; end
 
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def saved_change_to_result; end
@@ -1413,6 +1527,9 @@ class ActionTracking::ActionExecutionReadModel
     def will_save_change_to_nonce?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_quest_id?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_result?; end
 
     sig { returns(T::Boolean) }
@@ -1440,6 +1557,9 @@ class ActionTracking::ActionExecutionReadModel
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def arel_columns(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def create_with(*args, &blk); end

@@ -12247,43 +12247,43 @@ class ActiveSupport::TestCase < ::Minitest::Test
   # source://activesupport//lib/active_support/callbacks.rb#923
   def _teardown_callbacks; end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#731
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#731
   def assert_no_match(matcher, obj, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#660
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#660
   def assert_not_empty(obj, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#671
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#671
   def assert_not_equal(exp, act, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#683
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#683
   def assert_not_in_delta(exp, act, delta = T.unsafe(nil), msg = T.unsafe(nil)); end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#695
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#695
   def assert_not_in_epsilon(a, b, epsilon = T.unsafe(nil), msg = T.unsafe(nil)); end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#702
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#702
   def assert_not_includes(collection, obj, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#713
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#713
   def assert_not_instance_of(cls, obj, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#723
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#723
   def assert_not_kind_of(cls, obj, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#741
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#741
   def assert_not_nil(obj, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#776
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#776
   def assert_not_operator(o1, op, o2 = T.unsafe(nil), msg = T.unsafe(nil)); end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#799
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#799
   def assert_not_predicate(o1, op, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#808
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#808
   def assert_not_respond_to(obj, meth, msg = T.unsafe(nil), include_all: T.unsafe(nil)); end
 
-  # source://minitest/5.25.0/lib/minitest/assertions.rb#817
+  # source://minitest/5.25.1/lib/minitest/assertions.rb#817
   def assert_not_same(exp, act, msg = T.unsafe(nil)); end
 
   # source://activesupport//lib/active_support/testing/file_fixtures.rb#20
@@ -12295,7 +12295,7 @@ class ActiveSupport::TestCase < ::Minitest::Test
   # source://activesupport//lib/active_support/test_case.rb#300
   def inspect; end
 
-  # source://minitest/5.25.0/lib/minitest.rb#375
+  # source://minitest/5.25.1/lib/minitest.rb#375
   def method_name; end
 
   class << self
@@ -17650,10 +17650,10 @@ end
 # source://activesupport//lib/active_support/i18n_railtie.rb#9
 class I18n::Railtie < ::Rails::Railtie
   class << self
-    # source://activesupport//lib/active_support/i18n_railtie.rb#104
+    # source://activesupport//lib/active_support/i18n_railtie.rb#103
     def include_fallbacks_module; end
 
-    # source://activesupport//lib/active_support/i18n_railtie.rb#108
+    # source://activesupport//lib/active_support/i18n_railtie.rb#107
     def init_fallbacks(fallbacks); end
 
     # Setup i18n configuration.
@@ -17661,13 +17661,13 @@ class I18n::Railtie < ::Rails::Railtie
     # source://activesupport//lib/active_support/i18n_railtie.rb#35
     def initialize_i18n(app); end
 
-    # source://activesupport//lib/active_support/i18n_railtie.rb#85
+    # source://activesupport//lib/active_support/i18n_railtie.rb#84
     def setup_raise_on_missing_translations_config(app, strict); end
 
-    # source://activesupport//lib/active_support/i18n_railtie.rb#124
+    # source://activesupport//lib/active_support/i18n_railtie.rb#123
     def validate_fallbacks(fallbacks); end
 
-    # source://activesupport//lib/active_support/i18n_railtie.rb#135
+    # source://activesupport//lib/active_support/i18n_railtie.rb#134
     def watched_dirs_with_extensions(paths); end
   end
 end

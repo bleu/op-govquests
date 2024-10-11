@@ -6,6 +6,7 @@
 
 
 class Authentication::UserReadModel
+  include GeneratedAssociationMethods
   include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
@@ -419,6 +420,22 @@ class Authentication::UserReadModel
     def third_to_last!; end
   end
 
+  module GeneratedAssociationMethods
+    sig { returns(T::Array[T.untyped]) }
+    def session_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def session_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Authentication::UserReadModel` class because it declared `has_many :sessions`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::Authentication::SessionReadModel::PrivateCollectionProxy) }
+    def sessions; end
+
+    sig { params(value: T::Enumerable[::Authentication::SessionReadModel]).void }
+    def sessions=(value); end
+  end
+
   module GeneratedAssociationRelationMethods
     sig { returns(PrivateAssociationRelation) }
     def all; end
@@ -428,6 +445,9 @@ class Authentication::UserReadModel
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def arel_columns(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def create_with(*args, &blk); end
@@ -604,6 +624,96 @@ class Authentication::UserReadModel
 
     sig { void }
     def activity_log_will_change!; end
+
+    sig { returns(::String) }
+    def address; end
+
+    sig { params(value: ::String).returns(::String) }
+    def address=(value); end
+
+    sig { returns(T::Boolean) }
+    def address?; end
+
+    sig { returns(T.nilable(::String)) }
+    def address_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def address_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def address_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def address_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def address_change_to_be_saved; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def address_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def address_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def address_previous_change; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def address_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def address_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def address_was; end
+
+    sig { void }
+    def address_will_change!; end
+
+    sig { returns(::Integer) }
+    def chain_id; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def chain_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def chain_id?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def chain_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def chain_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def chain_id_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def chain_id_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def chain_id_change_to_be_saved; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def chain_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def chain_id_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def chain_id_previous_change; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def chain_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def chain_id_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def chain_id_was; end
+
+    sig { void }
+    def chain_id_will_change!; end
 
     sig { returns(::ActiveSupport::TimeWithZone) }
     def created_at; end
@@ -834,6 +944,12 @@ class Authentication::UserReadModel
     def restore_activity_log!; end
 
     sig { void }
+    def restore_address!; end
+
+    sig { void }
+    def restore_chain_id!; end
+
+    sig { void }
     def restore_created_at!; end
 
     sig { void }
@@ -863,14 +979,23 @@ class Authentication::UserReadModel
     sig { void }
     def restore_user_type!; end
 
-    sig { void }
-    def restore_wallets!; end
-
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def saved_change_to_activity_log; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_activity_log?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_address; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_address?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_chain_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_chain_id?; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_created_at; end
@@ -931,12 +1056,6 @@ class Authentication::UserReadModel
 
     sig { returns(T::Boolean) }
     def saved_change_to_user_type?; end
-
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def saved_change_to_wallets; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_wallets?; end
 
     sig { returns(T.untyped) }
     def sessions; end
@@ -1163,53 +1282,14 @@ class Authentication::UserReadModel
     sig { void }
     def user_type_will_change!; end
 
-    sig { returns(T.untyped) }
-    def wallets; end
-
-    sig { params(value: T.untyped).returns(T.untyped) }
-    def wallets=(value); end
-
-    sig { returns(T::Boolean) }
-    def wallets?; end
-
-    sig { returns(T.untyped) }
-    def wallets_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def wallets_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def wallets_came_from_user?; end
-
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def wallets_change; end
-
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def wallets_change_to_be_saved; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def wallets_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.untyped) }
-    def wallets_in_database; end
-
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def wallets_previous_change; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def wallets_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.untyped) }
-    def wallets_previously_was; end
-
-    sig { returns(T.untyped) }
-    def wallets_was; end
-
-    sig { void }
-    def wallets_will_change!; end
-
     sig { returns(T::Boolean) }
     def will_save_change_to_activity_log?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_address?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_chain_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end
@@ -1240,9 +1320,6 @@ class Authentication::UserReadModel
 
     sig { returns(T::Boolean) }
     def will_save_change_to_user_type?; end
-
-    sig { returns(T::Boolean) }
-    def will_save_change_to_wallets?; end
   end
 
   module GeneratedRelationMethods
@@ -1254,6 +1331,9 @@ class Authentication::UserReadModel
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def arel_columns(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def create_with(*args, &blk); end

@@ -2293,10 +2293,10 @@ class ActiveModel::Error
     # source://activemodel//lib/active_model/error.rb#64
     def generate_message(attribute, type, base, options); end
 
-    # source://activesupport/8.0.0.beta1-a2f2dc8afd38b2d4ebd0170a75be2910fd7e4e45/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
     def i18n_customize_full_message; end
 
-    # source://activesupport/8.0.0.beta1-a2f2dc8afd38b2d4ebd0170a75be2910fd7e4e45/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
     def i18n_customize_full_message=(new_value); end
 
     # source://activemodel//lib/active_model/error.rb#13

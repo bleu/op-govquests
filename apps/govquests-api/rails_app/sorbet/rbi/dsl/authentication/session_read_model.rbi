@@ -6,6 +6,7 @@
 
 
 class Authentication::SessionReadModel
+  include GeneratedAssociationMethods
   include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
@@ -419,6 +420,35 @@ class Authentication::SessionReadModel
     def third_to_last!; end
   end
 
+  module GeneratedAssociationMethods
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Authentication::UserReadModel) }
+    def build_user(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Authentication::UserReadModel) }
+    def create_user(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Authentication::UserReadModel) }
+    def create_user!(*args, &blk); end
+
+    sig { returns(T.nilable(::Authentication::UserReadModel)) }
+    def reload_user; end
+
+    sig { void }
+    def reset_user; end
+
+    sig { returns(T.nilable(::Authentication::UserReadModel)) }
+    def user; end
+
+    sig { params(value: T.nilable(::Authentication::UserReadModel)).void }
+    def user=(value); end
+
+    sig { returns(T::Boolean) }
+    def user_changed?; end
+
+    sig { returns(T::Boolean) }
+    def user_previously_changed?; end
+  end
+
   module GeneratedAssociationRelationMethods
     sig { returns(PrivateAssociationRelation) }
     def all; end
@@ -428,6 +458,9 @@ class Authentication::SessionReadModel
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def arel_columns(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def create_with(*args, &blk); end
@@ -1036,6 +1069,9 @@ class Authentication::SessionReadModel
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def arel_columns(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def create_with(*args, &blk); end
