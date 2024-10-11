@@ -44,8 +44,16 @@ RSpec.configure do |config|
 
   config.include InMemoryTestCase, type: :model
   config.include InMemoryRESIntegrationCase, type: :integration
+  config.include DomainHelpers
 
   def run_command(command)
     Rails.configuration.command_bus.call(command)
+  end
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
   end
 end
