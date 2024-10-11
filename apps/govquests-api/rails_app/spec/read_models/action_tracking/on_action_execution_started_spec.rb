@@ -9,33 +9,27 @@ RSpec.describe ActionTracking::OnActionExecutionStarted do
 
   describe "#call" do
     before do
-      [
-        Authentication::RegisterUser.new(
-          user_id: user_id,
-          email: "",
-          user_type: "non_delegate",
-          address: "0x0987654321fedcba",
-          chain_id: 2
-        ), ActionTracking::CreateAction.new(
-          action_id: action_id,
-          action_type: "read_document",
-          action_data: {document_url: "https://example.com/document"},
-          display_data: {title: "Read Document"}
-        ), Questing::CreateQuest.new(
-          quest_id: quest_id,
-          quest_type: "read_document",
-          audience: "non_delegate",
-          rewards: [],
-          quest_data: {document_url: "https://example.com/document"},
-          display_data: {title: "Read Document"}
-        ), Questing::AssociateActionWithQuest.new(
-          quest_id: quest_id,
-          action_id: action_id,
-          position: 0
-        )
-      ].each do |command|
-        Rails.configuration.command_bus.call(command)
-      end
+      create_user(
+        email: "",
+        address: "0x0987654321fedcba",
+        chain_id: 2,
+        user_id: user_id
+      )
+      create_quest_with_actions(
+        title: "Test Quest",
+        quest_id: quest_id,
+        rewards: [
+          {"something" => "else", :that => "will break a future tests when we get to this again"}
+        ],
+        actions: [
+          {
+            action_id: action_id,
+            action_type: "read_document",
+            action_data: {"url" => "https://example.com/doc1"},
+            display_data: {"title" => "Read Document 1"}
+          }
+        ]
+      )
     end
     it "creates a new action execution when handling ActionExecutionStarted event" do
       event = ActionTracking::ActionExecutionStarted.new(data: {

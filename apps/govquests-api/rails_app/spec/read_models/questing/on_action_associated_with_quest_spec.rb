@@ -1,4 +1,3 @@
-# spec/read_models/questing/on_action_associated_with_quest_spec.rb
 require "rails_helper"
 
 RSpec.describe Questing::OnActionAssociatedWithQuest do
@@ -8,8 +7,19 @@ RSpec.describe Questing::OnActionAssociatedWithQuest do
   let(:position) { 1 }
 
   before do
-    Questing::QuestReadModel.create!(quest_id: quest_id, display_data: {title: "Test Quest", intro: "Test Intro"}, quest_type: "Test", audience: "All", status: "created")
-    ActionTracking::ActionReadModel.create!(action_id: action_id, display_data: {content: "Test Action"}, action_type: "Test", action_data: {foo: "bar"})
+    create_quest(
+      quest_id: quest_id,
+      rewards: [
+        {"foo" => "bar", "amount" => 100}
+      ],
+      title: "Test Quest",
+      quest_type: "Test",
+      audience: "All"
+    )
+
+    create_action(action_id: action_id, display_data: {
+      title: "Read Document 1"
+    }, action_type: "read_document", action_data: {foo: "bar"})
   end
 
   describe "#call" do

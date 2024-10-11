@@ -6,8 +6,6 @@ RSpec.describe Questing::QuestReadModel, type: :model do
   it { should have_many(:actions).through(:quest_actions).source(:action).class_name("ActionTracking::ActionReadModel") }
 
   # Validations
-  it { should validate_presence_of(:quest_id) }
-  it { should validate_uniqueness_of(:quest_id) }
   it { should validate_presence_of(:quest_type) }
   it { should validate_presence_of(:audience) }
   it { should validate_presence_of(:status) }

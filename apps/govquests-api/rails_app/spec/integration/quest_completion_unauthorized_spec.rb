@@ -42,16 +42,27 @@ RSpec.describe "Unauthorized Quest Completion", type: :request do
   # GraphQL Mutations
   let(:start_action_execution_mutation) do
     <<-GRAPHQL
-      mutation($questId: ID!, $actionId: ID!) {
-        startActionExecution(questId: $questId, actionId: $actionId) {
-          actionExecution {
-            id
-            actionType
-            status
-          }
-          errors
+    mutation StartActionExecution(
+      $questId: ID!
+      $actionId: ID!
+      $startData: JSON
+    ) {
+      startActionExecution(
+        input: { questId: $questId, actionId: $actionId, startData: $startData }
+      ) {
+        actionExecution {
+          id
+          actionId
+          userId
+          actionType
+          startData
+          status
+          nonce
+          startedAt
         }
+        errors
       }
+    }
     GRAPHQL
   end
 
@@ -61,9 +72,8 @@ RSpec.describe "Unauthorized Quest Completion", type: :request do
 
       post "/graphql", params: {query: start_action_execution_mutation, variables: {questId: quest_id, actionId: action_id}}
       json_response = JSON.parse(response.body)
-
-      expect(json_response["data"]["startActionExecution"]["actionExecution"]).to be_nil
-      expect(json_response["data"]["startActionExecution"]["errors"]).to include("Unauthorized access")
+      expect(json_response["data"]["startActionExecution"]).to be_nil
+      expect(json_response["errors"][0]).to include({"message" => "You are not authorized to perform this action"})
     end
   end
 end

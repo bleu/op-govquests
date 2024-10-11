@@ -57,6 +57,7 @@ module DomainHelpers
 
   def create_action(action_type:, action_data: {}, display_data: {}, action_id: nil)
     action_id = SecureRandom.uuid if action_id.nil?
+
     command_bus.call(ActionTracking::CreateAction.new(
       action_id: action_id,
       action_type: action_type,

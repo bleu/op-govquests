@@ -8,8 +8,6 @@ module ActionTracking
         display_data: event.data[:display_data]
       )
       Rails.logger.info "Action created in read model: #{event.data[:action_id]}"
-    rescue ActiveRecord::RecordInvalid => e
-      Rails.logger.error "Failed to create action in read model: #{e.message}"
     end
   end
 end
