@@ -5,9 +5,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#EBE5E3",
-        optimism: "#FF0421",
-        optimismForeground: "#FFFFFF",
+        primary: "white",
+        primaryForeground: "#404040",
         background: "#F3F3F3",
         foreground: "#404040",
       },

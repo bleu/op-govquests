@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className="bg-background hgtext-foreground h-full" lang="en">
+    <html className="bg-background text-primaryForeground h-full" lang="en">
       <body className="flex flex-col h-full">
         <Layout>{children}</Layout>
       </body>
