@@ -1,6 +1,3 @@
-import Button from "@/components/ui/Button";
-import { ExternalLinkIcon } from "lucide-react";
-import Link from "next/link";
 import React from "react";
 import ReadActionButton from "../components/ActionButton";
 import type { ActionStrategy } from "./ActionStrategy";

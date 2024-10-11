@@ -1,6 +1,6 @@
 import Button from "@/components/ui/Button";
 import React from "react";
-import { ActionStrategy, ActionStrategyProps } from "./ActionStrategy";
+import { ActionStrategy } from "./ActionStrategy";
 
 export const DefaultActionStrategy: ActionStrategy = ({
   questId,

@@ -2,9 +2,10 @@ import RewardIndicator from "@/components/RewardIndicator";
 import Button from "@/components/ui/Button";
 import ActionList from "@/domains/action_tracking/components/ActionList";
 import type { Quest } from "@/domains/questing/types/questTypes";
-import { ArrowLeft, ArrowLeftFromLine, MapIcon, RouteIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { ArrowLeft, MapIcon } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import type React from "react";
 
 interface QuestDetailsProps {
   quest: Quest;
@@ -16,8 +17,8 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
   const status = quest.userQuests?.[0]?.status || "unstarted";
 
   return (
-    <main className="flex items-center justify-center h-full">
-      <div className="flex flex-col w-[70%]">
+    <main className="flex justify-center h-full">
+      <div className="flex flex-col w-[70%] mt-4">
         <Link
           href="#"
           onClick={(e) => {
@@ -41,7 +42,9 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
               </div>
             </div>
             <div className="flex flex-1 items-center">
-              <h1 className="text-3xl flex-1">{quest.displayData.title}</h1>
+              <h1 className="text-3xl flex-1 font-bold">
+                {quest.displayData.title}
+              </h1>
             </div>
             <div className="flex items-center">
               <div className="border-t-2 mt-8 pt-3">
@@ -51,7 +54,7 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col flex-1 justify-center bg-primary pb-3 pr-8 pt-8  rounded-lg">
+        <div className="flex flex-col  justify-center bg-primary pb-3 pr-8 pt-8  rounded-lg">
           <div className="flex ">
             <h2 className="text-2xl font-bold self-center px-16">
               steps <br /> to earn
@@ -60,19 +63,10 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
               <ActionList questId={quest.id} actions={quest.actions} />
             </div>
           </div>
-          {/* <div className="flex items-center my-6">
-            <RouteIcon width={30} height={30} />
-            <h2 className="ml-4 text-xl font-bold">Steps to earn</h2>
-          </div>
-          <div className="flex flex-col md:flex-row">
-            <div className="flex flex-col">
-              <ActionList questId={quest.id} actions={quest.actions} />
-            </div>
-            <Button className="font-bold md:self-end md:ml-auto p-4">
-              {status}
-            </Button>
-          </div> */}
         </div>
+        <Button className="bg-secondaryHover text-white hover:bg-secondaryDisabled font-medium  self-center mt-6 py-4 px-12 rounded-lg">
+          Connect wallet to confirm reading
+        </Button>
       </div>
     </main>
   );
