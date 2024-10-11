@@ -64,6 +64,7 @@ end
 
 group :test do
   eval_gemfile "../infra/Gemfile.test"
+  gem "shoulda-matchers", "~> 6.0"
 end
 
 gem "rails_event_store", "~> 2.15.0"
@@ -78,3 +79,5 @@ gem "oj"
 gem "graphql", "~> 2.3"
 
 gem "siwe", "~> 2.0"
+gem "action_policy"
+gem "action_policy-graphql"

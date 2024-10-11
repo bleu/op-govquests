@@ -7,6 +7,23 @@ class GovquestsApiSchema < GraphQL::Schema
   # For batch-loading (see https://graphql-ruby.org/dataloader/overview.html)
   use GraphQL::Dataloader
 
+  rescue_from ActiveModel::ValidationError do |err, _obj, _args, _ctx, _field|
+    raise GraphQL::ExecutionError, err.message
+  end
+
+  rescue_from(ActionPolicy::Unauthorized) do |exp|
+    raise GraphQL::ExecutionError.new(
+      # use result.message (backed by i18n) as an error message
+      exp.result.message,
+      # use GraphQL error extensions to provide more context
+      extensions: {
+        code: :unauthorized,
+        fullMessages: exp.result.reasons.full_messages,
+        details: exp.result.reasons.details
+      }
+    )
+  end
+
   # GraphQL-Ruby calls this when something goes wrong while running a query:
   def self.type_error(err, context)
     # if err.is_a?(GraphQL::InvalidNullError)

@@ -2,5 +2,6 @@
 
 module Resolvers
   class BaseResolver < GraphQL::Schema::Resolver
+    include ActionPolicy::GraphQL::Behaviour
   end
 end

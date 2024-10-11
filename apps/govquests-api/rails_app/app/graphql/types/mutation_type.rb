@@ -2,10 +2,13 @@
 
 module Types
   class MutationType < Types::BaseObject
-    field :start_action_execution, mutation: Mutations::StartActionExecution
-    field :complete_action_execution, mutation: Mutations::CompleteActionExecution
+    # Action Tracking
+    field :start_action_execution, mutation: Mutations::StartActionExecution, preauthorize: {with: AuthenticatedGraphqlPolicy}
+    field :complete_action_execution, mutation: Mutations::CompleteActionExecution, preauthorize: {with: AuthenticatedGraphqlPolicy}
+
+    # Authentication
     field :generate_siwe_message, mutation: Mutations::GenerateSiweMessage
     field :sign_in_with_ethereum, mutation: Mutations::SignInWithEthereum
-    field :sign_out, mutation: Mutations::SignOut
+    field :sign_out, mutation: Mutations::SignOut, preauthorize: {with: AuthenticatedGraphqlPolicy}
   end
 end

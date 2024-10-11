@@ -118,6 +118,12 @@ GEM
 GEM
   remote: https://rubygems.org/
   specs:
+    action_policy (0.7.1)
+      ruby-next-core (>= 1.0)
+    action_policy-graphql (0.6.0)
+      action_policy (~> 0.7)
+      graphql (>= 1.9.3)
+      ruby-next-core (~> 1.0)
     aggregate_root (2.15.0)
       ruby_event_store (= 2.15.0)
     arkency-command_bus (0.4.1)
@@ -376,6 +382,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.1)
+    ruby-next-core (1.0.3)
     ruby_event_store (2.15.0)
       concurrent-ruby (~> 1.0, >= 1.1.6)
     ruby_event_store-active_record (2.15.0)
@@ -392,6 +399,8 @@ GEM
       ffi-compiler (>= 1.0, < 2.0)
       rake (>= 9, < 14)
     securerandom (0.3.1)
+    shoulda-matchers (6.4.0)
+      activesupport (>= 5.2.0)
     siwe (2.0.0)
       eth (~> 0.5.1)
     slop (3.6.0)
@@ -467,6 +476,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  action_policy
+  action_policy-graphql
   bootsnap
   brakeman
   debug
@@ -494,6 +505,7 @@ DEPENDENCIES
   rspec (~> 3.13)
   rspec-expectations (~> 3.13)
   rspec-rails (~> 7.0)
+  shoulda-matchers (~> 6.0)
   siwe (~> 2.0)
   solid_cache
   solid_queue
