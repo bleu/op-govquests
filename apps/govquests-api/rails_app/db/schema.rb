@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_10_170356) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_11_130452) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -173,7 +173,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_10_170356) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_quest_id", null: false
     t.index ["quest_id", "user_id"], name: "index_user_quests_on_quest_id_and_user_id", unique: true
+    t.index ["user_quest_id"], name: "index_user_quests_on_user_quest_id", unique: true
   end
 
   create_table "user_rewards", force: :cascade do |t|

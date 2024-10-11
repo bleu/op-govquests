@@ -21,10 +21,10 @@ const ActionHandler: React.FC<ActionHandlerProps> = ({ questId, action }) => {
   const execution = actionExecutions?.actionExecutions?.[0] || null;
 
   const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution();
+  const completeMutation = useCompleteActionExecution(["quest", questId]);
 
   const StrategyComponent = ActionStrategyFactory.createStrategy(
-    action.actionType
+    action.actionType,
   );
 
   if (isFetchingExecutions) {

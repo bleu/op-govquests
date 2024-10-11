@@ -12,6 +12,8 @@ interface QuestDetailsProps {
 const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
   if (!quest) return null;
 
+  const status = quest.userQuests?.[0]?.status || "unstarted";
+
   return (
     <main className="flex items-center justify-center h-full">
       <div className="flex flex-col max-w-[85%]">
@@ -41,7 +43,7 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
               <ActionList questId={quest.id} actions={quest.actions} />
             </div>
             <Button className="font-bold md:self-end md:ml-auto p-4">
-              Complete quest
+              {status}
             </Button>
           </div>
         </div>

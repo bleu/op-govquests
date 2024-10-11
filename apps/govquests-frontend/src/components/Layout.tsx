@@ -6,7 +6,7 @@ import { ConnectKitProvider, SIWEProvider } from "connectkit";
 import { config, siweConfig } from "@/wagmi";
 import Header from "./Header";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (

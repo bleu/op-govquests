@@ -7,10 +7,8 @@ module Mutations
 
         context[:session][:user_id] = nil
 
-        {success: true}
-      else
-        {success: false}
       end
+      {success: true}
     end
   end
 end

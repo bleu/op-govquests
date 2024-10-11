@@ -8,6 +8,9 @@ import {
   signOut,
   fetchCurrentUser,
 } from "@/domains/authentication/services/authService";
+import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useSignInWithEthereum } from "./domains/authentication/hooks";
+import { queryClient } from "./components/Layout";
 
 // if (!process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID) {
 //   throw new Error("Missing NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID");
@@ -48,6 +51,8 @@ export const siweConfig: SIWEConfig = {
     const { signInWithEthereum: result } = await signInWithEthereum({
       signature,
     });
+
+    queryClient.invalidateQueries();
     return !result?.errors.length;
   },
   getSession: async () => {
@@ -62,6 +67,9 @@ export const siweConfig: SIWEConfig = {
   },
   signOut: async () => {
     const { signOut: result } = await signOut();
+
+    queryClient.invalidateQueries();
+
     return !!result?.success;
   },
 };
