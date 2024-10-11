@@ -9,6 +9,6 @@ module Types
     # Authentication
     field :generate_siwe_message, mutation: Mutations::GenerateSiweMessage
     field :sign_in_with_ethereum, mutation: Mutations::SignInWithEthereum
-    field :sign_out, mutation: Mutations::SignOut, preauthorize: {with: AuthenticatedGraphqlPolicy}
+    field :sign_out, mutation: Mutations::SignOut
   end
 end
