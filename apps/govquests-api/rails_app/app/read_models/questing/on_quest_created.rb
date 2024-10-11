@@ -10,8 +10,6 @@ module Questing
         display_data: event.data[:display_data]
       )
       Rails.logger.info "Quest created in read model: #{quest.quest_id}"
-    rescue ActiveRecord::RecordInvalid => e
-      Rails.logger.error "Failed to create quest in read model: #{e.message}"
     end
   end
 end

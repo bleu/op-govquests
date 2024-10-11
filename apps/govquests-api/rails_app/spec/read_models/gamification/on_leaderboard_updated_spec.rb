@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Gamification::OnLeaderboardUpdated do
+RSpec.describe Gamification::OnLeaderboardUpdated, type: :model do
   let(:handler) { described_class.new }
   let(:leaderboard_id) { SecureRandom.uuid }
   let(:profile_id) { SecureRandom.uuid }
@@ -13,24 +13,27 @@ RSpec.describe Gamification::OnLeaderboardUpdated do
     )
   end
 
-  describe "#call" do
-    it "updates leaderboard entry when handling LeaderboardUpdated event" do
-      event = Gamification::LeaderboardUpdated.new(data: {
-        leaderboard_id: leaderboard_id,
-        profile_id: profile_id,
-        score: score
-      })
+  let(:event) do
+    Gamification::LeaderboardUpdated.new(data: {
+      leaderboard_id: leaderboard_id,
+      profile_id: profile_id,
+      score: score
+    })
+  end
 
+  describe "#call" do
+    it "creates or updates a LeaderboardEntryReadModel record" do
       expect {
         handler.call(event)
       }.to change(Gamification::LeaderboardEntryReadModel, :count).by(1)
 
-      entry = Gamification::LeaderboardEntryReadModel.find_by(
+      entry = Gamification::LeaderboardEntryReadModel.last
+      expect(entry).to have_attributes(
         leaderboard_id: leaderboard_id,
-        profile_id: profile_id
+        profile_id: profile_id,
+        score: score
       )
-      expect(entry.score).to eq(score)
-      expect(entry.rank).not_to be_nil
+      expect(entry.rank).to be_present
       expect(entry.leaderboard).to eq(leaderboard)
     end
   end

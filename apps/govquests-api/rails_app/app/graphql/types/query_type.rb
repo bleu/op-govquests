@@ -25,7 +25,6 @@ module Types
 
     field :action_executions, resolver: Resolvers::FetchActionExecutions
 
-    field :user, resolver: Resolvers::FetchUser
-    field :current_user, resolver: Resolvers::CurrentUser
+    field :current_user, resolver: Resolvers::CurrentUser, preauthorize: {with: AuthenticatedGraphqlPolicy}
   end
 end

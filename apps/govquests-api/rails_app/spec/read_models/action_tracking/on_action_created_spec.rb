@@ -1,25 +1,30 @@
 require "rails_helper"
 
-RSpec.describe ActionTracking::OnActionCreated do
-  describe "#call" do
-    it "creates action read model on ActionCreated event" do
-      id = SecureRandom.uuid
-      event = ActionTracking::ActionCreated.new(data: {
-        action_id: id,
-        action_type: "test_type",
-        action_data: {foo: "bar"},
-        display_data: {title: "Test content"}
-      })
+RSpec.describe ActionTracking::OnActionCreated, type: :model do
+  let(:handler) { described_class.new }
+  let(:action_id) { SecureRandom.uuid }
+  let(:event) do
+    ActionTracking::ActionCreated.new(data: {
+      action_id: action_id,
+      action_type: "test_type",
+      action_data: {foo: "bar"},
+      display_data: {title: "Test content"}
+    })
+  end
 
+  describe "#call" do
+    it "creates a new ActionReadModel record" do
       expect {
-        described_class.new.call(event)
+        handler.call(event)
       }.to change(ActionTracking::ActionReadModel, :count).by(1)
 
       action = ActionTracking::ActionReadModel.last
-      expect(action.action_id).to eq(id)
-      expect(action.action_type).to eq("test_type")
-      expect(action.action_data).to eq({"foo" => "bar"})
-      expect(action.display_data).to eq({"title" => "Test content"})
+      expect(action).to have_attributes(
+        action_id: action_id,
+        action_type: "test_type",
+        action_data: {"foo" => "bar"},
+        display_data: {"title" => "Test content"}
+      )
     end
   end
 end
