@@ -23,13 +23,7 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
   return (
     <main className="flex justify-center h-full">
       <div className="flex flex-col w-[70%] mt-4">
-        <Link
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            window.history.back();
-          }}
-        >
+        <Link href="/quests">
           <ArrowLeft onClick={() => window.history.back()} />
         </Link>
         <div className="p-5 md:p-8 mb-3 mt-2 bg-primary  rounded-lg">

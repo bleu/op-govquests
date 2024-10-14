@@ -53,7 +53,7 @@ export const ReadDocumentStrategy: ActionStrategy = ({
       return "started";
     }
 
-    return "unStarted";
+    return "unstarted";
   };
 
   return (
@@ -63,7 +63,7 @@ export const ReadDocumentStrategy: ActionStrategy = ({
         loading={startMutation.isPending || completeMutation.isPending}
         disabled={getStatus() === "completed" || !isSignedIn || !isConnected}
         status={getStatus()}
-        onClick={getStatus() === "unStarted" ? handleStart : handleComplete}
+        onClick={getStatus() === "unstarted" ? handleStart : handleComplete}
       />
     </div>
   );

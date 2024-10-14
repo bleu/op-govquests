@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { CheckIcon, CheckSquareIcon, ExternalLinkIcon } from "lucide-react";
 import React from "react";
 
-type ReadActionStatus = "unStarted" | "started" | "completed";
+type ReadActionStatus = "unstarted" | "started" | "completed";
 
 type ReadActionButtonProps = {
   status: ReadActionStatus;
@@ -16,7 +16,7 @@ const statusConfig: Record<
   ReadActionStatus,
   { label: string; icon: React.ReactNode }
 > = {
-  unStarted: {
+  unstarted: {
     label: "Read Content",
     icon: <ExternalLinkIcon className="ml-2 w-4 h-4" />,
   },
@@ -32,12 +32,11 @@ const statusConfig: Record<
 
 const ReadActionButton: React.FC<ReadActionButtonProps> = ({
   status,
-  disabled = false,
-  loading = false,
+  disabled,
+  loading,
   onClick,
 }) => {
   const { label, icon } = statusConfig[status];
-
   return (
     <Button
       className={cn(
