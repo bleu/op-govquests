@@ -1,4 +1,6 @@
+import { useSIWE } from "connectkit";
 import React from "react";
+import { useAccount } from "wagmi";
 import ReadActionButton from "../components/ActionButton";
 import type { ActionStrategy } from "./ActionStrategy";
 
@@ -10,6 +12,9 @@ export const ReadDocumentStrategy: ActionStrategy = ({
   completeMutation,
   refetch,
 }) => {
+  const { isSignedIn } = useSIWE();
+  const { isConnected } = useAccount();
+
   const handleStart = async () => {
     try {
       await startMutation.mutateAsync({
@@ -56,7 +61,7 @@ export const ReadDocumentStrategy: ActionStrategy = ({
       <span className="font-medium">{action.displayData.content}</span>
       <ReadActionButton
         loading={startMutation.isPending || completeMutation.isPending}
-        disabled={getStatus() === "completed"}
+        disabled={getStatus() === "completed" || !isSignedIn || !isConnected}
         status={getStatus()}
         onClick={getStatus() === "unStarted" ? handleStart : handleComplete}
       />

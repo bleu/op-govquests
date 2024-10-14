@@ -1,11 +1,12 @@
 import RewardIndicator from "@/components/RewardIndicator";
-import Button from "@/components/ui/Button";
 import ActionList from "@/domains/action_tracking/components/ActionList";
 import type { Quest } from "@/domains/questing/types/questTypes";
-import { cn } from "@/lib/utils";
+import { useSIWE } from "connectkit";
 import { ArrowLeft, MapIcon } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
+import { useAccount } from "wagmi";
+import QuestButton from "./QuestButton";
 
 interface QuestDetailsProps {
   quest: Quest;
@@ -13,6 +14,9 @@ interface QuestDetailsProps {
 
 const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
   if (!quest) return null;
+
+  const { isConnected } = useAccount();
+  const { isSignedIn, signIn } = useSIWE();
 
   const status = quest.userQuests?.[0]?.status || "unstarted";
 
@@ -64,9 +68,12 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
             </div>
           </div>
         </div>
-        <Button className="bg-secondaryHover text-white hover:bg-secondaryDisabled font-medium  self-center mt-6 py-4 px-12 rounded-lg">
-          Connect wallet to confirm reading
-        </Button>
+        <QuestButton
+          status={status}
+          isSignedIn={isSignedIn && isConnected}
+          onConnect={signIn}
+          onClaim={() => alert("Coming soon")}
+        />
       </div>
     </main>
   );
