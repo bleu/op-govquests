@@ -2,6 +2,7 @@ import Button from "@/components/ui/Button";
 import SignInButton from "@/domains/authentication/components/SignInButton";
 import { cn } from "@/lib/utils";
 import type React from "react";
+import { useMemo } from "react";
 
 interface QuestButtonProps {
   status: "unstarted" | "started" | "completed";
@@ -14,7 +15,7 @@ const QuestButton: React.FC<QuestButtonProps> = ({
   isSignedIn,
   onClaim,
 }) => {
-  const getButtonConfig = () => {
+  const { text, action, disabled } = useMemo(() => {
     switch (status) {
       case "completed":
         return {
@@ -29,9 +30,7 @@ const QuestButton: React.FC<QuestButtonProps> = ({
           disabled: true,
         };
     }
-  };
-
-  const { text, action, disabled } = getButtonConfig();
+  }, [status, onClaim]);
 
   if (!isSignedIn) {
     return (
