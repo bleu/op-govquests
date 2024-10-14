@@ -3,15 +3,17 @@ import { ActionStrategy } from "./ActionStrategy";
 import Button from "@/components/ui/Button";
 import { useAccount, useSignMessage } from "wagmi";
 import { useRouter } from "next/router";
+import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
+import { useStartActionExecution } from "../hooks/useStartActionExecution";
 
 export const GitcoinScoreStrategy: ActionStrategy = ({
   questId,
   action,
   execution,
-  startMutation,
-  completeMutation,
-  refetch,
 }) => {
+  const startMutation = useStartActionExecution();
+  const completeMutation = useCompleteActionExecution(["quest", questId]);
+
   const {
     signMessage,
     data: signature,
@@ -19,20 +21,13 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   } = useSignMessage();
   const { address } = useAccount();
 
-  useEffect(() => {
-    if (completeMutation.isSuccess) {
-      refetch();
-    }
-  }, [completeMutation.isSuccess, refetch]);
-
   const handleStart = async () => {
     try {
       await startMutation.mutateAsync({
         questId,
         actionId: action.id,
-        startData: {},
+        actionType: action.actionType,
       });
-      refetch();
     } catch (error) {
       console.error("Error starting action:", error);
     }
@@ -60,9 +55,9 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
       await completeMutation.mutateAsync({
         executionId: execution.id,
         nonce: execution.nonce,
+        actionType: action.actionType,
         completionData,
       });
-      refetch();
     } catch (error) {
       console.error("Error completing action:", error);
     }

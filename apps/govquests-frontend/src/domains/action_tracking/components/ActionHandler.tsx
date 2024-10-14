@@ -20,9 +20,6 @@ const ActionHandler: React.FC<ActionHandlerProps> = ({ questId, action }) => {
 
   const execution = actionExecutions?.[0] || null;
 
-  const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
-
   const StrategyComponent = ActionStrategyFactory.createStrategy(
     action.actionType,
   );
@@ -36,9 +33,6 @@ const ActionHandler: React.FC<ActionHandlerProps> = ({ questId, action }) => {
       questId={questId}
       action={action}
       execution={execution}
-      startMutation={startMutation}
-      completeMutation={completeMutation}
-      refetch={refetch}
     />
   );
 };

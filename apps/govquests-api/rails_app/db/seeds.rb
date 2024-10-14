@@ -78,7 +78,7 @@ quests_data = [
     quest_type: "Onboarding",
     audience: "AllUsers",
     rewards: [{type: "Points", amount: 20}],
-    actions: action_ids[0..3]
+    actions: action_ids.first(4)
   },
   {
     display_data: {
@@ -89,7 +89,7 @@ quests_data = [
     quest_type: "Governance",
     audience: "Delegates",
     rewards: [{type: "Points", amount: 100}],
-    actions: [action_ids[1]]
+    actions: [action_ids.last]
   }
 ]
 

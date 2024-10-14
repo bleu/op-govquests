@@ -4,17 +4,30 @@ export const START_ACTION_EXECUTION = graphql(`
   mutation StartActionExecution(
     $questId: ID!
     $actionId: ID!
-    $startData: JSON
+    $actionType: String!
+    $gitcoinScoreStartData: GitcoinScoreStartDataInput
+    $readDocumentStartData: ReadDocumentStartDataInput
   ) {
     startActionExecution(
-      input: { questId: $questId, actionId: $actionId, startData: $startData }
+      input: {
+        questId: $questId
+        actionId: $actionId
+        actionType: $actionType
+        gitcoinScoreStartData: $gitcoinScoreStartData
+        readDocumentStartData: $readDocumentStartData
+      }
     ) {
       actionExecution {
         id
         actionId
         userId
         actionType
-        startData
+        startData {
+          ... on GitcoinScoreStartData {
+            message
+            nonce
+          }
+        }
         status
         nonce
         startedAt

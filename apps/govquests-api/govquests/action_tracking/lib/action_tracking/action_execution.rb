@@ -28,8 +28,8 @@ module ActionTracking
       raise AlreadyCompletedError if completed?
 
       nonce = SecureRandom.hex(16)
-      strategy = ActionTracking::ActionStrategyFactory.for(action_type)
-      data = strategy.start_execution(start_data)
+      strategy = ActionTracking::ActionExecutionStrategyFactory.for(action_type, start_data:)
+      data = strategy.start_execution
 
       apply ActionExecutionStarted.new(data: {
         execution_id: @id,
@@ -48,8 +48,8 @@ module ActionTracking
       raise InvalidNonceError unless valid_nonce?(nonce)
       raise AlreadyCompletedError if completed?
 
-      strategy = ActionTracking::ActionStrategyFactory.for(@action_type)
-      data = strategy.complete_execution(completion_data)
+      strategy = ActionTracking::ActionExecutionStrategyFactory.for(@action_type, completion_data:)
+      data = strategy.complete_execution
 
       apply ActionExecutionCompleted.new(data: {
         execution_id: @id,
