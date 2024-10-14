@@ -2,9 +2,8 @@ import React from "react";
 import { Action } from "@/domains/questing/types/questTypes";
 import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
-import { useActionExecutions } from "../hooks/useActionExecutions";
 import { ActionStrategyFactory } from "../strategies/ActionStrategyFactory";
-import { ActionExecution } from "../types/actionTypes";
+import { useFetchQuest } from "@/domains/questing/hooks/useFetchQuest";
 
 interface ActionHandlerProps {
   questId: string;
@@ -12,13 +11,14 @@ interface ActionHandlerProps {
 }
 
 const ActionHandler: React.FC<ActionHandlerProps> = ({ questId, action }) => {
-  const {
-    data: actionExecutions,
-    isLoading: isFetchingExecutions,
-    refetch,
-  } = useActionExecutions(action.id);
+  const { data, isLoading, refetch } = useFetchQuest(questId);
 
-  const execution = actionExecutions?.actionExecutions?.[0] || null;
+  const quest = data?.quest || null;
+  const actionExecutions = quest?.actions.find(
+    (a) => a.id === action.id,
+  )?.actionExecutions;
+
+  const execution = actionExecutions?.[0] || null;
 
   const startMutation = useStartActionExecution();
   const completeMutation = useCompleteActionExecution(["quest", questId]);
@@ -27,7 +27,7 @@ const ActionHandler: React.FC<ActionHandlerProps> = ({ questId, action }) => {
     action.actionType,
   );
 
-  if (isFetchingExecutions) {
+  if (isLoading) {
     return <p>Loading action executions...</p>;
   }
 
