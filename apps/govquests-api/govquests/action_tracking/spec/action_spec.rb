@@ -26,18 +26,6 @@ RSpec.describe ActionTracking::Action do
       end
     end
 
-    context "when creating action with invalid type" do
-      it "raises UnknownActionTypeError" do
-        action_type = "invalid_type"
-        action_data = {}
-        display_data = {}
-
-        expect {
-          action.create(action_type, action_data, display_data)
-        }.to raise_error(ActionTracking::ActionStrategyFactory::UnknownActionTypeError, "Unknown action type: #{action_type}")
-      end
-    end
-
     context "when creating action when already created" do
       it "raises AlreadyCreatedError" do
         action_type = "read_document"

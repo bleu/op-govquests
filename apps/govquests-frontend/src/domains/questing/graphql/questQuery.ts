@@ -36,12 +36,23 @@ export const QuestQuery = graphql(`
           actionId
           userId
           actionType
-          startData
-          completionData
           status
           nonce
           startedAt
           completedAt
+          startData {
+            ... on GitcoinScoreStartData {
+              message
+              nonce
+            }
+          }
+          completionData {
+            ... on GitcoinScoreCompletionData {
+              address
+              signature
+              nonce
+            }
+          }
         }
       }
     }

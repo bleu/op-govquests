@@ -1,4 +1,4 @@
-require_relative "strategies/action_strategy_factory"
+require_relative "strategies/action_execution_strategy_factory"
 
 module ActionTracking
   class Action
@@ -16,9 +16,6 @@ module ActionTracking
 
     def create(action_type, action_data, display_data)
       raise AlreadyCreatedError if @state != "draft"
-
-      strategy = ActionTracking::ActionStrategyFactory.for(action_type)
-      action_data = strategy.create_action(action_data)
 
       apply ActionCreated.new(data: {
         action_id: @id,

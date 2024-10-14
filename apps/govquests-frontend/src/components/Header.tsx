@@ -1,3 +1,5 @@
+"use client";
+
 import SignInButton from "@/domains/authentication/components/SignInButton";
 import {
   HomeIcon,

@@ -10,8 +10,10 @@ class Mutations::CompleteActionExecution
     params(
       execution_id: ::String,
       nonce: ::String,
-      completion_data: T.nilable(T::Hash[::String, T.untyped])
+      action_type: ::String,
+      gitcoin_score_completion_data: T.nilable(::Types::GitcoinScoreCompletionDataInput),
+      read_document_completion_data: T.nilable(::Types::ReadDocumentCompletionDataInput)
     ).returns(T.untyped)
   end
-  def resolve(execution_id:, nonce:, completion_data: T.unsafe(nil)); end
+  def resolve(execution_id:, nonce:, action_type:, gitcoin_score_completion_data: T.unsafe(nil), read_document_completion_data: T.unsafe(nil)); end
 end

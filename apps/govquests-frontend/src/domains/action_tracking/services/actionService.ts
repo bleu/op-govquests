@@ -8,7 +8,6 @@ import {
   CompleteActionExecutionResult,
   ActionExecutionsQueryResult,
 } from "../types/actionTypes";
-import { ACTION_EXECUTIONS_QUERY } from "../graphql/actionExecutionsQuery";
 
 const API_URL = "http://localhost:3000/graphql";
 
@@ -22,10 +21,4 @@ export const completeActionExecution = async (
   variables: CompleteActionExecutionVariables,
 ): Promise<CompleteActionExecutionResult> => {
   return await request(API_URL, COMPLETE_ACTION_EXECUTION, variables);
-};
-
-export const fetchActionExecutions = async (
-  actionId: string,
-): Promise<ActionExecutionsQueryResult> => {
-  return await request(API_URL, ACTION_EXECUTIONS_QUERY, { actionId });
 };

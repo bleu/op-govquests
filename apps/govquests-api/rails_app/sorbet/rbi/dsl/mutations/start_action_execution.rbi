@@ -10,8 +10,10 @@ class Mutations::StartActionExecution
     params(
       quest_id: ::String,
       action_id: ::String,
-      start_data: T.nilable(T::Hash[::String, T.untyped])
+      action_type: ::String,
+      gitcoin_score_start_data: T.nilable(::Types::GitcoinScoreStartDataInput),
+      read_document_start_data: T.nilable(::Types::ReadDocumentStartDataInput)
     ).returns(T.untyped)
   end
-  def resolve(quest_id:, action_id:, start_data: T.unsafe(nil)); end
+  def resolve(quest_id:, action_id:, action_type:, gitcoin_score_start_data: T.unsafe(nil), read_document_start_data: T.unsafe(nil)); end
 end

@@ -1,7 +1,6 @@
 import { ActionStrategy } from "./ActionStrategy";
 import { GitcoinScoreStrategy } from "./GitcoinScoreStrategy";
 import { ReadDocumentStrategy } from "./ReadDocumentStrategy";
-import { DefaultActionStrategy } from "./DefaultActionStrategy";
 
 export class ActionStrategyFactory {
   static createStrategy(actionType: string): ActionStrategy {
@@ -11,7 +10,7 @@ export class ActionStrategyFactory {
       case "read_document":
         return ReadDocumentStrategy;
       default:
-        return DefaultActionStrategy;
+        throw new Error(`Unsupported action type: ${actionType}`);
     }
   }
 }

@@ -1,7 +1,8 @@
+"use client";
+
 import Button from "@/components/ui/Button";
-import { ConnectKitButton } from "connectkit";
-import { useSIWE } from "connectkit";
-import type React from "react";
+import { ConnectKitButton, useSIWE } from "connectkit";
+import React from "react";
 import { useAccount } from "wagmi";
 
 interface SignInButtonProps {
