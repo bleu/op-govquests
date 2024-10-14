@@ -1,9 +1,14 @@
 type Action {
-  actionData: JSON!
+  actionData: ActionData!
   actionExecutions: [ActionExecution!]
   actionType: String!
   displayData: DisplayData!
   id: ID!
+}
+
+type ActionData {
+  actionType: String
+  documentUrl: String
 }
 
 type ActionExecution {

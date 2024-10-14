@@ -1,6 +1,6 @@
-import React from "react";
-import { ActionStrategy, ActionStrategyProps } from "./ActionStrategy";
 import Button from "@/components/ui/Button";
+import React from "react";
+import { ActionStrategy } from "./ActionStrategy";
 
 export const DefaultActionStrategy: ActionStrategy = ({
   questId,
@@ -57,7 +57,10 @@ export const DefaultActionStrategy: ActionStrategy = ({
 
   if (!execution) {
     return (
-      <Button onClick={handleStart} className="w-full bg-optimism text-white">
+      <Button
+        onClick={handleStart}
+        className="w-full bg-primary text-foreground"
+      >
         Start {action.actionType}
       </Button>
     );
@@ -65,7 +68,7 @@ export const DefaultActionStrategy: ActionStrategy = ({
     return (
       <Button
         onClick={handleComplete}
-        className="w-full bg-optimism text-white mt-4"
+        className="w-full bg-primary text-foreground mt-4"
       >
         Complete {action.actionType}
       </Button>

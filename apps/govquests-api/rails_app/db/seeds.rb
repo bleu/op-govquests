@@ -12,14 +12,40 @@ def create_action(action_data)
   action_id
 end
 
-read_document = {
-  action_type: "read_document",
-  display_data: {content: "Read the Code of Conduct"},
-  action_data: {
+read_document = [
+  {
     action_type: "read_document",
-    document_url: "https://example.com/code-of-conduct"
+    display_data: {content: "Code of conduct"},
+    action_data: {
+      action_type: "read_document",
+      document_url: "https://gov.optimism.io/t/code-of-conduct/5751"
+    }
+  },
+  {
+    action_type: "read_document",
+    display_data: {content: "Optimistic Vision"},
+    action_data: {
+      action_type: "read_document",
+      document_url: "https://www.optimism.io/vision"
+    }
+  },
+  {
+    action_type: "read_document",
+    display_data: {content: "Working Constitution"},
+    action_data: {
+      action_type: "read_document",
+      document_url: "https://gov.optimism.io/t/working-constitution-of-the-optimism-collective/55"
+    }
+  },
+  {
+    action_type: "read_document",
+    display_data: {content: "Delegate Expectations"},
+    action_data: {
+      action_type: "read_document",
+      document_url: "https://community.optimism.io/token-house/delegate-expectations"
+    }
   }
-}
+]
 
 gitcoin_action = {
   action_type: "gitcoin_score",
@@ -30,7 +56,7 @@ gitcoin_action = {
   }
 }
 actions_data = [
-  read_document,
+  *read_document,
   gitcoin_action
 ]
 puts "Creating actions..."
@@ -45,16 +71,14 @@ puts "Actions created successfully!"
 quests_data = [
   {
     display_data: {
-      title: "Governance 101 - read document",
-      intro: "Understand the Optimism Values and your role in governance.",
+      title: "Governance 101",
+      intro: "As a Delegate, understanding Optimism’s values and your responsibilities is key. This quest will provide essential resources to help you make informed decisions and contribute to Optimism’s future.",
       image_url: "https://example.com/governance101.jpg"
     },
     quest_type: "Onboarding",
     audience: "AllUsers",
-    rewards: [{type: "Points", amount: 50}],
-    actions: [
-      action_ids[0]
-    ]
+    rewards: [{type: "Points", amount: 20}],
+    actions: action_ids[0..3]
   },
   {
     display_data: {
@@ -97,6 +121,7 @@ quests_data.each do |quest_data|
 
   quest_data[:actions].each_with_index do |action_id, index|
     associate_action_with_quest(quest_id, action_id, index + 1)
+    puts "Associated action #{action_id} with quest #{quest_id} at position #{index + 1}"
   end
 
   puts "Created quest: #{quest_data[:display_data][:title]} (#{quest_id}) with #{quest_data[:actions].size} actions"

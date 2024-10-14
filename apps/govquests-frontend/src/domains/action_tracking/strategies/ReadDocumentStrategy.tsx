@@ -1,6 +1,8 @@
+import { useSIWE } from "connectkit";
 import React from "react";
-import { ActionStrategy, ActionStrategyProps } from "./ActionStrategy";
-import Button from "@/components/ui/Button";
+import { useAccount } from "wagmi";
+import ReadActionButton from "../components/ActionButton";
+import type { ActionStrategy } from "./ActionStrategy";
 
 export const ReadDocumentStrategy: ActionStrategy = ({
   questId,
@@ -10,6 +12,9 @@ export const ReadDocumentStrategy: ActionStrategy = ({
   completeMutation,
   refetch,
 }) => {
+  const { isSignedIn } = useSIWE();
+  const { isConnected } = useAccount();
+
   const handleStart = async () => {
     try {
       await startMutation.mutateAsync({
@@ -18,6 +23,7 @@ export const ReadDocumentStrategy: ActionStrategy = ({
         startData: {},
       });
       refetch();
+      window.open(action.actionData.documentUrl, "_blank");
     } catch (error) {
       console.error("Error starting action:", error);
     }
@@ -38,41 +44,27 @@ export const ReadDocumentStrategy: ActionStrategy = ({
     }
   };
 
-  if (startMutation.isPending || completeMutation.isPending) {
-    return <p>Processing...</p>;
-  }
+  const getStatus = () => {
+    if (execution?.status === "completed") {
+      return "completed";
+    }
 
-  if (startMutation.isError) {
-    return <p className="text-red-500">Error: {startMutation.error.message}</p>;
-  }
+    if (execution) {
+      return "started";
+    }
 
-  if (completeMutation.isError) {
-    return (
-      <p className="text-red-500">Error: {completeMutation.error.message}</p>
-    );
-  }
+    return "unstarted";
+  };
 
-  if (execution?.status === "completed") {
-    return <p className="text-green-500">Action completed successfully!</p>;
-  }
-
-  if (!execution) {
-    return (
-      <Button onClick={handleStart} className="w-full bg-green-500 text-white">
-        Start Reading Document
-      </Button>
-    );
-  } else {
-    return (
-      <div>
-        <p className="mb-4">Have you read the document?</p>
-        <Button
-          onClick={handleComplete}
-          className="w-full bg-purple-500 text-white mt-4"
-        >
-          Confirm Document Read
-        </Button>
-      </div>
-    );
-  }
+  return (
+    <div className="flex w-full justify-between border-t-2 pt-3">
+      <span className="font-medium">{action.displayData.content}</span>
+      <ReadActionButton
+        loading={startMutation.isPending || completeMutation.isPending}
+        disabled={getStatus() === "completed" || !isSignedIn || !isConnected}
+        status={getStatus()}
+        onClick={getStatus() === "unstarted" ? handleStart : handleComplete}
+      />
+    </div>
+  );
 };

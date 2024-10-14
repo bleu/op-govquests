@@ -22,7 +22,10 @@ export const QuestsQuery = graphql(`
         displayData {
           content
         }
-        actionData
+        actionData {
+          documentUrl
+          actionType
+        }
       }
     }
   }

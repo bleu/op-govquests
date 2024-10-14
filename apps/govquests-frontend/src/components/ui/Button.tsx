@@ -1,11 +1,14 @@
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
 import type React from "react";
+import LoadingIndicator from "./LoadingIndicator";
+import Spinner from "./Spinner";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary";
   size?: "sm" | "md" | "lg";
   icon?: LucideIcon;
+  loading?: boolean;
   className?: string;
 }
 
@@ -14,6 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   variant = "primary",
   size = "md",
   icon: Icon,
+  loading,
   className,
   ...props
 }) => {
@@ -21,8 +25,7 @@ const Button: React.FC<ButtonProps> = ({
     "flex items-center justify-center font-medium rounded-md transition-colors";
 
   const variantClasses = {
-    primary:
-      "bg-optimism text-optimismForeground hover:bg-optimism/70 transition",
+    primary: "bg-primary text-foreground hover:bg-primary/70 transition",
     secondary: "hover:bg-background/70 transition",
   };
   const sizeClasses = {
@@ -41,8 +44,14 @@ const Button: React.FC<ButtonProps> = ({
       )}
       {...props}
     >
-      {Icon && <Icon className={cn("w-5 h-5", children && "mr-2")} />}
-      {children}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          {children}
+          {Icon && <Icon className={cn("w-5 h-5", children && "ml-2")} />}
+        </>
+      )}
     </button>
   );
 };
