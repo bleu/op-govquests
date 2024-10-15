@@ -16,10 +16,8 @@ read_document = [
   {
     action_type: "read_document",
     display_data: {
-      content: {
-        title: "Code of conduct",
-        description: ""
-      }
+      title: "Code of conduct",
+      description: ""
     },
     action_data: {
       action_type: "read_document",
@@ -29,10 +27,8 @@ read_document = [
   {
     action_type: "read_document",
     display_data: {
-      content: {
-        title: "Optimistic Vision",
-        description: ""
-      }
+      title: "Optimistic Vision",
+      description: ""
     },
     action_data: {
       action_type: "read_document",
@@ -42,10 +38,8 @@ read_document = [
   {
     action_type: "read_document",
     display_data: {
-      content: {
-        title: "Working Constitution",
-        description: ""
-      }
+      title: "Working Constitution",
+      description: ""
     },
     action_data: {
       action_type: "read_document",
@@ -55,10 +49,8 @@ read_document = [
   {
     action_type: "read_document",
     display_data: {
-      content: {
-        title: "Delegate Expectations",
-        description: ""
-      }
+      title: "Delegate Expectations",
+      description: ""
     },
     action_data: {
       action_type: "read_document",
@@ -70,10 +62,8 @@ read_document = [
 gitcoin_action = {
   action_type: "gitcoin_score",
   display_data: {
-    content: {
-      title: "Complete Gitcoin Passport verification",
-      description: "Let's be sure you're human!"
-    }
+    title: "Connect your Gitcoin Passport",
+    description: "Let's be sure you're human!"
   },
   action_data: {
     action_type: "gitcoin_score",
@@ -87,7 +77,7 @@ actions_data = [
 puts "Creating actions..."
 action_ids = actions_data.map do |action_data|
   action_id = create_action(action_data)
-  puts "Created action: #{action_data[:action_data][:content]} (#{action_id})"
+  puts "Created action: #{action_data[:action_data][:title]} (#{action_id})"
   action_id
 end
 

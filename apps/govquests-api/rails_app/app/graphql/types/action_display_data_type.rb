@@ -1,5 +1,6 @@
 module Types
   class ActionDisplayDataType < Types::BaseObject
-    field :content, Types::ActionContentType, null: true
+    field :title, String, null: true
+    field :description, String, null: true
   end
 end
