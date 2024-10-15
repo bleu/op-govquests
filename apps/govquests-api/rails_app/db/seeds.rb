@@ -15,7 +15,12 @@ end
 read_document = [
   {
     action_type: "read_document",
-    display_data: {content: "Code of conduct"},
+    display_data: {
+      content: {
+        title: "Code of conduct",
+        description: ""
+      }
+    },
     action_data: {
       action_type: "read_document",
       document_url: "https://gov.optimism.io/t/code-of-conduct/5751"
@@ -23,7 +28,12 @@ read_document = [
   },
   {
     action_type: "read_document",
-    display_data: {content: "Optimistic Vision"},
+    display_data: {
+      content: {
+        title: "Optimistic Vision",
+        description: ""
+      }
+    },
     action_data: {
       action_type: "read_document",
       document_url: "https://www.optimism.io/vision"
@@ -31,7 +41,12 @@ read_document = [
   },
   {
     action_type: "read_document",
-    display_data: {content: "Working Constitution"},
+    display_data: {
+      content: {
+        title: "Working Constitution",
+        description: ""
+      }
+    },
     action_data: {
       action_type: "read_document",
       document_url: "https://gov.optimism.io/t/working-constitution-of-the-optimism-collective/55"
@@ -39,7 +54,12 @@ read_document = [
   },
   {
     action_type: "read_document",
-    display_data: {content: "Delegate Expectations"},
+    display_data: {
+      content: {
+        title: "Delegate Expectations",
+        description: ""
+      }
+    },
     action_data: {
       action_type: "read_document",
       document_url: "https://community.optimism.io/token-house/delegate-expectations"
@@ -49,7 +69,12 @@ read_document = [
 
 gitcoin_action = {
   action_type: "gitcoin_score",
-  display_data: {content: "Complete Gitcoin Passport verification"},
+  display_data: {
+    content: {
+      title: "Complete Gitcoin Passport verification",
+      description: "Let’s be sure you’re human!"
+    }
+  },
   action_data: {
     action_type: "gitcoin_score",
     min_score: 20
@@ -83,8 +108,9 @@ quests_data = [
   {
     display_data: {
       title: "gitcoin score quest",
-      intro: "Dive deeper into governance processes and decision-making.",
-      image_url: "https://example.com/advanced-governance.jpg"
+      intro: "Connect your Gitcoin Passport and verify your Unique Humanity Score to help strengthen our community. It’s quick and easy, and you’ll be contributing to a more secure ecosystem!",
+      image_url: "https://example.com/advanced-governance.jpg",
+      requirements: 'Your Unique Humanity Score must be 20 or higher to complete this quest. Not there yet? Check some tips on how to increase your score.'
     },
     quest_type: "Governance",
     audience: "Delegates",

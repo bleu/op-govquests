@@ -25,7 +25,10 @@ export const QuestQuery = graphql(`
         id
         actionType
         displayData {
-          content
+          content {
+            title
+            description
+          }
         }
         actionData {
           documentUrl
@@ -40,7 +43,7 @@ export const QuestQuery = graphql(`
           nonce
           startedAt
           completedAt
-          startData {
+            startData {
             ... on GitcoinScoreStartData {
               message
               nonce

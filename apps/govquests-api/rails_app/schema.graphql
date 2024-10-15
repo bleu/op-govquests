@@ -2,13 +2,22 @@ type Action {
   actionData: ActionData!
   actionExecutions: [ActionExecution!]
   actionType: String!
-  displayData: DisplayData!
+  displayData: ActionDisplayData!
   id: ID!
+}
+
+type ActionContent {
+  description: String
+  title: String
 }
 
 type ActionData {
   actionType: String
   documentUrl: String
+}
+
+type ActionDisplayData {
+  content: ActionContent
 }
 
 type ActionExecution {
@@ -89,6 +98,7 @@ type DisplayData {
   content: String
   imageUrl: String
   intro: String
+  requirements: String
   title: String
 }
 
@@ -149,7 +159,6 @@ type GitcoinScoreStartData implements StartDataInterface {
   Type of the action
   """
   actionType: String!
-  address: String!
   message: String!
   nonce: String!
 }
