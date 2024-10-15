@@ -7,6 +7,7 @@ import Link from "next/link";
 import type React from "react";
 import { useAccount } from "wagmi";
 import QuestButton from "./QuestButton";
+import QuestContentSection from "./QuestContentSection";
 
 interface QuestDetailsProps {
   quest: Quest;
@@ -44,12 +45,16 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
                 {quest.displayData.title}
               </h1>
             </div>
-            <div className="flex items-center">
-              <div className="border-t-2 mt-8 pt-3">
-                <h2 className="text-2xl font-medium mb-2">About this quest</h2>
-                <p>{quest.displayData.intro}</p>
-              </div>
-            </div>
+            <QuestContentSection
+              title="About this quest"
+              content={quest.displayData.intro}
+            />
+            {quest.displayData.requirements ? (
+              <QuestContentSection
+                title="Requirements"
+                content={quest.displayData.requirements}
+              />
+            ) : null}
           </div>
         </div>
         <div className="flex flex-col  justify-center bg-primary pb-3 pr-8 pt-8  rounded-lg">

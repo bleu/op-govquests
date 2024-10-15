@@ -14,6 +14,7 @@ export const QuestQuery = graphql(`
         title
         intro
         imageUrl
+        requirements
       }
       userQuests {
         id
