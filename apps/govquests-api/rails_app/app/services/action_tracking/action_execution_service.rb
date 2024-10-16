@@ -32,6 +32,8 @@ module ActionTracking
         {error: "Execution not started"}
       rescue ActionTracking::ActionExecution::AlreadyCompletedError
         {error: "Execution already completed"}
+      rescue ActionTracking::ActionExecution::NotCompletedError => e
+        {error: e.message}
       else
         ActionTracking::ActionExecutionReadModel.find_by(execution_id: execution_id)
       end

@@ -21,33 +21,22 @@ module Mutations
         {}
       end
 
-      begin
-        result = ActionTracking::ActionExecutionService.complete(
-          execution_id: execution_id,
-          nonce: nonce,
-          user_id: context[:current_user]&.user_id,
-          completion_data: completion_data
-        )
+      result = ActionTracking::ActionExecutionService.complete(
+        execution_id: execution_id,
+        nonce: nonce,
+        user_id: context[:current_user]&.user_id,
+        completion_data: completion_data
+      )
 
-        if result.is_a?(ActionTracking::ActionExecutionReadModel)
-          {
-            action_execution: result,
-            errors: []
-          }
-        else
-          {
-            action_execution: nil,
-            errors: [result[:error]],
-            score: nil,
-            passed_threshold: nil
-          }
-        end
-      rescue ActionTracking::Strategies::GitcoinScore::ActionCompletionError => e
+      if result.is_a?(ActionTracking::ActionExecutionReadModel)
+        {
+          action_execution: result,
+          errors: []
+        }
+      else
         {
           action_execution: nil,
-          errors: [e.message],
-          score: e.data[:score],
-          passed_threshold: e.data[:passed_threshold]
+          errors: [result[:error]]
         }
       end
     end

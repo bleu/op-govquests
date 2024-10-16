@@ -10,6 +10,8 @@ module ActionTracking
 
     class InvalidNonceError < StandardError; end
 
+    class NotCompletedError < StandardError; end
+
     def initialize(id)
       @id = id
       @quest_id = nil
@@ -58,6 +60,8 @@ module ActionTracking
         user_id: @user_id,
         completion_data: completion_data.merge(data || {})
       })
+    rescue => e
+      raise NotCompletedError.new(e.message)
     end
 
     def valid_nonce?(nonce)
