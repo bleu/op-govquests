@@ -35,6 +35,8 @@ export const COMPLETE_ACTION_EXECUTION = graphql(`
             address
             signature
             nonce
+            score
+            passedThreshold
           }
         }
       }

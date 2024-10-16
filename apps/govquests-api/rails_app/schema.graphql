@@ -75,6 +75,8 @@ type CompleteActionExecutionPayload {
   """
   clientMutationId: String
   errors: [String!]!
+  passedThreshold: Boolean
+  score: Float
 }
 
 """

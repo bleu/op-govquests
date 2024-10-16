@@ -13,6 +13,16 @@ module ActionTracking
         end
       end
 
+      class ActionCompletionError < StandardError
+        attr_reader :data
+      
+        def initialize(message, data = {})
+          @data = data
+          super(message)
+        end
+      end
+
+
       GITCOIN_SCORE_HUMANITY_THRESHOLD = 20
 
       def initialize(start_data: nil, completion_data: nil, gitcoin_api: GitcoinPassportApi.new)
@@ -36,14 +46,25 @@ module ActionTracking
       end
 
       def on_complete_execution
-        completion_data.merge({
+        response = passport_response
+        score = response["score"].to_f
+        passed_threshold = score >= GITCOIN_SCORE_HUMANITY_THRESHOLD
+      
+        result = {
           score: score,
-          raw_response: passport_response
-        })
+          passed_threshold: passed_threshold,
+          raw_response: response
+        }
+      
+        if !passed_threshold
+          raise ActionCompletionError.new("Gitcoin score below threshold", result)
+        end
+      
+        completion_data.merge(result)
       end
 
       def passport_response
-        @passport_response ||= @gitcoin_api.submit_passport(data[:address], data[:signature], data[:nonce])
+        @passport_response ||= @gitcoin_api.submit_passport(completion_data[:address], completion_data[:signature], completion_data[:nonce])
       end
     end
   end

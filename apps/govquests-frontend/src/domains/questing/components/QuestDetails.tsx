@@ -57,9 +57,9 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
             ) : null}
           </div>
         </div>
-        <div className="flex flex-col  justify-center bg-primary pb-3 pr-8 pt-8  rounded-lg">
-          <div className="flex ">
-            <h2 className="text-2xl font-bold self-center px-16">
+        <div className="flex flex-col  justify-center bg-primary py-14  pr-8   rounded-lg">
+          <div className="flex items-center">
+            <h2 className="text-2xl font-bold self-center px-16 text-foreground/40">
               steps <br /> to earn
             </h2>
             <div className="flex-1">

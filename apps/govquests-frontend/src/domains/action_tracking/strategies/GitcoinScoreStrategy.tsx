@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
-import { ActionStrategy } from "./ActionStrategy";
 import Button from "@/components/ui/Button";
-import { useAccount, useSignMessage } from "wagmi";
+import { cn } from "@/lib/utils";
 import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { useAccount, useSignMessage } from "wagmi";
 import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
 import { useStartActionExecution } from "../hooks/useStartActionExecution";
+import { ActionStrategy } from "./ActionStrategy";
+const disabled = false;
 
 export const GitcoinScoreStrategy: ActionStrategy = ({
   questId,
@@ -51,21 +53,23 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
       signature,
       nonce: execution.startData.nonce,
     };
+    console.log("Sending completion data:", completionData);
     try {
-      await completeMutation.mutateAsync({
+      const result = await completeMutation.mutateAsync({
         executionId: execution.id,
         nonce: execution.nonce,
         actionType: action.actionType,
-        completionData,
+        gitcoinScoreCompletionData: completionData,
+        readDocumentCompletionData: null,
       });
     } catch (error) {
       console.error("Error completing action:", error);
     }
   };
 
-  if (startMutation.isPending || completeMutation.isPending || isSigning) {
-    return <p>Processing...</p>;
-  }
+  // if (startMutation.isPending || completeMutation.isPending || isSigning) {
+  //   return <p>Processing...</p>;
+  // }
 
   if (startMutation.isError) {
     return <p className="text-red-500">Error: {startMutation.error.message}</p>;
@@ -76,40 +80,93 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
       <p className="text-red-500">Error: {completeMutation.error.message}</p>
     );
   }
+  const gitcoinScore = execution?.completionData?.score;
 
+  console.log("execution?.completionData", execution?.completionData);
   if (execution?.status === "completed") {
-    return <p className="text-green-500">Action completed successfully!</p>;
+    return (
+      <div className="text-green-500">
+        <p>Action completed successfully!</p>
+        <p>Your Gitcoin Score: {gitcoinScore}</p>
+      </div>
+    );
   }
 
   if (!execution) {
     return (
-      <Button onClick={handleStart} className="w-full bg-blue-500 text-white">
-        Start Gitcoin Verification
-      </Button>
-    );
-  } else if (!signature) {
-    return (
-      <div>
-        <p className="mb-4">Please sign the following message:</p>
-        <pre className="bg-gray-100 p-3 rounded mb-4 overflow-x-auto">
-          {execution.startData.message}
-        </pre>
-        <Button
-          onClick={handleSignMessage}
-          className="w-full bg-green-500 text-white mt-4"
-        >
-          {isSigning ? "Signing..." : "Sign Message"}
-        </Button>
-      </div>
-    );
-  } else {
-    return (
-      <Button
-        onClick={handleComplete}
-        className="w-full bg-purple-500 text-white mt-4"
-      >
-        Submit Signed Message
+      <Button onClick={handleStart} className="bg-secondaryDisabled ">
+        Connect passport
       </Button>
     );
   }
+
+  <div>
+    <p className="mb-4">Please sign the following message:</p>
+    <Button
+      onClick={handleSignMessage}
+      className="w-full bg-green-500 text-white mt-4"
+    >
+      {isSigning ? "Signing..." : "Sign Message"}
+    </Button>
+  </div>;
+  if (!signature) {
+    return (
+      <div className="flex justify-between items-center">
+        <div className="flex flex-col">
+          <span className="text-xl font-semibold">
+            {action.displayData.title}
+          </span>
+          <span className="text-sm text-opacity-70">
+            {action.displayData.description}
+          </span>
+          <p className="mb-4">Please sign the following message:</p>
+          <p className="bg-gray-100 p-3 rounded mb-4 ">
+            execution.startData.message: {execution?.startData?.message}
+          </p>
+        </div>
+
+        <Button
+          onClick={handleSignMessage}
+          loading={startMutation.isPending || completeMutation.isPending}
+          className={cn(
+            "bg-secondary hover:bg-secondaryHover hover:text-white px-6",
+            disabled &&
+              "bg-secondaryDisabled text-opacity-60 cursor-not-allowed pointer-events-none",
+          )}
+        >
+          Sign Message
+        </Button>
+      </div>
+    );
+  }
+  return (
+    // <Button
+    //   onClick={handleComplete}
+    //   className="w-full bg-purple-500 text-white mt-4"
+    // >
+    //   Submit Signed Message
+    // </Button>
+    <div className="flex justify-between items-center">
+      <div className="flex flex-col">
+        <span className="text-xl font-semibold">
+          {action.displayData.title}
+        </span>
+        <span className="text-sm text-opacity-70">
+          {action.displayData.description}
+        </span>
+      </div>
+
+      <Button
+        onClick={handleComplete}
+        loading={startMutation.isPending || completeMutation.isPending}
+        className={cn(
+          "bg-secondary hover:bg-secondaryHover hover:text-white px-6",
+          disabled &&
+            "bg-secondaryDisabled text-opacity-60 cursor-not-allowed pointer-events-none",
+        )}
+      >
+        Complete Connect passport
+      </Button>
+    </div>
+  );
 };

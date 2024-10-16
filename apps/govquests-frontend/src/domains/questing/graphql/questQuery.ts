@@ -53,6 +53,8 @@ export const QuestQuery = graphql(`
               address
               signature
               nonce
+              score
+              passedThreshold
             }
           }
         }
