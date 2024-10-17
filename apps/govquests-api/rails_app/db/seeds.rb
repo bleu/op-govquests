@@ -16,10 +16,8 @@ read_document = [
   {
     action_type: "read_document",
     display_data: {
-      content: {
-        title: "Code of conduct",
-        description: ""
-      }
+      title: "Code of conduct",
+      description: ""
     },
     action_data: {
       action_type: "read_document",
@@ -29,10 +27,8 @@ read_document = [
   {
     action_type: "read_document",
     display_data: {
-      content: {
-        title: "Optimistic Vision",
-        description: ""
-      }
+      title: "Optimistic Vision",
+      description: ""
     },
     action_data: {
       action_type: "read_document",
@@ -42,10 +38,8 @@ read_document = [
   {
     action_type: "read_document",
     display_data: {
-      content: {
-        title: "Working Constitution",
-        description: ""
-      }
+      title: "Working Constitution",
+      description: ""
     },
     action_data: {
       action_type: "read_document",
@@ -55,10 +49,8 @@ read_document = [
   {
     action_type: "read_document",
     display_data: {
-      content: {
-        title: "Delegate Expectations",
-        description: ""
-      }
+      title: "Delegate Expectations",
+      description: ""
     },
     action_data: {
       action_type: "read_document",
@@ -70,10 +62,8 @@ read_document = [
 gitcoin_action = {
   action_type: "gitcoin_score",
   display_data: {
-    content: {
-      title: "Complete Gitcoin Passport verification",
-      description: "Let’s be sure you’re human!"
-    }
+    title: "Connect your Gitcoin Passport",
+    description: "Let's be sure you're human!"
   },
   action_data: {
     action_type: "gitcoin_score",
@@ -87,7 +77,7 @@ actions_data = [
 puts "Creating actions..."
 action_ids = actions_data.map do |action_data|
   action_id = create_action(action_data)
-  puts "Created action: #{action_data[:action_data][:content]} (#{action_id})"
+  puts "Created action: #{action_data[:action_data][:title]} (#{action_id})"
   action_id
 end
 
@@ -97,7 +87,7 @@ quests_data = [
   {
     display_data: {
       title: "Governance 101",
-      intro: "As a Delegate, understanding Optimism’s values and your responsibilities is key. This quest will provide essential resources to help you make informed decisions and contribute to Optimism’s future.",
+      intro: "As a Delegate, understanding Optimism's values and your responsibilities is key. This quest will provide essential resources to help you make informed decisions and contribute to Optimism’s future.",
       image_url: "https://example.com/governance101.jpg"
     },
     quest_type: "Onboarding",
@@ -107,8 +97,8 @@ quests_data = [
   },
   {
     display_data: {
-      title: "gitcoin score quest",
-      intro: "Connect your Gitcoin Passport and verify your Unique Humanity Score to help strengthen our community. It’s quick and easy, and you’ll be contributing to a more secure ecosystem!",
+      title: "Gitcoin Score",
+      intro: "Connect your Gitcoin Passport and verify your Unique Humanity Score to help strengthen our community. It's quick and easy, and you'll be contributing to a more secure ecosystem!",
       image_url: "https://example.com/advanced-governance.jpg",
       requirements: 'Your Unique Humanity Score must be 20 or higher to complete this quest. Not there yet? Check some tips on how to increase your score.'
     },

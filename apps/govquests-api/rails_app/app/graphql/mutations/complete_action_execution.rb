@@ -2,7 +2,6 @@ module Mutations
   class CompleteActionExecution < BaseMutation
     argument :execution_id, ID, required: true
     argument :nonce, String, required: true
-
     argument :action_type, String, required: true, description: "Type of the action"
     argument :gitcoin_score_completion_data, Types::GitcoinScoreCompletionDataInput, required: false, description: "Completion data for Gitcoin Score action"
     argument :read_document_completion_data, Types::ReadDocumentCompletionDataInput, required: false, description: "Completion data for Read Document action"

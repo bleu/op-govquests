@@ -20,7 +20,7 @@ module ActionTracking
       end
 
       def complete_execution
-        raise CompletionDataVerificationFailed unless completion_data_valid?
+        raise CompletionDataVerificationFailed.new("Completion data is invalid") unless completion_data_valid?
 
         on_complete_execution.merge({action_type:})
       end

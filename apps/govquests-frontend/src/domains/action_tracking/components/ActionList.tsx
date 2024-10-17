@@ -14,7 +14,7 @@ const ActionList: React.FC<ActionListProps> = ({ questId, actions }) => {
         <h4 className="mb-5 text-xl font-semibold">Read</h4>
       )}
       {actions.map((action) => (
-        <div key={action.id} className="mb-4">
+        <div key={action.id}>
           <ActionHandler questId={questId} action={action} />
         </div>
       ))}

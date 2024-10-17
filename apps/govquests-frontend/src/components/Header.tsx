@@ -1,18 +1,15 @@
 "use client";
 
 import SignInButton from "@/domains/authentication/components/SignInButton";
-import {
-  HomeIcon,
-  MapIcon,
-  SmileIcon,
-  StarIcon,
-  TrophyIcon,
-} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { HomeIcon, MapIcon, StarIcon } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type React from "react";
-import Button from "./ui/Button";
 
 const Header: React.FC = () => {
+  const currentPath = usePathname();
+
   return (
     <header className="p-8">
       <div className="flex justify-between items-center">
@@ -27,8 +24,11 @@ const Header: React.FC = () => {
           <ul className="flex space-x-5 px-1 py-1">
             <li>
               <Link
+                className={cn(
+                  "flex items-center text-foreground px-3 py-1 rounded-full hover:bg-primary/70 transition",
+                  currentPath.startsWith("/quests") && "font-bold",
+                )}
                 href="/quests"
-                className="flex items-center text-foreground px-3 py-1 rounded-full hover:bg-primary/70 transition"
               >
                 <MapIcon className="w-4 h-4 mr-1" />
                 Quests
@@ -36,8 +36,11 @@ const Header: React.FC = () => {
             </li>
             <li>
               <Link
+                className={cn(
+                  "flex items-center text-foreground px-3 py-1 rounded-full hover:bg-primary/70 transition",
+                  currentPath === "/" && "font-bold",
+                )}
                 href="/"
-                className="flex items-center text-foreground px-3 py-1 rounded-full hover:bg-primary/70 transition"
               >
                 <HomeIcon className="w-4 h-4 mr-1" />
                 Home
@@ -45,8 +48,11 @@ const Header: React.FC = () => {
             </li>
             <li>
               <Link
+                className={cn(
+                  "flex items-center text-foreground px-3 py-1 rounded-full hover:bg-primary/70 transition",
+                  currentPath.startsWith("/leaderboard") && "font-bold",
+                )}
                 href="/leaderboard"
-                className="flex items-center text-foreground px-3 py-1 rounded-full hover:bg-primary/70 transition"
               >
                 <StarIcon className="w-4 h-4 mr-1" />
                 Leaderboard

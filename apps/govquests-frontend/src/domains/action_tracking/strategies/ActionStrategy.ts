@@ -4,6 +4,7 @@ export interface ActionStrategyProps {
   questId: string;
   action: Action;
   execution: ActionExecution | null;
+  refetch: () => void;
 }
 
 export type ActionStrategy = React.FC<ActionStrategyProps>;
