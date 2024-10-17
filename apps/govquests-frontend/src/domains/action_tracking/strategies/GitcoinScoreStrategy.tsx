@@ -19,6 +19,9 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   const { isConnected } = useAccount();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  const isActionCompleted = execution?.status === "completed";
+  const isActionStarted = execution?.status === "started";
+
   const {
     signMessage,
     data: signature,
@@ -101,7 +104,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
       };
     }
 
-    if (execution.status === "started" && !signature) {
+    if (isActionStarted && !signature) {
       return {
         status: "sign" as const,
         onClick: handleSignMessage,
@@ -109,7 +112,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
       };
     }
 
-    if (execution.status === "started" && signature) {
+    if (isActionStarted && signature) {
       return {
         status: "started" as const,
         onClick: handleComplete,
@@ -117,7 +120,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
       };
     }
 
-    if (execution.status === "completed") {
+    if (isActionCompleted) {
       return {
         status: "completed" as const,
         onClick: () => {},
@@ -131,7 +134,15 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
       onClick: handleStart,
       customLabel: "Connect passport",
     };
-  }, [execution, signature, handleStart, handleSignMessage, handleComplete]);
+  }, [
+    execution,
+    signature,
+    isActionStarted,
+    isActionCompleted,
+    handleStart,
+    handleSignMessage,
+    handleComplete,
+  ]);
 
   const renderedContent = useMemo(() => {
     if (errorMessage) {
@@ -144,7 +155,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
         </>
       );
     }
-    if (execution?.status === "completed") {
+    if (isActionCompleted) {
       return (
         <>
           <span className="text-sm text-foreground/70">
@@ -166,7 +177,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
     );
   }, [
     errorMessage,
-    execution?.status,
+    isActionCompleted,
     execution?.completionData.score,
     action.displayData,
   ]);
@@ -184,9 +195,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
         loading={
           startMutation.isPending || completeMutation.isPending || isSigning
         }
-        disabled={
-          !isSignedIn || !isConnected || execution?.status === "completed"
-        }
+        disabled={!isSignedIn || !isConnected || isActionCompleted}
       />
     </div>
   );
