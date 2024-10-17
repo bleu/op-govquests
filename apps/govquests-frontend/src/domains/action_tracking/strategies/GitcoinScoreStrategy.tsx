@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useSIWE } from "connectkit";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useAccount, useSignMessage } from "wagmi";
 import ActionButton from "../components/ActionButton";
 import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
@@ -17,7 +17,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   const completeMutation = useCompleteActionExecution(["quest", questId]);
   const { isSignedIn } = useSIWE();
   const { isConnected } = useAccount();
-  const [error, setError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const {
     signMessage,
@@ -34,8 +34,10 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
         actionType: action.actionType,
       });
       refetch();
+      setErrorMessage(null);
     } catch (error) {
       console.error("Error starting action:", error);
+      setErrorMessage("Failed to start the action. Please try again.");
     }
   }, [startMutation, questId, action.id, action.actionType, refetch]);
 
@@ -45,11 +47,12 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
       signMessage({
         message: execution.startData.message,
       });
+      setErrorMessage(null);
     } catch (error) {
       console.error("Error signing message:", error);
+      setErrorMessage("Failed to sign the message. Please try again.");
     }
   }, [execution, signMessage]);
-  console.log(signature);
 
   const handleComplete = useCallback(async () => {
     if (!execution || !signature) return;
@@ -68,21 +71,26 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
         readDocumentCompletionData: null,
       });
 
-      if (
-        result.completeActionExecution &&
-        (result.completeActionExecution.errors ?? []).length > 0
-      ) {
-        throw new Error(result.completeActionExecution.errors[0]);
+      if (result.completeActionExecution?.errors.length > 0) {
+        setErrorMessage(result.completeActionExecution?.errors[0]);
+      } else {
+        setErrorMessage(null);
+        refetch();
       }
-
-      setError(null);
     } catch (error) {
       console.error("Error completing action:", error);
-      setError(
-        error instanceof Error ? error.message : "An unknown error occurred",
+      setErrorMessage(
+        "An error occurred while completing the action. Please try again.",
       );
     }
-  }, [execution, signature, address, completeMutation, action.actionType]);
+  }, [
+    execution,
+    signature,
+    address,
+    completeMutation,
+    action.actionType,
+    refetch,
+  ]);
 
   const buttonProps = useMemo(() => {
     if (!execution || execution.status === "unstarted") {
@@ -125,40 +133,60 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
     };
   }, [execution, signature, handleStart, handleSignMessage, handleComplete]);
 
-  if (startMutation.isError) {
-    return <p className="text-red-500">Error: {startMutation.error.message}</p>;
-  }
-
-  if (completeMutation.isError) {
+  const renderedContent = useMemo(() => {
+    if (errorMessage) {
+      return (
+        <>
+          <span className="text-sm text-foreground/70">
+            Verification failed. Sorry, you look like a bot. 🤖
+          </span>
+          <span className="text-sm  font-bold">{errorMessage}</span>
+        </>
+      );
+    }
+    if (execution?.status === "completed") {
+      return (
+        <>
+          <span className="text-sm text-foreground/70">
+            Verification succeeded! Seems like you're human. ✅
+          </span>
+          <span className="text-sm font-bold">
+            Your Unique Humanity Score is currently{" "}
+            {execution.completionData.score}.
+          </span>
+        </>
+      );
+    }
     return (
-      <p className="text-red-500">Error: {completeMutation.error.message}</p>
+      <>
+        <span className="text-sm text-foreground/70">
+          {action.displayData.description}
+        </span>
+      </>
     );
-  }
-  console.log(execution?.completionData);
+  }, [
+    errorMessage,
+    execution?.status,
+    execution?.completionData.score,
+    action.displayData,
+  ]);
+
   return (
     <div className="flex justify-between items-center">
       <div className="flex flex-col">
-        <span className="text-xl font-semibold">
+        <span className="text-xl font-semibold mb-1">
           {action.displayData.title}
         </span>
-        <span className="text-sm text-opacity-70">
-          {execution?.status === "completed"
-            ? "Verification succeeded! Seems like you're human. ✅"
-            : action.displayData.description}
-        </span>
-        {execution?.status === "completed" && (
-          <span className="text-sm font-bold">
-            Your Unique Humanity Score is {execution.completionData.score}. The
-            minimum is {execution.completionData.minimumPassingScore}.
-          </span>
-        )}
+        {renderedContent}
       </div>
       <ActionButton
         {...buttonProps}
         loading={
           startMutation.isPending || completeMutation.isPending || isSigning
         }
-        disabled={!isSignedIn || !isConnected}
+        disabled={
+          !isSignedIn || !isConnected || execution?.status === "completed"
+        }
       />
     </div>
   );

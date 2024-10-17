@@ -14,7 +14,7 @@ module ActionTracking
         end
       end
 
-      GITCOIN_SCORE_HUMANITY_THRESHOLD = 50
+      GITCOIN_SCORE_HUMANITY_THRESHOLD = 20
 
       def initialize(start_data: nil, completion_data: nil, gitcoin_api: GitcoinPassportApi.new)
         super(start_data:, completion_data:)
@@ -59,7 +59,7 @@ module ActionTracking
 
         return true unless score < GITCOIN_SCORE_HUMANITY_THRESHOLD
 
-        raise CompletionDataVerificationFailed.new("Your current gitcoin score is #{score}, which is below the threshold of #{GITCOIN_SCORE_HUMANITY_THRESHOLD}")
+        raise CompletionDataVerificationFailed.new("Your Unique Humanity Score is currently #{score}.")
       end
     end
   end
