@@ -1,9 +1,9 @@
-import React from "react";
-import { Action } from "@/domains/questing/types/questTypes";
-import { useStartActionExecution } from "../hooks/useStartActionExecution";
-import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
-import { ActionStrategyFactory } from "../strategies/ActionStrategyFactory";
 import { useFetchQuest } from "@/domains/questing/hooks/useFetchQuest";
+import { Action } from "@/domains/questing/types/questTypes";
+import React from "react";
+import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
+import { useStartActionExecution } from "../hooks/useStartActionExecution";
+import { ActionStrategyFactory } from "../strategies/ActionStrategyFactory";
 
 interface ActionHandlerProps {
   questId: string;
@@ -33,6 +33,7 @@ const ActionHandler: React.FC<ActionHandlerProps> = ({ questId, action }) => {
       questId={questId}
       action={action}
       execution={execution}
+      refetch={refetch}
     />
   );
 };

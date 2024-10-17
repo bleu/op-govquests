@@ -135,6 +135,7 @@ type GitcoinScoreCompletionData implements CompletionDataInterface {
   actionType: String!
   address: String
   nonce: String
+  passedThreshold: Boolean!
   score: Float!
   signature: String
   verified: Boolean!

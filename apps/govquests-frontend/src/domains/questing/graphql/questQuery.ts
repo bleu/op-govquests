@@ -26,8 +26,8 @@ export const QuestQuery = graphql(`
         id
         actionType
         displayData {
-            title
-            description
+          title
+          description
         }
         actionData {
           documentUrl
