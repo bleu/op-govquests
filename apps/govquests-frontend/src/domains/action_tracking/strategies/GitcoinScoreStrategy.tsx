@@ -56,7 +56,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
     const completionData = {
       address,
       signature,
-      nonce: execution.nonce,
+      nonce: execution.startData.nonce,
     };
 
     try {
@@ -134,7 +134,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
       <p className="text-red-500">Error: {completeMutation.error.message}</p>
     );
   }
-
+  console.log(execution?.completionData);
   return (
     <div className="flex justify-between items-center">
       <div className="flex flex-col">
@@ -148,7 +148,8 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
         </span>
         {execution?.status === "completed" && (
           <span className="text-sm font-bold">
-            Your Unique Humanity Score is 20.
+            Your Unique Humanity Score is {execution.completionData.score}. The
+            minimum is {execution.completionData.minimumPassingScore}.
           </span>
         )}
       </div>

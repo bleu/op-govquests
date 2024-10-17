@@ -36,7 +36,7 @@ export const COMPLETE_ACTION_EXECUTION = graphql(`
             signature
             nonce
             score
-            passedThreshold
+            minimumPassingScore
           }
         }
       }

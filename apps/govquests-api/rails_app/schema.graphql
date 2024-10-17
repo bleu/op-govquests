@@ -75,8 +75,6 @@ type CompleteActionExecutionPayload {
   """
   clientMutationId: String
   errors: [String!]!
-  passedThreshold: Boolean
-  score: Float
 }
 
 """
@@ -134,11 +132,10 @@ type GitcoinScoreCompletionData implements CompletionDataInterface {
   """
   actionType: String!
   address: String
+  minimumPassingScore: Float
   nonce: String
-  passedThreshold: Boolean!
-  score: Float!
+  score: Float
   signature: String
-  verified: Boolean!
 }
 
 """

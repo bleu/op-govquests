@@ -8,8 +8,6 @@ module Mutations
 
     field :action_execution, Types::ActionExecutionType, null: true
     field :errors, [String], null: false
-    field :score, Float, null: true
-    field :passed_threshold, Boolean, null: true
 
     def resolve(execution_id:, nonce:, action_type:, gitcoin_score_completion_data: nil, read_document_completion_data: nil)
       completion_data = case action_type

@@ -42,7 +42,7 @@ export const QuestQuery = graphql(`
           nonce
           startedAt
           completedAt
-            startData {
+          startData {
             ... on GitcoinScoreStartData {
               message
               nonce
@@ -54,7 +54,7 @@ export const QuestQuery = graphql(`
               signature
               nonce
               score
-              passedThreshold
+              minimumPassingScore
             }
           }
         }
