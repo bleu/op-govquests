@@ -19,7 +19,7 @@ module ActionTracking
       # and here what we want is to ensure that the user has the required domains, which have already been
       # fetched in the start_execution method.
       def completion_data_valid?
-        completion_data[:domains].any?
+        start_data[:domains].any?
       end
     end
   end

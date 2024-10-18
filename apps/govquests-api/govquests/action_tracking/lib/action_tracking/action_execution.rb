@@ -50,7 +50,7 @@ module ActionTracking
       raise InvalidNonceError unless valid_nonce?(nonce)
       raise AlreadyCompletedError if completed?
 
-      strategy = ActionTracking::ActionExecutionStrategyFactory.for(@action_type, completion_data:)
+      strategy = ActionTracking::ActionExecutionStrategyFactory.for(@action_type, start_data: @data, completion_data:)
       data = strategy.complete_execution
 
       apply ActionExecutionCompleted.new(data: {
