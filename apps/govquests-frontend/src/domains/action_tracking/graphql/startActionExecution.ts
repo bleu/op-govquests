@@ -7,6 +7,7 @@ export const START_ACTION_EXECUTION = graphql(`
     $actionType: String!
     $gitcoinScoreStartData: GitcoinScoreStartDataInput
     $readDocumentStartData: ReadDocumentStartDataInput
+    $ensStartData: EnsStartDataInput
   ) {
     startActionExecution(
       input: {
@@ -15,6 +16,7 @@ export const START_ACTION_EXECUTION = graphql(`
         actionType: $actionType
         gitcoinScoreStartData: $gitcoinScoreStartData
         readDocumentStartData: $readDocumentStartData
+        ensStartData: $ensStartData
       }
     ) {
       actionExecution {

@@ -5,7 +5,7 @@ module Types
 
     field :action_type, String, null: false, description: "Type of the action"
 
-    orphan_types Types::GitcoinScoreStartDataType, Types::ReadDocumentStartDataType
+    orphan_types Types::GitcoinScoreStartDataType, Types::ReadDocumentStartDataType, Types::EnsStartDataType
 
     def self.resolve_type(object, _context)
       action_type = object["action_type"]
@@ -14,6 +14,8 @@ module Types
         Types::GitcoinScoreStartDataType
       when "read_document"
         Types::ReadDocumentStartDataType
+      when "ens"
+        Types::EnsStartDataType
       else
         Types::ReadDocumentStartDataType
       end

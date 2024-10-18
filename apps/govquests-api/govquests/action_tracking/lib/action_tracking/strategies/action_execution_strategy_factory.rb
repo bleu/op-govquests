@@ -1,5 +1,6 @@
 require_relative "gitcoin_score"
 require_relative "read_document"
+require_relative "ens"
 
 module ActionTracking
   class ActionExecutionStrategyFactory
@@ -26,3 +27,4 @@ end
 
 ActionTracking::ActionExecutionStrategyFactory.register("gitcoin_score", ActionTracking::Strategies::GitcoinScore)
 ActionTracking::ActionExecutionStrategyFactory.register("read_document", ActionTracking::Strategies::ReadDocument)
+ActionTracking::ActionExecutionStrategyFactory.register("ens", ActionTracking::Strategies::Ens)

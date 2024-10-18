@@ -32,9 +32,6 @@ export const COMPLETE_ACTION_EXECUTION = graphql(`
         }
         completionData {
           ... on GitcoinScoreCompletionData {
-            address
-            signature
-            nonce
             score
             minimumPassingScore
           }
