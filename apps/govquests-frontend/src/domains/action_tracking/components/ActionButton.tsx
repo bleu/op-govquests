@@ -4,6 +4,7 @@ import { CheckIcon, CheckSquareIcon, ExternalLinkIcon } from "lucide-react";
 import type React from "react";
 import type {
   ActionType,
+  EnsStatus,
   GitcoinScoreStatus,
   ReadDocumentStatus,
   VerifyPositionStatus,
@@ -23,6 +24,9 @@ type ActionConfig = {
   };
   verify_position: {
     statuses: Record<VerifyPositionStatus, StatusConfig>;
+  };
+  ens: {
+    statuses: Record<EnsStatus, StatusConfig>;
   };
 };
 
@@ -56,6 +60,13 @@ const actionConfig: ActionConfig = {
       unstarted: { label: "Verify Position", icon: null },
       started: { label: "Verifying...", icon: null },
       completed: { label: "Verified", icon: null },
+    },
+  },
+  ens: {
+    statuses: {
+      unstarted: { label: "Connect ENS", icon: null },
+      started: { label: "Verifying ENS", icon: null },
+      completed: { label: "ENS Connected", icon: null },
     },
   },
 };
