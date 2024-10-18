@@ -1,6 +1,6 @@
 module Types
   class EnsStartDataType < Types::BaseObject
-    implements Types::CompletionDataInterface
+    implements Types::StartDataInterface
     description "Start data for ENS action"
 
     field :address, String, null: false

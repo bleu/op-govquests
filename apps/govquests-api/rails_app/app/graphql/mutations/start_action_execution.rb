@@ -23,7 +23,7 @@ module Mutations
       when "read_document"
         read_document_start_data&.to_h || {}
       when "ens"
-        {}
+        ens_start_data&.to_h || {}
       else
         {}
       end
@@ -32,7 +32,8 @@ module Mutations
         quest_id: quest_id,
         action_id: action_id,
         user_id: context[:current_user]&.user_id,
-        start_data: start_data
+        start_data: start_data,
+        action_type: action_type
       )
 
       if result.is_a?(ActionTracking::ActionExecutionReadModel)

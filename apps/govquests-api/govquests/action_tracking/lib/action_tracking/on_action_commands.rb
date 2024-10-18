@@ -30,7 +30,7 @@ module ActionTracking
     def handle_start_action_execution(command)
       @repository.with_aggregate(Action, command.action_id) do |action|
         @repository.with_aggregate(ActionExecution, command.aggregate_id) do |execution|
-          execution.start(command.quest_id, command.action_id, action.action_type, command.user_id, command.start_data)
+          execution.start(command.quest_id, command.action_id, action.action_type, command.user_id, command.start_data, command.nonce)
         end
       end
     end

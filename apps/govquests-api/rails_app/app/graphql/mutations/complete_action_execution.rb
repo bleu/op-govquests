@@ -27,7 +27,8 @@ module Mutations
         execution_id: execution_id,
         nonce: nonce,
         user_id: context[:current_user]&.user_id,
-        completion_data: completion_data
+        completion_data: completion_data,
+        action_type: action_type
       )
 
       if result.is_a?(ActionTracking::ActionExecutionReadModel)
