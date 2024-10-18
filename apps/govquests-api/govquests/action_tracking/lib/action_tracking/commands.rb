@@ -13,6 +13,7 @@ module ActionTracking
     attribute :quest_id, Infra::Types::UUID
     attribute :action_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
+    attribute :nonce, Infra::Types::String
     attribute :start_data, Infra::Types::Hash
 
     alias_method :aggregate_id, :execution_id

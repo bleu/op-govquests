@@ -118,6 +118,16 @@ type DisplayData {
 }
 
 """
+Action data for ENS action
+"""
+type EnsActionData implements ActionDataInterface {
+  """
+  Type of the action
+  """
+  actionType: String!
+}
+
+"""
 Completion data for ENS action
 """
 type EnsCompletionData implements CompletionDataInterface {

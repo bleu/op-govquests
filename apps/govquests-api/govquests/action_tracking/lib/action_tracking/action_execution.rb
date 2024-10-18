@@ -25,13 +25,9 @@ module ActionTracking
       @completed_at = nil
     end
 
-    def start(quest_id, action_id, action_type, user_id, start_data)
+    def start(quest_id, action_id, action_type, user_id, start_data, nonce)
       raise AlreadyStartedError if started?
       raise AlreadyCompletedError if completed?
-
-      nonce = SecureRandom.hex(16)
-      strategy = ActionTracking::ActionExecutionStrategyFactory.for(action_type, start_data:)
-      data = strategy.start_execution
 
       apply ActionExecutionStarted.new(data: {
         execution_id: @id,
@@ -40,7 +36,7 @@ module ActionTracking
         user_id: user_id,
         action_type: action_type,
         started_at: Time.now,
-        start_data: start_data.merge(data || {}),
+        start_data: start_data,
         nonce: nonce
       })
     end
@@ -50,15 +46,12 @@ module ActionTracking
       raise InvalidNonceError unless valid_nonce?(nonce)
       raise AlreadyCompletedError if completed?
 
-      strategy = ActionTracking::ActionExecutionStrategyFactory.for(@action_type, start_data: @data, completion_data:)
-      data = strategy.complete_execution
-
       apply ActionExecutionCompleted.new(data: {
         execution_id: @id,
         quest_id: @quest_id,
         action_id: @action_id,
         user_id: @user_id,
-        completion_data: completion_data.merge(data || {})
+        completion_data: completion_data
       })
     rescue => e
       raise NotCompletedError.new(e.message)

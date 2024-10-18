@@ -7,9 +7,9 @@ module ActionTracking
 
       def on_start_execution
         address = start_data[:address]
-        domains = EnsSubgraphClient.new.domains(owner: address).domains
+        domains = ens_domains(address)
 
-        start_data.extend({
+        start_data.merge({
           domains: domains
         })
       end
@@ -19,7 +19,11 @@ module ActionTracking
       # and here what we want is to ensure that the user has the required domains, which have already been
       # fetched in the start_execution method.
       def completion_data_valid?
-        start_data[:domains].any?
+        start_data.present? && start_data.with_indifferent_access[:domains]
+      end
+
+      memoize def ens_domains(address)
+        @ens_domains ||= EnsSubgraphClient.new.domains(owner: address.downcase)
       end
     end
   end

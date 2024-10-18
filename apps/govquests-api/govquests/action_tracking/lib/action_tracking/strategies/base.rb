@@ -19,7 +19,9 @@ module ActionTracking
         on_start_execution.merge({action_type:})
       end
 
-      def complete_execution
+      def complete_execution(dry_run: false)
+        return completion_data_valid? if dry_run
+
         raise CompletionDataVerificationFailed.new("Completion data is invalid") unless completion_data_valid?
 
         on_complete_execution.merge({action_type:})
