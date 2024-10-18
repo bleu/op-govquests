@@ -1,10 +1,10 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useSIWE } from "connectkit";
 import React, { useCallback, useMemo, useState } from "react";
 import { useAccount, useSignMessage } from "wagmi";
 import ActionButton from "../components/ActionButton";
 import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
 import { useStartActionExecution } from "../hooks/useStartActionExecution";
+import { GitcoinScoreStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy } from "./ActionStrategy";
 
 export const GitcoinScoreStrategy: ActionStrategy = ({
@@ -16,18 +16,14 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   const startMutation = useStartActionExecution();
   const completeMutation = useCompleteActionExecution(["quest", questId]);
   const { isSignedIn } = useSIWE();
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const isActionCompleted = execution?.status === "completed";
-  const isActionStarted = execution?.status === "started";
 
   const {
     signMessage,
     data: signature,
     isPending: isSigning,
   } = useSignMessage();
-  const { address } = useAccount();
 
   const handleStart = useCallback(async () => {
     try {
@@ -47,9 +43,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   const handleSignMessage = useCallback(() => {
     if (!execution) return;
     try {
-      signMessage({
-        message: execution.startData.message,
-      });
+      signMessage({ message: execution.startData.message });
       setErrorMessage(null);
     } catch (error) {
       console.error("Error signing message:", error);
@@ -95,50 +89,40 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
     refetch,
   ]);
 
+  const getStatus = useCallback((): GitcoinScoreStatus => {
+    if (!execution || execution.status === "unstarted") return "unstarted";
+    if (execution.status === "started" && !signature) return "started";
+    if (execution.status === "started" && signature) return "verify";
+    return "completed";
+  }, [execution, signature]);
+
   const buttonProps = useMemo(() => {
-    if (!execution || execution.status === "unstarted") {
-      return {
-        status: "connect" as const,
-        onClick: handleStart,
-        customLabel: "Connect passport",
-      };
-    }
-
-    if (isActionStarted && !signature) {
-      return {
-        status: "sign" as const,
-        onClick: handleSignMessage,
-        customLabel: "Sign Message",
-      };
-    }
-
-    if (isActionStarted && signature) {
-      return {
-        status: "started" as const,
-        onClick: handleComplete,
-        customLabel: "Complete Connect passport",
-      };
-    }
-
-    if (isActionCompleted) {
-      return {
-        status: "completed" as const,
-        onClick: () => {},
-        customLabel: "Connected",
-        disabled: true,
-      };
-    }
-
-    return {
-      status: "connect" as const,
-      onClick: handleStart,
-      customLabel: "Connect passport",
+    const status = getStatus();
+    const baseProps = {
+      actionType: "gitcoin_score" as const,
+      status,
+      disabled: !isSignedIn || !isConnected || status === "completed",
+      loading:
+        startMutation.isPending || completeMutation.isPending || isSigning,
     };
+
+    switch (status) {
+      case "unstarted":
+        return { ...baseProps, onClick: handleStart };
+      case "started":
+        return { ...baseProps, onClick: handleSignMessage };
+      case "verify":
+        return { ...baseProps, onClick: handleComplete };
+      case "completed":
+        return { ...baseProps, onClick: () => {} };
+    }
   }, [
-    execution,
-    signature,
-    isActionStarted,
-    isActionCompleted,
+    getStatus,
+    isSignedIn,
+    isConnected,
+    startMutation.isPending,
+    completeMutation.isPending,
+    isSigning,
     handleStart,
     handleSignMessage,
     handleComplete,
@@ -151,11 +135,11 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
           <span className="text-sm text-foreground/70">
             Verification failed. Sorry, you look like a bot. 🤖
           </span>
-          <span className="text-sm  font-bold">{errorMessage}</span>
+          <span className="text-sm font-bold">{errorMessage}</span>
         </>
       );
     }
-    if (isActionCompleted) {
+    if (getStatus() === "completed") {
       return (
         <>
           <span className="text-sm text-foreground/70">
@@ -163,23 +147,21 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
           </span>
           <span className="text-sm font-bold">
             Your Unique Humanity Score is currently{" "}
-            {execution.completionData.score}.
+            {execution?.completionData.score}.
           </span>
         </>
       );
     }
     return (
-      <>
-        <span className="text-sm text-foreground/70">
-          {action.displayData.description}
-        </span>
-      </>
+      <span className="text-sm text-foreground/70">
+        {action.displayData.description}
+      </span>
     );
   }, [
     errorMessage,
-    isActionCompleted,
+    getStatus,
     execution?.completionData.score,
-    action.displayData,
+    action.displayData.description,
   ]);
 
   return (
@@ -190,13 +172,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
         </span>
         {renderedContent}
       </div>
-      <ActionButton
-        {...buttonProps}
-        loading={
-          startMutation.isPending || completeMutation.isPending || isSigning
-        }
-        disabled={!isSignedIn || !isConnected || isActionCompleted}
-      />
+      <ActionButton {...buttonProps} />
     </div>
   );
 };
