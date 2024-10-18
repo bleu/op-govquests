@@ -14,6 +14,7 @@ export const QuestQuery = graphql(`
         title
         intro
         imageUrl
+        requirements
       }
       userQuests {
         id
@@ -25,10 +26,8 @@ export const QuestQuery = graphql(`
         id
         actionType
         displayData {
-          content {
-            title
-            description
-          }
+          title
+          description
         }
         actionData {
           documentUrl
@@ -43,7 +42,7 @@ export const QuestQuery = graphql(`
           nonce
           startedAt
           completedAt
-            startData {
+          startData {
             ... on GitcoinScoreStartData {
               message
               nonce
@@ -54,6 +53,8 @@ export const QuestQuery = graphql(`
               address
               signature
               nonce
+              score
+              minimumPassingScore
             }
           }
         }

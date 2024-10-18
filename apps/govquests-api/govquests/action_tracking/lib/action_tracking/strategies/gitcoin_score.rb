@@ -1,4 +1,5 @@
 require_relative "base"
+require "logger"
 
 module ActionTracking
   module Strategies
@@ -23,7 +24,7 @@ module ActionTracking
       protected
 
       def completion_data_valid?
-        Types::CompletionDataInput.new(completion_data) && passport_response["score"].to_f >= GITCOIN_SCORE_HUMANITY_THRESHOLD
+        validate_score
       end
 
       def on_start_execution
@@ -36,14 +37,29 @@ module ActionTracking
       end
 
       def on_complete_execution
-        completion_data.merge({
-          score: score,
+        {
+          score: passport_response["score"].to_f,
+          minimum_passing_score: GITCOIN_SCORE_HUMANITY_THRESHOLD,
           raw_response: passport_response
-        })
+        }
       end
 
+      private
+
       def passport_response
-        @passport_response ||= @gitcoin_api.submit_passport(data[:address], data[:signature], data[:nonce])
+        @passport_response ||= @gitcoin_api.submit_passport(
+          @completion_data[:address],
+          @completion_data[:signature],
+          @completion_data[:nonce]
+        )
+      end
+
+      def validate_score
+        score = passport_response["score"].to_f
+
+        return true unless score < GITCOIN_SCORE_HUMANITY_THRESHOLD
+
+        raise CompletionDataVerificationFailed.new("Your Unique Humanity Score is currently #{score}.")
       end
     end
   end

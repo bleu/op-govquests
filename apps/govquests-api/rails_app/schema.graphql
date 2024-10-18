@@ -6,18 +6,14 @@ type Action {
   id: ID!
 }
 
-type ActionContent {
-  description: String
-  title: String
-}
-
 type ActionData {
   actionType: String
   documentUrl: String
 }
 
 type ActionDisplayData {
-  content: ActionContent
+  description: String
+  title: String
 }
 
 type ActionExecution {
@@ -136,10 +132,10 @@ type GitcoinScoreCompletionData implements CompletionDataInterface {
   """
   actionType: String!
   address: String
+  minimumPassingScore: Float
   nonce: String
-  score: Float!
+  score: Float
   signature: String
-  verified: Boolean!
 }
 
 """
