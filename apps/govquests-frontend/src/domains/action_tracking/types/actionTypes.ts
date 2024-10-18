@@ -1,6 +1,6 @@
-import { VariablesOf, ResultOf } from "gql.tada";
-import { START_ACTION_EXECUTION } from "../graphql/startActionExecution";
-import { COMPLETE_ACTION_EXECUTION } from "../graphql/completeActionExecution";
+import type { ResultOf, VariablesOf } from "gql.tada";
+import type { COMPLETE_ACTION_EXECUTION } from "../graphql/completeActionExecution";
+import type { START_ACTION_EXECUTION } from "../graphql/startActionExecution";
 
 export type StartActionExecutionVariables = VariablesOf<
   typeof START_ACTION_EXECUTION
