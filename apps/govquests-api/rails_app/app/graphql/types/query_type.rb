@@ -23,8 +23,6 @@ module Types
     field :quests, resolver: Resolvers::FetchQuests
     field :quest, resolver: Resolvers::FetchQuest
 
-    field :action_executions, resolver: Resolvers::FetchActionExecutions
-
     field :current_user, resolver: Resolvers::CurrentUser, preauthorize: {with: AuthenticatedGraphqlPolicy}
   end
 end

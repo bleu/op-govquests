@@ -1,28 +1,28 @@
 import { useSIWE } from "connectkit";
 import React from "react";
 import { useAccount } from "wagmi";
-import ReadActionButton from "../components/ActionButton";
+import ActionButton from "../components/ActionButton";
+import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
+import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import type { ActionStrategy } from "./ActionStrategy";
 
 export const ReadDocumentStrategy: ActionStrategy = ({
   questId,
   action,
   execution,
-  startMutation,
-  completeMutation,
-  refetch,
 }) => {
   const { isSignedIn } = useSIWE();
   const { isConnected } = useAccount();
+  const startMutation = useStartActionExecution();
+  const completeMutation = useCompleteActionExecution(["quest", questId]);
 
   const handleStart = async () => {
     try {
       await startMutation.mutateAsync({
         questId,
         actionId: action.id,
-        startData: {},
+        actionType: action.actionType,
       });
-      refetch();
       window.open(action.actionData.documentUrl, "_blank");
     } catch (error) {
       console.error("Error starting action:", error);
@@ -36,9 +36,9 @@ export const ReadDocumentStrategy: ActionStrategy = ({
       await completeMutation.mutateAsync({
         executionId: execution.id,
         nonce: execution.nonce,
+        actionType: action.actionType,
         completionData,
       });
-      refetch();
     } catch (error) {
       console.error("Error completing action:", error);
     }
@@ -57,13 +57,14 @@ export const ReadDocumentStrategy: ActionStrategy = ({
   };
 
   return (
-    <div className="flex w-full justify-between border-t-2 pt-3">
-      <span className="font-medium">{action.displayData.content}</span>
-      <ReadActionButton
-        loading={startMutation.isPending || completeMutation.isPending}
-        disabled={getStatus() === "completed" || !isSignedIn || !isConnected}
+    <div className="flex w-full justify-between border-t-2 pt-3 mb-4">
+      <span className="font-medium">{action.displayData.title}</span>
+
+      <ActionButton
         status={getStatus()}
         onClick={getStatus() === "unstarted" ? handleStart : handleComplete}
+        disabled={getStatus() === "completed" || !isSignedIn || !isConnected}
+        loading={startMutation.isPending || completeMutation.isPending}
       />
     </div>
   );

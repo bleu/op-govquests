@@ -4,8 +4,11 @@ module Types
     field :action_id, ID, null: false
     field :user_id, ID, null: false
     field :action_type, String, null: false
-    field :start_data, GraphQL::Types::JSON, null: false
-    field :completion_data, GraphQL::Types::JSON, null: true
+
+    field :action_data, Types::ActionDataInterface, null: true, description: "Data defining the action"
+    field :start_data, Types::StartDataInterface, null: true, description: "Data required to start the action"
+    field :completion_data, Types::CompletionDataInterface, null: true, description: "Data provided upon action completion"
+
     field :status, String, null: false
     field :nonce, String, null: false
     field :started_at, GraphQL::Types::ISO8601DateTime, null: false

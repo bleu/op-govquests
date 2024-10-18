@@ -1,17 +1,27 @@
-import React, { useEffect } from "react";
-import { ActionStrategy } from "./ActionStrategy";
-import Button from "@/components/ui/Button";
+import { useQueryClient } from "@tanstack/react-query";
+import { useSIWE } from "connectkit";
+import React, { useCallback, useMemo, useState } from "react";
 import { useAccount, useSignMessage } from "wagmi";
-import { useRouter } from "next/router";
+import ActionButton from "../components/ActionButton";
+import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
+import { useStartActionExecution } from "../hooks/useStartActionExecution";
+import type { ActionStrategy } from "./ActionStrategy";
 
 export const GitcoinScoreStrategy: ActionStrategy = ({
   questId,
   action,
   execution,
-  startMutation,
-  completeMutation,
   refetch,
 }) => {
+  const startMutation = useStartActionExecution();
+  const completeMutation = useCompleteActionExecution(["quest", questId]);
+  const { isSignedIn } = useSIWE();
+  const { isConnected } = useAccount();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const isActionCompleted = execution?.status === "completed";
+  const isActionStarted = execution?.status === "started";
+
   const {
     signMessage,
     data: signature,
@@ -19,102 +29,174 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   } = useSignMessage();
   const { address } = useAccount();
 
-  useEffect(() => {
-    if (completeMutation.isSuccess) {
-      refetch();
-    }
-  }, [completeMutation.isSuccess, refetch]);
-
-  const handleStart = async () => {
+  const handleStart = useCallback(async () => {
     try {
       await startMutation.mutateAsync({
         questId,
         actionId: action.id,
-        startData: {},
+        actionType: action.actionType,
       });
       refetch();
+      setErrorMessage(null);
     } catch (error) {
       console.error("Error starting action:", error);
+      setErrorMessage("Failed to start the action. Please try again.");
     }
-  };
+  }, [startMutation, questId, action.id, action.actionType, refetch]);
 
-  const handleSignMessage = () => {
+  const handleSignMessage = useCallback(() => {
     if (!execution) return;
     try {
       signMessage({
         message: execution.startData.message,
       });
+      setErrorMessage(null);
     } catch (error) {
       console.error("Error signing message:", error);
+      setErrorMessage("Failed to sign the message. Please try again.");
     }
-  };
+  }, [execution, signMessage]);
 
-  const handleComplete = async () => {
+  const handleComplete = useCallback(async () => {
     if (!execution || !signature) return;
     const completionData = {
       address,
       signature,
       nonce: execution.startData.nonce,
     };
+
     try {
-      await completeMutation.mutateAsync({
+      const result = await completeMutation.mutateAsync({
         executionId: execution.id,
         nonce: execution.nonce,
-        completionData,
+        actionType: action.actionType,
+        gitcoinScoreCompletionData: completionData,
+        readDocumentCompletionData: null,
       });
-      refetch();
+
+      if (result.completeActionExecution?.errors.length > 0) {
+        setErrorMessage(result.completeActionExecution?.errors[0]);
+      } else {
+        setErrorMessage(null);
+        refetch();
+      }
     } catch (error) {
       console.error("Error completing action:", error);
+      setErrorMessage(
+        "An error occurred while completing the action. Please try again.",
+      );
     }
-  };
+  }, [
+    execution,
+    signature,
+    address,
+    completeMutation,
+    action.actionType,
+    refetch,
+  ]);
 
-  if (startMutation.isPending || completeMutation.isPending || isSigning) {
-    return <p>Processing...</p>;
-  }
+  const buttonProps = useMemo(() => {
+    if (!execution || execution.status === "unstarted") {
+      return {
+        status: "connect" as const,
+        onClick: handleStart,
+        customLabel: "Connect passport",
+      };
+    }
 
-  if (startMutation.isError) {
-    return <p className="text-red-500">Error: {startMutation.error.message}</p>;
-  }
+    if (isActionStarted && !signature) {
+      return {
+        status: "sign" as const,
+        onClick: handleSignMessage,
+        customLabel: "Sign Message",
+      };
+    }
 
-  if (completeMutation.isError) {
+    if (isActionStarted && signature) {
+      return {
+        status: "started" as const,
+        onClick: handleComplete,
+        customLabel: "Complete Connect passport",
+      };
+    }
+
+    if (isActionCompleted) {
+      return {
+        status: "completed" as const,
+        onClick: () => {},
+        customLabel: "Connected",
+        disabled: true,
+      };
+    }
+
+    return {
+      status: "connect" as const,
+      onClick: handleStart,
+      customLabel: "Connect passport",
+    };
+  }, [
+    execution,
+    signature,
+    isActionStarted,
+    isActionCompleted,
+    handleStart,
+    handleSignMessage,
+    handleComplete,
+  ]);
+
+  const renderedContent = useMemo(() => {
+    if (errorMessage) {
+      return (
+        <>
+          <span className="text-sm text-foreground/70">
+            Verification failed. Sorry, you look like a bot. 🤖
+          </span>
+          <span className="text-sm  font-bold">{errorMessage}</span>
+        </>
+      );
+    }
+    if (isActionCompleted) {
+      return (
+        <>
+          <span className="text-sm text-foreground/70">
+            Verification succeeded! Seems like you're human. ✅
+          </span>
+          <span className="text-sm font-bold">
+            Your Unique Humanity Score is currently{" "}
+            {execution.completionData.score}.
+          </span>
+        </>
+      );
+    }
     return (
-      <p className="text-red-500">Error: {completeMutation.error.message}</p>
+      <>
+        <span className="text-sm text-foreground/70">
+          {action.displayData.description}
+        </span>
+      </>
     );
-  }
+  }, [
+    errorMessage,
+    isActionCompleted,
+    execution?.completionData.score,
+    action.displayData,
+  ]);
 
-  if (execution?.status === "completed") {
-    return <p className="text-green-500">Action completed successfully!</p>;
-  }
-
-  if (!execution) {
-    return (
-      <Button onClick={handleStart} className="w-full bg-blue-500 text-white">
-        Start Gitcoin Verification
-      </Button>
-    );
-  } else if (!signature) {
-    return (
-      <div>
-        <p className="mb-4">Please sign the following message:</p>
-        <pre className="bg-gray-100 p-3 rounded mb-4 overflow-x-auto">
-          {execution.startData.message}
-        </pre>
-        <Button
-          onClick={handleSignMessage}
-          className="w-full bg-green-500 text-white mt-4"
-        >
-          {isSigning ? "Signing..." : "Sign Message"}
-        </Button>
+  return (
+    <div className="flex justify-between items-center">
+      <div className="flex flex-col">
+        <span className="text-xl font-semibold mb-1">
+          {action.displayData.title}
+        </span>
+        {renderedContent}
       </div>
-    );
-  } else {
-    return (
-      <Button
-        onClick={handleComplete}
-        className="w-full bg-purple-500 text-white mt-4"
-      >
-        Submit Signed Message
-      </Button>
-    );
-  }
+      <ActionButton
+        {...buttonProps}
+        loading={
+          startMutation.isPending || completeMutation.isPending || isSigning
+        }
+        disabled={!isSignedIn || !isConnected || isActionCompleted}
+      />
+    </div>
+  );
 };

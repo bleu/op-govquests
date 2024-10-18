@@ -3,17 +3,18 @@ import { cn } from "@/lib/utils";
 import { CheckIcon, CheckSquareIcon, ExternalLinkIcon } from "lucide-react";
 import React from "react";
 
-type ReadActionStatus = "unstarted" | "started" | "completed";
+type ActionStatus = "unstarted" | "started" | "completed" | "sign" | "connect";
 
-type ReadActionButtonProps = {
-  status: ReadActionStatus;
+type ActionButtonProps = {
+  status: ActionStatus;
+  onClick: () => void;
   disabled?: boolean;
   loading?: boolean;
-  onClick: () => void;
+  customLabel?: string;
 };
 
 const statusConfig: Record<
-  ReadActionStatus,
+  ActionStatus,
   { label: string; icon: React.ReactNode }
 > = {
   unstarted: {
@@ -28,15 +29,25 @@ const statusConfig: Record<
     label: "Confirmed",
     icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
   },
+  sign: {
+    label: "Sign Message",
+    icon: null,
+  },
+  connect: {
+    label: "Connect Passport",
+    icon: null,
+  },
 };
 
-const ReadActionButton: React.FC<ReadActionButtonProps> = ({
+const ActionButton: React.FC<ActionButtonProps> = ({
   status,
-  disabled,
-  loading,
   onClick,
+  disabled = false,
+  loading = false,
+  customLabel,
 }) => {
   const { label, icon } = statusConfig[status];
+
   return (
     <Button
       className={cn(
@@ -46,15 +57,15 @@ const ReadActionButton: React.FC<ReadActionButtonProps> = ({
       )}
       size="sm"
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || status === "completed"}
       loading={loading}
     >
       <span className="flex items-center">
-        {label}
+        {customLabel || label}
         {icon}
       </span>
     </Button>
   );
 };
 
-export default ReadActionButton;
+export default ActionButton;

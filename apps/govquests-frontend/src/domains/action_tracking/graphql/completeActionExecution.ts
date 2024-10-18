@@ -4,26 +4,41 @@ export const COMPLETE_ACTION_EXECUTION = graphql(`
   mutation CompleteActionExecution(
     $executionId: ID!
     $nonce: String!
-    $completionData: JSON
+    $actionType: String!
+    $gitcoinScoreCompletionData: GitcoinScoreCompletionDataInput
+    $readDocumentCompletionData: ReadDocumentCompletionDataInput
   ) {
     completeActionExecution(
       input: {
         executionId: $executionId
         nonce: $nonce
-        completionData: $completionData
+        actionType: $actionType
+        gitcoinScoreCompletionData: $gitcoinScoreCompletionData
+        readDocumentCompletionData: $readDocumentCompletionData
       }
     ) {
       actionExecution {
         id
-        actionId
-        userId
         actionType
-        startData
-        completionData
         status
         nonce
         startedAt
         completedAt
+        startData {
+          ... on GitcoinScoreStartData {
+            message
+            nonce
+          }
+        }
+        completionData {
+          ... on GitcoinScoreCompletionData {
+            address
+            signature
+            nonce
+            score
+            minimumPassingScore
+          }
+        }
       }
       errors
     }

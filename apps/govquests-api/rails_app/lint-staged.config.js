@@ -13,7 +13,7 @@
  * @type {Record<string, (filenames: string[]) => string | string[] | Promise<string | string[]>>}
  */
 const rules = {
-  "**/*.{rb}": () => {
+  "**/*.rb": () => {
     return [`bundle exec rubocop -A`];
   },
 };

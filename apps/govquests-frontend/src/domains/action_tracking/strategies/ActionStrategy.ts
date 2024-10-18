@@ -1,13 +1,9 @@
-import { UseMutationResult } from "@tanstack/react-query";
-import { ActionExecution } from "../types/actionTypes";
-import { Action } from "@/domains/questing/types/questTypes";
+import { Action, ActionExecution } from "@/domains/questing/types/questTypes";
 
 export interface ActionStrategyProps {
   questId: string;
   action: Action;
   execution: ActionExecution | null;
-  startMutation: UseMutationResult<any, Error, any, unknown>;
-  completeMutation: UseMutationResult<any, Error, any, unknown>;
   refetch: () => void;
 }
 

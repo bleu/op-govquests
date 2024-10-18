@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { completeActionExecution } from "../services/actionService";
 import {
-  CompleteActionExecutionVariables,
   CompleteActionExecutionResult,
+  CompleteActionExecutionVariables,
 } from "../types/actionTypes";
 
 export const useCompleteActionExecution = (invalidateKey: string[]) => {

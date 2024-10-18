@@ -42,36 +42,51 @@ RSpec.describe "Unauthorized Quest Completion", type: :request do
   # GraphQL Mutations
   let(:start_action_execution_mutation) do
     <<-GRAPHQL
-    mutation StartActionExecution(
-      $questId: ID!
-      $actionId: ID!
-      $startData: JSON
-    ) {
-      startActionExecution(
-        input: { questId: $questId, actionId: $actionId, startData: $startData }
-      ) {
-        actionExecution {
-          id
-          actionId
-          userId
-          actionType
-          startData
-          status
-          nonce
-          startedAt
-        }
-        errors
+  mutation StartActionExecution(
+    $questId: ID!
+    $actionId: ID!
+    $actionType: String!
+    $gitcoinScoreStartData: GitcoinScoreStartDataInput
+    $readDocumentStartData: ReadDocumentStartDataInput
+  ) {
+    startActionExecution(
+      input: {
+        questId: $questId
+        actionId: $actionId
+        actionType: $actionType
+        gitcoinScoreStartData: $gitcoinScoreStartData
+        readDocumentStartData: $readDocumentStartData
       }
+    ) {
+      actionExecution {
+        id
+        actionId
+        userId
+        actionType
+        startData {
+          ... on GitcoinScoreStartData {
+            message
+            nonce
+          }
+        }
+        status
+        nonce
+        startedAt
+      }
+      errors
     }
+  }
     GRAPHQL
   end
 
   describe "completing actions without authentication" do
     it "fails to start action execution" do
       action_id = action_ids.first
+      action_type = "read_document"
 
-      post "/graphql", params: {query: start_action_execution_mutation, variables: {questId: quest_id, actionId: action_id}}
+      post "/graphql", params: {query: start_action_execution_mutation, variables: {questId: quest_id, actionId: action_id, actionType: action_type}}
       json_response = JSON.parse(response.body)
+
       expect(json_response["data"]["startActionExecution"]).to be_nil
       expect(json_response["errors"][0]).to include({"message" => "You are not authorized to perform this action"})
     end
