@@ -121,6 +121,18 @@ module QuestData
     }
   }
 
+  VERIFY_POSITION_ACTION = {
+    action_type: "verify_position",
+    display_data: {
+      title: "Verify your position",
+      description: "Click to verify your status as a Top 100 Delegate."
+    },
+    action_data: {
+      action_type: "verify_position",
+      should_be_higher_than: 100
+    }
+  }
+
   QUESTS = [
     {
       display_data: {
@@ -168,6 +180,18 @@ module QuestData
       audience: "Delegates",
       rewards: [{type: "Points", amount: 100}],
       actions: [ENS_ACTION]
+    },
+    {
+      display_data: {
+        title: "Top 100 Delegates",
+        intro: "Have you reached the Top 100 Delegates in Season 6? Let’s check your ranking and, if you’re among the top, celebrate your achievement with a reward!",
+        image_url: "https://example.com/advanced-governance.jpg",
+        requirements: 'You need to be a delegate to do this quest! If you’re not one, start with Become Delegate Quest.'
+      },
+      quest_type: "Governance",
+      audience: "Delegates",
+      rewards: [{type: "Points", amount: 100}],
+      actions: [VERIFY_POSITION_ACTION]
     }
   ]
 end
