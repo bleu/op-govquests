@@ -4,124 +4,119 @@ import { useAccount } from "wagmi";
 import ActionButton from "../components/ActionButton";
 import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
 import { useStartActionExecution } from "../hooks/useStartActionExecution";
-import { EnsStatus } from "../types/actionButtonTypes";
+import type { VerifyPositionStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy } from "./ActionStrategy";
 
-export const EnsStrategy: ActionStrategy = ({
+export const VerifyPositionStrategy: ActionStrategy = ({
   questId,
   action,
   execution,
   refetch,
 }) => {
+  const { isSignedIn } = useSIWE();
+  const { isConnected } = useAccount();
   const startMutation = useStartActionExecution();
   const completeMutation = useCompleteActionExecution(["quest", questId]);
-  const { isSignedIn } = useSIWE();
-  const { isConnected, address } = useAccount();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleStart = useCallback(async () => {
-    if (!address) {
-      setErrorMessage("Wallet address not found");
-      return;
-    }
     try {
       await startMutation.mutateAsync({
         questId,
         actionId: action.id,
         actionType: action.actionType,
-        ensStartData: { address },
       });
       refetch();
       setErrorMessage(null);
     } catch (error) {
       console.error("Error starting action:", error);
-      setErrorMessage("Failed to start the action. Please try again.");
+      setErrorMessage("Failed to start the verification. Please try again.");
     }
-  }, [startMutation, questId, action.id, action.actionType, address, refetch]);
+  }, [startMutation, questId, action.id, action.actionType, refetch]);
 
   const handleComplete = useCallback(async () => {
     if (!execution) return;
+    const completionData = { completed: true };
     try {
       const result = await completeMutation.mutateAsync({
         executionId: execution.id,
         nonce: execution.nonce,
         actionType: action.actionType,
+        completionData,
       });
-
       if (result.completeActionExecution?.errors.length > 0) {
-        setErrorMessage(result.completeActionExecution?.errors[0]);
+        setErrorMessage(
+          "You haven't reached the Top 100 Delegates ranking for Season 6. Keep contributing and aim higher next season to unlock this reward.",
+        );
       } else {
         setErrorMessage(null);
-        refetch();
       }
+      refetch();
     } catch (error) {
       console.error("Error completing action:", error);
       setErrorMessage(
-        "An error occurred while completing the action. Please try again.",
+        "An error occurred during verification. Please try again.",
       );
     }
-  }, [execution, completeMutation, action.actionType, refetch]);
+  }, [completeMutation, execution, action.actionType, refetch]);
 
-  const getStatus = useCallback((): EnsStatus => {
-    if (!execution || execution.status === "unstarted") return "unstarted";
-    if (execution.status === "started") return "started";
-    return "completed";
+  const getStatus = useCallback((): VerifyPositionStatus => {
+    if (execution?.status === "completed") return "completed";
+    if (execution) return "started";
+    return "unstarted";
   }, [execution]);
 
-  const buttonProps = useMemo(() => {
-    const status = getStatus();
-    const baseProps = {
-      actionType: "ens" as const,
-      status,
-      disabled: !isSignedIn || !isConnected || status === "completed",
+  const buttonProps = useMemo(
+    () => ({
+      actionType: "verify_position" as const,
+      status: getStatus(),
+      onClick: getStatus() === "unstarted" ? handleStart : handleComplete,
+      disabled: getStatus() === "completed" || !isSignedIn || !isConnected,
       loading: startMutation.isPending || completeMutation.isPending,
-    };
-
-    switch (status) {
-      case "unstarted":
-        return { ...baseProps, onClick: handleStart };
-      case "started":
-        return { ...baseProps, onClick: handleComplete };
-      case "completed":
-        return { ...baseProps, onClick: () => {} };
-    }
-  }, [
-    getStatus,
-    isSignedIn,
-    isConnected,
-    startMutation.isPending,
-    completeMutation.isPending,
-    handleStart,
-    handleComplete,
-  ]);
+    }),
+    [
+      getStatus,
+      handleStart,
+      handleComplete,
+      isSignedIn,
+      isConnected,
+      startMutation.isPending,
+      completeMutation.isPending,
+    ],
+  );
 
   const renderedContent = useMemo(() => {
     if (errorMessage) {
       return (
         <>
           <span className="text-sm text-foreground/70">
-            ENS verification failed. 😕
+            Verification failed. 👎
           </span>
           <span className="text-sm font-bold">{errorMessage}</span>
         </>
       );
     }
-    if (getStatus() === "completed") {
+    const status = getStatus();
+
+    if (status === "completed") {
       return (
         <>
           <span className="text-sm text-foreground/70">
-            ENS verification succeeded! ✅
+            Verification succeeded. ✅
           </span>
-          <span className="text-sm font-bold">Your ENS name is ensName.</span>
+          <span className="text-sm font-bold">
+            Congratulations! You're in the Top 100 Delegates for Season 6. Claim
+            your reward and celebrate your accomplishment!
+          </span>
         </>
       );
     }
     return (
       <span className="text-sm text-foreground/70">
-        {action.displayData.description}
+        Click to verify your status as a Top 100 Delegate.
       </span>
     );
-  }, [errorMessage, getStatus, action.displayData.description]);
+  }, [getStatus, errorMessage]);
 
   return (
     <div className="flex justify-between items-center">
