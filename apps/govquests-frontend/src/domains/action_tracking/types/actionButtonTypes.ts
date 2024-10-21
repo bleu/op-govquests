@@ -14,4 +14,5 @@ export type ActionType =
   | "gitcoin_score"
   | "read_document"
   | "verify_position"
-  | "ens";
+  | "ens"
+  | "discourse_verification";

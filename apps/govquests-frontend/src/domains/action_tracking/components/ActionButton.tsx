@@ -28,6 +28,9 @@ type ActionConfig = {
   ens: {
     statuses: Record<EnsStatus, StatusConfig>;
   };
+  discourse_verification: {
+    statuses: Record<VerifyPositionStatus, StatusConfig>;
+  };
 };
 
 const actionConfig: ActionConfig = {
@@ -39,6 +42,7 @@ const actionConfig: ActionConfig = {
       completed: { label: "Connected", icon: null },
     },
   },
+
   read_document: {
     statuses: {
       unstarted: {
@@ -67,6 +71,13 @@ const actionConfig: ActionConfig = {
       unstarted: { label: "Connect ENS", icon: null },
       started: { label: "Verifying ENS", icon: null },
       completed: { label: "ENS Connected", icon: null },
+    },
+  },
+  discourse_verification: {
+    statuses: {
+      unstarted: { label: "Verify Discourse", icon: null },
+      started: { label: "Verifying...", icon: null },
+      completed: { label: "Verified", icon: null },
     },
   },
 };

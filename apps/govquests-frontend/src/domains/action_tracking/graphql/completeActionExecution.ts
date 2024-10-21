@@ -6,8 +6,6 @@ export const COMPLETE_ACTION_EXECUTION = graphql(`
     $nonce: String!
     $actionType: String!
     $gitcoinScoreCompletionData: GitcoinScoreCompletionDataInput
-    $readDocumentCompletionData: ReadDocumentCompletionDataInput
-    $ensCompletionData: EnsCompletionDataInput
     $discourseVerificationCompletionData: DiscourseVerificationCompletionDataInput
   ) {
     completeActionExecution(
@@ -16,8 +14,6 @@ export const COMPLETE_ACTION_EXECUTION = graphql(`
         nonce: $nonce
         actionType: $actionType
         gitcoinScoreCompletionData: $gitcoinScoreCompletionData
-        readDocumentCompletionData: $readDocumentCompletionData
-        ensCompletionData: $ensCompletionData
         discourseVerificationCompletionData: $discourseVerificationCompletionData
       }
     ) {

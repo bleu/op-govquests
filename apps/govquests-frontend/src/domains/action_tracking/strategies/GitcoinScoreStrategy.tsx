@@ -6,6 +6,7 @@ import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution"
 import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import { GitcoinScoreStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy } from "./ActionStrategy";
+import invariant from "tiny-invariant";
 
 export const GitcoinScoreStrategy: ActionStrategy = ({
   questId,
@@ -41,6 +42,8 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   }, [startMutation, questId, action.id, action.actionType, refetch]);
 
   const handleSignMessage = useCallback(() => {
+    invariant(execution?.startData?.__typename === "GitcoinScoreStartData");
+
     if (!execution) return;
     try {
       signMessage({ message: execution.startData.message });
@@ -52,9 +55,11 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   }, [execution, signMessage]);
 
   const handleComplete = useCallback(async () => {
+    invariant(execution?.startData?.__typename === "GitcoinScoreStartData");
+
     if (!execution || !signature) return;
     const completionData = {
-      address,
+      address: address!,
       signature,
       nonce: execution.startData.nonce,
     };
@@ -65,11 +70,10 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
         nonce: execution.nonce,
         actionType: action.actionType,
         gitcoinScoreCompletionData: completionData,
-        readDocumentCompletionData: null,
       });
 
-      if (result.completeActionExecution?.errors.length > 0) {
-        setErrorMessage(result.completeActionExecution?.errors[0]);
+      if (result?.completeActionExecution?.errors?.length) {
+        setErrorMessage(result?.completeActionExecution?.errors[0]);
       } else {
         setErrorMessage(null);
         refetch();
@@ -140,6 +144,10 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
       );
     }
     if (getStatus() === "completed") {
+      invariant(
+        execution?.completionData?.__typename === "GitcoinScoreCompletionData",
+      );
+
       return (
         <>
           <span className="text-sm text-foreground/70">
@@ -160,7 +168,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   }, [
     errorMessage,
     getStatus,
-    execution?.completionData.score,
+    execution?.completionData,
     action.displayData.description,
   ]);
 
