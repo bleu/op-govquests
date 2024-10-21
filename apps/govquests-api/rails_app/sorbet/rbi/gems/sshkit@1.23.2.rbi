@@ -195,13 +195,13 @@ class SSHKit::Backend::Abstract
   # source://sshkit//lib/sshkit/backends/abstract.rb#64
   def capture(*args); end
 
-  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#13
+  # source://kamal/2.2.2/lib/kamal/sshkit_with_ext.rb#13
   def capture_with_debug(*args, **kwargs); end
 
-  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#9
+  # source://kamal/2.2.2/lib/kamal/sshkit_with_ext.rb#9
   def capture_with_info(*args, **kwargs); end
 
-  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#17
+  # source://kamal/2.2.2/lib/kamal/sshkit_with_ext.rb#17
   def capture_with_pretty_json(*args, **kwargs); end
 
   # source://forwardable/1.3.3/forwardable.rb#231
@@ -235,7 +235,7 @@ class SSHKit::Backend::Abstract
   # source://sshkit//lib/sshkit/backends/abstract.rb#51
   def make(commands = T.unsafe(nil)); end
 
-  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#21
+  # source://kamal/2.2.2/lib/kamal/sshkit_with_ext.rb#21
   def puts_by_host(host, output, type: T.unsafe(nil)); end
 
   # source://sshkit//lib/sshkit/backends/abstract.rb#55
@@ -270,7 +270,7 @@ class SSHKit::Backend::Abstract
 
   private
 
-  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#36
+  # source://kamal/2.2.2/lib/kamal/sshkit_with_ext.rb#36
   def command(args, options); end
 
   # source://sshkit//lib/sshkit/backends/abstract.rb#147
@@ -562,7 +562,7 @@ class SSHKit::Backend::Netssh < ::SSHKit::Backend::Abstract
   # source://sshkit//lib/sshkit/backends/netssh.rb#116
   def transfer_summarizer(action, options = T.unsafe(nil)); end
 
-  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#83
+  # source://kamal/2.2.2/lib/kamal/sshkit_with_ext.rb#83
   def with_ssh(&block); end
 
   # source://sshkit//lib/sshkit/backends/netssh.rb#201
@@ -579,7 +579,7 @@ class SSHKit::Backend::Netssh < ::SSHKit::Backend::Abstract
 
     # @yield [config]
     #
-    # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#68
+    # source://kamal/2.2.2/lib/kamal/sshkit_with_ext.rb#68
     def configure(&block); end
 
     # Returns the value of attribute pool.
@@ -615,10 +615,10 @@ class SSHKit::Backend::Netssh::Configuration
   # source://sshkit//lib/sshkit/backends/netssh.rb#31
   def connection_timeout=(_arg0); end
 
-  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#61
+  # source://kamal/2.2.2/lib/kamal/sshkit_with_ext.rb#61
   def max_concurrent_starts; end
 
-  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#61
+  # source://kamal/2.2.2/lib/kamal/sshkit_with_ext.rb#61
   def max_concurrent_starts=(_arg0); end
 
   # Returns the value of attribute pty.
@@ -1734,7 +1734,7 @@ end
 
 # source://sshkit//lib/sshkit/runners/parallel.rb#7
 class SSHKit::Runner::Parallel < ::SSHKit::Runner::Abstract
-  # source://kamal/2.1.0/lib/kamal/sshkit_with_ext.rb#115
+  # source://kamal/2.2.2/lib/kamal/sshkit_with_ext.rb#115
   def execute; end
 end
 

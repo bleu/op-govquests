@@ -1952,36 +1952,36 @@ module ActiveModel::Dirty
   mixes_in_class_methods GeneratedClassMethods
   mixes_in_class_methods ::ActiveModel::AttributeMethods::ClassMethods
 
-  # source://activemodel//lib/active_model/dirty.rb#258
+  # source://activemodel//lib/active_model/dirty.rb#264
   def as_json(options = T.unsafe(nil)); end
 
   # Dispatch target for {*_changed?}[rdoc-label:method-i-2A_changed-3F] attribute methods.
   #
   # @return [Boolean]
   #
-  # source://activemodel//lib/active_model/dirty.rb#294
+  # source://activemodel//lib/active_model/dirty.rb#300
   def attribute_changed?(attr_name, **options); end
 
   # @return [Boolean]
   #
-  # source://activemodel//lib/active_model/dirty.rb#361
+  # source://activemodel//lib/active_model/dirty.rb#367
   def attribute_changed_in_place?(attr_name); end
 
   # Dispatch target for {*_previously_changed?}[rdoc-label:method-i-2A_previously_changed-3F] attribute methods.
   #
   # @return [Boolean]
   #
-  # source://activemodel//lib/active_model/dirty.rb#304
+  # source://activemodel//lib/active_model/dirty.rb#310
   def attribute_previously_changed?(attr_name, **options); end
 
   # Dispatch target for {*_previously_was}[rdoc-label:method-i-2A_previously_was] attribute methods.
   #
-  # source://activemodel//lib/active_model/dirty.rb#309
+  # source://activemodel//lib/active_model/dirty.rb#315
   def attribute_previously_was(attr_name); end
 
   # Dispatch target for {*_was}[rdoc-label:method-i-2A_was] attribute methods.
   #
-  # source://activemodel//lib/active_model/dirty.rb#299
+  # source://activemodel//lib/active_model/dirty.rb#305
   def attribute_was(attr_name); end
 
   # Returns an array with the name of the attributes with unsaved changes.
@@ -1990,7 +1990,7 @@ module ActiveModel::Dirty
   #   person.name = 'bob'
   #   person.changed # => ["name"]
   #
-  # source://activemodel//lib/active_model/dirty.rb#289
+  # source://activemodel//lib/active_model/dirty.rb#295
   def changed; end
 
   # Returns +true+ if any of the attributes has unsaved changes, +false+ otherwise.
@@ -2001,7 +2001,7 @@ module ActiveModel::Dirty
   #
   # @return [Boolean]
   #
-  # source://activemodel//lib/active_model/dirty.rb#280
+  # source://activemodel//lib/active_model/dirty.rb#286
   def changed?; end
 
   # Returns a hash of the attributes with unsaved changes indicating their original
@@ -2011,7 +2011,7 @@ module ActiveModel::Dirty
   #   person.name = 'robert'
   #   person.changed_attributes # => {"name" => "bob"}
   #
-  # source://activemodel//lib/active_model/dirty.rb#337
+  # source://activemodel//lib/active_model/dirty.rb#343
   def changed_attributes; end
 
   # Returns a hash of changed attributes indicating their original
@@ -2021,22 +2021,25 @@ module ActiveModel::Dirty
   #   person.name = 'bob'
   #   person.changes # => { "name" => ["bill", "bob"] }
   #
-  # source://activemodel//lib/active_model/dirty.rb#347
+  # source://activemodel//lib/active_model/dirty.rb#353
   def changes; end
 
   # Clears dirty data and moves +changes+ to +previous_changes+ and
   # +mutations_from_database+ to +mutations_before_last_save+ respectively.
   #
-  # source://activemodel//lib/active_model/dirty.rb#266
+  # source://activemodel//lib/active_model/dirty.rb#272
   def changes_applied; end
 
-  # source://activemodel//lib/active_model/dirty.rb#325
+  # source://activemodel//lib/active_model/dirty.rb#331
   def clear_attribute_changes(attr_names); end
 
   # Clears all dirty data: current changes and previous changes.
   #
-  # source://activemodel//lib/active_model/dirty.rb#319
+  # source://activemodel//lib/active_model/dirty.rb#325
   def clear_changes_information; end
+
+  # source://activemodel//lib/active_model/dirty.rb#253
+  def init_attributes(other); end
 
   # Returns a hash of attributes that were changed before the model was saved.
   #
@@ -2045,52 +2048,52 @@ module ActiveModel::Dirty
   #   person.save
   #   person.previous_changes # => {"name" => ["bob", "robert"]}
   #
-  # source://activemodel//lib/active_model/dirty.rb#357
+  # source://activemodel//lib/active_model/dirty.rb#363
   def previous_changes; end
 
   # Restore all previous data of the provided attributes.
   #
-  # source://activemodel//lib/active_model/dirty.rb#314
+  # source://activemodel//lib/active_model/dirty.rb#320
   def restore_attributes(attr_names = T.unsafe(nil)); end
 
   private
 
   # Dispatch target for <tt>*_change</tt> attribute methods.
   #
-  # source://activemodel//lib/active_model/dirty.rb#393
+  # source://activemodel//lib/active_model/dirty.rb#399
   def attribute_change(attr_name); end
 
   # Dispatch target for <tt>*_previous_change</tt> attribute methods.
   #
-  # source://activemodel//lib/active_model/dirty.rb#398
+  # source://activemodel//lib/active_model/dirty.rb#404
   def attribute_previous_change(attr_name); end
 
   # Dispatch target for <tt>*_will_change!</tt> attribute methods.
   #
-  # source://activemodel//lib/active_model/dirty.rb#403
+  # source://activemodel//lib/active_model/dirty.rb#409
   def attribute_will_change!(attr_name); end
 
-  # source://activemodel//lib/active_model/dirty.rb#372
+  # source://activemodel//lib/active_model/dirty.rb#378
   def clear_attribute_change(attr_name); end
 
-  # source://activemodel//lib/active_model/dirty.rb#384
+  # source://activemodel//lib/active_model/dirty.rb#390
   def forget_attribute_assignments; end
 
-  # source://activemodel//lib/active_model/dirty.rb#366
+  # source://activemodel//lib/active_model/dirty.rb#372
   def init_internals; end
 
   # source://activemodel//lib/active_model/dirty.rb#248
   def initialize_dup(other); end
 
-  # source://activemodel//lib/active_model/dirty.rb#388
+  # source://activemodel//lib/active_model/dirty.rb#394
   def mutations_before_last_save; end
 
-  # source://activemodel//lib/active_model/dirty.rb#376
+  # source://activemodel//lib/active_model/dirty.rb#382
   def mutations_from_database; end
 
   # Dispatch target for <tt>restore_*!</tt> attribute methods.
   #
-  # source://activemodel//lib/active_model/dirty.rb#408
+  # source://activemodel//lib/active_model/dirty.rb#414
   def restore_attribute!(attr_name); end
 
   module GeneratedClassMethods
@@ -2293,10 +2296,10 @@ class ActiveModel::Error
     # source://activemodel//lib/active_model/error.rb#64
     def generate_message(attribute, type, base, options); end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def i18n_customize_full_message; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def i18n_customize_full_message=(new_value); end
 
     # source://activemodel//lib/active_model/error.rb#13
@@ -4975,10 +4978,8 @@ class ActiveModel::Type::Value
   # source://activemodel//lib/active_model/type/value.rb#11
   def limit; end
 
-  # @yield [value]
-  #
   # source://activemodel//lib/active_model/type/value.rb#117
-  def map(value); end
+  def map(value, &_arg1); end
 
   # @return [Boolean]
   #

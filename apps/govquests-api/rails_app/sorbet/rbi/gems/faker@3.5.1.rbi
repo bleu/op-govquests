@@ -6,9 +6,7 @@
 
 
 # source://faker//lib/helpers/base58.rb#3
-module Faker
-  include ::Faker::Deprecator
-end
+module Faker; end
 
 # source://faker//lib/faker/default/address.rb#4
 class Faker::Address < ::Faker::Base
@@ -734,7 +732,7 @@ class Faker::Base
     # source://faker//lib/faker.rb#64
     def bothify(string); end
 
-    # source://faker//lib/faker.rb#262
+    # source://faker//lib/faker.rb#266
     def disable_enforce_available_locales; end
 
     # Helper for the common approach of grabbing a translation
@@ -784,7 +782,7 @@ class Faker::Base
     # source://faker//lib/faker.rb#132
     def parse(key); end
 
-    # source://faker//lib/faker.rb#252
+    # source://faker//lib/faker.rb#256
     def rand(max = T.unsafe(nil)); end
 
     # Generates a random value between the interval
@@ -830,6 +828,9 @@ class Faker::Base
 
     # source://faker//lib/faker.rb#248
     def shuffle(list); end
+
+    # source://faker//lib/faker.rb#252
+    def shuffle!(list); end
 
     # Call I18n.translate with our configured locale if no
     # locale is specified
@@ -3551,26 +3552,88 @@ class Faker::Demographic < ::Faker::Base
   end
 end
 
-# source://faker//lib/helpers/deprecator.rb#8
+# Provides a way to rename generators, including their namespaces, with a deprecation cycle in which
+# both the old and new names work, but using the old one prints a deprecation message.
+#
+# Deprecator provides a deprecate_generator method to be used when
+# renaming a generator. For example, let's say we want to change the following Generator's
+# name to <tt>Faker::NewGenerator</tt>:
+#
+#   module Faker
+#     class Generator
+#       def self.generate
+#         "be kind"
+#       end
+#     end
+#   end
+#
+# To rename it, you need to do the update the name and declare the deprecation by
+# including the <tt>Deprecator</tt> module and using the deprecate_generator method:
+#
+#   module Faker
+#     class NewGenerator
+#       def self.generate
+#         "be kind"
+#       end
+#     end
+#
+#     include Deprecator
+#     deprecate_generator('DeprecatedGenerator', NewGenerator)
+#   end
+#
+# The first argument is a constant name (no colons) as a string. It is the name of
+# the constant you want to deprecate.
+#
+# The second argument is the constant path of the replacement (no colons) as a constant.
+#
+# For this to work, a +const_missing+ hook is installed. When users
+# reference the deprecated constant, the callback prints the
+# message and constantizes the replacement.
+#
+# With that in place, references to <tt>Faker::Deprecator</tt> still work, they
+# evaluate to <tt>Faker::NewGenerator</tt> now, and trigger a deprecation warning:
+#
+#   Faker::Generator.generate
+#   # DEPRECATION WARNING: Faker::Generator is deprecated. Use Faker::NewGenerator instead
+#   # "be kind"
+#
+# For testing the deprecations, we provide <tt>assert_deprecated</tt>
+# and <tt>assert_not_deprecated</tt> matchers.
+#
+# There's also a <tt>Faker::Deprecator.skip_warning</tt> helper to silence
+# the deprecation messages in the *test* output. Use it for generators that have lots of tests
+# to avoid too many noise when running the tests.
+#
+# source://faker//lib/helpers/deprecator.rb#59
 module Faker::Deprecator
   class << self
     # @private
     #
-    # source://faker//lib/helpers/deprecator.rb#9
+    # source://faker//lib/helpers/deprecator.rb#60
     def included(base); end
 
-    # source://faker//lib/helpers/deprecator.rb#44
+    # source://faker//lib/helpers/deprecator.rb#109
     def skip; end
 
-    # source://faker//lib/helpers/deprecator.rb#48
+    # source://faker//lib/helpers/deprecator.rb#113
     def skip=(value); end
 
-    # source://faker//lib/helpers/deprecator.rb#32
+    # Silence deprecation warnings within the block.
+    #
+    #   Faker::Generator.generate
+    #   # => DEPRECATION WARNING: Faker::Generator is deprecated. Use Faker::NewGenerator instead.
+    #
+    #   Faker::Deprecator.skip_warning do
+    #     Faker::Generator.generate
+    #   end
+    #   # => nil
+    #
+    # source://faker//lib/helpers/deprecator.rb#97
     def skip_warning; end
 
     # @return [Boolean]
     #
-    # source://faker//lib/helpers/deprecator.rb#40
+    # source://faker//lib/helpers/deprecator.rb#105
     def skip_warning?; end
   end
 end
@@ -5068,21 +5131,13 @@ class Faker::Games::HeroesOfTheStorm < ::Faker::Base
     # source://faker//lib/faker/games/heroes_of_the_storm.rb#16
     def battleground; end
 
-    # This method is deprecated. The implementation will be removed in a near future release.
-    # Use `HeroesOfTheStorm.class_name` instead.
-    #
-    # @deprecated Use {#class_name} instead.
-    #
-    # source://faker//lib/faker/games/heroes_of_the_storm.rb#25
-    def class; end
-
     # Produces a class name from Heroes of the Storm.
     #
     # @example
     #   Faker::Games::HeroesOfTheStorm.class_name #=> "Support"
     # @return [String]
     #
-    # source://faker//lib/faker/games/heroes_of_the_storm.rb#40
+    # source://faker//lib/faker/games/heroes_of_the_storm.rb#29
     def class_name; end
 
     # Produces a hero from Heroes of the Storm.
@@ -5091,7 +5146,7 @@ class Faker::Games::HeroesOfTheStorm < ::Faker::Base
     #   Faker::Games::HeroesOfTheStorm.hero #=> "Illidan"
     # @return [String]
     #
-    # source://faker//lib/faker/games/heroes_of_the_storm.rb#53
+    # source://faker//lib/faker/games/heroes_of_the_storm.rb#42
     def hero; end
 
     # Produces a quote from Heroes of the Storm.
@@ -5100,7 +5155,7 @@ class Faker::Games::HeroesOfTheStorm < ::Faker::Base
     #   Faker::Games::HeroesOfTheStorm.quote #=> "MEAT!!!"
     # @return [String]
     #
-    # source://faker//lib/faker/games/heroes_of_the_storm.rb#66
+    # source://faker//lib/faker/games/heroes_of_the_storm.rb#55
     def quote; end
   end
 end
@@ -6945,7 +7000,7 @@ class Faker::Invoice < ::Faker::Base
     # source://faker//lib/faker/default/invoice.rb#20
     def amount_between(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    # Produces a random valid reference accoring to the International bank slip reference https://en.wikipedia.org/wiki/Creditor_Reference
+    # Produces a random valid reference according to the International bank slip reference https://en.wikipedia.org/wiki/Creditor_Reference
     #
     # @example
     #   Faker::Invoice.creditor_reference #=> "RF34118592570724925498"
@@ -7002,9 +7057,7 @@ class Faker::Invoice < ::Faker::Base
 end
 
 # source://faker//lib/faker/japanese_media/conan.rb#4
-class Faker::JapaneseMedia
-  include ::Faker::Deprecator
-end
+class Faker::JapaneseMedia; end
 
 # source://faker//lib/faker/japanese_media/conan.rb#5
 class Faker::JapaneseMedia::Conan < ::Faker::Base
@@ -12090,22 +12143,8 @@ class Faker::TvShows::Buffy < ::Faker::Base
     #   Faker::TvShows::Buffy.big_bad #=> "Glory"
     # @return [String]
     #
-    # source://faker//lib/faker/tv_shows/buffy.rb#70
+    # source://faker//lib/faker/tv_shows/buffy.rb#57
     def big_bad; end
-
-    # Produces a actor from Buffy the Vampire Slayer.
-    # Produces a actor from Buffy the Vampire Slayer.
-    #
-    # @deprecated Use the `actor` method instead.
-    # @example
-    #   Faker::TvShows::Buffy.actor #=> "John Ritter"
-    # @example
-    #   Faker::TvShows::Buffy.celebrity #=> "John Ritter"
-    # @return [String]
-    # @return [String]
-    #
-    # source://faker//lib/faker/tv_shows/buffy.rb#44
-    def celebrity; end
 
     # Produces a character from Buffy the Vampire Slayer.
     #
@@ -12122,7 +12161,7 @@ class Faker::TvShows::Buffy < ::Faker::Base
     #   Faker::TvShows::Buffy.episode #=> "Once More, with Feeling"
     # @return [String]
     #
-    # source://faker//lib/faker/tv_shows/buffy.rb#83
+    # source://faker//lib/faker/tv_shows/buffy.rb#70
     def episode; end
 
     # Produces a quote from Buffy the Vampire Slayer.
@@ -12205,7 +12244,7 @@ class Faker::TvShows::DrWho < ::Faker::Base
     #   Faker::TvShows::DrWho.specie #=> "Dalek"
     # @return [String]
     #
-    # source://faker//lib/faker/tv_shows/dr_who.rb#109
+    # source://faker//lib/faker/tv_shows/dr_who.rb#96
     def specie; end
 
     # Produces an iteration of The Doctor from Doctor Who.
@@ -12225,20 +12264,6 @@ class Faker::TvShows::DrWho < ::Faker::Base
     #
     # source://faker//lib/faker/tv_shows/dr_who.rb#83
     def villain; end
-
-    # Produces a villain from Doctor Who.
-    # Produces a villain from Doctor Who.
-    #
-    # @deprecated Use the correctly-spelled `villain` method instead.
-    # @example
-    #   Faker::TvShows::DrWho.villain #=> "The Master"
-    # @example
-    #   Faker::TvShows::DrWho.villian #=> "The Master"
-    # @return [String]
-    # @return [String]
-    #
-    # source://faker//lib/faker/tv_shows/dr_who.rb#83
-    def villian; end
   end
 end
 
@@ -13087,20 +13112,6 @@ class Faker::TvShows::TheFreshPrinceOfBelAir < ::Faker::Base
     # source://faker//lib/faker/tv_shows/the_fresh_prince_of_bel_air.rb#31
     def actor; end
 
-    # Produces a actor from The Fresh Prince of Bel-Air.
-    # Produces a actor from The Fresh Prince of Bel-Air.
-    #
-    # @deprecated Use the `actor` method instead.
-    # @example
-    #   Faker::TvShows::TheFreshPrinceOfBelAir.actor #=> "Quincy Jones"
-    # @example
-    #   Faker::TvShows::TheFreshPrinceOfBelAir.celebrity #=> "Quincy Jones"
-    # @return [String]
-    # @return [String]
-    #
-    # source://faker//lib/faker/tv_shows/the_fresh_prince_of_bel_air.rb#31
-    def celebrity; end
-
     # Produces a character from The Fresh Prince of Bel-Air.
     #
     # @example
@@ -13117,7 +13128,7 @@ class Faker::TvShows::TheFreshPrinceOfBelAir < ::Faker::Base
     #   #=> "Girl, you look so good, I would marry your brother just to get in your family."
     # @return [String]
     #
-    # source://faker//lib/faker/tv_shows/the_fresh_prince_of_bel_air.rb#58
+    # source://faker//lib/faker/tv_shows/the_fresh_prince_of_bel_air.rb#45
     def quote; end
   end
 end

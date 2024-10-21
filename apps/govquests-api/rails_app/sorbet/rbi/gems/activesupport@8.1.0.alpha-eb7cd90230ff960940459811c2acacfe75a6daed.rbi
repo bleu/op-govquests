@@ -18,35 +18,35 @@ module ActiveSupport
   # source://activesupport//lib/active_support/json/decoding.rb#9
   def parse_json_times=(val); end
 
-  # source://activesupport//lib/active_support.rb#101
+  # source://activesupport//lib/active_support.rb#100
   def test_order; end
 
-  # source://activesupport//lib/active_support.rb#101
+  # source://activesupport//lib/active_support.rb#100
   def test_order=(val); end
 
-  # source://activesupport//lib/active_support.rb#102
+  # source://activesupport//lib/active_support.rb#101
   def test_parallelization_threshold; end
 
-  # source://activesupport//lib/active_support.rb#102
+  # source://activesupport//lib/active_support.rb#101
   def test_parallelization_threshold=(val); end
 
   class << self
-    # source://activesupport//lib/active_support.rb#107
+    # source://activesupport//lib/active_support.rb#106
     def cache_format_version; end
 
-    # source://activesupport//lib/active_support.rb#111
+    # source://activesupport//lib/active_support.rb#110
     def cache_format_version=(value); end
 
     # source://activesupport//lib/active_support/deprecator.rb#4
     def deprecator; end
 
-    # source://activesupport//lib/active_support.rb#95
+    # source://activesupport//lib/active_support.rb#94
     def eager_load!; end
 
-    # source://activesupport//lib/active_support.rb#105
+    # source://activesupport//lib/active_support.rb#104
     def error_reporter; end
 
-    # source://activesupport//lib/active_support.rb#105
+    # source://activesupport//lib/active_support.rb#104
     def error_reporter=(_arg0); end
 
     # source://activesupport//lib/active_support/json/encoding.rb#8
@@ -72,16 +72,16 @@ module ActiveSupport
     # source://activesupport//lib/active_support/json/decoding.rb#9
     def parse_json_times=(val); end
 
-    # source://activesupport//lib/active_support.rb#101
+    # source://activesupport//lib/active_support.rb#100
     def test_order; end
 
-    # source://activesupport//lib/active_support.rb#101
+    # source://activesupport//lib/active_support.rb#100
     def test_order=(val); end
 
-    # source://activesupport//lib/active_support.rb#102
+    # source://activesupport//lib/active_support.rb#101
     def test_parallelization_threshold; end
 
-    # source://activesupport//lib/active_support.rb#102
+    # source://activesupport//lib/active_support.rb#101
     def test_parallelization_threshold=(val); end
 
     # source://activesupport//lib/active_support/json/encoding.rb#8
@@ -90,10 +90,10 @@ module ActiveSupport
     # source://activesupport//lib/active_support/json/encoding.rb#8
     def time_precision=(arg); end
 
-    # source://activesupport//lib/active_support.rb#115
+    # source://activesupport//lib/active_support.rb#114
     def to_time_preserves_timezone; end
 
-    # source://activesupport//lib/active_support.rb#119
+    # source://activesupport//lib/active_support.rb#118
     def to_time_preserves_timezone=(value); end
 
     # source://activesupport//lib/active_support/json/encoding.rb#8
@@ -102,10 +102,10 @@ module ActiveSupport
     # source://activesupport//lib/active_support/json/encoding.rb#8
     def use_standard_json_time_format=(arg); end
 
-    # source://activesupport//lib/active_support.rb#135
+    # source://activesupport//lib/active_support.rb#134
     def utc_to_local_returns_utc_offset_times; end
 
-    # source://activesupport//lib/active_support.rb#139
+    # source://activesupport//lib/active_support.rb#138
     def utc_to_local_returns_utc_offset_times=(value); end
 
     # Returns the currently loaded version of Active Support as a +Gem::Version+.
@@ -4704,9 +4704,6 @@ module ActiveSupport::Deprecation::Reporting
 
   private
 
-  # source://activesupport//lib/active_support/deprecation/reporting.rb#153
-  def _extract_callstack(callstack); end
-
   # Outputs a deprecation warning message
   #
   #   deprecated_method_warning(:method_name)
@@ -4730,14 +4727,14 @@ module ActiveSupport::Deprecation::Reporting
 
   # @return [Boolean]
   #
-  # source://activesupport//lib/active_support/deprecation/reporting.rb#174
+  # source://activesupport//lib/active_support/deprecation/reporting.rb#155
   def ignored_callstack?(path); end
 end
 
-# source://activesupport//lib/active_support/deprecation/reporting.rb#172
+# source://activesupport//lib/active_support/deprecation/reporting.rb#153
 ActiveSupport::Deprecation::Reporting::LIB_DIR = T.let(T.unsafe(nil), String)
 
-# source://activesupport//lib/active_support/deprecation/reporting.rb#171
+# source://activesupport//lib/active_support/deprecation/reporting.rb#152
 ActiveSupport::Deprecation::Reporting::RAILS_GEM_ROOT = T.let(T.unsafe(nil), String)
 
 # Raised when ActiveSupport::Deprecation::Behavior#behavior is set with <tt>:raise</tt>.
@@ -5096,17 +5093,17 @@ class ActiveSupport::Duration
 
   private
 
-  # source://activesupport//lib/active_support/duration.rb#512
+  # source://activesupport//lib/active_support/duration.rb#516
   def method_missing(*_arg0, **_arg1, &_arg2); end
 
   # @raise [TypeError]
   #
-  # source://activesupport//lib/active_support/duration.rb#516
+  # source://activesupport//lib/active_support/duration.rb#520
   def raise_type_error(other); end
 
   # @return [Boolean]
   #
-  # source://activesupport//lib/active_support/duration.rb#508
+  # source://activesupport//lib/active_support/duration.rb#512
   def respond_to_missing?(method, _); end
 
   # source://activesupport//lib/active_support/duration.rb#486
@@ -7437,51 +7434,51 @@ class ActiveSupport::InheritableOptions < ::ActiveSupport::OrderedOptions
   def own_key?(_arg0); end
 end
 
-# source://activesupport//lib/active_support/isolated_execution_state.rb#5
+# source://activesupport//lib/active_support/isolated_execution_state.rb#4
 module ActiveSupport::IsolatedExecutionState
   class << self
-    # source://activesupport//lib/active_support/isolated_execution_state.rb#36
+    # source://activesupport//lib/active_support/isolated_execution_state.rb#35
     def [](key); end
 
-    # source://activesupport//lib/active_support/isolated_execution_state.rb#40
+    # source://activesupport//lib/active_support/isolated_execution_state.rb#39
     def []=(key, value); end
 
-    # source://activesupport//lib/active_support/isolated_execution_state.rb#52
+    # source://activesupport//lib/active_support/isolated_execution_state.rb#51
     def clear; end
 
-    # source://activesupport//lib/active_support/isolated_execution_state.rb#56
+    # source://activesupport//lib/active_support/isolated_execution_state.rb#55
     def context; end
 
-    # source://activesupport//lib/active_support/isolated_execution_state.rb#48
+    # source://activesupport//lib/active_support/isolated_execution_state.rb#47
     def delete(key); end
 
     # Returns the value of attribute isolation_level.
     #
-    # source://activesupport//lib/active_support/isolated_execution_state.rb#12
+    # source://activesupport//lib/active_support/isolated_execution_state.rb#11
     def isolation_level; end
 
-    # source://activesupport//lib/active_support/isolated_execution_state.rb#14
+    # source://activesupport//lib/active_support/isolated_execution_state.rb#13
     def isolation_level=(level); end
 
     # @return [Boolean]
     #
-    # source://activesupport//lib/active_support/isolated_execution_state.rb#44
+    # source://activesupport//lib/active_support/isolated_execution_state.rb#43
     def key?(key); end
 
     # Returns the value of attribute scope.
     #
-    # source://activesupport//lib/active_support/isolated_execution_state.rb#12
+    # source://activesupport//lib/active_support/isolated_execution_state.rb#11
     def scope; end
 
-    # source://activesupport//lib/active_support/isolated_execution_state.rb#60
+    # source://activesupport//lib/active_support/isolated_execution_state.rb#59
     def share_with(other); end
 
-    # source://activesupport//lib/active_support/isolated_execution_state.rb#32
+    # source://activesupport//lib/active_support/isolated_execution_state.rb#31
     def unique_id; end
 
     private
 
-    # source://activesupport//lib/active_support/isolated_execution_state.rb#68
+    # source://activesupport//lib/active_support/isolated_execution_state.rb#67
     def state; end
   end
 end
@@ -11258,21 +11255,6 @@ end
 # source://activesupport//lib/active_support/parameter_filter.rb#40
 ActiveSupport::ParameterFilter::FILTERED = T.let(T.unsafe(nil), String)
 
-# source://activesupport//lib/active_support/proxy_object.rb#4
-class ActiveSupport::ProxyObject < ::BasicObject
-  # Let ActiveSupport::ProxyObject at least raise exceptions.
-  #
-  # source://activesupport//lib/active_support/proxy_object.rb#9
-  def raise(*args); end
-
-  class << self
-    # @private
-    #
-    # source://activesupport//lib/active_support/proxy_object.rb#13
-    def inherited(_subclass); end
-  end
-end
-
 # source://activesupport//lib/active_support/railtie.rb#7
 class ActiveSupport::Railtie < ::Rails::Railtie; end
 
@@ -13710,7 +13692,7 @@ class ActiveSupport::TimeWithZone
   # source://activesupport//lib/active_support/time_with_zone.rb#442
   def day; end
 
-  # Returns true if the current time is within Daylight Savings Time for the
+  # Returns true if the current time is within Daylight Savings \Time for the
   # specified time zone.
   #
   #   Time.zone = 'Eastern Time (US & Canada)'    # => 'Eastern Time (US & Canada)'
@@ -13852,7 +13834,7 @@ class ActiveSupport::TimeWithZone
   # source://activesupport//lib/active_support/time_with_zone.rb#509
   def is_a?(klass); end
 
-  # Returns true if the current time is within Daylight Savings Time for the
+  # Returns true if the current time is within Daylight Savings \Time for the
   # specified time zone.
   #
   #   Time.zone = 'Eastern Time (US & Canada)'    # => 'Eastern Time (US & Canada)'
@@ -14219,7 +14201,7 @@ ActiveSupport::TimeWithZone::SECONDS_PER_DAY = T.let(T.unsafe(nil), Integer)
 # * Limit the set of zones provided by TZInfo to a meaningful subset of 134
 #   zones.
 # * Retrieve and display zones with a friendlier name
-#   (e.g., "Eastern Time (US & Canada)" instead of "America/New_York").
+#   (e.g., "Eastern \Time (US & Canada)" instead of "America/New_York").
 # * Lazily load +TZInfo::Timezone+ instances only when they're needed.
 # * Create ActiveSupport::TimeWithZone instances via TimeZone's +local+,
 #   +parse+, +at+, and +now+ methods.
@@ -14262,7 +14244,7 @@ class ActiveSupport::TimeZone
   # source://activesupport//lib/active_support/values/time_zone.rb#567
   def abbr(time); end
 
-  # Method for creating new ActiveSupport::TimeWithZone instance in time zone
+  # \Method for creating new ActiveSupport::TimeWithZone instance in time zone
   # of +self+ from number of seconds since the Unix epoch.
   #
   #   Time.zone = 'Hawaii'        # => "Hawaii"
@@ -14298,7 +14280,7 @@ class ActiveSupport::TimeZone
   # source://activesupport//lib/active_support/values/time_zone.rb#575
   def init_with(coder); end
 
-  # Method for creating new ActiveSupport::TimeWithZone instance in time zone
+  # \Method for creating new ActiveSupport::TimeWithZone instance in time zone
   # of +self+ from an ISO 8601 string.
   #
   #   Time.zone = 'Hawaii'                     # => "Hawaii"
@@ -14315,7 +14297,7 @@ class ActiveSupport::TimeZone
   # source://activesupport//lib/active_support/values/time_zone.rb#396
   def iso8601(str); end
 
-  # Method for creating new ActiveSupport::TimeWithZone instance in time zone
+  # \Method for creating new ActiveSupport::TimeWithZone instance in time zone
   # of +self+ from given values.
   #
   #   Time.zone = 'Hawaii'                    # => "Hawaii"
@@ -14352,7 +14334,7 @@ class ActiveSupport::TimeZone
   # source://activesupport//lib/active_support/values/time_zone.rb#516
   def now; end
 
-  # Method for creating new ActiveSupport::TimeWithZone instance in time zone
+  # \Method for creating new ActiveSupport::TimeWithZone instance in time zone
   # of +self+ from parsed string.
   #
   #   Time.zone = 'Hawaii'                   # => "Hawaii"
@@ -14383,7 +14365,7 @@ class ActiveSupport::TimeZone
   # source://activesupport//lib/active_support/values/time_zone.rb#563
   def periods_for_local(time); end
 
-  # Method for creating new ActiveSupport::TimeWithZone instance in time zone
+  # \Method for creating new ActiveSupport::TimeWithZone instance in time zone
   # of +self+ from an RFC 3339 string.
   #
   #   Time.zone = 'Hawaii'                     # => "Hawaii"
@@ -18861,7 +18843,7 @@ class Module
 
   private
 
-  # source://activesupport//lib/active_support/core_ext/module/attr_internal.rb#41
+  # source://activesupport//lib/active_support/core_ext/module/attr_internal.rb#40
   def attr_internal_define(attr_name, type); end
 
   class << self
@@ -20145,7 +20127,7 @@ class String
   #   >> "ǉ".upcase
   #   => "Ǉ"
   #
-  # == Method chaining
+  # == \Method chaining
   #
   # All the methods on the Chars proxy which normally return a string will return a Chars object. This allows
   # method chaining on the result of any of these methods.
@@ -20545,10 +20527,10 @@ class Symbol
 end
 
 class Thread
-  # source://activesupport//lib/active_support/isolated_execution_state.rb#8
+  # source://activesupport//lib/active_support/isolated_execution_state.rb#7
   def active_support_execution_state; end
 
-  # source://activesupport//lib/active_support/isolated_execution_state.rb#8
+  # source://activesupport//lib/active_support/isolated_execution_state.rb#7
   def active_support_execution_state=(_arg0); end
 end
 
@@ -21032,7 +21014,7 @@ class Time
     # This method accepts any of the following:
     #
     # * A \Rails TimeZone object.
-    # * An identifier for a \Rails TimeZone object (e.g., "Eastern Time (US & Canada)", <tt>-5.hours</tt>).
+    # * An identifier for a \Rails TimeZone object (e.g., "Eastern \Time (US & Canada)", <tt>-5.hours</tt>).
     # * A +TZInfo::Timezone+ object.
     # * An identifier for a +TZInfo::Timezone+ object (e.g., "America/New_York").
     #

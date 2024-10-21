@@ -434,6 +434,34 @@ class ActionTracking::ActionReadModel
 
     sig { params(value: T::Enumerable[::ActionTracking::ActionExecutionReadModel]).void }
     def action_executions=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
+    def quest_action_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def quest_action_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `ActionTracking::ActionReadModel` class because it declared `has_many :quest_actions`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::Questing::QuestActionReadModel::PrivateCollectionProxy) }
+    def quest_actions; end
+
+    sig { params(value: T::Enumerable[::Questing::QuestActionReadModel]).void }
+    def quest_actions=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
+    def quest_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def quest_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `ActionTracking::ActionReadModel` class because it declared `has_many :quests, through: :quest_actions`.
+    # 🔗 [Rails guide for `has_many_through` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association)
+    sig { returns(::Questing::QuestReadModel::PrivateCollectionProxy) }
+    def quests; end
+
+    sig { params(value: T::Enumerable[::Questing::QuestReadModel]).void }
+    def quests=(value); end
   end
 
   module GeneratedAssociationRelationMethods

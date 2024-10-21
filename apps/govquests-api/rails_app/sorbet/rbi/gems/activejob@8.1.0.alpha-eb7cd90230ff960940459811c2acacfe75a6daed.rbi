@@ -31,16 +31,10 @@ module ActiveJob
     # source://activejob//lib/active_job/enqueuing.rb#14
     def perform_all_later(*jobs); end
 
-    # source://activejob//lib/active_job.rb#52
-    def use_big_decimal_serializer; end
-
-    # source://activejob//lib/active_job.rb#58
-    def use_big_decimal_serializer=(value); end
-
-    # source://activejob//lib/active_job.rb#69
+    # source://activejob//lib/active_job.rb#57
     def verbose_enqueue_logs; end
 
-    # source://activejob//lib/active_job.rb#69
+    # source://activejob//lib/active_job.rb#57
     def verbose_enqueue_logs=(_arg0); end
 
     # Returns the currently loaded version of Active Job as a +Gem::Version+.
@@ -209,19 +203,19 @@ class ActiveJob::Base
   extend ::ActiveJob::Exceptions::ClassMethods
   extend ::ActiveJob::TestHelper::TestQueueAdapter::ClassMethods
 
-  # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/callbacks.rb#69
+  # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/callbacks.rb#69
   def __callbacks; end
 
-  # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/callbacks.rb#923
+  # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/callbacks.rb#923
   def _enqueue_callbacks; end
 
-  # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/callbacks.rb#923
+  # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/callbacks.rb#923
   def _perform_callbacks; end
 
-  # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/callbacks.rb#911
+  # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/callbacks.rb#911
   def _run_enqueue_callbacks(&block); end
 
-  # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/callbacks.rb#911
+  # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/callbacks.rb#911
   def _run_perform_callbacks(&block); end
 
   # source://activejob//lib/active_job/exceptions.rb#12
@@ -269,107 +263,107 @@ class ActiveJob::Base
   # source://activejob//lib/active_job/queue_name.rb#57
   def queue_name_prefix?; end
 
-  # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/rescuable.rb#15
+  # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/rescuable.rb#15
   def rescue_handlers; end
 
-  # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/rescuable.rb#15
+  # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/rescuable.rb#15
   def rescue_handlers=(_arg0); end
 
-  # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/rescuable.rb#15
+  # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/rescuable.rb#15
   def rescue_handlers?; end
 
   class << self
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def __callbacks=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/callbacks.rb#915
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/callbacks.rb#915
     def _enqueue_callbacks; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/callbacks.rb#919
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/callbacks.rb#919
     def _enqueue_callbacks=(value); end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/callbacks.rb#915
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/callbacks.rb#915
     def _perform_callbacks; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/callbacks.rb#919
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/callbacks.rb#919
     def _perform_callbacks=(value); end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def _queue_adapter; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def _queue_adapter=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def _queue_adapter_name; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def _queue_adapter_name=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def _test_adapter; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def _test_adapter=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def after_discard_procs; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def after_discard_procs=(new_value); end
 
     # source://activejob//lib/active_job/exceptions.rb#12
     def after_discard_procs?; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def concurrency_duration; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def concurrency_duration=(new_value); end
 
     # source://solid_queue/1.0.0/lib/active_job/concurrency_controls.rb#14
     def concurrency_duration?; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def concurrency_group; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def concurrency_group=(new_value); end
 
     # source://solid_queue/1.0.0/lib/active_job/concurrency_controls.rb#11
     def concurrency_group?; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def concurrency_key; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def concurrency_key=(new_value); end
 
     # source://solid_queue/1.0.0/lib/active_job/concurrency_controls.rb#10
     def concurrency_key?; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def concurrency_limit; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def concurrency_limit=(new_value); end
 
     # source://solid_queue/1.0.0/lib/active_job/concurrency_controls.rb#13
     def concurrency_limit?; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def enqueue_after_transaction_commit; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def enqueue_after_transaction_commit=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def log_arguments; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def log_arguments=(new_value); end
 
     # source://activejob//lib/active_job/logging.rb#26
@@ -381,55 +375,55 @@ class ActiveJob::Base
     # source://activejob//lib/active_job/logging.rb#15
     def logger=(val); end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def priority; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def priority=(new_value); end
 
     # source://activejob//lib/active_job/queue_priority.rb#49
     def priority?; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def queue_name; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def queue_name=(new_value); end
 
     # source://activejob//lib/active_job/queue_name.rb#55
     def queue_name?; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def queue_name_delimiter; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def queue_name_delimiter=(new_value); end
 
     # source://activejob//lib/active_job/queue_name.rb#56
     def queue_name_delimiter?; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def queue_name_prefix; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def queue_name_prefix=(new_value); end
 
     # source://activejob//lib/active_job/queue_name.rb#57
     def queue_name_prefix?; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def rescue_handlers; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def rescue_handlers=(new_value); end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/rescuable.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/rescuable.rb#15
     def rescue_handlers?; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def retry_jitter; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def retry_jitter=(new_value); end
   end
 end
@@ -459,13 +453,13 @@ module ActiveJob::Callbacks
   mixes_in_class_methods ::ActiveJob::Callbacks::ClassMethods
 
   class << self
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#8
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#8
     def __callbacks; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/callbacks.rb#923
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/callbacks.rb#923
     def _execute_callbacks; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/callbacks.rb#911
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/callbacks.rb#911
     def _run_execute_callbacks(&block); end
   end
 
@@ -921,12 +915,12 @@ module ActiveJob::Enqueuing
   #    my_job_instance.enqueue wait_until: Date.tomorrow.midnight
   #    my_job_instance.enqueue priority: 10
   #
-  # source://activejob//lib/active_job/enqueuing.rb#113
+  # source://activejob//lib/active_job/enqueuing.rb#112
   def enqueue(options = T.unsafe(nil)); end
 
   private
 
-  # source://activejob//lib/active_job/enqueuing.rb#129
+  # source://activejob//lib/active_job/enqueuing.rb#128
   def raw_enqueue; end
 
   module GeneratedClassMethods
@@ -939,7 +933,7 @@ end
 
 # Includes the +perform_later+ method for job initialization.
 #
-# source://activejob//lib/active_job/enqueuing.rb#58
+# source://activejob//lib/active_job/enqueuing.rb#57
 module ActiveJob::Enqueuing::ClassMethods
   # Push a job onto the queue. By default the arguments must be either String,
   # Integer, Float, NilClass, TrueClass, FalseClass, BigDecimal, Symbol, Date,
@@ -967,12 +961,12 @@ module ActiveJob::Enqueuing::ClassMethods
   #
   # @yield [job]
   #
-  # source://activejob//lib/active_job/enqueuing.rb#82
+  # source://activejob//lib/active_job/enqueuing.rb#81
   def perform_later(*_arg0, **_arg1, &_arg2); end
 
   private
 
-  # source://activejob//lib/active_job/enqueuing.rb#92
+  # source://activejob//lib/active_job/enqueuing.rb#91
   def job_or_instantiate(*args, **_arg1, &_); end
 end
 
@@ -1293,19 +1287,19 @@ class ActiveJob::LogSubscriber < ::ActiveSupport::LogSubscriber
   def scheduled_at(event); end
 
   class << self
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def backtrace_cleaner; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def backtrace_cleaner=(new_value); end
 
     # source://activejob//lib/active_job/log_subscriber.rb#7
     def backtrace_cleaner?; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#12
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#12
     def log_levels; end
 
-    # source://activesupport/8.0.0.beta1-57fe7e781ee37a50e54b17df24738ce6c26b22db/lib/active_support/class_attribute.rb#15
+    # source://activesupport/8.1.0.alpha-eb7cd90230ff960940459811c2acacfe75a6daed/lib/active_support/class_attribute.rb#15
     def log_levels=(new_value); end
   end
 end
@@ -1535,22 +1529,12 @@ ActiveJob::QueueAdapters::ADAPTER = T.let(T.unsafe(nil), String)
 class ActiveJob::QueueAdapters::AbstractAdapter
   # @raise [NotImplementedError]
   #
-  # source://activejob//lib/active_job/queue_adapters/abstract_adapter.rb#18
+  # source://activejob//lib/active_job/queue_adapters/abstract_adapter.rb#10
   def enqueue(job); end
-
-  # Defines whether enqueuing should happen implicitly to after commit when called
-  # from inside a transaction. Most adapters should return true, but some adapters
-  # that use the same database as Active Record and are transaction aware can return
-  # false to continue enqueuing jobs as part of the transaction.
-  #
-  # @return [Boolean]
-  #
-  # source://activejob//lib/active_job/queue_adapters/abstract_adapter.rb#14
-  def enqueue_after_transaction_commit?; end
 
   # @raise [NotImplementedError]
   #
-  # source://activejob//lib/active_job/queue_adapters/abstract_adapter.rb#22
+  # source://activejob//lib/active_job/queue_adapters/abstract_adapter.rb#14
   def enqueue_at(job, timestamp); end
 end
 
@@ -1668,17 +1652,12 @@ ActiveJob::QueueAdapters::AsyncAdapter::Scheduler::DEFAULT_EXECUTOR_OPTIONS = T.
 #
 # source://activejob//lib/active_job/queue_adapters/inline_adapter.rb#13
 class ActiveJob::QueueAdapters::InlineAdapter < ::ActiveJob::QueueAdapters::AbstractAdapter
-  # source://activejob//lib/active_job/queue_adapters/inline_adapter.rb#18
-  def enqueue(job); end
-
-  # @return [Boolean]
-  #
   # source://activejob//lib/active_job/queue_adapters/inline_adapter.rb#14
-  def enqueue_after_transaction_commit?; end
+  def enqueue(job); end
 
   # @raise [NotImplementedError]
   #
-  # source://activejob//lib/active_job/queue_adapters/inline_adapter.rb#22
+  # source://activejob//lib/active_job/queue_adapters/inline_adapter.rb#18
   def enqueue_at(*_arg0); end
 end
 
@@ -1694,11 +1673,6 @@ end
 #
 # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#14
 class ActiveJob::QueueAdapters::TestAdapter < ::ActiveJob::QueueAdapters::AbstractAdapter
-  # @return [TestAdapter] a new instance of TestAdapter
-  #
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#18
-  def initialize(enqueue_after_transaction_commit: T.unsafe(nil)); end
-
   # Returns the value of attribute at.
   #
   # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#15
@@ -1711,32 +1685,15 @@ class ActiveJob::QueueAdapters::TestAdapter < ::ActiveJob::QueueAdapters::Abstra
   # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#15
   def at=(_arg0); end
 
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#36
+  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#28
   def enqueue(job); end
 
-  # Returns the value of attribute enqueue_after_transaction_commit.
-  #
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#15
-  def enqueue_after_transaction_commit; end
-
-  # Sets the attribute enqueue_after_transaction_commit
-  #
-  # @param value the value to set the attribute enqueue_after_transaction_commit to.
-  #
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#15
-  def enqueue_after_transaction_commit=(_arg0); end
-
-  # @return [Boolean]
-  #
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#22
-  def enqueue_after_transaction_commit?; end
-
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#41
+  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#33
   def enqueue_at(job, timestamp); end
 
   # Provides a store of all the enqueued jobs with the TestAdapter so you can check them.
   #
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#27
+  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#19
   def enqueued_jobs; end
 
   # Sets the attribute enqueued_jobs
@@ -1784,7 +1741,7 @@ class ActiveJob::QueueAdapters::TestAdapter < ::ActiveJob::QueueAdapters::Abstra
 
   # Provides a store of all the performed jobs with the TestAdapter so you can check them.
   #
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#32
+  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#24
   def performed_jobs; end
 
   # Sets the attribute performed_jobs
@@ -1820,33 +1777,33 @@ class ActiveJob::QueueAdapters::TestAdapter < ::ActiveJob::QueueAdapters::Abstra
 
   private
 
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#87
+  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#79
   def filter_as_proc(filter); end
 
   # @return [Boolean]
   #
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#65
+  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#57
   def filtered?(job); end
 
   # @return [Boolean]
   #
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#79
+  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#71
   def filtered_job_class?(job); end
 
   # @return [Boolean]
   #
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#73
+  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#65
   def filtered_queue?(job); end
 
   # @return [Boolean]
   #
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#69
+  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#61
   def filtered_time?(job); end
 
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#47
+  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#39
   def job_to_hash(job, extras = T.unsafe(nil)); end
 
-  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#56
+  # source://activejob//lib/active_job/queue_adapters/test_adapter.rb#48
   def perform_or_enqueue(perform, job, job_data); end
 end
 

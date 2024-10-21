@@ -12,8 +12,10 @@ class Mutations::CompleteActionExecution
       nonce: ::String,
       action_type: ::String,
       gitcoin_score_completion_data: T.nilable(::Types::GitcoinScoreCompletionDataInput),
-      read_document_completion_data: T.nilable(::Types::ReadDocumentCompletionDataInput)
+      read_document_completion_data: T.nilable(::Types::ReadDocumentCompletionDataInput),
+      ens_completion_data: T.nilable(::Types::ActionExecution::Strategies::Ens::EnsCompletionDataInputType),
+      discourse_verification_completion_data: T.nilable(::Types::ActionExecution::Strategies::DiscourseVerification::DiscourseVerificationCompletionDataInput)
     ).returns(T.untyped)
   end
-  def resolve(execution_id:, nonce:, action_type:, gitcoin_score_completion_data: T.unsafe(nil), read_document_completion_data: T.unsafe(nil)); end
+  def resolve(execution_id:, nonce:, action_type:, gitcoin_score_completion_data: T.unsafe(nil), read_document_completion_data: T.unsafe(nil), ens_completion_data: T.unsafe(nil), discourse_verification_completion_data: T.unsafe(nil)); end
 end
