@@ -20,12 +20,8 @@ export const QuestsQuery = graphql(`
         id
         actionType
         displayData {
-            title
-            description
-        }
-        actionData {
-          documentUrl
-          actionType
+          title
+          description
         }
       }
     }

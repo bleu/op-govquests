@@ -39,6 +39,18 @@ module QuestCreation
 end
 
 module QuestData
+  DISCOURSE_VERIFICATION_ACTION = {
+    action_type: "discourse_verification",
+    display_data: {
+      title: "Verify Discourse Account",
+      description: "Connect and verify your Discourse account to participate in governance discussions."
+    },
+    action_data: {
+      action_type: "discourse_verification",
+      discourse_url: "https://gov.optimism.io"
+    }
+  }
+
   READ_DOCUMENT_ACTIONS = [
     {
       action_type: "read_document",
@@ -110,6 +122,18 @@ module QuestData
   }
 
   QUESTS = [
+    {
+      display_data: {
+        title: "Discourse Verification",
+        intro: "Verify your Discourse account to actively participate in Optimism's governance discussions. This quest will guide you through the process of connecting your Discourse account.",
+        image_url: "https://example.com/discourse-verification.jpg",
+        requirements: "You must have a Discourse account on the Optimism governance forum to complete this quest. If you don't have one, you'll be guided to create one."
+      },
+      quest_type: "Governance",
+      audience: "Delegates",
+      rewards: [{type: "Points", amount: 150}],
+      actions: [DISCOURSE_VERIFICATION_ACTION]
+    },
     {
       display_data: {
         title: "Governance 101",
