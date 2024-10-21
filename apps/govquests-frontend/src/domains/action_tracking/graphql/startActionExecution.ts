@@ -8,6 +8,7 @@ export const START_ACTION_EXECUTION = graphql(`
     $gitcoinScoreStartData: GitcoinScoreStartDataInput
     $readDocumentStartData: ReadDocumentStartDataInput
     $ensStartData: EnsStartDataInput
+    $discourseVerificationStartData: DiscourseVerificationStartDataInput
   ) {
     startActionExecution(
       input: {
@@ -17,6 +18,7 @@ export const START_ACTION_EXECUTION = graphql(`
         gitcoinScoreStartData: $gitcoinScoreStartData
         readDocumentStartData: $readDocumentStartData
         ensStartData: $ensStartData
+        discourseVerificationStartData: $discourseVerificationStartData
       }
     ) {
       actionExecution {
@@ -28,6 +30,9 @@ export const START_ACTION_EXECUTION = graphql(`
           ... on GitcoinScoreStartData {
             message
             nonce
+          }
+          ... on DiscourseVerificationStartData {
+            verificationUrl
           }
         }
         status

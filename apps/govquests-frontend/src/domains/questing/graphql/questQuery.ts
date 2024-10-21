@@ -30,8 +30,10 @@ export const QuestQuery = graphql(`
           description
         }
         actionData {
-          documentUrl
           actionType
+          ... on ReadDocumentActionData {
+            documentUrl
+          }
         }
         actionExecutions {
           id
@@ -47,11 +49,17 @@ export const QuestQuery = graphql(`
               message
               nonce
             }
+            ... on DiscourseVerificationStartData {
+              verificationUrl
+            }
           }
           completionData {
             ... on GitcoinScoreCompletionData {
               score
               minimumPassingScore
+            }
+            ... on DiscourseVerificationCompletionData {
+              discourseUsername
             }
           }
         }

@@ -7,6 +7,8 @@ export const COMPLETE_ACTION_EXECUTION = graphql(`
     $actionType: String!
     $gitcoinScoreCompletionData: GitcoinScoreCompletionDataInput
     $readDocumentCompletionData: ReadDocumentCompletionDataInput
+    $ensCompletionData: EnsCompletionDataInput
+    $discourseVerificationCompletionData: DiscourseVerificationCompletionDataInput
   ) {
     completeActionExecution(
       input: {
@@ -15,6 +17,8 @@ export const COMPLETE_ACTION_EXECUTION = graphql(`
         actionType: $actionType
         gitcoinScoreCompletionData: $gitcoinScoreCompletionData
         readDocumentCompletionData: $readDocumentCompletionData
+        ensCompletionData: $ensCompletionData
+        discourseVerificationCompletionData: $discourseVerificationCompletionData
       }
     ) {
       actionExecution {
@@ -29,11 +33,17 @@ export const COMPLETE_ACTION_EXECUTION = graphql(`
             message
             nonce
           }
+          ... on DiscourseVerificationStartData {
+            verificationUrl
+          }
         }
         completionData {
           ... on GitcoinScoreCompletionData {
             score
             minimumPassingScore
+          }
+          ... on DiscourseVerificationCompletionData {
+            discourseUsername
           }
         }
       }

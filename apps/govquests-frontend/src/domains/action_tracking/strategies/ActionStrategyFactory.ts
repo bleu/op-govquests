@@ -1,4 +1,5 @@
 import { ActionStrategy } from "./ActionStrategy";
+import { DiscourseVerificationStrategy } from "./DiscourseVerificationStrategy";
 import { EnsStrategy } from "./EnsStrategy";
 import { GitcoinScoreStrategy } from "./GitcoinScoreStrategy";
 import { ReadDocumentStrategy } from "./ReadDocumentStrategy";
@@ -14,6 +15,8 @@ export class ActionStrategyFactory {
         return ReadDocumentStrategy;
       case "ens":
         return EnsStrategy;
+      case "discourse_verification":
+        return DiscourseVerificationStrategy;
       case "verify_position":
         return VerifyPositionStrategy;
       default:

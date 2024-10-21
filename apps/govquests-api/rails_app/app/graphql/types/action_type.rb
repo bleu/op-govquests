@@ -2,7 +2,7 @@ module Types
   class ActionType < Types::BaseObject
     field :id, ID, null: false, method: :action_id
     field :action_type, String, null: false
-    field :action_data, Types::ActionDataType, null: false
+    field :action_data, Types::ActionDataInterface, null: true, description: "Data defining the action"
     field :display_data, Types::ActionDisplayDataType, null: false
 
     field :action_executions, [Types::ActionExecutionType], null: true

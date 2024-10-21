@@ -1,14 +1,12 @@
 type Action {
-  actionData: ActionData!
+  """
+  Data defining the action
+  """
+  actionData: ActionDataInterface
   actionExecutions: [ActionExecution!]
   actionType: String!
   displayData: ActionDisplayData!
   id: ID!
-}
-
-type ActionData {
-  actionType: String
-  documentUrl: String
 }
 
 """
@@ -64,11 +62,12 @@ input CompleteActionExecutionInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
+  discourseVerificationCompletionData: DiscourseVerificationCompletionDataInput
 
   """
-  Completion data for Read Document action
+  Completion data for ENS action
   """
-  ensCompletionData: EnsStartDataInput
+  ensCompletionData: EnsCompletionDataInput
   executionId: ID!
 
   """
@@ -104,10 +103,51 @@ interface CompletionDataInterface {
   Type of the action
   """
   actionType: String!
-  address: String
-  nonce: String
-  signature: String
 }
+
+"""
+Action data for Discourse verification action
+"""
+type DiscourseVerificationActionData implements ActionDataInterface {
+  """
+  Type of the action
+  """
+  actionType: String!
+}
+
+"""
+Completion data for Discourse verification action
+"""
+type DiscourseVerificationCompletionData implements CompletionDataInterface {
+  """
+  Type of the action
+  """
+  actionType: String!
+  discourseUsername: String!
+}
+
+"""
+Completion data input for Discourse verification action
+"""
+input DiscourseVerificationCompletionDataInput {
+  encryptedKey: String!
+}
+
+"""
+Start data for Discourse verification action
+"""
+type DiscourseVerificationStartData implements StartDataInterface {
+  """
+  Type of the action
+  """
+  actionType: String!
+  verificationUrl: String!
+}
+
+"""
+Start data input for Discourse verification action
+"""
+input DiscourseVerificationStartDataInput
 
 type DisplayData {
   content: String
@@ -135,22 +175,22 @@ type EnsCompletionData implements CompletionDataInterface {
   Type of the action
   """
   actionType: String!
-  address: String
-  nonce: String
-  signature: String
 }
+
+"""
+Completion data for ENS action
+"""
+input EnsCompletionDataInput
 
 """
 Start data for ENS action
 """
-type EnsStartData implements CompletionDataInterface {
+type EnsStartData implements StartDataInterface {
   """
   Type of the action
   """
   actionType: String!
   address: String!
-  nonce: String
-  signature: String
 }
 
 """
@@ -204,11 +244,8 @@ type GitcoinScoreCompletionData implements CompletionDataInterface {
   Type of the action
   """
   actionType: String!
-  address: String
   minimumPassingScore: Float
-  nonce: String
   score: Float
-  signature: String
 }
 
 """
@@ -313,9 +350,6 @@ type ReadDocumentCompletionData implements CompletionDataInterface {
   Type of the action
   """
   actionType: String!
-  address: String
-  nonce: String
-  signature: String
 }
 
 """
@@ -402,6 +436,7 @@ input StartActionExecutionInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
+  discourseVerificationStartData: DiscourseVerificationStartDataInput
   ensStartData: EnsStartDataInput
   gitcoinScoreStartData: GitcoinScoreStartDataInput
   questId: ID!
