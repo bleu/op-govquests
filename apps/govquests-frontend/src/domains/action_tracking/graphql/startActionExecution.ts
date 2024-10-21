@@ -5,21 +5,9 @@ export const START_ACTION_EXECUTION = graphql(`
     $questId: ID!
     $actionId: ID!
     $actionType: String!
-    $gitcoinScoreStartData: GitcoinScoreStartDataInput
-    $readDocumentStartData: ReadDocumentStartDataInput
-    $ensStartData: EnsStartDataInput
-    $discourseVerificationStartData: DiscourseVerificationStartDataInput
   ) {
     startActionExecution(
-      input: {
-        questId: $questId
-        actionId: $actionId
-        actionType: $actionType
-        gitcoinScoreStartData: $gitcoinScoreStartData
-        readDocumentStartData: $readDocumentStartData
-        ensStartData: $ensStartData
-        discourseVerificationStartData: $discourseVerificationStartData
-      }
+      input: { questId: $questId, actionId: $actionId, actionType: $actionType }
     ) {
       actionExecution {
         id

@@ -1,4 +1,3 @@
-# app/graphql/types/action_data_interface.rb
 module Types
   module ActionDataInterface
     include Types::BaseInterface
@@ -6,24 +5,17 @@ module Types
 
     field :action_type, String, null: false, description: "Type of the action"
 
-    orphan_types Types::GitcoinScoreActionDataType,
-      Types::ReadDocumentActionDataType,
-      Types::EnsActionDataType,
-      Types::ActionExecution::Strategies::DiscourseVerification::DiscourseVerificationActionDataType
+    orphan_types Types::ReadDocumentActionDataType,
+      Types::ActionExecution::EmptyActionDataType
 
     def self.resolve_type(object, _context)
       action_type = object["action_type"]
+
       case action_type
-      when "gitcoin_score"
-        Types::GitcoinScoreActionDataType
       when "read_document"
         Types::ReadDocumentActionDataType
-      when "ens"
-        Types::EnsActionDataType
-      when "discourse_verification"
-        Types::ActionExecution::Strategies::DiscourseVerification::DiscourseVerificationActionDataType
       else
-        Types::ReadDocumentActionDataType
+        Types::ActionExecution::EmptyActionDataType
       end
     end
   end

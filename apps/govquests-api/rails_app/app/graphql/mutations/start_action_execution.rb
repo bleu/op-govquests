@@ -4,29 +4,20 @@ module Mutations
     argument :action_id, ID, required: true
     argument :action_type, String, required: true, description: "Type of the action"
 
-    argument :gitcoin_score_start_data, Types::GitcoinScoreStartDataInput, required: false
-    argument :read_document_start_data, Types::ReadDocumentStartDataInput, required: false
-    argument :ens_start_data, Types::EnsStartDataInput, required: false
-    argument :discourse_verification_start_data, Types::ActionExecution::Strategies::DiscourseVerification::DiscourseVerificationStartDataInput, required: false
-
     field :action_execution, Types::ActionExecutionType, null: true
     field :errors, [String], null: false
 
-    def resolve(quest_id:, action_id:, action_type:, gitcoin_score_start_data: nil, read_document_start_data: nil, ens_start_data: nil, discourse_verification_start_data: nil)
+    def resolve(quest_id:, action_id:, action_type:)
       action = ActionTracking::ActionReadModel.find_by(action_id: action_id)
       unless action
         return {action_execution: nil, errors: ["Action not found"]}
       end
 
       start_data = case action_type
-      when "gitcoin_score"
-        gitcoin_score_start_data&.to_h || {}
-      when "read_document"
-        read_document_start_data&.to_h || {}
       when "ens"
-        ens_start_data&.to_h || {}
-      when "discourse_verification"
-        discourse_verification_start_data&.to_h || {}
+        ens_start_data&.to_h || {
+          address: current_user.address
+        }
       else
         {}
       end

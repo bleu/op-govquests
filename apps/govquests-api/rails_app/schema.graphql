@@ -63,11 +63,6 @@ input CompleteActionExecutionInput {
   """
   clientMutationId: String
   discourseVerificationCompletionData: DiscourseVerificationCompletionDataInput
-
-  """
-  Completion data for ENS action
-  """
-  ensCompletionData: EnsCompletionDataInput
   executionId: ID!
 
   """
@@ -75,11 +70,6 @@ input CompleteActionExecutionInput {
   """
   gitcoinScoreCompletionData: GitcoinScoreCompletionDataInput
   nonce: String!
-
-  """
-  Completion data for Read Document action
-  """
-  readDocumentCompletionData: ReadDocumentCompletionDataInput
 }
 
 """
@@ -99,16 +89,6 @@ type CompleteActionExecutionPayload {
 An interface for different completion data types
 """
 interface CompletionDataInterface {
-  """
-  Type of the action
-  """
-  actionType: String!
-}
-
-"""
-Action data for Discourse verification action
-"""
-type DiscourseVerificationActionData implements ActionDataInterface {
   """
   Type of the action
   """
@@ -144,11 +124,6 @@ type DiscourseVerificationStartData implements StartDataInterface {
   verificationUrl: String!
 }
 
-"""
-Start data input for Discourse verification action
-"""
-input DiscourseVerificationStartDataInput
-
 type DisplayData {
   content: String
   imageUrl: String
@@ -158,46 +133,13 @@ type DisplayData {
 }
 
 """
-Action data for ENS action
+Empty action data type for actions that do not require additional data
 """
-type EnsActionData implements ActionDataInterface {
+type EmptyActionData implements ActionDataInterface {
   """
   Type of the action
   """
   actionType: String!
-}
-
-"""
-Completion data for ENS action
-"""
-type EnsCompletionData implements CompletionDataInterface {
-  """
-  Type of the action
-  """
-  actionType: String!
-}
-
-"""
-Completion data for ENS action
-"""
-input EnsCompletionDataInput
-
-"""
-Start data for ENS action
-"""
-type EnsStartData implements StartDataInterface {
-  """
-  Type of the action
-  """
-  actionType: String!
-  address: String!
-}
-
-"""
-Start data for ENS action
-"""
-input EnsStartDataInput {
-  address: String!
 }
 
 """
@@ -223,17 +165,6 @@ type GenerateSiweMessagePayload {
   clientMutationId: String
   message: String!
   nonce: String!
-}
-
-"""
-Action data for Gitcoin Score action
-"""
-type GitcoinScoreActionData implements ActionDataInterface {
-  """
-  Type of the action
-  """
-  actionType: String!
-  minScore: Int!
 }
 
 """
@@ -267,13 +198,6 @@ type GitcoinScoreStartData implements StartDataInterface {
   actionType: String!
   message: String!
   nonce: String!
-}
-
-"""
-Start data for Gitcoin Score action
-"""
-input GitcoinScoreStartDataInput {
-  actionType: String!
 }
 
 """
@@ -339,38 +263,8 @@ type ReadDocumentActionData implements ActionDataInterface {
   Type of the action
   """
   actionType: String!
-  documentUrl: String!
+  documentUrl: String
 }
-
-"""
-Completion data for Read Document action
-"""
-type ReadDocumentCompletionData implements CompletionDataInterface {
-  """
-  Type of the action
-  """
-  actionType: String!
-}
-
-"""
-Start data for Read Document action
-"""
-input ReadDocumentCompletionDataInput
-
-"""
-Start data for Read Document action
-"""
-type ReadDocumentStartData implements StartDataInterface {
-  """
-  Type of the action
-  """
-  actionType: String!
-}
-
-"""
-Start data for Read Document action
-"""
-input ReadDocumentStartDataInput
 
 type Reward {
   amount: Int!
@@ -436,11 +330,7 @@ input StartActionExecutionInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  discourseVerificationStartData: DiscourseVerificationStartDataInput
-  ensStartData: EnsStartDataInput
-  gitcoinScoreStartData: GitcoinScoreStartDataInput
   questId: ID!
-  readDocumentStartData: ReadDocumentStartDataInput
 }
 
 """

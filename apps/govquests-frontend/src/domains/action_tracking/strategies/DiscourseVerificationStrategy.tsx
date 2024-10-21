@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useSIWE } from "connectkit";
 import { useAccount } from "wagmi";
 import ActionButton from "../components/ActionButton";
@@ -68,6 +68,33 @@ export const DiscourseVerificationStrategy: ActionStrategy = ({
     return "unstarted";
   };
 
+  const buttonProps = useMemo(() => {
+    const status = getStatus();
+    const baseProps = {
+      actionType: "ens" as const,
+      status,
+      disabled: !isSignedIn || !isConnected || status === "completed",
+      loading: startMutation.isPending || completeMutation.isPending,
+    };
+
+    switch (status) {
+      case "unstarted":
+        return { ...baseProps, onClick: handleStart };
+      case "started":
+        return { ...baseProps, onClick: handleComplete };
+      case "completed":
+        return { ...baseProps, onClick: () => {} };
+    }
+  }, [
+    getStatus,
+    isSignedIn,
+    isConnected,
+    startMutation.isPending,
+    completeMutation.isPending,
+    handleStart,
+    handleComplete,
+  ]);
+
   return (
     <div className="flex flex-col items-start space-y-4">
       <span className="text-xl font-semibold">{action.displayData.title}</span>
@@ -103,19 +130,7 @@ export const DiscourseVerificationStrategy: ActionStrategy = ({
 
       {errorMessage && <span className="text-red-500">{errorMessage}</span>}
 
-      <ActionButton
-        status={getStatus()}
-        onClick={getStatus() === "unstarted" ? handleStart : handleComplete}
-        disabled={!isSignedIn || !isConnected || getStatus() === "completed"}
-        loading={startMutation.isPending || completeMutation.isPending}
-        customLabel={
-          getStatus() === "unstarted"
-            ? "Start Verification"
-            : getStatus() === "started"
-              ? "Complete Verification"
-              : "Verified"
-        }
-      />
+      <ActionButton {...buttonProps} />
 
       {execution?.completionData &&
         "discourseUsername" in execution.completionData && (
