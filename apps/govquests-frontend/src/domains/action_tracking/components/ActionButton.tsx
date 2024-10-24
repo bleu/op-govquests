@@ -7,7 +7,9 @@ import type {
   EnsStatus,
   GitcoinScoreStatus,
   ReadDocumentStatus,
+  SendEmailStatus,
   VerifyPositionStatus,
+  VerifyWalletStatus,
 } from "../types/actionButtonTypes";
 
 type StatusConfig = {
@@ -30,6 +32,12 @@ type ActionConfig = {
   };
   discourse_verification: {
     statuses: Record<VerifyPositionStatus, StatusConfig>;
+  };
+  send_email: {
+    statuses: Record<SendEmailStatus, StatusConfig>;
+  };
+  wallet_verification: {
+    statuses: Record<VerifyWalletStatus, StatusConfig>;
   };
 };
 
@@ -80,6 +88,18 @@ const actionConfig: ActionConfig = {
       completed: { label: "Verified", icon: null },
     },
   },
+  send_email: {
+    statuses: {
+      unstarted: { label: "Send", icon: null },
+      completed: { label: "Verified e-mail", icon: null },
+    },
+  },
+  wallet_verification: {
+    statuses: {
+      unstarted: { label: "Verify Wallet", icon: null },
+      completed: { label: "Verified", icon: null },
+    },
+  },
 };
 
 type ActionButtonProps<T extends ActionType> = {
@@ -104,7 +124,7 @@ function ActionButton<T extends ActionType>({
   return (
     <Button
       className={cn(
-        "bg-secondary hover:bg-secondaryHover hover:text-white px-6",
+        "bg-secondary hover:bg-secondaryHover hover:text-white px-6 mr-6",
         disabled &&
           "bg-secondaryDisabled text-opacity-60 cursor-not-allowed pointer-events-none",
       )}
