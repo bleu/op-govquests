@@ -82,7 +82,7 @@ export const SendEmailStrategy: ActionStrategy = ({
         <span className="text-sm text-foreground/70">
           {action.displayData.description}
         </span>
-        <Input type="email" className="max-w-[70%] my-2" />
+        <Input type="email" className="max-w-[70%] mt-2" />
         {renderedContent}
       </div>
       <ActionButton {...buttonProps} />

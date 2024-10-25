@@ -17,7 +17,10 @@ const ActionList: React.FC<ActionListProps> = ({ questId, actions }) => {
       {actions.map((action, index) => (
         <div
           key={action.id}
-          className={cn("border-t-2 py-8", index === 0 && "border-none")}
+          className={cn(
+            "border-t-2 py-7",
+            index === 0 && "border-b-2 border-transparent",
+          )}
         >
           <ActionHandler questId={questId} action={action} />
         </div>
