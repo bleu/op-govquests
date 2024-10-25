@@ -20,7 +20,7 @@ module ActionTracking
       end
 
       def complete_execution(dry_run: false)
-        return completion_data_valid? if dry_run
+        return completion_data_valid? && can_complete? if dry_run
 
         raise CompletionDataVerificationFailed.new("Completion data is invalid") unless completion_data_valid?
 
@@ -42,6 +42,10 @@ module ActionTracking
       end
 
       def start_data_valid?
+        true
+      end
+
+      def can_complete?
         true
       end
 

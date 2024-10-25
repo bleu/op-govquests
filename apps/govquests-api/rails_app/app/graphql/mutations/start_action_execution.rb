@@ -18,6 +18,10 @@ module Mutations
         ens_start_data&.to_h || {
           address: current_user.address
         }
+      when "wallet_verification"
+        {
+          address: current_user.address
+        }
       else
         {}
       end
