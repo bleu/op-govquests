@@ -2,6 +2,7 @@ require_relative "gitcoin_score"
 require_relative "read_document"
 require_relative "ens"
 require_relative "discourse_verification"
+require_relative "send_email"
 require_relative "wallet_verification"
 
 module ActionTracking

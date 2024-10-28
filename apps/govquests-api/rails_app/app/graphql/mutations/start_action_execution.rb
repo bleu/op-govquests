@@ -3,11 +3,12 @@ module Mutations
     argument :quest_id, ID, required: true
     argument :action_id, ID, required: true
     argument :action_type, String, required: true, description: "Type of the action"
+    argument :email, String, required: false
 
     field :action_execution, Types::ActionExecutionType, null: true
     field :errors, [String], null: false
 
-    def resolve(quest_id:, action_id:, action_type:)
+    def resolve(quest_id:, action_id:, action_type:, email: nil)
       action = ActionTracking::ActionReadModel.find_by(action_id: action_id)
       unless action
         return {action_execution: nil, errors: ["Action not found"]}
@@ -21,6 +22,10 @@ module Mutations
       when "wallet_verification"
         {
           address: current_user.address
+        }
+      when "send_email"
+        {
+          email: email
         }
       else
         {}

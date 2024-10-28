@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/Input";
 import { useSIWE } from "connectkit";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 import ActionButton from "../components/ActionButton";
 import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
@@ -17,8 +17,8 @@ export const SendEmailStrategy: ActionStrategy = ({
   const { isSignedIn } = useSIWE();
   const { isConnected } = useAccount();
   const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [email, setEmail] = useState<string>("");
 
   const handleStart = useCallback(async () => {
     try {
@@ -26,6 +26,7 @@ export const SendEmailStrategy: ActionStrategy = ({
         questId,
         actionId: action.id,
         actionType: action.actionType,
+        email: email.trim(),
       });
       refetch();
       setErrorMessage(null);
@@ -33,7 +34,7 @@ export const SendEmailStrategy: ActionStrategy = ({
       console.error("Error starting action:", error);
       setErrorMessage("Failed to start the verification. Please try again.");
     }
-  }, [startMutation, questId, action.id, action.actionType, refetch]);
+  }, [startMutation, questId, action.id, action.actionType, refetch, email]);
 
   const getStatus = useCallback((): SendEmailStatus => {
     if (execution?.status === "completed") return "completed";
@@ -46,7 +47,7 @@ export const SendEmailStrategy: ActionStrategy = ({
       status: getStatus(),
       onClick: handleStart,
       disabled: getStatus() === "completed" || !isSignedIn || !isConnected,
-      loading: startMutation.isPending || completeMutation.isPending,
+      loading: startMutation.isPending,
     }),
     [
       getStatus,
@@ -54,7 +55,6 @@ export const SendEmailStrategy: ActionStrategy = ({
       isSignedIn,
       isConnected,
       startMutation.isPending,
-      completeMutation.isPending,
       action.actionType,
     ],
   );
@@ -82,7 +82,15 @@ export const SendEmailStrategy: ActionStrategy = ({
         <span className="text-sm text-foreground/70">
           {action.displayData.description}
         </span>
-        <Input type="email" className="max-w-[70%] my-2" />
+        <Input
+          type="email"
+          className="my-2 max-w-[90%]"
+          value={
+            getStatus() === "completed" ? execution?.startData?.email : email
+          }
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={getStatus() === "completed"}
+        />
         {renderedContent}
       </div>
       <ActionButton {...buttonProps} />
