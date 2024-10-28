@@ -34,18 +34,18 @@ class EnsSubgraphClient
   end
 
   DOMAIN_QUERY = <<~GRAPHQL
-    query($first: Int!, $resolvedAddress: String!) {
-      domains(first: $first, where: { resolvedAddress: $resolvedAddress }) {
+    query($first: Int!, $wrappedOwner: String!) {
+      domains(first: $first, where: { wrappedOwner: $wrappedOwner }) {
         name
-        resolvedAddress {
+        wrappedOwner {
           id
         }
       }
     }
   GRAPHQL
 
-  def domains(resolved_address:, first: 100)
-    query(DOMAIN_QUERY, variables: {first: first, resolvedAddress: resolved_address})
+  def domains(owner:, first: 100)
+    query(DOMAIN_QUERY, variables: {first: first, wrappedOwner: owner})
   end
 
   private
