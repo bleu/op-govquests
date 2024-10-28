@@ -23,7 +23,7 @@ module ActionTracking
       end
 
       memoize def ens_domains(address)
-        @ens_domains ||= EnsSubgraphClient.new.domains(owner: address.downcase)
+        @ens_domains ||= EnsSubgraphClient.new.domains(address: address.downcase)
       end
     end
   end
