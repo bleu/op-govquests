@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
 import { useSIWE } from "connectkit";
+import React, { useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 import ActionButton from "../components/ActionButton";
 import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
@@ -22,17 +22,12 @@ export const DiscourseVerificationStrategy: ActionStrategy = ({
 
   const handleStart = async () => {
     try {
-      const result = await startMutation.mutateAsync({
+      await startMutation.mutateAsync({
         questId,
         actionId: action.id,
         actionType: action.actionType,
         discourseVerificationStartData: null,
       });
-      const startData =
-        result?.startActionExecution?.actionExecution?.startData;
-      if (startData && "verificationUrl" in startData) {
-        setVerificationUrl(startData.verificationUrl);
-      }
       refetch();
       setErrorMessage(null);
     } catch (error) {
@@ -68,10 +63,57 @@ export const DiscourseVerificationStrategy: ActionStrategy = ({
     return "unstarted";
   };
 
+  const renderedContent = useMemo(() => {
+    if (getStatus() === "started") {
+      return (
+        <div className="flex flex-col">
+          <div className="text-sm text-foreground/70">
+            <p className="my-3">
+              Please visit{" "}
+              <a
+                href={execution?.startData?.verificationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 underline"
+              >
+                this
+              </a>{" "}
+              URL and paste the generated API Key to verify your Discourse
+              account:
+            </p>
+          </div>
+          <div className="w-full">
+            <input
+              type="text"
+              value={encryptedKey}
+              onChange={(e) => setEncryptedKey(e.target.value)}
+              placeholder="Enter the encrypted key"
+              className="w-full p-2 border rounded"
+              disabled={
+                completeMutation.isPending || getStatus() === "completed"
+              }
+            />
+          </div>
+        </div>
+      );
+    }
+    if (
+      getStatus() === "completed" &&
+      execution?.completionData &&
+      "discourseUsername" in execution.completionData
+    ) {
+      return (
+        <span className="text-sm font-bold">
+          Verified as: {execution.completionData.discourseUsername}
+        </span>
+      );
+    }
+  }, [getStatus, errorMessage]);
+
   const buttonProps = useMemo(() => {
     const status = getStatus();
     const baseProps = {
-      actionType: "ens" as const,
+      actionType: action.actionType,
       status,
       disabled: !isSignedIn || !isConnected || status === "completed",
       loading: startMutation.isPending || completeMutation.isPending,
@@ -86,58 +128,29 @@ export const DiscourseVerificationStrategy: ActionStrategy = ({
         return { ...baseProps, onClick: () => {} };
     }
   }, [
-    getStatus,
     isSignedIn,
     isConnected,
     startMutation.isPending,
     completeMutation.isPending,
-    handleStart,
-    handleComplete,
+    action.actionType,
   ]);
 
   return (
-    <div className="flex flex-col items-start space-y-4">
-      <span className="text-xl font-semibold">{action.displayData.title}</span>
-      <span className="text-sm text-foreground/70">
-        {action.displayData.description}
-      </span>
+    <div className="flex flex-1  items-center">
+      <div className="flex flex-col flex-1 pr-6">
+        <span className="text-xl font-semibold">
+          {action.displayData.title}
+        </span>
+        <span className="text-sm text-foreground/70">
+          {action.displayData.description}
+        </span>
 
-      {verificationUrl && (
-        <div className="bg-primary p-4 rounded-md">
-          <p>Please visit this URL to verify your Discourse account:</p>
-          <a
-            href={verificationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 underline"
-          >
-            {verificationUrl}
-          </a>
-        </div>
-      )}
-
-      {getStatus() === "started" && (
-        <div className="w-full">
-          <input
-            type="text"
-            value={encryptedKey}
-            onChange={(e) => setEncryptedKey(e.target.value)}
-            placeholder="Enter the encrypted key"
-            className="w-full p-2 border rounded"
-          />
-        </div>
-      )}
-
-      {errorMessage && <span className="text-red-500">{errorMessage}</span>}
-
-      <ActionButton {...buttonProps} />
-
-      {execution?.completionData &&
-        "discourseUsername" in execution.completionData && (
-          <span className="text-sm font-bold">
-            Verified as: {execution.completionData.discourseUsername}
-          </span>
+        {renderedContent}
+        {errorMessage && (
+          <span className="text-sm font-bold">{errorMessage} </span>
         )}
+      </div>
+      <ActionButton {...buttonProps} />
     </div>
   );
 };

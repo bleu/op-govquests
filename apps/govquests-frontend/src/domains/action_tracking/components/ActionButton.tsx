@@ -70,8 +70,14 @@ const actionConfig: ActionConfig = {
   verify_position: {
     statuses: {
       unstarted: { label: "Verify Position", icon: null },
-      started: { label: "Verifying...", icon: null },
-      completed: { label: "Verified", icon: null },
+      started: {
+        label: "Submit API Key",
+        icon: <ExternalLinkIcon className="ml-2 w-4 h-4" />,
+      },
+      completed: {
+        label: "Verified",
+        icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
+      },
     },
   },
   ens: {
@@ -83,9 +89,15 @@ const actionConfig: ActionConfig = {
   },
   discourse_verification: {
     statuses: {
-      unstarted: { label: "Verify Discourse", icon: null },
-      started: { label: "Verifying...", icon: null },
-      completed: { label: "Verified", icon: null },
+      unstarted: { label: "Get Verification URL", icon: null },
+      started: {
+        label: "Submit API Key",
+        icon: <ExternalLinkIcon className="ml-2 w-4 h-4" />,
+      },
+      completed: {
+        label: "Verified",
+        icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
+      },
     },
   },
   send_email: {

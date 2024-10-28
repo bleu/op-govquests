@@ -41,7 +41,6 @@ module ActionTracking
         raise CompletionDataVerificationFailed, "Private key not found" if private_key_pem.nil?
 
         rsa_private_key = OpenSSL::PKey::RSA.new(private_key_pem)
-
         begin
           decrypted_payload = rsa_private_key.private_decrypt(
             Base64.decode64(completion_data[:encrypted_key]),
@@ -50,10 +49,10 @@ module ActionTracking
         rescue => e
           raise CompletionDataVerificationFailed, "Error decrypting key: #{e.message}"
         end
-
+        
         data = JSON.parse(decrypted_payload)
         api_key = data["key"]
-
+        binding.pry
         discourse_username = fetch_discourse_username(api_key)
 
         {
@@ -77,7 +76,6 @@ module ActionTracking
 
         request = Net::HTTP::Get.new(url.request_uri, headers)
         response = http.request(request)
-
         if response.code != "200"
           raise CompletionDataVerificationFailed, "Error fetching user info: #{response.body}"
         end

@@ -8,7 +8,7 @@ module ActionTracking
       def on_start_execution
         address = start_data[:address]
         domains = ens_domains(address)
-
+        binding.pry
         start_data.merge({
           domains: domains
         })

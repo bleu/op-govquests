@@ -43,7 +43,7 @@ module QuestData
     action_type: "discourse_verification",
     display_data: {
       title: "Verify Discourse Account",
-      description: "Connect and verify your Discourse account to participate in governance discussions."
+      description: "To verify you must authorize GovQuest's access to your Discourse Account. After your authorization, you'll be provided with the API Key that must be entered bellow."
     },
     action_data: {
       action_type: "discourse_verification",
@@ -135,7 +135,7 @@ module QuestData
   ENS_ACTION = {
     action_type: "ens",
     display_data: {
-      title: "Set your ENS name",
+      title: "Verify ENS",
       description: "Claim your unique ENS name!"
     },
     action_data: {
@@ -158,15 +158,16 @@ module QuestData
   QUESTS = [
     {
       display_data: {
-        title: "Discourse Verification",
-        intro: "Verify your Discourse account to actively participate in Optimism's governance discussions. This quest will guide you through the process of connecting your Discourse account.",
+        title: "Claim Your Identity",
+        intro: "Building a strong reputation in the Optimism Collective starts with having a Ethereum Name Service (ENS), and also a recognizable name in the Governance Forum. A unique identity helps the community remember you and connects your ideas to a trusted name. Let’s take the first step towards establishing your presence in OP governance!",
         image_url: "https://example.com/discourse-verification.jpg",
-        requirements: "You must have a Discourse account on the Optimism governance forum to complete this quest. If you don't have one, you'll be guided to create one."
+        requirements: "To complete this quest, you need to have: A ENS — if you don't have it, register your ENS here and remember to choose a distinct username that represents you (like yourname.eth).
+                        A Dis  course account  on Optimism Governance Forum — if you also don't have it, create your account here. We recommend you to use your ENS as username so you can get easily recognizable. "
       },
       quest_type: "Governance",
       audience: "Delegates",
       rewards: [{type: "Points", amount: 150}],
-      actions: [DISCOURSE_VERIFICATION_ACTION]
+      actions: [ENS_ACTION, DISCOURSE_VERIFICATION_ACTION]
     },
     {
       display_data: {

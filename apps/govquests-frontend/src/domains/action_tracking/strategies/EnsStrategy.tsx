@@ -29,7 +29,6 @@ export const EnsStrategy: ActionStrategy = ({
         questId,
         actionId: action.id,
         actionType: action.actionType,
-        ensStartData: { address },
       });
       refetch();
       setErrorMessage(null);
@@ -39,28 +38,28 @@ export const EnsStrategy: ActionStrategy = ({
     }
   }, [startMutation, questId, action.id, action.actionType, address, refetch]);
 
-  const handleComplete = useCallback(async () => {
-    if (!execution) return;
-    try {
-      const result = await completeMutation.mutateAsync({
-        executionId: execution.id,
-        nonce: execution.nonce,
-        actionType: action.actionType,
-      });
+  // const handleComplete = useCallback(async () => {
+  //   if (!execution) return;
+  //   try {
+  //     const result = await completeMutation.mutateAsync({
+  //       executionId: execution.id,
+  //       nonce: execution.nonce,
+  //       actionType: action.actionType,
+  //     });
 
-      if (result.completeActionExecution?.errors.length > 0) {
-        setErrorMessage(result.completeActionExecution?.errors[0]);
-      } else {
-        setErrorMessage(null);
-        refetch();
-      }
-    } catch (error) {
-      console.error("Error completing action:", error);
-      setErrorMessage(
-        "An error occurred while completing the action. Please try again.",
-      );
-    }
-  }, [execution, completeMutation, action.actionType, refetch]);
+  //     if (result.completeActionExecution?.errors.length > 0) {
+  //       setErrorMessage(result.completeActionExecution?.errors[0]);
+  //     } else {
+  //       setErrorMessage(null);
+  //       refetch();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error completing action:", error);
+  //     setErrorMessage(
+  //       "An error occurred while completing the action. Please try again.",
+  //     );
+  //   }
+  // }, [execution, completeMutation, action.actionType, refetch]);
 
   const getStatus = useCallback((): EnsStatus => {
     if (!execution || execution.status === "unstarted") return "unstarted";
@@ -81,7 +80,7 @@ export const EnsStrategy: ActionStrategy = ({
       case "unstarted":
         return { ...baseProps, onClick: handleStart };
       case "started":
-        return { ...baseProps, onClick: handleComplete };
+        return { ...baseProps, onClick: () => {} };
       case "completed":
         return { ...baseProps, onClick: () => {} };
     }
@@ -92,7 +91,6 @@ export const EnsStrategy: ActionStrategy = ({
     startMutation.isPending,
     completeMutation.isPending,
     handleStart,
-    handleComplete,
   ]);
 
   const renderedContent = useMemo(() => {
