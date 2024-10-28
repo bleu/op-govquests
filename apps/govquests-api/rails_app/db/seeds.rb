@@ -50,6 +50,28 @@ module QuestData
       discourse_url: "https://gov.optimism.io"
     }
   }
+  UNLOCK_PROFILE_ACTIONS = [
+    {
+      action_type: "send_email",
+      display_data: {
+        title: "Inform your e-mail (optional)",
+        description: "Get notified about your achievements, new quests and more. We won't spam you :)"
+      },
+      action_data: {
+        action_type: "send_email"
+      }
+    },
+    {
+      action_type: "wallet_verification",
+      display_data: {
+        title: "Connect your wallet",
+        description: "Track your progress, earn rewards, and get recognized for your contributions."
+      },
+      action_data: {
+        action_type: "wallet_verification"
+      }
+    }
+  ]
 
   READ_DOCUMENT_ACTIONS = [
     {
@@ -145,6 +167,17 @@ module QuestData
       audience: "Delegates",
       rewards: [{type: "Points", amount: 150}],
       actions: [DISCOURSE_VERIFICATION_ACTION]
+    },
+    {
+      display_data: {
+        title: "Unlock Your Profile",
+        intro: "Connect your wallet to unlock the full experience. Track your progress, earn rewards, and get recognized for your contributions.",
+        image_url: "https://example.com/governance101.jpg"
+      },
+      quest_type: "Onboarding",
+      audience: "AllUsers",
+      rewards: [{type: "Points", amount: 20}],
+      actions: UNLOCK_PROFILE_ACTIONS
     },
     {
       display_data: {
