@@ -40,6 +40,9 @@ type ActionConfig = {
   wallet_verification: {
     statuses: Record<VerifyWalletStatus, StatusConfig>;
   };
+  verify_delegate: {
+    statuses: Record<VerifyWalletStatus, StatusConfig>;
+  };
 };
 
 const actionConfig: ActionConfig = {
@@ -110,6 +113,15 @@ const actionConfig: ActionConfig = {
     statuses: {
       unstarted: { label: "Verify Wallet", icon: null },
       completed: { label: "Verified", icon: null },
+    },
+  },
+  verify_delegate: {
+    statuses: {
+      unstarted: { label: "Verify", icon: null },
+      completed: {
+        label: "Verified",
+        icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
+      },
     },
   },
 };

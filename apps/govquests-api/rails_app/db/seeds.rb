@@ -155,6 +155,17 @@ module QuestData
     }
   }
 
+  VERIFY_DELEGATE_ACTION = {
+    action_type: "verify_delegate",
+    display_data: {
+      title: "Become a Delegate",
+      description: "<ul><li>Connect your wallet at <a href='https://vote.optimism.io/' target='_blank' rel='noopener noreferrer' >Agora</a> - the home of Optimism voters.</li><li>At Agora, to become a delegate, you must have OP tokens <strong>delegated to your address.</strong> </li><li>That means that someone has to delegate their tokens to you, or you can delegate your own tokens to yourself, by following Agora's instructions. </li><li>Once OP tokens delegates to your address, come back to GovQuest and claim your rewards!</li></ul>"
+    },
+    action_data: {
+      action_type: "verify_delegate"
+    }
+  }
+
   QUESTS = [
     {
       display_data: {
@@ -214,6 +225,18 @@ module QuestData
       audience: "Delegates",
       rewards: [{type: "Points", amount: 100}],
       actions: [VERIFY_POSITION_ACTION]
+    },
+    {
+      display_data: {
+        title: "Become a delegate",
+        intro: "Start your journey as a delegate in the Optimism community! This quest will guide you through the essential steps to become a representative within the ecosystem and share your ideas. Let’s get started!",
+        image_url: "https://example.com/governance101.jpg",
+        requirements: "This quest is for new delegates — those who become delegates after opening this content. If you're already a delegate, try referring new delegates to earn rewards!"
+      },
+      quest_type: "Governance",
+      audience: "NonDelegates",
+      rewards: [{type: "Points", amount: 20}],
+      actions: [VERIFY_DELEGATE_ACTION]
     }
   ]
 end
