@@ -1,9 +1,8 @@
 import { Input } from "@/components/ui/Input";
 import { useSIWE } from "connectkit";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 import ActionButton from "../components/ActionButton";
-import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
 import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import type { ActionType, SendEmailStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy } from "./ActionStrategy";
@@ -26,7 +25,9 @@ export const SendEmailStrategy: ActionStrategy = ({
         questId,
         actionId: action.id,
         actionType: action.actionType,
-        email: email.trim(),
+        sendEmailVerificationInput: {
+          email: email.trim(),
+        },
       });
       refetch();
       setErrorMessage(null);

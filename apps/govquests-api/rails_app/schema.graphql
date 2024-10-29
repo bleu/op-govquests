@@ -299,7 +299,14 @@ type SendEmailStartData implements StartDataInterface {
   Type of the action
   """
   actionType: String!
-  email: String!
+  email: String
+}
+
+"""
+Input type for email-related actions
+"""
+input SendEmailVerificationInput {
+  email: String
 }
 
 """
@@ -361,8 +368,8 @@ input StartActionExecutionInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  email: String
   questId: ID!
+  sendEmailVerificationInput: SendEmailVerificationInput
 }
 
 """
