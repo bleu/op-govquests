@@ -132,28 +132,6 @@ type DisplayData {
   title: String
 }
 
-type Domain {
-  """
-  The name of the domain
-  """
-  name: String!
-
-  """
-  The owner of the domain
-  """
-  owner: String!
-
-  """
-  The resolved address of the domain
-  """
-  resolvedAddress: String
-
-  """
-  The wrapped owner of the domain
-  """
-  wrappedOwner: String
-}
-
 """
 Empty action data type for actions that do not require additional data
 """
@@ -184,6 +162,28 @@ type EmptyActionStartData implements StartDataInterface {
   actionType: String!
 }
 
+type EnsDomain {
+  """
+  The name of the domain
+  """
+  name: String!
+
+  """
+  The owner of the domain
+  """
+  owner: String!
+
+  """
+  The resolved address of the domain
+  """
+  resolvedAddress: String
+
+  """
+  The wrapped owner of the domain
+  """
+  wrappedOwner: String
+}
+
 """
 Completion data for ENS action
 """
@@ -196,7 +196,7 @@ type EnsStartData implements StartDataInterface {
   """
   List of domains to claim
   """
-  domains: [Domain!]!
+  domains: [EnsDomain!]!
 }
 
 """
