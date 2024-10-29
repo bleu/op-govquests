@@ -52,6 +52,9 @@ export const QuestQuery = graphql(`
             ... on DiscourseVerificationStartData {
               verificationUrl
             }
+            ... on SendEmailStartData {
+              email
+            }
           }
           completionData {
             ... on GitcoinScoreCompletionData {

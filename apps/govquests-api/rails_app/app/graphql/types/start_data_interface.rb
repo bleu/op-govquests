@@ -7,6 +7,7 @@ module Types
 
     orphan_types Types::GitcoinScoreStartDataType,
       Types::ActionExecution::Strategies::DiscourseVerification::DiscourseVerificationStartDataType,
+      Types::SendEmailStartDataType,
       Types::ActionExecution::EmptyActionStartDataType
 
     def self.resolve_type(object, _context)
@@ -16,6 +17,8 @@ module Types
         Types::GitcoinScoreStartDataType
       when "discourse_verification"
         Types::ActionExecution::Strategies::DiscourseVerification::DiscourseVerificationStartDataType
+      when "send_email"
+        Types::SendEmailStartDataType
       else
         Types::ActionExecution::EmptyActionStartDataType
       end
