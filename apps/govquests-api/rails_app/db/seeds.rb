@@ -202,24 +202,13 @@ module QuestData
       rewards: [{type: "Points", amount: 100}],
       actions: [GITCOIN_ACTION]
     },
-    {
-      display_data: {
-        title: "ENS Name",
-        intro: "Claim your unique ENS name and make it easier for others to find you. This quest will guide you through the process of setting up your ENS name.",
-        image_url: "https://example.com/ens-name.jpg",
-        requirements: "You must have an ENS name to complete this quest. Not sure how to get one? Check some tips on how to set up your ENS name."
-      },
-      quest_type: "Governance",
-      audience: "Delegates",
-      rewards: [{type: "Points", amount: 100}],
-      actions: [ENS_ACTION]
-    },
+
     {
       display_data: {
         title: "Top 100 Delegates",
         intro: "Have you reached the Top 100 Delegates in Season 6? Let’s check your ranking and, if you’re among the top, celebrate your achievement with a reward!",
         image_url: "https://example.com/advanced-governance.jpg",
-        requirements: 'You need to be a delegate to do this quest! If you’re not one, start with Become Delegate Quest.'
+        requirements: "You need to be a delegate to do this quest! If you’re not one, start with Become Delegate Quest."
       },
       quest_type: "Governance",
       audience: "Delegates",
