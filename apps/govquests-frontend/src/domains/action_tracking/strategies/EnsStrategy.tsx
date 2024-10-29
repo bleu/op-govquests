@@ -4,7 +4,7 @@ import { useAccount } from "wagmi";
 import ActionButton from "../components/ActionButton";
 import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
 import { useStartActionExecution } from "../hooks/useStartActionExecution";
-import { EnsStatus } from "../types/actionButtonTypes";
+import type { ActionType, EnsStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy } from "./ActionStrategy";
 
 export const EnsStrategy: ActionStrategy = ({
@@ -38,29 +38,6 @@ export const EnsStrategy: ActionStrategy = ({
     }
   }, [startMutation, questId, action.id, action.actionType, address, refetch]);
 
-  // const handleComplete = useCallback(async () => {
-  //   if (!execution) return;
-  //   try {
-  //     const result = await completeMutation.mutateAsync({
-  //       executionId: execution.id,
-  //       nonce: execution.nonce,
-  //       actionType: action.actionType,
-  //     });
-
-  //     if (result.completeActionExecution?.errors.length > 0) {
-  //       setErrorMessage(result.completeActionExecution?.errors[0]);
-  //     } else {
-  //       setErrorMessage(null);
-  //       refetch();
-  //     }
-  //   } catch (error) {
-  //     console.error("Error completing action:", error);
-  //     setErrorMessage(
-  //       "An error occurred while completing the action. Please try again.",
-  //     );
-  //   }
-  // }, [execution, completeMutation, action.actionType, refetch]);
-
   const getStatus = useCallback((): EnsStatus => {
     if (!execution || execution.status === "unstarted") return "unstarted";
     if (execution.status === "started") return "started";
@@ -70,7 +47,7 @@ export const EnsStrategy: ActionStrategy = ({
   const buttonProps = useMemo(() => {
     const status = getStatus();
     const baseProps = {
-      actionType: "ens" as const,
+      actionType: action.actionType as ActionType,
       status,
       disabled: !isSignedIn || !isConnected || status === "completed",
       loading: startMutation.isPending || completeMutation.isPending,
@@ -79,8 +56,6 @@ export const EnsStrategy: ActionStrategy = ({
     switch (status) {
       case "unstarted":
         return { ...baseProps, onClick: handleStart };
-      case "started":
-        return { ...baseProps, onClick: () => {} };
       case "completed":
         return { ...baseProps, onClick: () => {} };
     }
@@ -90,6 +65,7 @@ export const EnsStrategy: ActionStrategy = ({
     isConnected,
     startMutation.isPending,
     completeMutation.isPending,
+    action.actionType,
     handleStart,
   ]);
 
@@ -110,7 +86,9 @@ export const EnsStrategy: ActionStrategy = ({
           <span className="text-sm text-foreground/70">
             ENS verification succeeded! ✅
           </span>
-          <span className="text-sm font-bold">Your ENS name is ensName.</span>
+          <span className="text-sm font-bold">
+            Your ENS name is {execution?.startData.domains[0].name}.
+          </span>
         </>
       );
     }
@@ -119,7 +97,7 @@ export const EnsStrategy: ActionStrategy = ({
         {action.displayData.description}
       </span>
     );
-  }, [errorMessage, getStatus, action.displayData.description]);
+  }, [errorMessage, getStatus, action.displayData, execution?.startData]);
 
   return (
     <div className="flex justify-between items-center">

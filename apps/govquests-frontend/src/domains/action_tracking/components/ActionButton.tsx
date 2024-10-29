@@ -4,6 +4,7 @@ import { CheckIcon, CheckSquareIcon, ExternalLinkIcon } from "lucide-react";
 import type React from "react";
 import type {
   ActionType,
+  DiscourseVerificationStatus,
   EnsStatus,
   GitcoinScoreStatus,
   ReadDocumentStatus,
@@ -31,7 +32,7 @@ type ActionConfig = {
     statuses: Record<EnsStatus, StatusConfig>;
   };
   discourse_verification: {
-    statuses: Record<VerifyPositionStatus, StatusConfig>;
+    statuses: Record<DiscourseVerificationStatus, StatusConfig>;
   };
   send_email: {
     statuses: Record<SendEmailStatus, StatusConfig>;
@@ -83,7 +84,6 @@ const actionConfig: ActionConfig = {
   ens: {
     statuses: {
       unstarted: { label: "Connect ENS", icon: null },
-      started: { label: "Verifying ENS", icon: null },
       completed: { label: "ENS Connected", icon: null },
     },
   },

@@ -3,7 +3,7 @@ module Types
     implements Types::StartDataInterface
 
     description "Completion data for ENS action"
-    field :domains, [String], null: false, description: "List of domains to claim"
+    field :domains, [Types::DomainType], null: false, description: "List of domains to claim"
 
     def action_type
       "ens"

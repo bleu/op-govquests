@@ -56,7 +56,10 @@ export const QuestQuery = graphql(`
               email
             }
             ... on EnsStartData {
-              domains
+              domains {
+                name
+                owner
+              }
             }
           }
           completionData {

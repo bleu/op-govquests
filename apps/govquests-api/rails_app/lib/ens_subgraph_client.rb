@@ -34,13 +34,18 @@ class EnsSubgraphClient
   end
 
   DOMAIN_QUERY = <<~GRAPHQL
-    query($first: Int!, $address: String!) {
+      query($first: Int!, $address: String!) {
       domains(
         first: $first
         where: {
-          or: [
-            { wrappedOwner: $address },
-            { owner: $address }
+          and: [
+            {
+              or: [
+                { wrappedOwner: $address },
+                { owner: $address }
+              ]
+            },
+            { name_not_contains: ".addr.reverse" }
           ]
         }
       ) {
