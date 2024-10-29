@@ -52,7 +52,6 @@ module ActionTracking
         
         data = JSON.parse(decrypted_payload)
         api_key = data["key"]
-        binding.pry
         discourse_username = fetch_discourse_username(api_key)
 
         {

@@ -1,9 +1,14 @@
+import { Input } from "@/components/ui/Input";
 import { useSIWE } from "connectkit";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 import ActionButton from "../components/ActionButton";
 import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
 import { useStartActionExecution } from "../hooks/useStartActionExecution";
+import type {
+  ActionType,
+  DiscourseVerificationStatus,
+} from "../types/actionButtonTypes";
 import type { ActionStrategy } from "./ActionStrategy";
 
 export const DiscourseVerificationStrategy: ActionStrategy = ({
@@ -16,11 +21,10 @@ export const DiscourseVerificationStrategy: ActionStrategy = ({
   const { isConnected } = useAccount();
   const startMutation = useStartActionExecution();
   const completeMutation = useCompleteActionExecution(["quest", questId]);
-  const [verificationUrl, setVerificationUrl] = useState<string | null>(null);
   const [encryptedKey, setEncryptedKey] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleStart = async () => {
+  const handleStart = useCallback(async () => {
     try {
       await startMutation.mutateAsync({
         questId,
@@ -34,9 +38,15 @@ export const DiscourseVerificationStrategy: ActionStrategy = ({
       console.error("Error starting action:", error);
       setErrorMessage("Failed to start the action. Please try again.");
     }
-  };
+  }, [
+    questId,
+    action.id,
+    action.actionType,
+    startMutation.mutateAsync,
+    refetch,
+  ]);
 
-  const handleComplete = async () => {
+  const handleComplete = useCallback(async () => {
     if (!execution) return;
     try {
       await completeMutation.mutateAsync({
@@ -51,9 +61,17 @@ export const DiscourseVerificationStrategy: ActionStrategy = ({
       console.error("Error completing action:", error);
       setErrorMessage("Failed to complete the action. Please try again.");
     }
-  };
+  }, [
+    action.actionType,
+    encryptedKey,
+    execution,
+    execution?.id,
+    execution?.nonce,
+    refetch,
+    completeMutation.mutateAsync,
+  ]);
 
-  const getStatus = () => {
+  const getStatus = useCallback((): DiscourseVerificationStatus => {
     if (execution?.status === "completed") {
       return "completed";
     }
@@ -61,7 +79,7 @@ export const DiscourseVerificationStrategy: ActionStrategy = ({
       return "started";
     }
     return "unstarted";
-  };
+  }, [execution]);
 
   const renderedContent = useMemo(() => {
     if (getStatus() === "started") {
@@ -83,7 +101,7 @@ export const DiscourseVerificationStrategy: ActionStrategy = ({
             </p>
           </div>
           <div className="w-full">
-            <input
+            <Input
               type="text"
               value={encryptedKey}
               onChange={(e) => setEncryptedKey(e.target.value)}
@@ -108,12 +126,18 @@ export const DiscourseVerificationStrategy: ActionStrategy = ({
         </span>
       );
     }
-  }, [getStatus, errorMessage]);
+  }, [
+    completeMutation.isPending,
+    execution?.startData,
+    execution?.completionData,
+    getStatus,
+    encryptedKey,
+  ]);
 
   const buttonProps = useMemo(() => {
     const status = getStatus();
     const baseProps = {
-      actionType: action.actionType,
+      actionType: action.actionType as ActionType,
       status,
       disabled: !isSignedIn || !isConnected || status === "completed",
       loading: startMutation.isPending || completeMutation.isPending,
@@ -133,6 +157,9 @@ export const DiscourseVerificationStrategy: ActionStrategy = ({
     startMutation.isPending,
     completeMutation.isPending,
     action.actionType,
+    getStatus,
+    handleStart,
+    handleComplete,
   ]);
 
   return (
