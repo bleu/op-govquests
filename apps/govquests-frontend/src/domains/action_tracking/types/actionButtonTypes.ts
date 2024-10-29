@@ -18,6 +18,8 @@ export type VerifyWalletStatus = "unstarted" | "completed";
 
 export type VerifyDelegateStatus = "unstarted" | "completed";
 
+export type VerifyDelegateStatementStatus = "unstarted" | "completed";
+
 export type ActionType =
   | "gitcoin_score"
   | "read_document"

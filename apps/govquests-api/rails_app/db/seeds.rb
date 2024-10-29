@@ -166,6 +166,17 @@ module QuestData
     }
   }
 
+  VERIFY_DELEGATE_STATEMENT = {
+    action_type: "verify_delegate_statement",
+    display_data: {
+      title: "Delegate Statement",
+      description: "<ul><li>Connect your wallet at <a href='https://vote.optimism.io/' target='_blank' rel='noopener noreferrer'>Agora</a> - the home of Optimism voters.</li><li>Write and publish your delegate statement — keep in mind that your statement will be reviewed by Delegators who will decide whether to grant you voting power!</li><li>Here's a suggested format for your delegate statement:<ul><li>A brief introduction about your background in crypto and what makes you a valuable candidate.</li><li>Your thoughts on the <a href='https://www.optimism.io/vision' target='_blank' rel='noopener noreferrer'>Optimistic Vision</a>.</li><li>Insights on the first three articles of the <a href='https://gov.optimism.io/t/working-constitution-of-the-optimism-collective/55' target='_blank' rel='noopener noreferrer'>Working Constitution</a></li><li>Your interests, which can be either general or crypto-related.</li><li>Your favorite crypto projects.</li></ul></li><li><strong>Once your delegate statement is published, come back to GovQuests and verify!</strong></li></ul>"
+    },
+    action_data: {
+      action_type: "verify_delegate_statement"
+    }
+  }
+
   QUESTS = [
     {
       display_data: {
@@ -237,6 +248,18 @@ module QuestData
       audience: "NonDelegates",
       rewards: [{type: "Points", amount: 20}],
       actions: [VERIFY_DELEGATE_ACTION]
+    },
+    {
+      display_data: {
+        title: "Delegate statement",
+        intro: "Creating a delegate statement helps you communicate your values and priorities within the Optimism governance. It allows delegators to make informed decisions about whom to support.",
+        image_url: "https://example.com/governance101.jpg",
+        requirements: "This quest is for delegates who don't have their delegate statement yet. If you already have one, take a look in the other quests for delegates!"
+      },
+      quest_type: "Governance",
+      audience: "Delegates",
+      rewards: [{type: "Points", amount: 20}],
+      actions: [VERIFY_DELEGATE_STATEMENT]
     }
   ]
 end
