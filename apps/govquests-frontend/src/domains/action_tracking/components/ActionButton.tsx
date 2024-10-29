@@ -4,6 +4,7 @@ import { CheckIcon, CheckSquareIcon, ExternalLinkIcon } from "lucide-react";
 import type React from "react";
 import type {
   ActionType,
+  DiscourseVerificationStatus,
   EnsStatus,
   GitcoinScoreStatus,
   ReadDocumentStatus,
@@ -31,7 +32,7 @@ type ActionConfig = {
     statuses: Record<EnsStatus, StatusConfig>;
   };
   discourse_verification: {
-    statuses: Record<VerifyPositionStatus, StatusConfig>;
+    statuses: Record<DiscourseVerificationStatus, StatusConfig>;
   };
   send_email: {
     statuses: Record<SendEmailStatus, StatusConfig>;
@@ -70,22 +71,33 @@ const actionConfig: ActionConfig = {
   verify_position: {
     statuses: {
       unstarted: { label: "Verify Position", icon: null },
-      started: { label: "Verifying...", icon: null },
-      completed: { label: "Verified", icon: null },
+      started: {
+        label: "Submit API Key",
+        icon: <ExternalLinkIcon className="ml-2 w-4 h-4" />,
+      },
+      completed: {
+        label: "Verified",
+        icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
+      },
     },
   },
   ens: {
     statuses: {
       unstarted: { label: "Connect ENS", icon: null },
-      started: { label: "Verifying ENS", icon: null },
       completed: { label: "ENS Connected", icon: null },
     },
   },
   discourse_verification: {
     statuses: {
-      unstarted: { label: "Verify Discourse", icon: null },
-      started: { label: "Verifying...", icon: null },
-      completed: { label: "Verified", icon: null },
+      unstarted: { label: "Get Verification URL", icon: null },
+      started: {
+        label: "Submit API Key",
+        icon: <ExternalLinkIcon className="ml-2 w-4 h-4" />,
+      },
+      completed: {
+        label: "Verified",
+        icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
+      },
     },
   },
   send_email: {

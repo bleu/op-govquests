@@ -43,7 +43,7 @@ module QuestData
     action_type: "discourse_verification",
     display_data: {
       title: "Verify Discourse Account",
-      description: "Connect and verify your Discourse account to participate in governance discussions."
+      description: "To verify you must authorize GovQuest's access to your Discourse Account. After your authorization, you'll be provided with the API Key that must be entered bellow."
     },
     action_data: {
       action_type: "discourse_verification",
@@ -135,7 +135,7 @@ module QuestData
   ENS_ACTION = {
     action_type: "ens",
     display_data: {
-      title: "Set your ENS name",
+      title: "Verify ENS",
       description: "Claim your unique ENS name!"
     },
     action_data: {
@@ -158,15 +158,15 @@ module QuestData
   QUESTS = [
     {
       display_data: {
-        title: "Discourse Verification",
-        intro: "Verify your Discourse account to actively participate in Optimism's governance discussions. This quest will guide you through the process of connecting your Discourse account.",
+        title: "Claim Your Identity",
+        intro: "Building a strong reputation in the Optimism Collective starts with having a <strong>Ethereum Name Service (ENS)</strong>, and also a <strong>recognizable name</strong> in the Governance Forum. A unique identity helps the community remember you and <strong>connects your ideas to a trusted name.</strong> Let’s take the first step towards establishing your presence in OP governance!",
         image_url: "https://example.com/discourse-verification.jpg",
-        requirements: "You must have a Discourse account on the Optimism governance forum to complete this quest. If you don't have one, you'll be guided to create one."
+        requirements: "<span>To complete this quest, you need to have:</span> <ul><li>A <strong>ENS</strong> — if you don't have it, <a href='https://ens.domains/' target='_blank' rel='noopener noreferrer'>register your ENS here</a> and remember to <strong>choose a distinct username</strong> that represents you (like yourname.eth).</li> <li>A <strong>Discourse account</strong> on <strong>Optimism Governance Forum</strong> — if you also don't have it, <a href='https://gov.optimism.io/' target='_blank' rel='noopener noreferrer'>create your account here.</a> We recommend you to use your ENS as username so you can get easily recognizable.</li></ul>"
       },
       quest_type: "Governance",
       audience: "Delegates",
       rewards: [{type: "Points", amount: 150}],
-      actions: [DISCOURSE_VERIFICATION_ACTION]
+      actions: [ENS_ACTION, DISCOURSE_VERIFICATION_ACTION]
     },
     {
       display_data: {
@@ -202,24 +202,13 @@ module QuestData
       rewards: [{type: "Points", amount: 100}],
       actions: [GITCOIN_ACTION]
     },
-    {
-      display_data: {
-        title: "ENS Name",
-        intro: "Claim your unique ENS name and make it easier for others to find you. This quest will guide you through the process of setting up your ENS name.",
-        image_url: "https://example.com/ens-name.jpg",
-        requirements: "You must have an ENS name to complete this quest. Not sure how to get one? Check some tips on how to set up your ENS name."
-      },
-      quest_type: "Governance",
-      audience: "Delegates",
-      rewards: [{type: "Points", amount: 100}],
-      actions: [ENS_ACTION]
-    },
+
     {
       display_data: {
         title: "Top 100 Delegates",
         intro: "Have you reached the Top 100 Delegates in Season 6? Let’s check your ranking and, if you’re among the top, celebrate your achievement with a reward!",
         image_url: "https://example.com/advanced-governance.jpg",
-        requirements: 'You need to be a delegate to do this quest! If you’re not one, start with Become Delegate Quest.'
+        requirements: "You need to be a delegate to do this quest! If you’re not one, start with Become Delegate Quest."
       },
       quest_type: "Governance",
       audience: "Delegates",

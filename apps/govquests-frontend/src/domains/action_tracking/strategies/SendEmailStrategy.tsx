@@ -47,7 +47,8 @@ export const SendEmailStrategy: ActionStrategy = ({
       actionType: action.actionType as ActionType,
       status: getStatus(),
       onClick: handleStart,
-      disabled: getStatus() === "completed" || !isSignedIn || !isConnected,
+      disabled:
+        getStatus() === "completed" || !isSignedIn || !isConnected || !email,
       loading: startMutation.isPending,
     }),
     [
@@ -57,6 +58,7 @@ export const SendEmailStrategy: ActionStrategy = ({
       isConnected,
       startMutation.isPending,
       action.actionType,
+      email,
     ],
   );
 

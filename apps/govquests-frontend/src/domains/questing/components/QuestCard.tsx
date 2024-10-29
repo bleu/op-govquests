@@ -38,7 +38,13 @@ const QuestCard: React.FC<QuestProps> = ({ quest }) => {
               {quest.displayData.title}
             </h3>
           </div>
-          <p className="text-md line-clamp-3">{quest.displayData.intro}</p>
+          <p className="text-md line-clamp-3">
+            <span
+              dangerouslySetInnerHTML={{
+                __html: quest.displayData.intro || "",
+              }}
+            />
+          </p>
         </div>
       </Link>
     </>

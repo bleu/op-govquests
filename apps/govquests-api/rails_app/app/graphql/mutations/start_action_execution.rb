@@ -16,7 +16,7 @@ module Mutations
 
       start_data = case action_type
       when "ens"
-        ens_start_data&.to_h || {
+        {
           address: current_user.address
         }
       when "wallet_verification"
