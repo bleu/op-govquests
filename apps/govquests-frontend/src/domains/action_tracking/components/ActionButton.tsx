@@ -9,8 +9,10 @@ import type {
   GitcoinScoreStatus,
   ReadDocumentStatus,
   SendEmailStatus,
+  VerifyAgoraStatus,
   VerifyDelegateStatementStatus,
   VerifyDelegateStatus,
+  VerifyFirstVoteStatus,
   VerifyPositionStatus,
   VerifyWalletStatus,
 } from "../types/actionButtonTypes";
@@ -47,6 +49,12 @@ type ActionConfig = {
   };
   verify_delegate_statement: {
     statuses: Record<VerifyDelegateStatementStatus, StatusConfig>;
+  };
+  verify_agora: {
+    statuses: Record<VerifyAgoraStatus, StatusConfig>;
+  };
+  verify_first_vote: {
+    statuses: Record<VerifyFirstVoteStatus, StatusConfig>;
   };
 };
 
@@ -135,6 +143,24 @@ const actionConfig: ActionConfig = {
       completed: {
         label: "Verified",
         icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
+      },
+    },
+  },
+  verify_agora: {
+    statuses: {
+      unstarted: { label: "Connect Agora", icon: null },
+      completed: {
+        label: "Connected",
+        icon: null,
+      },
+    },
+  },
+  verify_first_vote: {
+    statuses: {
+      unstarted: { label: "Confirm first vote", icon: null },
+      completed: {
+        label: "Vote confirmed",
+        icon: null,
       },
     },
   },

@@ -20,6 +20,10 @@ export type VerifyDelegateStatus = "unstarted" | "completed";
 
 export type VerifyDelegateStatementStatus = "unstarted" | "completed";
 
+export type VerifyAgoraStatus = "unstarted" | "completed";
+
+export type VerifyFirstVoteStatus = "unstarted" | "completed";
+
 export type ActionType =
   | "gitcoin_score"
   | "read_document"
