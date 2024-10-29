@@ -159,10 +159,9 @@ module QuestData
     {
       display_data: {
         title: "Claim Your Identity",
-        intro: "Building a strong reputation in the Optimism Collective starts with having a Ethereum Name Service (ENS), and also a recognizable name in the Governance Forum. A unique identity helps the community remember you and connects your ideas to a trusted name. Let’s take the first step towards establishing your presence in OP governance!",
+        intro: "Building a strong reputation in the Optimism Collective starts with having a <strong>Ethereum Name Service (ENS)</strong>, and also a <strong>recognizable name</strong> in the Governance Forum. A unique identity helps the community remember you and <strong>connects your ideas to a trusted name.</strong> Let’s take the first step towards establishing your presence in OP governance!",
         image_url: "https://example.com/discourse-verification.jpg",
-        requirements: "To complete this quest, you need to have: A ENS — if you don't have it, register your ENS here and remember to choose a distinct username that represents you (like yourname.eth).
-                        A Dis  course account  on Optimism Governance Forum — if you also don't have it, create your account here. We recommend you to use your ENS as username so you can get easily recognizable. "
+        requirements: "<span>To complete this quest, you need to have:</span> <ul><li>A <strong>ENS</strong> — if you don't have it, <a href='https://ens.domains/' target='_blank' rel='noopener noreferrer'>register your ENS here</a> and remember to <strong>choose a distinct username</strong> that represents you (like yourname.eth).</li> <li>A <strong>Discourse account</strong> on <strong>Optimism Governance Forum</strong> — if you also don't have it, <a href='https://gov.optimism.io/' target='_blank' rel='noopener noreferrer'>create your account here.</a> We recommend you to use your ENS as username so you can get easily recognizable.</li></ul>"
       },
       quest_type: "Governance",
       audience: "Delegates",
