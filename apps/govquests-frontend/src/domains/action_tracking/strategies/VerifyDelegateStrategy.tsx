@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import HtmlRender from "@/components/ui/HtmlRender";
 import { useSIWE } from "connectkit";
 import React, { useCallback, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
@@ -69,19 +69,7 @@ export const VerifyDelegateStrategy: ActionStrategy = ({
           {action.displayData.title}
         </span>
 
-        <div
-          className={cn(
-            "prose prose-sm max-w-none",
-            "prose-a:underline",
-            "prose-strong:font-bold prose-strong:text-inherit",
-            "prose-ul:list-disc prose-ul:pl-5 prose-ul:mt-0",
-            "prose-li:pl-0 prose-li:my-0",
-          )}
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-          dangerouslySetInnerHTML={{
-            __html: action.displayData.description || "",
-          }}
-        />
+        <HtmlRender content={action.displayData.description || ""} />
         {errorMessage && (
           <span className="text-sm font-bold">{errorMessage}</span>
         )}

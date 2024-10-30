@@ -1,4 +1,5 @@
 import HtmlRender from "@/components/ui/HtmlRender";
+import { cn } from "@/lib/utils";
 import { useSIWE } from "connectkit";
 import React, { useCallback, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
@@ -11,7 +12,7 @@ import type {
 } from "../types/actionButtonTypes";
 import type { ActionStrategy } from "./ActionStrategy";
 
-export const VerifyDelegateStatement: ActionStrategy = ({
+export const VerifyAgora: ActionStrategy = ({
   questId,
   action,
   execution,
@@ -68,7 +69,6 @@ export const VerifyDelegateStatement: ActionStrategy = ({
         <span className="text-xl font-semibold mb-1">
           {action.displayData.title}
         </span>
-
         <HtmlRender content={action.displayData.description || ""} />
         {errorMessage && (
           <span className="text-sm font-bold">{errorMessage}</span>

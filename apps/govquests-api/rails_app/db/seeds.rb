@@ -176,6 +176,38 @@ module QuestData
       action_type: "verify_delegate_statement"
     }
   }
+  VERIFY_DELEGATE_STATEMENT = {
+    action_type: "verify_delegate_statement",
+    display_data: {
+      title: "Delegate Statement",
+      description: "<ul><li>Connect your wallet at <a href='https://vote.optimism.io/' target='_blank' rel='noopener noreferrer'>Agora</a> - the home of Optimism voters.</li><li>Write and publish your delegate statement — keep in mind that your statement will be reviewed by Delegators who will decide whether to grant you voting power!</li><li><strong>Here's a suggested format for your delegate statement:</strong><ul><li>A brief introduction about your background in crypto and what makes you a valuable candidate.</li><li>Your thoughts on the <a href='https://www.optimism.io/vision' target='_blank' rel='noopener noreferrer'>Optimistic Vision</a>.</li><li>Insights on the first three articles of the <a href='https://gov.optimism.io/t/working-constitution-of-the-optimism-collective/55' target='_blank' rel='noopener noreferrer'>Working Constitution</a></li><li>Your interests, which can be either general or crypto-related.</li><li>Your favorite crypto projects.</li></ul></li><li><strong>Once your delegate statement is published, come back to GovQuests and verify!</strong></li></ul>"
+    },
+    action_data: {
+      action_type: "verify_delegate_statement"
+    }
+  }
+
+  VERIFY_AGORA = {
+    action_type: "verify_agora",
+    display_data: {
+      title: "Connect to Agora",
+      description: "Agora is the home of Optimism voters. You must connect before voting."
+    },
+    action_data: {
+      action_type: "verify_agora"
+    }
+  }
+
+  VERIFY_FIRST_VOTE = {
+    action_type: "verify_first_vote",
+    display_data: {
+      title: "Cast your first vote",
+      description: "<ul><li>Choose an <a href='https://vote.optimism.io/' target='_blank' rel='noopener noreferrer'>open proposal here</a> and <strong>cast your vote.</strong></li><li>Don't forget to <strong>share your reasoning</strong> to help the community understand your perspective.</li><li>Once you're done, <strong>come back to complete the quest and claim your reward.</strong></li></ul>"
+    },
+    action_data: {
+      action_type: "verify_first_vote"
+    }
+  }
 
   QUESTS = [
     {
@@ -260,6 +292,18 @@ module QuestData
       audience: "Delegates",
       rewards: [{type: "Points", amount: 20}],
       actions: [VERIFY_DELEGATE_STATEMENT]
+    },
+    {
+      display_data: {
+        title: "First Vote Milestone",
+        intro: "As a delegate, casting your first vote is an important step in shaping the future. Step up, participate, and make your mark with your first vote!",
+        image_url: "https://example.com/governance101.jpg",
+        requirements: "To complete this quest, you need to <strong>be a registered delegate</strong> — if you’re not, start with Become Delegate Quest — and <strong>not have cast a vote</strong> yet."
+      },
+      quest_type: "Governance",
+      audience: "Delegates",
+      rewards: [{type: "Points", amount: 20}],
+      actions: [VERIFY_AGORA, VERIFY_FIRST_VOTE]
     }
   ]
 end

@@ -11,7 +11,7 @@ import type {
 } from "../types/actionButtonTypes";
 import type { ActionStrategy } from "./ActionStrategy";
 
-export const VerifyDelegateStatement: ActionStrategy = ({
+export const VerifyFirstVote: ActionStrategy = ({
   questId,
   action,
   execution,
