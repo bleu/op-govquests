@@ -9,6 +9,8 @@ import type {
   GitcoinScoreStatus,
   ReadDocumentStatus,
   SendEmailStatus,
+  VerifyDelegateStatementStatus,
+  VerifyDelegateStatus,
   VerifyPositionStatus,
   VerifyWalletStatus,
 } from "../types/actionButtonTypes";
@@ -41,7 +43,10 @@ type ActionConfig = {
     statuses: Record<VerifyWalletStatus, StatusConfig>;
   };
   verify_delegate: {
-    statuses: Record<VerifyWalletStatus, StatusConfig>;
+    statuses: Record<VerifyDelegateStatus, StatusConfig>;
+  };
+  verify_delegate_statement: {
+    statuses: Record<VerifyDelegateStatementStatus, StatusConfig>;
   };
 };
 
@@ -116,6 +121,15 @@ const actionConfig: ActionConfig = {
     },
   },
   verify_delegate: {
+    statuses: {
+      unstarted: { label: "Verify", icon: null },
+      completed: {
+        label: "Verified",
+        icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
+      },
+    },
+  },
+  verify_delegate_statement: {
     statuses: {
       unstarted: { label: "Verify", icon: null },
       completed: {
