@@ -53,8 +53,6 @@ module ActionTracking
         user_id: @user_id,
         completion_data: completion_data
       })
-    rescue => e
-      raise NotCompletedError.new(e.message)
     end
 
     def valid_nonce?(nonce)

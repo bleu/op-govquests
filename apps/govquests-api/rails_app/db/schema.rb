@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_10_11_130452) do
+ActiveRecord::Schema[8.1].define(version: 2024_10_31_154911) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -128,14 +128,34 @@ ActiveRecord::Schema[8.1].define(version: 2024_10_11_130452) do
 
   create_table "quests", force: :cascade do |t|
     t.string "quest_id", null: false
-    t.string "quest_type", null: false
     t.string "audience", null: false
     t.string "status", null: false
-    t.jsonb "rewards", default: {}, null: false
     t.jsonb "display_data", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["quest_id"], name: "index_quests_on_quest_id", unique: true
+  end
+
+  create_table "reward_issuances", force: :cascade do |t|
+    t.uuid "pool_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "issued_at", null: false
+    t.datetime "claimed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pool_id", "user_id"], name: "index_reward_issuances_on_pool_id_and_user_id", unique: true
+    t.index ["user_id"], name: "index_reward_issuances_on_user_id"
+  end
+
+  create_table "reward_pools", force: :cascade do |t|
+    t.uuid "pool_id", null: false
+    t.uuid "quest_id", null: false
+    t.jsonb "reward_definition", null: false
+    t.integer "remaining_inventory"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pool_id"], name: "index_reward_pools_on_pool_id", unique: true
+    t.index ["quest_id"], name: "index_reward_pools_on_quest_id"
   end
 
   create_table "rewards", force: :cascade do |t|

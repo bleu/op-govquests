@@ -21,6 +21,7 @@ module Questing
       command_handler = OnQuestCommands.new(event_store)
       command_bus.register(CreateQuest, command_handler)
       command_bus.register(AssociateActionWithQuest, command_handler)
+      command_bus.register(AssociateRewardPool, command_handler)
       command_bus.register(StartUserQuest, command_handler)
       command_bus.register(CompleteUserQuest, command_handler)
       command_bus.register(UpdateUserQuestProgress, command_handler)

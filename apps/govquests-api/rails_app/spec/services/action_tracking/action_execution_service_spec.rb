@@ -17,11 +17,7 @@ RSpec.describe ActionTracking::ActionExecutionService do
     create_quest_with_actions(
       title: "Test Quest",
       quest_id: quest_id,
-      rewards: [
-        {"type" => "xp", "amount" => 100}
-      ],
       audience: "AllUsers",
-      quest_type: "Standard",
       actions: [
         {
           action_id: action_id,
@@ -45,7 +41,8 @@ RSpec.describe ActionTracking::ActionExecutionService do
           execution_id: execution_id,
           nonce: nonce,
           user_id: user_id,
-          completion_data: {"completed_at" => Time.current}
+          completion_data: {"completed_at" => Time.current},
+          action_type: "read_document"
         )
 
         expect(result).to be_a(ActionTracking::ActionExecutionReadModel)
@@ -60,7 +57,8 @@ RSpec.describe ActionTracking::ActionExecutionService do
           execution_id: execution_id,
           nonce: "invalidnonce",
           user_id: user_id,
-          completion_data: {}
+          completion_data: {},
+          action_type: "read_document"
         )
 
         expect(result).to eq({error: "Invalid nonce"})
@@ -74,7 +72,8 @@ RSpec.describe ActionTracking::ActionExecutionService do
           execution_id: invalid_execution_id,
           nonce: "nonce",
           user_id: user_id,
-          completion_data: {}
+          completion_data: {},
+          action_type: "read_document"
         )
 
         expect(result).to eq({error: "Execution not started"})
@@ -94,7 +93,8 @@ RSpec.describe ActionTracking::ActionExecutionService do
           execution_id: execution_id,
           nonce: nonce,
           user_id: user_id,
-          completion_data: {}
+          completion_data: {},
+          action_type: "read_document"
         )
 
         expect(result).to eq({error: "Execution already completed"})

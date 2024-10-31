@@ -35,7 +35,7 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
                 QUEST
               </span>
               <div className="flex items-center">
-                {quest.rewards.map((reward) => (
+                {quest.rewardPools.map(({ rewardDefinition: reward }) => (
                   <RewardIndicator key={reward.type} reward={reward} />
                 ))}
               </div>
@@ -47,7 +47,7 @@ const QuestDetails: React.FC<QuestDetailsProps> = ({ quest }) => {
             </div>
             <QuestContentSection
               title="About this quest"
-              content={quest.displayData.intro}
+              content={quest.displayData.intro || ""}
             />
             {quest.displayData.requirements ? (
               <QuestContentSection

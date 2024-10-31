@@ -9,11 +9,7 @@ RSpec.describe Questing::OnActionAssociatedWithQuest do
   before do
     create_quest(
       quest_id: quest_id,
-      rewards: [
-        {"foo" => "bar", "amount" => 100}
-      ],
       title: "Test Quest",
-      quest_type: "Test",
       audience: "All"
     )
 

@@ -5,14 +5,22 @@ module Rewarding
     end
 
     def call(command)
-      @repository.with_aggregate(Reward, command.aggregate_id) do |reward|
-        case command
-        when CreateReward
-          reward.create(command.reward_type, command.value, command.expiry_date)
-        when IssueReward
-          reward.issue(command.user_id)
-        when ClaimReward
-          reward.claim(command.user_id)
+      case command
+      when CreateRewardPool
+        @repository.with_aggregate(RewardPool, command.aggregate_id) do |pool|
+          pool.create(
+            quest_id: command.quest_id,
+            reward_definition: command.reward_definition,
+            initial_inventory: command.initial_inventory
+          )
+        end
+      when IssueReward
+        @repository.with_aggregate(RewardPool, command.aggregate_id) do |pool|
+          pool.issue_reward(command.user_id)
+        end
+      when ClaimReward
+        @repository.with_aggregate(RewardPool, command.aggregate_id) do |pool|
+          pool.claim_reward(command.user_id)
         end
       end
     end

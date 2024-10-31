@@ -11,7 +11,7 @@ RSpec.describe Questing::UserQuest do
   let(:event_store) { Infra::EventStore.in_memory }
 
   before do
-    quest.create({"title" => "Test Quest", "intro" => "Test Intro"}, "Standard", "AllUsers", [{"type" => "points", "value" => 10}])
+    quest.create({"title" => "Test Quest", "intro" => "Test Intro"}, "AllUsers")
     event_store.publish(quest.unpublished_events.to_a, stream_name: "Quest$#{quest_id}")
   end
 

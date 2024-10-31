@@ -1,12 +1,9 @@
-# spec/integration/quest_completion_spec.rb
 require "rails_helper"
 
 RSpec.describe "Quest Completion", type: :integration do
   # Define quest attributes
   let(:quest_title) { "Complete Onboarding" }
-  let(:quest_type) { "Onboarding" }
   let(:audience) { "AllUsers" }
-  let(:rewards) { [{"type" => "points", "amount" => 100}] }
 
   # Define action attributes
   let(:action1_attrs) do
@@ -32,9 +29,7 @@ RSpec.describe "Quest Completion", type: :integration do
   let(:quest_data) do
     create_quest_with_actions(
       title: quest_title,
-      quest_type: quest_type,
       audience: audience,
-      rewards: rewards,
       actions: [action1_attrs, action2_attrs]
     )
   end

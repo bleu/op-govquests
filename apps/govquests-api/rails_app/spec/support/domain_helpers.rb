@@ -12,23 +12,21 @@ module DomainHelpers
     user_id
   end
 
-  def create_quest(title:, quest_type: "Standard", audience: "AllUsers", rewards: [], quest_id: nil)
+  def create_quest(title:, audience: "AllUsers", quest_id: nil)
     quest_id = SecureRandom.uuid if quest_id.nil?
     display_data = {"title" => title}
 
     command_bus.call(Questing::CreateQuest.new(
       quest_id: quest_id,
       display_data: display_data,
-      quest_type: quest_type,
-      audience: audience,
-      rewards: rewards
+      audience: audience
     ))
 
     quest_id
   end
 
-  def create_quest_with_actions(title:, quest_type: "Standard", audience: "AllUsers", rewards: [], actions: [], quest_id: nil)
-    quest_id = create_quest(title: title, quest_type: quest_type, audience: audience, rewards: rewards, quest_id: quest_id)
+  def create_quest_with_actions(title:, audience: "AllUsers", actions: [], quest_id: nil)
+    quest_id = create_quest(title: title, audience: audience, quest_id: quest_id)
 
     action_ids = []
     actions.each_with_index do |action_attrs, index|
@@ -84,7 +82,8 @@ module DomainHelpers
       quest_id: quest_id,
       action_id: action_id,
       user_id: user_id,
-      start_data: start_data
+      start_data: start_data,
+      nonce: SecureRandom.hex(16)
     ))
     execution_id
   end

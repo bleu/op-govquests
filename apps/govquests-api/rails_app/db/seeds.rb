@@ -15,26 +15,48 @@ module ActionCreation
 end
 
 module QuestCreation
-  def self.create_quest(quest_data)
+  def self.create_quest_with_rewards(quest_data)
     quest_id = SecureRandom.uuid
-    command = Questing::CreateQuest.new(
-      quest_id: quest_id,
-      display_data: quest_data[:display_data],
-      quest_type: quest_data[:quest_type],
-      audience: quest_data[:audience],
-      rewards: quest_data[:rewards]
+
+    Rails.configuration.command_bus.call(
+      Questing::CreateQuest.new(
+        quest_id: quest_id,
+        display_data: quest_data[:display_data],
+        audience: quest_data[:audience]
+      )
     )
-    Rails.configuration.command_bus.call(command)
+
+    quest_data[:rewards].each do |reward|
+      pool_id = SecureRandom.uuid
+      Rails.configuration.command_bus.call(
+        Rewarding::CreateRewardPool.new(
+          pool_id: pool_id,
+          quest_id: quest_id,
+          reward_definition: reward,
+          initial_inventory: (reward["type"] == "Token") ? 1000 : nil
+        )
+      )
+
+      Rails.configuration.command_bus.call(
+        Questing::AssociateRewardPool.new(
+          quest_id: quest_id,
+          pool_id: pool_id,
+          reward_definition: reward
+        )
+      )
+    end
+
     quest_id
   end
 
   def self.associate_action_with_quest(quest_id, action_id, position)
-    command = Questing::AssociateActionWithQuest.new(
-      quest_id: quest_id,
-      action_id: action_id,
-      position: position
+    Rails.configuration.command_bus.call(
+      Questing::AssociateActionWithQuest.new(
+        quest_id: quest_id,
+        action_id: action_id,
+        position: position
+      )
     )
-    Rails.configuration.command_bus.call(command)
   end
 end
 
@@ -163,7 +185,6 @@ module QuestData
         image_url: "https://example.com/discourse-verification.jpg",
         requirements: "<span>To complete this quest, you need to have:</span> <ul><li>A <strong>ENS</strong> — if you don't have it, <a href='https://ens.domains/' target='_blank' rel='noopener noreferrer'>register your ENS here</a> and remember to <strong>choose a distinct username</strong> that represents you (like yourname.eth).</li> <li>A <strong>Discourse account</strong> on <strong>Optimism Governance Forum</strong> — if you also don't have it, <a href='https://gov.optimism.io/' target='_blank' rel='noopener noreferrer'>create your account here.</a> We recommend you to use your ENS as username so you can get easily recognizable.</li></ul>"
       },
-      quest_type: "Governance",
       audience: "Delegates",
       rewards: [{type: "Points", amount: 150}],
       actions: [ENS_ACTION, DISCOURSE_VERIFICATION_ACTION]
@@ -174,7 +195,6 @@ module QuestData
         intro: "Connect your wallet to unlock the full experience. Track your progress, earn rewards, and get recognized for your contributions.",
         image_url: "https://example.com/governance101.jpg"
       },
-      quest_type: "Onboarding",
       audience: "AllUsers",
       rewards: [{type: "Points", amount: 20}],
       actions: UNLOCK_PROFILE_ACTIONS
@@ -185,7 +205,6 @@ module QuestData
         intro: "As a Delegate, understanding Optimism's values and your responsibilities is key. This quest will provide essential resources to help you make informed decisions and contribute to Optimism's future.",
         image_url: "https://example.com/governance101.jpg"
       },
-      quest_type: "Onboarding",
       audience: "AllUsers",
       rewards: [{type: "Points", amount: 20}],
       actions: READ_DOCUMENT_ACTIONS
@@ -197,7 +216,6 @@ module QuestData
         image_url: "https://example.com/advanced-governance.jpg",
         requirements: "Your Unique Humanity Score must be 20 or higher to complete this quest. Not there yet? Check some tips on how to increase your score."
       },
-      quest_type: "Governance",
       audience: "Delegates",
       rewards: [{type: "Points", amount: 100}],
       actions: [GITCOIN_ACTION]
@@ -210,7 +228,6 @@ module QuestData
         image_url: "https://example.com/advanced-governance.jpg",
         requirements: "You need to be a delegate to do this quest! If you’re not one, start with Become Delegate Quest."
       },
-      quest_type: "Governance",
       audience: "Delegates",
       rewards: [{type: "Points", amount: 100}],
       actions: [VERIFY_POSITION_ACTION]
@@ -219,11 +236,15 @@ module QuestData
 end
 
 def create_quests_and_actions
-  puts "Creating quests and actions..."
-  QuestData::QUESTS.each do |quest_data|
-    quest_id = QuestCreation.create_quest(quest_data)
-    puts "Created quest: #{quest_data[:display_data][:title]} (#{quest_id})"
+  puts "Creating quests, actions, and reward pools..."
 
+  QuestData::QUESTS.each do |quest_data|
+    # Create quest and its reward pools
+    quest_id = QuestCreation.create_quest_with_rewards(quest_data)
+    puts "Created quest: #{quest_data[:display_data][:title]} (#{quest_id})"
+    puts "Created reward pools for quest rewards: #{quest_data[:rewards].inspect}"
+
+    # Create and associate actions
     quest_data[:actions].each_with_index do |action_data, index|
       action_id = ActionCreation.create_action(action_data)
       QuestCreation.associate_action_with_quest(quest_id, action_id, index + 1)
@@ -234,7 +255,7 @@ def create_quests_and_actions
     puts "---"
   end
 
-  puts "All quests created and actions associated successfully!"
+  puts "All quests created with their actions and reward pools successfully!"
 end
 
 create_quests_and_actions

@@ -1,4 +1,3 @@
-# spec/govquests/authentication/user_spec.rb
 require "spec_helper"
 
 RSpec.describe Authentication::User do

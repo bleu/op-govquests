@@ -4,25 +4,30 @@ module Questing
 
     QuestNotCreatedError = Class.new(StandardError)
 
-    attr_reader :rewards, :actions, :state, :display_data, :quest_type, :audience
+    attr_reader :actions, :state, :display_data, :audience
 
     def initialize(id)
       @id = id
       @actions = []
       @state = :draft
-      @rewards = []
+      @reward_pools = {}
     end
 
-    def create(display_data, quest_type, audience, rewards)
+    def create(display_data, audience)
       display_data ||= {}
-      rewards ||= []
 
       apply QuestCreated.new(data: {
         quest_id: @id,
         display_data: display_data,
-        quest_type: quest_type,
-        audience: audience,
-        rewards: rewards
+        audience: audience
+      })
+    end
+
+    def associate_reward_pool(pool_id, reward_definition)
+      apply RewardPoolAssociated.new(data: {
+        quest_id: @id,
+        pool_id: pool_id,
+        reward_definition: reward_definition
       })
     end
 
@@ -38,12 +43,14 @@ module Questing
 
     private
 
+    on RewardPoolAssociated do |event|
+      @reward_pools[event.data[:reward_definition][:type]] = event.data[:pool_id]
+    end
+
     on QuestCreated do |event|
       @state = :created
       @display_data = event.data[:display_data]
-      @quest_type = event.data[:quest_type]
       @audience = event.data[:audience]
-      @rewards = event.data[:rewards]
     end
 
     on ActionAssociatedWithQuest do |event|

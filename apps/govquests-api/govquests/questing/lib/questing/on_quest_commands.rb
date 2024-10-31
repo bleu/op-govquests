@@ -10,6 +10,8 @@ module Questing
         handle_create_quest(command)
       when AssociateActionWithQuest
         handle_associate_action_with_quest(command)
+      when AssociateRewardPool
+        handle_associate_reward_pool(command)
       when StartUserQuest
         handle_start_user_quest(command)
       when CompleteUserQuest
@@ -25,13 +27,19 @@ module Questing
 
     def handle_create_quest(command)
       @repository.with_aggregate(Quest, command.aggregate_id) do |quest|
-        quest.create(command.display_data, command.quest_type, command.audience, command.rewards)
+        quest.create(command.display_data, command.audience)
       end
     end
 
     def handle_associate_action_with_quest(command)
       @repository.with_aggregate(Quest, command.aggregate_id) do |quest|
         quest.associate_action(command.action_id, command.position)
+      end
+    end
+
+    def handle_associate_reward_pool(command)
+      @repository.with_aggregate(Quest, command.aggregate_id) do |quest|
+        quest.associate_reward_pool(command.pool_id, command.reward_definition)
       end
     end
 

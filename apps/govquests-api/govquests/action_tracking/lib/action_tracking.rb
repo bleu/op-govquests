@@ -5,6 +5,7 @@ require_relative "action_tracking/events"
 require_relative "action_tracking/on_action_commands"
 require_relative "action_tracking/action"
 require_relative "action_tracking/action_execution"
+require_relative "action_tracking/strategies/action_execution_strategy_factory"
 
 ACTION_EXECUTION_NAMESPACE_UUID = "061d2578-e3b3-41c0-b51d-b75b70876e71".freeze
 
