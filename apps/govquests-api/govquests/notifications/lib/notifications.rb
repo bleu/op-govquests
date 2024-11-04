@@ -3,16 +3,27 @@ require_relative "notifications/commands"
 require_relative "notifications/events"
 require_relative "notifications/template_commands"
 require_relative "notifications/template_events"
-require_relative "notifications/on_notification_commands"
+
 require_relative "notifications/notification"
 
 module Notifications
   class Configuration
     def call(event_store, command_bus)
-      command_handler = OnNotificationCommands.new(event_store)
-      command_bus.register(CreateNotification, command_handler)
-      command_bus.register(SendNotification, command_handler)
-      command_bus.register(MarkNotificationAsRead, command_handler)
+      CommandHandler.register_commands(event_store, command_bus)
+    end
+  end
+
+  class CommandHandler < Infra::CommandHandlerRegistry
+    handle "Notifications::CreateNotification", aggregate: Notification do |notification, cmd|
+      notification.create(cmd.user_id, cmd.content, cmd.notification_type)
+    end
+
+    handle "Notifications::SendNotification", aggregate: Notification do |notification, cmd|
+      notification.send_notification
+    end
+
+    handle "Notifications::MarkNotificationAsRead", aggregate: Notification do |notification, cmd|
+      notification.mark_as_read
     end
   end
 end
