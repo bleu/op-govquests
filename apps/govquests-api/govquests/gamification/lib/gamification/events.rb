@@ -1,3 +1,5 @@
+require_relative "types/claim_metadata"
+
 module Gamification
   class TokenRewardAdded < Infra::Event
     attribute :profile_id, Infra::Types::UUID
@@ -10,6 +12,7 @@ module Gamification
   class TokenClaimStarted < Infra::Event
     attribute :profile_id, Infra::Types::UUID
     attribute :token_address, Infra::Types::String
+    attribute :user_address, Infra::Types::String
     attribute :amount, Infra::Types::Integer
     attribute :claim_metadata, Infra::Types::Hash
     attribute :started_at, Infra::Types::Time
@@ -18,6 +21,7 @@ module Gamification
   class TokenClaimCompleted < Infra::Event
     attribute :profile_id, Infra::Types::UUID
     attribute :token_address, Infra::Types::String
+    attribute :user_address, Infra::Types::String
     attribute :amount, Infra::Types::Integer
     attribute :claim_metadata, Infra::Types::Hash
     attribute :completed_at, Infra::Types::Time

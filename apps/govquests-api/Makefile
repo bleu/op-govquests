@@ -1,5 +1,5 @@
 # Define the subdirectories where tests should be run
-SUBDIRS := govquests/authentication govquests/questing govquests/gamification govquests/notifications govquests/rewarding govquests/action_tracking infra rails_app
+SUBDIRS := govquests/shared_kernel govquests/authentication govquests/questing govquests/gamification govquests/notifications govquests/rewarding govquests/action_tracking infra rails_app
 
 .PHONY: test $(SUBDIRS)
 

@@ -50,7 +50,7 @@ module Gamification
     handle "Gamification::StartTokenClaim", aggregate: GameProfile do |profile, cmd|
       profile.start_token_claim(
         token_address: cmd.token_address,
-        user_address: cmd.claim_metadata["user_address"]
+        user_address: cmd.user_address
       )
     end
 
