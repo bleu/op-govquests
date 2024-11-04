@@ -30,17 +30,20 @@ module Rewarding
     end
   end
 end
+
 # == Schema Information
 #
 # Table name: reward_issuances
 #
-#  id         :bigint           not null, primary key
-#  claimed_at :datetime
-#  issued_at  :datetime         not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  pool_id    :uuid             not null
-#  user_id    :uuid             not null
+#  id                 :bigint           not null, primary key
+#  claim_completed_at :datetime
+#  claim_metadata     :jsonb            not null
+#  claim_started_at   :datetime
+#  issued_at          :datetime         not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  pool_id            :uuid             not null
+#  user_id            :uuid             not null
 #
 # Indexes
 #

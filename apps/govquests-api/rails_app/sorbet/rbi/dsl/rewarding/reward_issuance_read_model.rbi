@@ -630,28 +630,28 @@ class Rewarding::RewardIssuanceReadModel
 
   module GeneratedAttributeMethods
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def claimed_at; end
+    def claim_completed_at; end
 
     sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def claimed_at=(value); end
+    def claim_completed_at=(value); end
 
     sig { returns(T::Boolean) }
-    def claimed_at?; end
+    def claim_completed_at?; end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def claimed_at_before_last_save; end
+    def claim_completed_at_before_last_save; end
 
     sig { returns(T.untyped) }
-    def claimed_at_before_type_cast; end
+    def claim_completed_at_before_type_cast; end
 
     sig { returns(T::Boolean) }
-    def claimed_at_came_from_user?; end
+    def claim_completed_at_came_from_user?; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
-    def claimed_at_change; end
+    def claim_completed_at_change; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
-    def claimed_at_change_to_be_saved; end
+    def claim_completed_at_change_to_be_saved; end
 
     sig do
       params(
@@ -659,13 +659,13 @@ class Rewarding::RewardIssuanceReadModel
         to: T.nilable(::ActiveSupport::TimeWithZone)
       ).returns(T::Boolean)
     end
-    def claimed_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+    def claim_completed_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def claimed_at_in_database; end
+    def claim_completed_at_in_database; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
-    def claimed_at_previous_change; end
+    def claim_completed_at_previous_change; end
 
     sig do
       params(
@@ -673,16 +673,116 @@ class Rewarding::RewardIssuanceReadModel
         to: T.nilable(::ActiveSupport::TimeWithZone)
       ).returns(T::Boolean)
     end
-    def claimed_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+    def claim_completed_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def claimed_at_previously_was; end
+    def claim_completed_at_previously_was; end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def claimed_at_was; end
+    def claim_completed_at_was; end
 
     sig { void }
-    def claimed_at_will_change!; end
+    def claim_completed_at_will_change!; end
+
+    sig { returns(T.untyped) }
+    def claim_metadata; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def claim_metadata=(value); end
+
+    sig { returns(T::Boolean) }
+    def claim_metadata?; end
+
+    sig { returns(T.untyped) }
+    def claim_metadata_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def claim_metadata_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def claim_metadata_came_from_user?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def claim_metadata_change; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def claim_metadata_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def claim_metadata_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def claim_metadata_in_database; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def claim_metadata_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def claim_metadata_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def claim_metadata_previously_was; end
+
+    sig { returns(T.untyped) }
+    def claim_metadata_was; end
+
+    sig { void }
+    def claim_metadata_will_change!; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def claim_started_at; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def claim_started_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def claim_started_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def claim_started_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def claim_started_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def claim_started_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def claim_started_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def claim_started_at_change_to_be_saved; end
+
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def claim_started_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def claim_started_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def claim_started_at_previous_change; end
+
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def claim_started_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def claim_started_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def claim_started_at_was; end
+
+    sig { void }
+    def claim_started_at_will_change!; end
 
     sig { returns(::ActiveSupport::TimeWithZone) }
     def created_at; end
@@ -910,7 +1010,13 @@ class Rewarding::RewardIssuanceReadModel
     def pool_id_will_change!; end
 
     sig { void }
-    def restore_claimed_at!; end
+    def restore_claim_completed_at!; end
+
+    sig { void }
+    def restore_claim_metadata!; end
+
+    sig { void }
+    def restore_claim_started_at!; end
 
     sig { void }
     def restore_created_at!; end
@@ -934,10 +1040,22 @@ class Rewarding::RewardIssuanceReadModel
     def restore_user_id!; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
-    def saved_change_to_claimed_at; end
+    def saved_change_to_claim_completed_at; end
 
     sig { returns(T::Boolean) }
-    def saved_change_to_claimed_at?; end
+    def saved_change_to_claim_completed_at?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def saved_change_to_claim_metadata; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_claim_metadata?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_claim_started_at; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_claim_started_at?; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_created_at; end
@@ -1072,7 +1190,13 @@ class Rewarding::RewardIssuanceReadModel
     def user_id_will_change!; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_claimed_at?; end
+    def will_save_change_to_claim_completed_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_claim_metadata?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_claim_started_at?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end

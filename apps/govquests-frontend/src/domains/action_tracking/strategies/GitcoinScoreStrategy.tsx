@@ -42,7 +42,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   }, [startMutation, questId, action.id, action.actionType, refetch]);
 
   const handleSignMessage = useCallback(() => {
-    invariant(execution?.startData?.__typename === "GitcoinScoreStartData");
+    // invariant(execution?.startData?.__typename === "GitcoinScoreStartData");
 
     if (!execution) return;
     try {
@@ -55,7 +55,7 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
   }, [execution, signMessage]);
 
   const handleComplete = useCallback(async () => {
-    invariant(execution?.startData?.__typename === "GitcoinScoreStartData");
+    // invariant(execution?.startData?.__typename === "GitcoinScoreStartData");
 
     if (!execution || !signature) return;
     const completionData = {
@@ -144,9 +144,9 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
       );
     }
     if (getStatus() === "completed") {
-      invariant(
-        execution?.completionData?.__typename === "GitcoinScoreCompletionData",
-      );
+      // invariant(
+      //   execution?.completionData?.__typename === "GitcoinScoreCompletionData",
+      // );
 
       return (
         <>

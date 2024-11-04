@@ -10,6 +10,8 @@ module Rewarding
     has_many :rewarded_users,
       through: :issued_rewards,
       source: :user
+
+    scope :token, -> { where("reward_definition->>'type' = 'Token'") }
   end
 end
 

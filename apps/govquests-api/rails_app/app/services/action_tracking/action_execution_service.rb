@@ -18,6 +18,7 @@ module ActionTracking
         start_data: data.merge(start_data || {}),
         nonce:
       )
+
       ActiveRecord::Base.transaction do
         Rails.configuration.command_bus.call(command)
 

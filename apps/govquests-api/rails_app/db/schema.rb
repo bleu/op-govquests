@@ -140,7 +140,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_10_31_154911) do
     t.uuid "pool_id", null: false
     t.uuid "user_id", null: false
     t.datetime "issued_at", null: false
-    t.datetime "claimed_at"
+    t.datetime "claim_started_at"
+    t.datetime "claim_completed_at"
+    t.jsonb "claim_metadata", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["pool_id", "user_id"], name: "index_reward_issuances_on_pool_id_and_user_id", unique: true
@@ -179,6 +181,8 @@ ActiveRecord::Schema[8.1].define(version: 2024_10_31_154911) do
     t.integer "streak", default: 0
     t.integer "score", default: 0
     t.jsonb "badges", default: []
+    t.jsonb "unclaimed_tokens", default: {}
+    t.jsonb "active_claim"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_user_game_profiles_on_profile_id", unique: true
