@@ -1,7 +1,7 @@
 require "infra"
 require_relative "questing/commands"
 require_relative "questing/events"
-require_relative "questing/on_quest_commands"
+
 require_relative "questing/quest"
 require_relative "questing/user_quest"
 
@@ -18,12 +18,37 @@ module Questing
 
   class Configuration
     def call(event_store, command_bus)
-      command_handler = OnQuestCommands.new(event_store)
-      command_bus.register(CreateQuest, command_handler)
-      command_bus.register(AssociateActionWithQuest, command_handler)
-      command_bus.register(StartUserQuest, command_handler)
-      command_bus.register(CompleteUserQuest, command_handler)
-      command_bus.register(UpdateUserQuestProgress, command_handler)
+      CommandHandler.register_commands(event_store, command_bus)
+    end
+  end
+
+  class CommandHandler < Infra::CommandHandlerRegistry
+    handle "Questing::CreateQuest", aggregate: Quest do |quest, cmd|
+      quest.create(cmd.display_data, cmd.audience)
+    end
+
+    handle "Questing::AssociateActionWithQuest", aggregate: Quest do |quest, cmd|
+      quest.associate_action(cmd.action_id, cmd.position)
+    end
+
+    handle "Questing::AssociateRewardPool", aggregate: Quest do |quest, cmd|
+      quest.associate_reward_pool(cmd.pool_id, cmd.reward_definition)
+    end
+
+    handle "Questing::StartUserQuest", aggregate: UserQuest do |user_quest, cmd, repository|
+      repository.with_aggregate(Quest, cmd.quest_id) do |quest|
+        actions = quest.actions.map { |action| action[:id] }
+
+        user_quest.start(cmd.quest_id, cmd.user_id, actions)
+      end
+    end
+
+    handle "Questing::CompleteUserQuest", aggregate: UserQuest do |user_quest, cmd|
+      user_quest.complete
+    end
+
+    handle "Questing::UpdateUserQuestProgress", aggregate: UserQuest do |user_quest, cmd|
+      user_quest.add_progress(cmd.action_id, cmd.data)
     end
   end
 end

@@ -1,12 +1,14 @@
-# spec/integration/quest_completion_spec.rb
 require "rails_helper"
 
 RSpec.describe "Quest Completion", type: :integration do
   # Define quest attributes
   let(:quest_title) { "Complete Onboarding" }
-  let(:quest_type) { "Onboarding" }
   let(:audience) { "AllUsers" }
-  let(:rewards) { [{"type" => "points", "amount" => 100}] }
+  let(:rewards) {
+    [
+      SharedKernel::Types::RewardDefinition.new(type: "Points", amount: 100)
+    ]
+  }
 
   # Define action attributes
   let(:action1_attrs) do
@@ -32,10 +34,9 @@ RSpec.describe "Quest Completion", type: :integration do
   let(:quest_data) do
     create_quest_with_actions(
       title: quest_title,
-      quest_type: quest_type,
       audience: audience,
-      rewards: rewards,
-      actions: [action1_attrs, action2_attrs]
+      actions: [action1_attrs, action2_attrs],
+      rewards: rewards
     )
   end
 
@@ -63,13 +64,14 @@ RSpec.describe "Quest Completion", type: :integration do
       expect(user_quest.completed_at).to be_present
     end
 
-    # it "awards the correct number of points to the user" do
-    #   # Assuming there is a PointsReadModel or similar to track user points
-    #   # Replace `PointsReadModel` with the actual model you use
-    #   points = PointsReadModel.find_by(user_id: user_id)
-    #   expect(points).not_to be_nil
-    #   expect(points.amount).to eq(100)
-    # end
+    it "awards the correct number of points to the user" do
+      profile = Gamification::GameProfileReadModel.find_by(profile_id: user_id)
+      expect(profile).not_to be_nil
+      expect(profile.score).to eq(100)
+    end
+
+    it "makes rewards available for the user to claim" do
+    end
 
     # it "makes rewards available for the user to claim" do
     #   # Assuming there is a RewardReadModel or similar to track user rewards

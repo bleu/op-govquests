@@ -2,9 +2,16 @@ require "active_support/core_ext/digest/uuid"
 require "infra"
 require_relative "action_tracking/commands"
 require_relative "action_tracking/events"
-require_relative "action_tracking/on_action_commands"
+
 require_relative "action_tracking/action"
 require_relative "action_tracking/action_execution"
+require_relative "action_tracking/strategies/action_execution_strategy_factory"
+require_relative "action_tracking/strategies/gitcoin_score"
+require_relative "action_tracking/strategies/read_document"
+require_relative "action_tracking/strategies/ens"
+require_relative "action_tracking/strategies/discourse_verification"
+require_relative "action_tracking/strategies/send_email"
+require_relative "action_tracking/strategies/wallet_verification"
 
 ACTION_EXECUTION_NAMESPACE_UUID = "061d2578-e3b3-41c0-b51d-b75b70876e71".freeze
 
@@ -19,15 +26,45 @@ module ActionTracking
     end
   end
 
+  class CommandHandler < Infra::CommandHandlerRegistry
+    handle "ActionTracking::CreateAction", aggregate: Action do |action, cmd|
+      action.create(cmd.action_type, cmd.action_data, cmd.display_data)
+    end
+
+    handle "ActionTracking::StartActionExecution", aggregate: ActionExecution do |execution, cmd, repository|
+      repository.with_aggregate(Action, cmd.action_id) do |action|
+        action_type = action.action_type
+        execution.start(
+          cmd.quest_id,
+          cmd.action_id,
+          action_type,
+          cmd.user_id,
+          cmd.start_data,
+          cmd.nonce
+        )
+      end
+    end
+
+    handle "ActionTracking::CompleteActionExecution", aggregate: ActionExecution do |execution, cmd|
+      execution.complete(cmd.nonce, cmd.completion_data)
+    end
+  end
+
   class Configuration
     def call(event_store, command_bus)
-      ActionTracking.event_store = event_store
-      ActionTracking.command_bus = command_bus
+      CommandHandler.register_commands(event_store, command_bus)
+      register_strategies
+    end
 
-      command_handler = OnActionCommands.new(event_store)
-      command_bus.register(ActionTracking::CreateAction, command_handler)
-      command_bus.register(ActionTracking::StartActionExecution, command_handler)
-      command_bus.register(ActionTracking::CompleteActionExecution, command_handler)
+    private
+
+    def register_strategies
+      ActionExecutionStrategyFactory.register("gitcoin_score", Strategies::GitcoinScore)
+      ActionExecutionStrategyFactory.register("read_document", Strategies::ReadDocument)
+      ActionExecutionStrategyFactory.register("ens", Strategies::Ens)
+      ActionExecutionStrategyFactory.register("discourse_verification", Strategies::DiscourseVerification)
+      ActionExecutionStrategyFactory.register("send_email", Strategies::SendEmail)
+      ActionExecutionStrategyFactory.register("wallet_verification", Strategies::WalletVerification)
     end
   end
 end

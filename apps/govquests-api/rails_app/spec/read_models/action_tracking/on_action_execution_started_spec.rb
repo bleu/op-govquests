@@ -18,9 +18,6 @@ RSpec.describe ActionTracking::OnActionExecutionStarted do
       create_quest_with_actions(
         title: "Test Quest",
         quest_id: quest_id,
-        rewards: [
-          {"something" => "else", :that => "will break a future tests when we get to this again"}
-        ],
         actions: [
           {
             action_id: action_id,

@@ -5,9 +5,7 @@ RSpec.describe Questing::OnQuestCreated do
   let(:quest_id) { SecureRandom.uuid }
   let(:title) { "Governance 101" }
   let(:intro) { "Learn about governance basics" }
-  let(:quest_type) { "Onboarding" }
   let(:audience) { "AllUsers" }
-  let(:rewards) { [{"type" => "Points", "amount" => 50}] }
 
   describe "#call" do
     it "creates a new quest when handling QuestCreated event" do
@@ -17,9 +15,7 @@ RSpec.describe Questing::OnQuestCreated do
           title: title,
           intro: intro
         },
-        quest_type: quest_type,
-        audience: audience,
-        rewards: rewards
+        audience: audience
       })
 
       expect {
@@ -31,9 +27,7 @@ RSpec.describe Questing::OnQuestCreated do
         "title" => title,
         "intro" => intro
       })
-      expect(quest.quest_type).to eq(quest_type)
       expect(quest.audience).to eq(audience)
-      expect(quest.rewards).to eq(rewards)
       expect(quest.status).to eq("created")
     end
   end

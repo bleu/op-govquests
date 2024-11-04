@@ -19,7 +19,7 @@ const QuestCard: React.FC<QuestProps> = ({ quest }) => {
       >
         <div className="relative w-full h-40 rounded-t-lg overflow-hidden">
           <div className="absolute right-3 top-3">
-            {quest.rewards.map((reward) => (
+            {quest.rewardPools.map(({ rewardDefinition: reward }) => (
               <RewardIndicator key={reward.type} reward={reward} />
             ))}
           </div>

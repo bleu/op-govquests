@@ -1,4 +1,30 @@
+require_relative "types/claim_metadata"
 module Gamification
+  class AddTokenReward < Infra::Command
+    attribute :profile_id, Infra::Types::UUID
+    attribute :token_address, Infra::Types::String
+    attribute :amount, Infra::Types::Integer
+    attribute :pool_id, Infra::Types::UUID
+
+    alias_method :aggregate_id, :profile_id
+  end
+
+  class StartTokenClaim < Infra::Command
+    attribute :profile_id, Infra::Types::UUID
+    attribute :token_address, Infra::Types::String
+    attribute :claim_metadata, Gamification::Types::ClaimMetadata
+
+    alias_method :aggregate_id, :profile_id
+  end
+
+  class CompleteTokenClaim < Infra::Command
+    attribute :profile_id, Infra::Types::UUID
+    attribute :token_address, Infra::Types::String
+    attribute :claim_metadata, Gamification::Types::ClaimMetadata
+
+    alias_method :aggregate_id, :profile_id
+  end
+
   class UpdateScore < Infra::Command
     attribute :profile_id, Infra::Types::UUID
     attribute :points, Infra::Types::Integer

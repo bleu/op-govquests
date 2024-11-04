@@ -1,24 +1,19 @@
-module Rewarding
-  class CreateReward < Infra::Command
-    attribute :reward_id, Infra::Types::UUID
-    attribute :reward_type, Infra::Types::String
-    attribute :value, Infra::Types::Integer
-    attribute :expiry_date, Infra::Types::DateTime.optional
+require_relative "../../../shared_kernel/lib/shared_kernel/types/reward_definition"
 
-    alias_method :aggregate_id, :reward_id
+module Rewarding
+  class CreateRewardPool < Infra::Command
+    attribute :pool_id, Infra::Types::UUID
+    attribute :quest_id, Infra::Types::UUID
+    attribute :reward_definition, SharedKernel::Types::RewardDefinition
+    attribute :initial_inventory, Infra::Types::Integer.optional
+
+    alias_method :aggregate_id, :pool_id
   end
 
   class IssueReward < Infra::Command
-    attribute :reward_id, Infra::Types::UUID
+    attribute :pool_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
 
-    alias_method :aggregate_id, :reward_id
-  end
-
-  class ClaimReward < Infra::Command
-    attribute :reward_id, Infra::Types::UUID
-    attribute :user_id, Infra::Types::UUID
-
-    alias_method :aggregate_id, :reward_id
+    alias_method :aggregate_id, :pool_id
   end
 end

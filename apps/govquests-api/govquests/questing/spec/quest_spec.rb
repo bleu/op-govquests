@@ -8,12 +8,10 @@ RSpec.describe Questing::Quest do
   describe "#create" do
     context "when creating a new quest" do
       it "creates a QuestCreated event with correct data" do
-        quest_type = "Standard"
         audience = "AllUsers"
-        rewards = [{"type" => "points", "value" => 100}]
         display_data = {"title" => "Governance 101", "intro" => "Learn about governance basics"}
 
-        quest.create(display_data, quest_type, audience, rewards)
+        quest.create(display_data, audience)
         events = quest.unpublished_events.to_a
 
         expect(events.size).to eq(1)
@@ -22,24 +20,19 @@ RSpec.describe Questing::Quest do
         expect(event).to be_a(Questing::QuestCreated)
         expect(event.data[:quest_id]).to eq(quest_id)
         expect(event.data[:display_data]).to eq(display_data)
-        expect(event.data[:quest_type]).to eq(quest_type)
         expect(event.data[:audience]).to eq(audience)
-        expect(event.data[:rewards]).to eq(rewards)
       end
     end
 
     context "when creating quest with missing fields" do
-      it "sets display_data to empty hash and rewards to empty array" do
-        quest_type = "Standard"
+      it "sets display_data to empty hash" do
         audience = "AllUsers"
-        rewards = nil
         display_data = nil
 
-        quest.create(display_data, quest_type, audience, rewards)
+        quest.create(display_data, audience)
         event = quest.unpublished_events.first
 
         expect(event.data[:display_data]).to eq({})
-        expect(event.data[:rewards]).to eq([])
       end
     end
   end
@@ -47,7 +40,7 @@ RSpec.describe Questing::Quest do
   describe "#associate_action" do
     context "when associating an action with the quest" do
       it "creates an ActionAssociatedWithQuest event with correct data" do
-        quest.create({"title" => "Test Quest", "intro" => "Test Intro"}, "Standard", "AllUsers", [{"type" => "points", "value" => 10}])
+        quest.create({"title" => "Test Quest", "intro" => "Test Intro"}, "AllUsers")
         action_id = SecureRandom.uuid
         position = 1
 
@@ -77,7 +70,7 @@ RSpec.describe Questing::Quest do
 
     context "when associating the same action multiple times" do
       it "allows associating the same action multiple times with different positions" do
-        quest.create({"title" => "Test Quest", "intro" => "Test Intro"}, "Standard", "AllUsers", [{"type" => "points", "value" => 10}])
+        quest.create({"title" => "Test Quest", "intro" => "Test Intro"}, "AllUsers")
         action_id = SecureRandom.uuid
         position1 = 1
         position2 = 2
@@ -96,7 +89,7 @@ RSpec.describe Questing::Quest do
 
     context "when associating actions with different positions" do
       it "orders actions based on position" do
-        quest.create({"title" => "Test Quest", "intro" => "Test Intro"}, "Standard", "AllUsers", [{"type" => "points", "value" => 10}])
+        quest.create({"title" => "Test Quest", "intro" => "Test Intro"}, "AllUsers")
         action_id1 = SecureRandom.uuid
         action_id2 = SecureRandom.uuid
 

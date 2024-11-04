@@ -321,8 +321,7 @@ type Quest {
   audience: String!
   displayData: DisplayData!
   id: ID!
-  questType: String!
-  rewards: [Reward!]!
+  rewardPools: [RewardPool!]!
   status: String!
   userQuests: [UserQuest!]!
 }
@@ -338,9 +337,14 @@ type ReadDocumentActionData implements ActionDataInterface {
   documentUrl: String
 }
 
-type Reward {
+type RewardDefinition {
   amount: Int!
   type: String!
+}
+
+type RewardPool {
+  remainingInventory: Int
+  rewardDefinition: RewardDefinition!
 }
 
 """

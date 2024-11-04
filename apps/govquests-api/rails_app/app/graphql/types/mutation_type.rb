@@ -5,6 +5,7 @@ module Types
     # Action Tracking
     field :start_action_execution, mutation: Mutations::StartActionExecution, preauthorize: {with: AuthenticatedGraphqlPolicy}
     field :complete_action_execution, mutation: Mutations::CompleteActionExecution, preauthorize: {with: AuthenticatedGraphqlPolicy}
+    # field :start_claim, mutation: Mutations::StartClaim
 
     # Authentication
     field :generate_siwe_message, mutation: Mutations::GenerateSiweMessage

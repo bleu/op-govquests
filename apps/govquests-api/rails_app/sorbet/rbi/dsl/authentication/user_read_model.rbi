@@ -422,6 +422,20 @@ class Authentication::UserReadModel
 
   module GeneratedAssociationMethods
     sig { returns(T::Array[T.untyped]) }
+    def reward_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def reward_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Authentication::UserReadModel` class because it declared `has_many :rewards`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::Rewarding::RewardPoolReadModel::PrivateCollectionProxy) }
+    def rewards; end
+
+    sig { params(value: T::Enumerable[::Rewarding::RewardPoolReadModel]).void }
+    def rewards=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
     def session_ids; end
 
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }

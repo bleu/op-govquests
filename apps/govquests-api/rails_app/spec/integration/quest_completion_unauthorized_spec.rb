@@ -3,9 +3,7 @@ require "rails_helper"
 RSpec.describe "Unauthorized Quest Completion", type: :request do
   # Define quest attributes
   let(:quest_title) { "Complete Onboarding" }
-  let(:quest_type) { "Onboarding" }
   let(:audience) { "AllUsers" }
-  let(:rewards) { [{"type" => "points", "amount" => 100}] }
 
   # Define action attributes
   let(:action1_attrs) do
@@ -28,9 +26,7 @@ RSpec.describe "Unauthorized Quest Completion", type: :request do
   let(:quest_data) do
     create_quest_with_actions(
       title: quest_title,
-      quest_type: quest_type,
       audience: audience,
-      rewards: rewards,
       actions: [action1_attrs, action2_attrs]
     )
   end
@@ -46,16 +42,12 @@ RSpec.describe "Unauthorized Quest Completion", type: :request do
     $questId: ID!
     $actionId: ID!
     $actionType: String!
-    $gitcoinScoreStartData: GitcoinScoreStartDataInput
-    $readDocumentStartData: ReadDocumentStartDataInput
   ) {
     startActionExecution(
       input: {
         questId: $questId
         actionId: $actionId
         actionType: $actionType
-        gitcoinScoreStartData: $gitcoinScoreStartData
-        readDocumentStartData: $readDocumentStartData
       }
     ) {
       actionExecution {

@@ -61,6 +61,10 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end
 
+group :development do
+  gem "annotaterb"
+end
+
 group :test do
   eval_gemfile "../infra/Gemfile.test"
   gem "shoulda-matchers", "~> 6.0"
@@ -80,3 +84,5 @@ gem "graphql", "~> 2.3"
 gem "siwe", "~> 2.0"
 gem "action_policy"
 gem "action_policy-graphql"
+
+gem "pycall"

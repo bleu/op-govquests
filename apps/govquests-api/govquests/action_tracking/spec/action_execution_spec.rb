@@ -12,7 +12,8 @@ RSpec.describe ActionTracking::ActionExecution do
     context "when starting action execution" do
       it "creates an ActionExecutionStarted event" do
         data = {document_url: "https://example.com/document"}
-        execution.start(quest_id, action_id, action_type, user_id, data)
+        nonce = SecureRandom.hex(16)
+        execution.start(quest_id, action_id, action_type, user_id, data, nonce)
         events = execution.unpublished_events.to_a
 
         expect(events.size).to eq(1)
@@ -28,10 +29,11 @@ RSpec.describe ActionTracking::ActionExecution do
     context "when action execution is already started" do
       it "raises AlreadyStartedError" do
         data = {document_url: "https://example.com/document"}
-        execution.start(quest_id, action_id, action_type, user_id, data)
+        nonce = SecureRandom.hex(16)
+        execution.start(quest_id, action_id, action_type, user_id, data, nonce)
 
         expect {
-          execution.start(quest_id, action_id, action_type, user_id, data)
+          execution.start(quest_id, action_id, action_type, user_id, data, nonce)
         }.to raise_error(ActionTracking::ActionExecution::AlreadyStartedError)
       end
     end
@@ -41,7 +43,8 @@ RSpec.describe ActionTracking::ActionExecution do
     context "when completing action execution" do
       it "creates an ActionExecutionCompleted event" do
         data = {document_url: "https://example.com/document"}
-        execution.start(quest_id, action_id, action_type, user_id, data)
+        nonce = SecureRandom.hex(16)
+        execution.start(quest_id, action_id, action_type, user_id, data, nonce)
         start_event = execution.unpublished_events.first
         completion_data = {data: "success"}
 
@@ -71,7 +74,8 @@ RSpec.describe ActionTracking::ActionExecution do
     context "when completing with invalid nonce" do
       it "raises InvalidNonceError" do
         data = {document_url: "https://example.com/document"}
-        execution.start(quest_id, action_id, action_type, user_id, data)
+        nonce = SecureRandom.hex(16)
+        execution.start(quest_id, action_id, action_type, user_id, data, nonce)
         invalid_nonce = "invalidnonce"
 
         expect {
@@ -83,7 +87,8 @@ RSpec.describe ActionTracking::ActionExecution do
     context "when completing an already completed execution" do
       it "raises AlreadyCompletedError" do
         data = {document_url: "https://example.com/document"}
-        execution.start(quest_id, action_id, action_type, user_id, data)
+        nonce = SecureRandom.hex(16)
+        execution.start(quest_id, action_id, action_type, user_id, data, nonce)
         start_event = execution.unpublished_events.first
         execution.complete(start_event.data[:nonce], {})
 
@@ -99,7 +104,8 @@ RSpec.describe ActionTracking::ActionExecution do
       expect(execution.instance_variable_get(:@state)).to eq("not_started")
 
       data = {document_url: "https://example.com/document"}
-      execution.start(quest_id, action_id, action_type, user_id, data)
+      nonce = SecureRandom.hex(16)
+      execution.start(quest_id, action_id, action_type, user_id, data, nonce)
       expect(execution.instance_variable_get(:@state)).to eq("started")
 
       start_event = execution.unpublished_events.first

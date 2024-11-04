@@ -1,3 +1,4 @@
+require_relative "../../../govquests/configuration"
 module Infra
   module TestPlumbing
     extend RSpec::SharedContext

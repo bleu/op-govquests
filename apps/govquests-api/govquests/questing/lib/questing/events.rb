@@ -2,9 +2,13 @@ module Questing
   class QuestCreated < Infra::Event
     attribute :quest_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
-    attribute :quest_type, Infra::Types::String
     attribute :audience, Infra::Types::String
-    attribute :rewards, Infra::Types::Array
+  end
+
+  class RewardPoolAssociated < Infra::Event
+    attribute :quest_id, Infra::Types::UUID
+    attribute :pool_id, Infra::Types::UUID
+    attribute :reward_definition, SharedKernel::Types::RewardDefinition
   end
 
   class ActionAssociatedWithQuest < Infra::Event

@@ -10,3 +10,17 @@ module Gamification
       inverse_of: :leaderboard
   end
 end
+
+# == Schema Information
+#
+# Table name: leaderboards
+#
+#  name           :string           not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  leaderboard_id :string           not null, primary key
+#
+# Indexes
+#
+#  index_leaderboards_on_leaderboard_id  (leaderboard_id) UNIQUE
+#

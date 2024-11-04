@@ -4,11 +4,13 @@ export const QuestQuery = graphql(`
   query GetQuest($id: ID!) {
     quest(id: $id) {
       id
-      questType
       audience
-      rewards {
-        type
-        amount
+      rewardPools {
+        rewardDefinition {
+          type
+          amount
+        }
+        remainingInventory
       }
       displayData {
         title

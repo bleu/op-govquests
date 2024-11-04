@@ -450,6 +450,20 @@ class Questing::QuestReadModel
     def quest_actions=(value); end
 
     sig { returns(T::Array[T.untyped]) }
+    def reward_pool_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def reward_pool_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Questing::QuestReadModel` class because it declared `has_many :reward_pools`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::Rewarding::RewardPoolReadModel::PrivateCollectionProxy) }
+    def reward_pools; end
+
+    sig { params(value: T::Enumerable[::Rewarding::RewardPoolReadModel]).void }
+    def reward_pools=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
     def user_quest_ids; end
 
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
@@ -878,51 +892,6 @@ class Questing::QuestReadModel
     sig { void }
     def quest_id_will_change!; end
 
-    sig { returns(::String) }
-    def quest_type; end
-
-    sig { params(value: ::String).returns(::String) }
-    def quest_type=(value); end
-
-    sig { returns(T::Boolean) }
-    def quest_type?; end
-
-    sig { returns(T.nilable(::String)) }
-    def quest_type_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def quest_type_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def quest_type_came_from_user?; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def quest_type_change; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def quest_type_change_to_be_saved; end
-
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
-    def quest_type_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def quest_type_in_database; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def quest_type_previous_change; end
-
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
-    def quest_type_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def quest_type_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def quest_type_was; end
-
-    sig { void }
-    def quest_type_will_change!; end
-
     sig { void }
     def restore_audience!; end
 
@@ -942,61 +911,10 @@ class Questing::QuestReadModel
     def restore_quest_id!; end
 
     sig { void }
-    def restore_quest_type!; end
-
-    sig { void }
-    def restore_rewards!; end
-
-    sig { void }
     def restore_status!; end
 
     sig { void }
     def restore_updated_at!; end
-
-    sig { returns(T.untyped) }
-    def rewards; end
-
-    sig { params(value: T.untyped).returns(T.untyped) }
-    def rewards=(value); end
-
-    sig { returns(T::Boolean) }
-    def rewards?; end
-
-    sig { returns(T.untyped) }
-    def rewards_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def rewards_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def rewards_came_from_user?; end
-
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def rewards_change; end
-
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def rewards_change_to_be_saved; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def rewards_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.untyped) }
-    def rewards_in_database; end
-
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def rewards_previous_change; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def rewards_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.untyped) }
-    def rewards_previously_was; end
-
-    sig { returns(T.untyped) }
-    def rewards_was; end
-
-    sig { void }
-    def rewards_will_change!; end
 
     sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_audience; end
@@ -1033,18 +951,6 @@ class Questing::QuestReadModel
 
     sig { returns(T::Boolean) }
     def saved_change_to_quest_id?; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def saved_change_to_quest_type; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_quest_type?; end
-
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def saved_change_to_rewards; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_rewards?; end
 
     sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_status; end
@@ -1165,12 +1071,6 @@ class Questing::QuestReadModel
 
     sig { returns(T::Boolean) }
     def will_save_change_to_quest_id?; end
-
-    sig { returns(T::Boolean) }
-    def will_save_change_to_quest_type?; end
-
-    sig { returns(T::Boolean) }
-    def will_save_change_to_rewards?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_status?; end

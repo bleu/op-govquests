@@ -124,7 +124,7 @@ DEPENDENCIES
   mutant-license!
   mutant-minitest (= 0.12.4)!
   pry (~> 0.14.2)!
-  rspec (~> 3.13)!
+  rspec (~> 3.13)
 
 BUNDLED WITH
    2.5.9

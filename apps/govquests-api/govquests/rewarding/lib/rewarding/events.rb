@@ -1,26 +1,15 @@
 module Rewarding
-  class RewardCreated < Infra::Event
-    attribute :reward_id, Infra::Types::UUID
-    attribute :reward_type, Infra::Types::String
-    attribute :value, Infra::Types::Integer
-    attribute :expiry_date, Infra::Types::Time.optional
+  class RewardPoolCreated < Infra::Event
+    attribute :pool_id, Infra::Types::UUID
+    attribute :quest_id, Infra::Types::UUID
+    attribute :reward_definition, SharedKernel::Types::RewardDefinition
+    attribute :initial_inventory, Infra::Types::Integer.optional
   end
 
   class RewardIssued < Infra::Event
-    attribute :reward_id, Infra::Types::UUID
+    attribute :pool_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
-  end
-
-  class RewardClaimed < Infra::Event
-    attribute :reward_id, Infra::Types::UUID
-    attribute :user_id, Infra::Types::UUID
-  end
-
-  class RewardExpired < Infra::Event
-    attribute :reward_id, Infra::Types::UUID
-  end
-
-  class RewardInventoryDepleted < Infra::Event
-    attribute :reward_id, Infra::Types::UUID
+    attribute :reward_definition, SharedKernel::Types::RewardDefinition
+    attribute :issued_at, Infra::Types::Time
   end
 end

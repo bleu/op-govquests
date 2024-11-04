@@ -1,5 +1,3 @@
-require_relative "strategies/action_execution_strategy_factory"
-
 module ActionTracking
   class Action
     include AggregateRoot

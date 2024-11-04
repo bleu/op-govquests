@@ -32,6 +32,8 @@ module ActionTracking
     def self.complete(execution_id:, nonce:, user_id:, completion_data:, action_type:)
       action_execution = ActionTracking::ActionExecutionReadModel.find_by(execution_id: execution_id)
 
+      return {error: "Execution not started"} unless action_execution
+
       strategy = ActionTracking::ActionExecutionStrategyFactory.for(action_type, start_data: action_execution.start_data, completion_data:)
       data = strategy.complete_execution
 
