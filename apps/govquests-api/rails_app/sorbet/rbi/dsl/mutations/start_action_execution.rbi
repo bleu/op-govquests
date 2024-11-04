@@ -11,11 +11,8 @@ class Mutations::StartActionExecution
       quest_id: ::String,
       action_id: ::String,
       action_type: ::String,
-      gitcoin_score_start_data: T.nilable(::Types::GitcoinScoreStartDataInput),
-      read_document_start_data: T.nilable(::Types::ReadDocumentStartDataInput),
-      ens_start_data: T.nilable(::Types::EnsStartDataInput),
-      discourse_verification_start_data: T.nilable(::Types::ActionExecution::Strategies::DiscourseVerification::DiscourseVerificationStartDataInput)
+      send_email_verification_input: T.nilable(::Types::Inputs::SendEmailVerificationInput)
     ).returns(T.untyped)
   end
-  def resolve(quest_id:, action_id:, action_type:, gitcoin_score_start_data: T.unsafe(nil), read_document_start_data: T.unsafe(nil), ens_start_data: T.unsafe(nil), discourse_verification_start_data: T.unsafe(nil)); end
+  def resolve(quest_id:, action_id:, action_type:, send_email_verification_input: T.unsafe(nil)); end
 end

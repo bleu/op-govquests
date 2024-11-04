@@ -13,3 +13,20 @@ module Questing
     validates :display_data, presence: true
   end
 end
+
+# == Schema Information
+#
+# Table name: quests
+#
+#  id           :bigint           not null, primary key
+#  audience     :string           not null
+#  display_data :jsonb            not null
+#  status       :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  quest_id     :string           not null
+#
+# Indexes
+#
+#  index_quests_on_quest_id  (quest_id) UNIQUE
+#

@@ -21,7 +21,7 @@ module ActionTracking
         start_data.present? && start_data.with_indifferent_access[:domains]
       end
 
-      memoize def ens_domains(address)
+      def ens_domains(address)
         @ens_domains ||= EnsSubgraphClient.new.domains(address: address.downcase)
       end
     end

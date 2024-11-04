@@ -15,3 +15,28 @@ module ActionTracking
     # belongs_to :quest, foreign_key: :quest_id, primary_key: :quest_id, class_name: "Questing::QuestReadModel", optional: true
   end
 end
+
+# == Schema Information
+#
+# Table name: action_executions
+#
+#  id              :bigint           not null, primary key
+#  action_type     :string
+#  completed_at    :datetime
+#  completion_data :jsonb            not null
+#  nonce           :string           not null
+#  result          :jsonb
+#  start_data      :jsonb            not null
+#  started_at      :datetime         not null
+#  status          :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  action_id       :string           not null
+#  execution_id    :string           not null
+#  quest_id        :string           not null
+#  user_id         :string           not null
+#
+# Indexes
+#
+#  index_action_executions_on_execution_id  (execution_id) UNIQUE
+#

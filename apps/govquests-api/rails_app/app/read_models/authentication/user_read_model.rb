@@ -13,3 +13,26 @@ module Authentication
       primary_key: "user_id"
   end
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint           not null, primary key
+#  activity_log    :jsonb
+#  address         :string           not null
+#  email           :string
+#  quests_progress :jsonb
+#  sessions        :jsonb
+#  settings        :jsonb
+#  user_type       :string           default("non_delegate"), not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  chain_id        :integer          not null
+#  user_id         :string           not null
+#
+# Indexes
+#
+#  index_users_on_email    (email) UNIQUE
+#  index_users_on_user_id  (user_id) UNIQUE
+#

@@ -4,6 +4,7 @@ RSpec.describe "Quest Completion", type: :integration do
   # Define quest attributes
   let(:quest_title) { "Complete Onboarding" }
   let(:audience) { "AllUsers" }
+  let(:rewards) { [{"type" => "Points", "amount" => 100}] }
 
   # Define action attributes
   let(:action1_attrs) do
@@ -30,7 +31,8 @@ RSpec.describe "Quest Completion", type: :integration do
     create_quest_with_actions(
       title: quest_title,
       audience: audience,
-      actions: [action1_attrs, action2_attrs]
+      actions: [action1_attrs, action2_attrs],
+      rewards: rewards
     )
   end
 
@@ -58,13 +60,14 @@ RSpec.describe "Quest Completion", type: :integration do
       expect(user_quest.completed_at).to be_present
     end
 
-    # it "awards the correct number of points to the user" do
-    #   # Assuming there is a PointsReadModel or similar to track user points
-    #   # Replace `PointsReadModel` with the actual model you use
-    #   points = PointsReadModel.find_by(user_id: user_id)
-    #   expect(points).not_to be_nil
-    #   expect(points.amount).to eq(100)
-    # end
+    it "awards the correct number of points to the user" do
+      profile = Gamification::GameProfileReadModel.find_by(profile_id: user_id)
+      expect(profile).not_to be_nil
+      expect(profile.score).to eq(100)
+    end
+
+    it "makes rewards available for the user to claim" do
+    end
 
     # it "makes rewards available for the user to claim" do
     #   # Assuming there is a RewardReadModel or similar to track user rewards

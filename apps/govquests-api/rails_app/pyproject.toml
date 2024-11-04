@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "infra-safe"
+version = "0.1.0"
+description = ""
+authors = ["José Ribeiro <jose@bleu.studio>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+safe-eth-py = "^5.8.0"
+web3 = "^7.4.0"
+hexbytes = "^1.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -12,3 +12,20 @@ module ActionTracking
     has_many :quests, through: :quest_actions, source: :quest, class_name: "Questing::QuestReadModel"
   end
 end
+
+# == Schema Information
+#
+# Table name: actions
+#
+#  id           :bigint           not null, primary key
+#  action_data  :jsonb            not null
+#  action_type  :string           not null
+#  display_data :jsonb
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  action_id    :string           not null
+#
+# Indexes
+#
+#  index_actions_on_action_id  (action_id) UNIQUE
+#
