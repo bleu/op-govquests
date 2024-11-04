@@ -1,4 +1,4 @@
-module Rewarding
+module Gamification
   module Types
     class ClaimMetadata < Dry::Struct
       attribute :transaction_metadata, Infra::Types::Hash.optional

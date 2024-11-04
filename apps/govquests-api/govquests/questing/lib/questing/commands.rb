@@ -1,3 +1,5 @@
+require_relative "../../../shared_kernel/lib/shared_kernel/types/reward_definition"
+
 module Questing
   class CreateQuest < Infra::Command
     attribute :quest_id, Infra::Types::UUID
@@ -10,7 +12,7 @@ module Questing
   class AssociateRewardPool < Infra::Command
     attribute :quest_id, Infra::Types::UUID
     attribute :pool_id, Infra::Types::UUID
-    attribute :reward_definition, Infra::Types::Hash
+    attribute :reward_definition, SharedKernel::Types::RewardDefinition
 
     alias_method :aggregate_id, :quest_id
   end

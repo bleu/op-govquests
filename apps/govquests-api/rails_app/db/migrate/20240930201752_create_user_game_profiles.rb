@@ -7,6 +7,8 @@ class CreateUserGameProfiles < ActiveRecord::Migration[8.0]
       t.integer :streak, default: 0
       t.integer :score, default: 0
       t.jsonb :badges, default: []
+      t.jsonb :unclaimed_tokens, default: {}
+      t.jsonb :active_claim, default: nil
       t.timestamps
     end
 

@@ -1,6 +1,13 @@
 module Gamification
   class GameProfile
+    MIN_CLAIMABLE_TOKEN_AMOUNT = 30
+
     include AggregateRoot
+
+    InsufficientClaimableBalance = Class.new(StandardError)
+    NoActiveClaimError = Class.new(StandardError)
+    AlreadyClaimingError = Class.new(StandardError)
+    WrongTokenError = Class.new(StandardError)
 
     def initialize(id)
       @id = id
@@ -9,6 +16,49 @@ module Gamification
       @track = nil
       @streak = 0
       @badges = []
+      @unclaimed_tokens = {} # token_address => amount
+      @active_claim = nil
+    end
+
+    def add_token_reward(token_address:, amount:, pool_id:)
+      current_balance = @unclaimed_tokens[token_address] || 0
+      new_balance = current_balance + amount
+
+      apply TokenRewardAdded.new(data: {
+        profile_id: @id,
+        token_address: token_address,
+        amount: amount,
+        pool_id: pool_id,
+        total_unclaimed: new_balance
+      })
+    end
+
+    def start_token_claim(token_address:, claim_metadata:)
+      raise AlreadyClaimingError if @active_claim
+      raise InsufficientClaimableBalance unless can_claim?(token_address)
+
+      total = @unclaimed_tokens[token_address] || 0
+
+      apply TokenClaimStarted.new(data: {
+        profile_id: @id,
+        token_address: token_address,
+        amount: total,
+        claim_metadata: claim_metadata,
+        started_at: Time.now
+      })
+    end
+
+    def complete_token_claim(token_address:, claim_metadata:)
+      raise NoActiveClaimError unless @active_claim
+      raise WrongTokenError if @active_claim[:token_address] != token_address
+
+      apply TokenClaimCompleted.new(data: {
+        profile_id: @id,
+        token_address: token_address,
+        amount: @active_claim[:amount],
+        claim_metadata: claim_metadata,
+        completed_at: Time.now
+      })
     end
 
     def update_score(points)
@@ -47,6 +97,32 @@ module Gamification
     end
 
     private
+
+    def can_claim?(token_address)
+      amount = @unclaimed_tokens[token_address] || 0
+      amount >= MIN_CLAIMABLE_TOKEN_AMOUNT
+    end
+
+    on TokenRewardAdded do |event|
+      token = event.data[:token_address]
+      @unclaimed_tokens[token] ||= 0
+      @unclaimed_tokens[token] += event.data[:amount]
+    end
+
+    on TokenClaimStarted do |event|
+      @active_claim = {
+        token_address: event.data[:token_address],
+        amount: event.data[:amount],
+        claim_metadata: event.data[:claim_metadata],
+        started_at: event.data[:started_at]
+      }
+    end
+
+    on TokenClaimCompleted do |event|
+      token = event.data[:token_address]
+      @unclaimed_tokens[token] = 0
+      @active_claim = nil
+    end
 
     on ScoreUpdated do |event|
       @score += event.data[:points]

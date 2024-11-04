@@ -1,4 +1,28 @@
 module Gamification
+  class TokenRewardAdded < Infra::Event
+    attribute :profile_id, Infra::Types::UUID
+    attribute :token_address, Infra::Types::String
+    attribute :amount, Infra::Types::Integer
+    attribute :pool_id, Infra::Types::UUID
+    attribute :total_unclaimed, Infra::Types::Integer
+  end
+
+  class TokenClaimStarted < Infra::Event
+    attribute :profile_id, Infra::Types::UUID
+    attribute :token_address, Infra::Types::String
+    attribute :amount, Infra::Types::Integer
+    attribute :claim_metadata, Infra::Types::Hash
+    attribute :started_at, Infra::Types::Time
+  end
+
+  class TokenClaimCompleted < Infra::Event
+    attribute :profile_id, Infra::Types::UUID
+    attribute :token_address, Infra::Types::String
+    attribute :amount, Infra::Types::Integer
+    attribute :claim_metadata, Infra::Types::Hash
+    attribute :completed_at, Infra::Types::Time
+  end
+
   class ScoreUpdated < Infra::Event
     attribute :profile_id, Infra::Types::UUID
     attribute :points, Infra::Types::Integer

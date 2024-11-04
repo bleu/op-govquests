@@ -4,9 +4,9 @@ class CreateRewardIssuances < ActiveRecord::Migration[8.1]
       t.uuid :pool_id, null: false
       t.uuid :user_id, null: false
       t.datetime :issued_at, null: false
-      t.jsonb :claim_metadata, null: false, default: {}
       t.datetime :claim_started_at
       t.datetime :claim_completed_at
+      t.jsonb :claim_metadata, null: false, default: {}
 
       t.timestamps
 

@@ -4,7 +4,11 @@ RSpec.describe "Quest Completion", type: :integration do
   # Define quest attributes
   let(:quest_title) { "Complete Onboarding" }
   let(:audience) { "AllUsers" }
-  let(:rewards) { [{"type" => "Points", "amount" => 100}] }
+  let(:rewards) {
+    [
+      SharedKernel::Types::RewardDefinition.new(type: "Points", amount: 100)
+    ]
+  }
 
   # Define action attributes
   let(:action1_attrs) do

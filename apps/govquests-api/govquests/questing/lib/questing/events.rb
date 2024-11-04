@@ -8,7 +8,7 @@ module Questing
   class RewardPoolAssociated < Infra::Event
     attribute :quest_id, Infra::Types::UUID
     attribute :pool_id, Infra::Types::UUID
-    attribute :reward_definition, Infra::Types::Hash
+    attribute :reward_definition, SharedKernel::Types::RewardDefinition
   end
 
   class ActionAssociatedWithQuest < Infra::Event

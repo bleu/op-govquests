@@ -57,7 +57,7 @@ module DomainHelpers
         pool_id: pool_id,
         quest_id: quest_id,
         reward_definition: reward_definition,
-        initial_inventory: (reward_definition["type"] == "Token") ? 1000 : nil
+        initial_inventory: (reward_definition.type == "Token") ? 1000 : nil
       )
     )
 

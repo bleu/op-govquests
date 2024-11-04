@@ -18,17 +18,6 @@ module Rewarding
         @repository.with_aggregate(RewardPool, command.aggregate_id) do |pool|
           pool.issue_reward(command.user_id)
         end
-      when StartClaim
-        @repository.with_aggregate(RewardPool, command.pool_id) do |pool|
-          pool.start_claim(command.user_id, command.claim_metadata)
-        end
-      when CompleteClaim
-        @repository.with_aggregate(RewardPool, command.pool_id) do |pool|
-          pool.complete_claim(
-            command.user_id,
-            command.claim_metadata
-          )
-        end
       end
     end
   end

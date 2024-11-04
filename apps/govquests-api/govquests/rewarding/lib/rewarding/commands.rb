@@ -1,10 +1,10 @@
-require_relative "types/reward_definition"
-require_relative "types/claim_metadata"
+require_relative "../../../shared_kernel/lib/shared_kernel/types/reward_definition"
+
 module Rewarding
   class CreateRewardPool < Infra::Command
     attribute :pool_id, Infra::Types::UUID
     attribute :quest_id, Infra::Types::UUID
-    attribute :reward_definition, Rewarding::Types::RewardDefinition
+    attribute :reward_definition, SharedKernel::Types::RewardDefinition
     attribute :initial_inventory, Infra::Types::Integer.optional
 
     alias_method :aggregate_id, :pool_id
@@ -13,22 +13,6 @@ module Rewarding
   class IssueReward < Infra::Command
     attribute :pool_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
-
-    alias_method :aggregate_id, :pool_id
-  end
-
-  class StartClaim < Infra::Command
-    attribute :pool_id, Infra::Types::UUID
-    attribute :user_id, Infra::Types::UUID
-    attribute :claim_metadata, Rewarding::Types::ClaimMetadata
-
-    alias_method :aggregate_id, :pool_id
-  end
-
-  class CompleteClaim < Infra::Command
-    attribute :pool_id, Infra::Types::UUID
-    attribute :user_id, Infra::Types::UUID
-    attribute :claim_metadata, Rewarding::Types::ClaimMetadata
 
     alias_method :aggregate_id, :pool_id
   end
