@@ -1,31 +1,27 @@
 class CreateNotifications < ActiveRecord::Migration[8.0]
   def change
     create_table :notifications do |t|
-      t.string :notification_id, null: false, index: {unique: true}
-      t.string :content, null: false
-      t.integer :priority, null: false
-      t.string :template_id, null: false
+      t.string :notification_id, null: false
       t.string :user_id, null: false
-      t.string :channel, null: false
-      t.string :status, default: "created"
+      t.string :content, null: false
       t.string :notification_type, null: false
-      t.datetime :scheduled_time
-      t.datetime :sent_at
-      t.datetime :received_at
-      t.datetime :opened_at
       t.timestamps
     end
 
-    create_table :notification_templates do |t|
-      t.string :template_id, null: false, index: {unique: true}
-      t.string :name, null: false, index: {unique: true}
-      t.text :content, null: false
-      t.string :template_type, null: false
+    create_table :notification_deliveries do |t|
+      t.string :notification_id, null: false
+      t.string :delivery_method, null: false
+      t.string :status, null: false, default: "pending"
+      t.datetime :delivered_at
+      t.datetime :read_at
+      t.jsonb :metadata, default: {}
+
       t.timestamps
     end
 
-    add_index :notifications, :template_id
+    add_index :notifications, :notification_id, unique: true
     add_index :notifications, :user_id
-    add_index :notifications, :channel
+    add_index :notification_deliveries, :notification_id
+    add_index :notification_deliveries, [:notification_id, :delivery_method], unique: true
   end
 end

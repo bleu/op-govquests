@@ -1,8 +1,6 @@
 require "infra"
 require_relative "notifications/commands"
 require_relative "notifications/events"
-require_relative "notifications/template_commands"
-require_relative "notifications/template_events"
 
 require_relative "notifications/notification"
 
@@ -18,8 +16,8 @@ module Notifications
       notification.create(cmd.user_id, cmd.content, cmd.notification_type)
     end
 
-    handle "Notifications::SendNotification", aggregate: Notification do |notification, cmd|
-      notification.send_notification
+    handle "Notifications::DeliverNotification", aggregate: Notification do |notification, cmd|
+      notification.deliver(cmd.delivery_method)
     end
 
     handle "Notifications::MarkNotificationAsRead", aggregate: Notification do |notification, cmd|

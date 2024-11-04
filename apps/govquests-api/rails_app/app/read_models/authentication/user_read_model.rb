@@ -11,6 +11,8 @@ module Authentication
       class_name: "Rewarding::RewardPoolReadModel",
       foreign_key: "user_id",
       primary_key: "user_id"
+
+    has_many :notifications, class_name: "Notifications::NotificationReadModel", foreign_key: :user_id, primary_key: :user_id
   end
 end
 
