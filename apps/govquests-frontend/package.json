@@ -14,7 +14,7 @@
     "clsx": "^2.1.1",
     "connectkit": "^1.8.2",
     "gql.tada": "^1.8.10",
-    "graphql-request": "^7.1.0",
+    "graphql-request": "^7.1.2",
     "lucide-react": "^0.454.0",
     "next": "15.0.2",
     "react": "19.0.0-rc-02c0e824-20241028",
