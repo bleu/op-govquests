@@ -37,11 +37,18 @@ export const NotificationsQuery = graphql(`
 export const MarkNotificationAsReadMutation = graphql(`
   mutation MarkNotificationAsRead($notificationId: ID!) {
     markNotificationAsRead(input: { notificationId: $notificationId }) {
-      notification {
-        id
+      notificationDelivery {
         status
-        readAt
       }
+      errors
+    }
+  }
+`);
+
+export const MarkAllNotificationsAsReadMutation = graphql(`
+  mutation MarkAllNotificationsAsRead($deliveryMethod: String) {
+    markAllNotificationsAsRead(input: { deliveryMethod: $deliveryMethod }) {
+      success
       errors
     }
   }

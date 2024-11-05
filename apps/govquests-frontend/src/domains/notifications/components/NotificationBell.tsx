@@ -11,6 +11,7 @@ import {
   useNotifications,
   useUnreadCount,
   useMarkNotificationAsRead,
+  useMarkAllNotificationsAsRead,
 } from "../hooks/useNotifications";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -29,7 +30,7 @@ export const NotificationBell = () => {
           className="relative w-8 h-8 rounded-full hover:bg-accent"
         >
           <Bell className="h-4 w-4" />
-          {unreadCount && unreadCount > 0 && (
+          {unreadCount !== undefined && unreadCount > 0 && (
             <Badge
               variant="destructive"
               className="absolute -top-1 -right-1 h-4 min-w-[16px] px-1 flex items-center justify-center text-[10px]"
@@ -39,7 +40,7 @@ export const NotificationBell = () => {
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-64 p-0" align="end" sideOffset={5}>
+      <PopoverContent className="w-80 p-0" align="end" sideOffset={5}>
         <NotificationPanel onNotificationClick={() => setIsOpen(false)} />
       </PopoverContent>
     </Popover>
@@ -56,6 +57,11 @@ const NotificationPanel = ({ onNotificationClick }) => {
     isFetchingNextPage,
   } = useNotifications();
 
+  const { mutate: markAllAsRead, isPending: isMarkingAllAsRead } =
+    useMarkAllNotificationsAsRead();
+
+  const { mutate: markAsRead } = useMarkNotificationAsRead();
+
   const { ref: loadMoreRef } = useInView({
     onChange: (inView) => {
       if (inView && hasNextPage) {
@@ -63,6 +69,19 @@ const NotificationPanel = ({ onNotificationClick }) => {
       }
     },
   });
+
+  const handleMarkAllAsRead = () => {
+    markAllAsRead("in_app", {
+      onSuccess: () => {
+        // Could add a toast notification here if desired
+        console.log("All notifications marked as read");
+      },
+      onError: (error) => {
+        console.error("Error marking all notifications as read:", error);
+        // Could add error handling/toast here
+      },
+    });
+  };
 
   if (isLoading) {
     return (
@@ -99,14 +118,16 @@ const NotificationPanel = ({ onNotificationClick }) => {
           variant="ghost"
           size="sm"
           className="h-7 text-xs"
-          onClick={() => {
-            /* Add mark all as read handler */
-          }}
+          onClick={handleMarkAllAsRead}
+          disabled={isMarkingAllAsRead}
         >
+          {isMarkingAllAsRead ? (
+            <Loader2 className="h-3 w-3 animate-spin mr-1" />
+          ) : null}
           Mark all as read
         </Button>
       </div>
-      <ScrollArea className="max-h-[min(calc(100vh-120px),400px)]">
+      <ScrollArea className="h-[300px]">
         <div className="flex flex-col">
           {notifications.map(({ node }) => (
             <NotificationItem
@@ -114,7 +135,9 @@ const NotificationPanel = ({ onNotificationClick }) => {
               notification={node}
               onClick={() => {
                 onNotificationClick();
-                // Add mark as read handler
+                if (node.status === "unread") {
+                  markAsRead(node.id);
+                }
               }}
             />
           ))}
@@ -163,7 +186,7 @@ const NotificationItem = ({ notification, onClick }) => {
           {notification.notificationType}
         </Badge>
         {notification.status === "unread" && (
-          <Badge variant="secondary" className="text-xs">
+          <Badge variant="secondary" className="text-xs text-red-500">
             New
           </Badge>
         )}

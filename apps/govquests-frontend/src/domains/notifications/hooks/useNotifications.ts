@@ -1,13 +1,16 @@
+import { gql } from "graphql-request";
 import {
   useInfiniteQuery,
   useMutation,
   useQueryClient,
   useQuery,
 } from "@tanstack/react-query";
-import { fetchNotifications } from "../notificationService";
-
-import { MarkNotificationAsReadMutation } from "../graphql/notifications";
 import request from "graphql-request";
+import { fetchNotifications } from "../notificationService";
+import {
+  MarkAllNotificationsAsReadMutation,
+  MarkNotificationAsReadMutation,
+} from "../graphql/notifications";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/graphql";
@@ -37,6 +40,22 @@ export const useMarkNotificationAsRead = () => {
       request(API_URL, MarkNotificationAsReadMutation, { notificationId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notifications"] });
+    },
+  });
+};
+
+export const useMarkAllNotificationsAsRead = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (deliveryMethod: string = "in_app") =>
+      request(API_URL, MarkAllNotificationsAsReadMutation, { deliveryMethod }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+      // Also invalidate the unread count
+      queryClient.invalidateQueries({
+        queryKey: ["notifications", "unread-count"],
+      });
     },
   });
 };

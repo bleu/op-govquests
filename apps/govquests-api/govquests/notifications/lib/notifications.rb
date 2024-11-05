@@ -21,7 +21,7 @@ module Notifications
     end
 
     handle "Notifications::MarkNotificationAsRead", aggregate: Notification do |notification, cmd|
-      notification.mark_as_read
+      notification.mark_as_read(cmd.delivery_method)
     end
   end
 end
