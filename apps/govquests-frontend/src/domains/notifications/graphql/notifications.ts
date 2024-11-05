@@ -1,4 +1,3 @@
-// types/notifications.ts
 import { graphql } from "gql.tada";
 
 export const NotificationsQuery = graphql(`
