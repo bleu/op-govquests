@@ -1,9 +1,9 @@
 "use client";
 
 import SignInButton from "@/domains/authentication/components/SignInButton";
-import { NotificationBadge } from "@/domains/notifications/components/NotificationBadge";
+import { NotificationBell } from "@/domains/notifications/components/NotificationBell";
 import { cn } from "@/lib/utils";
-import { BellIcon, HomeIcon, MapIcon, StarIcon } from "lucide-react";
+import { HomeIcon, MapIcon, StarIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type React from "react";
@@ -62,13 +62,10 @@ const Header: React.FC = () => {
           </ul>
         </nav>
 
-        <div className="relative">
-          <button className="p-2">
-            <BellIcon className="w-6 h-6" />
-            <NotificationBadge />
-          </button>
+        <div className="flex items-center gap-4">
+          <NotificationBell />
+          <SignInButton />
         </div>
-        <SignInButton />
       </div>
     </header>
   );

@@ -1,3 +1,92 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Optimism-inspired colors for light mode */
+    --background: 0 0% 100%; /* White */
+    --foreground: 0 0% 0%; /* Black text */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    --primary: 352 100% 50%; /* Optimism Red #FF0420 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 95%; /* Light grey */
+    --secondary-foreground: 352 100% 50%;
+
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 352 100% 95%; /* Light red */
+    --accent-foreground: 352 100% 50%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 352 100% 50%;
+
+    /* Chart colors inspired by Optimism's palette */
+    --chart-1: 352 100% 50%; /* Optimism Red */
+    --chart-2: 217 91% 60%; /* Bright Blue */
+    --chart-3: 159 66% 49%; /* Green */
+    --chart-4: 47 95% 53%; /* Yellow */
+    --chart-5: 326 100% 74%; /* Pink */
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Optimism-inspired colors for dark mode */
+    --background: 230 11% 11%; /* Dark background #191B1F */
+    --foreground: 0 0% 100%;
+
+    --card: 230 11% 11%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 230 11% 11%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 352 100% 50%; /* Optimism Red */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 228 9% 23%; /* Dark grey #333640 */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 228 9% 23%;
+    --muted-foreground: 0 0% 64%;
+
+    --accent: 352 100% 15%; /* Dark red */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 228 9% 23%;
+    --input: 228 9% 23%;
+    --ring: 352 100% 50%;
+
+    /* Chart colors for dark mode */
+    --chart-1: 352 100% 50%; /* Optimism Red */
+    --chart-2: 217 91% 60%; /* Bright Blue */
+    --chart-3: 159 66% 49%; /* Green */
+    --chart-4: 47 95% 53%; /* Yellow */
+    --chart-5: 326 100% 74%; /* Pink */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

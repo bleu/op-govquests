@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { useUnreadCount } from "../hooks/useNotifications";
 
 export const NotificationBadge = () => {
@@ -6,8 +7,11 @@ export const NotificationBadge = () => {
   if (!unreadCount) return null;
 
   return (
-    <div className="inline-flex items-center justify-center w-6 h-6 text-xs text-white bg-red-500 rounded-full">
-      {unreadCount}
-    </div>
+    <Badge
+      variant="destructive"
+      className="flex items-center justify-center w-5 h-5 rounded-full text-xs"
+    >
+      {unreadCount > 99 ? "99+" : unreadCount}
+    </Badge>
   );
 };

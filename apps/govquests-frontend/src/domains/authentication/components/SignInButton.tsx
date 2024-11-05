@@ -1,6 +1,7 @@
 "use client";
 
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/shadcn-button";
+import Spinner from "@/components/ui/Spinner";
 import { ConnectKitButton, useSIWE } from "connectkit";
 import React from "react";
 import { useAccount } from "wagmi";
@@ -35,12 +36,12 @@ const SignInButton: React.FC<SignInButtonProps> = ({ className }) => {
     <ConnectKitButton.Custom>
       {({ isConnecting, show }) => (
         <Button
+          variant="default"
           onClick={isConnected ? handleAuth : show}
           disabled={isConnecting}
-          loading={isConnecting}
           className={className}
         >
-          {getButtonText()}
+          {isConnecting ? <Spinner /> : getButtonText()}
         </Button>
       )}
     </ConnectKitButton.Custom>

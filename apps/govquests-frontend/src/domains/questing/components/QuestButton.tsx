@@ -43,9 +43,9 @@ const QuestButton: React.FC<QuestButtonProps> = ({
       onClick={action}
       size="lg"
       className={cn(
-        "self-center mt-6 px-24 bg-secondaryHover text-white hover:bg-secondaryDisabled font-medium rounded-lg",
+        "self-center mt-6 px-24 bg-secondary text-secondary-foreground hover:bg-secondary/70 font-medium rounded-lg",
         disabled &&
-          "bg-secondaryDisabled text-foreground/60 cursor-not-allowed",
+          "bg-secondary/50 text-secondary-foreground/60 cursor-not-allowed",
       )}
       disabled={disabled}
     >
