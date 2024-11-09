@@ -59,23 +59,6 @@ RSpec.describe Processes::UpdateQuestProgressOnActionExecutionCompleted do
 
   private
 
-  class FakeCommandBus
-    attr_reader :received, :all_received
-
-    def initialize
-      @all_received = []
-    end
-
-    def call(command)
-      @received = command
-      @all_received << command
-    end
-
-    def clear_all_received
-      @all_received, @received = [], nil
-    end
-  end
-
   def action_execution_started_event(execution_id, quest_id, action_id, user_id)
     ActionTracking::ActionExecutionStarted.new(data: {
       execution_id: execution_id,

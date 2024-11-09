@@ -1,7 +1,3 @@
-# lib/services/ethereum/transaction_encoder.rb
-
-require "pycall/import"
-
 module Safe
   class TransactionEncoder
     Web3 = PyCall.import_module("web3").Web3

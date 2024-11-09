@@ -84,35 +84,27 @@ ActiveRecord::Schema[8.1].define(version: 2024_10_31_154911) do
     t.index ["leaderboard_id"], name: "index_leaderboards_on_leaderboard_id", unique: true
   end
 
-  create_table "notification_templates", force: :cascade do |t|
-    t.string "template_id", null: false
-    t.string "name", null: false
-    t.text "content", null: false
-    t.string "template_type", null: false
+  create_table "notification_deliveries", force: :cascade do |t|
+    t.string "notification_id", null: false
+    t.string "delivery_method", null: false
+    t.string "status", default: "pending", null: false
+    t.datetime "delivered_at"
+    t.datetime "read_at"
+    t.jsonb "metadata", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_notification_templates_on_name", unique: true
-    t.index ["template_id"], name: "index_notification_templates_on_template_id", unique: true
+    t.index ["notification_id", "delivery_method"], name: "idx_on_notification_id_delivery_method_fcac4b8c69", unique: true
+    t.index ["notification_id"], name: "index_notification_deliveries_on_notification_id"
   end
 
   create_table "notifications", force: :cascade do |t|
     t.string "notification_id", null: false
-    t.string "content", null: false
-    t.integer "priority", null: false
-    t.string "template_id", null: false
     t.string "user_id", null: false
-    t.string "channel", null: false
-    t.string "status", default: "created"
+    t.string "content", null: false
     t.string "notification_type", null: false
-    t.datetime "scheduled_time"
-    t.datetime "sent_at"
-    t.datetime "received_at"
-    t.datetime "opened_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["channel"], name: "index_notifications_on_channel"
     t.index ["notification_id"], name: "index_notifications_on_notification_id", unique: true
-    t.index ["template_id"], name: "index_notifications_on_template_id"
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
@@ -140,7 +132,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_10_31_154911) do
     t.uuid "pool_id", null: false
     t.uuid "user_id", null: false
     t.datetime "issued_at", null: false
-    t.datetime "claimed_at"
+    t.datetime "claim_started_at"
+    t.datetime "claim_completed_at"
+    t.jsonb "claim_metadata", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["pool_id", "user_id"], name: "index_reward_issuances_on_pool_id_and_user_id", unique: true
@@ -179,6 +173,8 @@ ActiveRecord::Schema[8.1].define(version: 2024_10_31_154911) do
     t.integer "streak", default: 0
     t.integer "score", default: 0
     t.jsonb "badges", default: []
+    t.jsonb "unclaimed_tokens", default: {}
+    t.jsonb "active_claim"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_user_game_profiles_on_profile_id", unique: true

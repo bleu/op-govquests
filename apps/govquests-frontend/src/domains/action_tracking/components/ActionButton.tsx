@@ -1,179 +1,73 @@
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/shadcn-button";
+import Spinner from "@/components/ui/Spinner";
 import { cn } from "@/lib/utils";
 import { CheckIcon, CheckSquareIcon, ExternalLinkIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import type React from "react";
-import type {
-  ActionType,
-  DiscourseVerificationStatus,
-  EnsStatus,
-  GitcoinScoreStatus,
-  ReadDocumentStatus,
-  SendEmailStatus,
-  VerifyAgoraStatus,
-  VerifyDelegateStatementStatus,
-  VerifyDelegateStatus,
-  VerifyFirstVoteStatus,
-  VerifyPositionStatus,
-  VerifyWalletStatus,
-} from "../types/actionButtonTypes";
 
-type StatusConfig = {
-  label: string;
-  icon: React.ReactNode;
-};
-
-type ActionConfig = {
+const ACTIONS = {
   gitcoin_score: {
-    statuses: Record<GitcoinScoreStatus, StatusConfig>;
-  };
-  read_document: {
-    statuses: Record<ReadDocumentStatus, StatusConfig>;
-  };
-  verify_position: {
-    statuses: Record<VerifyPositionStatus, StatusConfig>;
-  };
-  ens: {
-    statuses: Record<EnsStatus, StatusConfig>;
-  };
-  discourse_verification: {
-    statuses: Record<DiscourseVerificationStatus, StatusConfig>;
-  };
-  send_email: {
-    statuses: Record<SendEmailStatus, StatusConfig>;
-  };
-  wallet_verification: {
-    statuses: Record<VerifyWalletStatus, StatusConfig>;
-  };
-  verify_delegate: {
-    statuses: Record<VerifyDelegateStatus, StatusConfig>;
-  };
-  verify_delegate_statement: {
-    statuses: Record<VerifyDelegateStatementStatus, StatusConfig>;
-  };
-  verify_agora: {
-    statuses: Record<VerifyAgoraStatus, StatusConfig>;
-  };
-  verify_first_vote: {
-    statuses: Record<VerifyFirstVoteStatus, StatusConfig>;
-  };
-};
-
-const actionConfig: ActionConfig = {
-  gitcoin_score: {
-    statuses: {
-      unstarted: { label: "Connect Passport", icon: null },
-      started: { label: "Sign Message", icon: null },
-      verify: { label: "Verify Score", icon: null },
-      completed: { label: "Connected", icon: null },
-    },
+    unstarted: { label: "Connect Passport" },
+    started: { label: "Sign Message" },
+    verify: { label: "Verify Score" },
+    completed: { label: "Connected" },
   },
-
   read_document: {
-    statuses: {
-      unstarted: {
-        label: "Read Content",
-        icon: <ExternalLinkIcon className="ml-2 w-4 h-4" />,
-      },
-      started: {
-        label: "Mark as read",
-        icon: <CheckIcon className="ml-2 w-4 h-4" />,
-      },
-      completed: {
-        label: "Confirmed",
-        icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
-      },
-    },
+    unstarted: { label: "Read Content", icon: ExternalLinkIcon },
+    started: { label: "Mark as read", icon: CheckIcon },
+    completed: { label: "Confirmed", icon: CheckSquareIcon },
   },
   verify_position: {
-    statuses: {
-      unstarted: { label: "Verify Position", icon: null },
-      started: {
-        label: "Submit API Key",
-        icon: <ExternalLinkIcon className="ml-2 w-4 h-4" />,
-      },
-      completed: {
-        label: "Verified",
-        icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
-      },
-    },
-  },
-  ens: {
-    statuses: {
-      unstarted: { label: "Connect ENS", icon: null },
-      completed: { label: "ENS Connected", icon: null },
-    },
+    unstarted: { label: "Verify Position" },
+    started: { label: "Submit API Key", icon: ExternalLinkIcon },
+    completed: { label: "Verified", icon: CheckSquareIcon },
   },
   discourse_verification: {
-    statuses: {
-      unstarted: { label: "Get Verification URL", icon: null },
-      started: {
-        label: "Submit API Key",
-        icon: <ExternalLinkIcon className="ml-2 w-4 h-4" />,
-      },
-      completed: {
-        label: "Verified",
-        icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
-      },
-    },
-  },
-  send_email: {
-    statuses: {
-      unstarted: { label: "Send", icon: null },
-      completed: { label: "Verified e-mail", icon: null },
-    },
-  },
-  wallet_verification: {
-    statuses: {
-      unstarted: { label: "Verify Wallet", icon: null },
-      completed: { label: "Verified", icon: null },
-    },
+    unstarted: { label: "Get Verification URL" },
+    started: { label: "Submit API Key", icon: ExternalLinkIcon },
+    completed: { label: "Verified", icon: CheckSquareIcon },
   },
   verify_delegate: {
-    statuses: {
-      unstarted: { label: "Verify", icon: null },
-      completed: {
-        label: "Verified",
-        icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
-      },
-    },
+    unstarted: { label: "Verify" },
+    completed: { label: "Verified", icon: CheckSquareIcon },
   },
   verify_delegate_statement: {
-    statuses: {
-      unstarted: { label: "Verify", icon: null },
-      completed: {
-        label: "Verified",
-        icon: <CheckSquareIcon className="ml-2 w-4 h-4" />,
-      },
-    },
+    unstarted: { label: "Verify" },
+    completed: { label: "Verified", icon: CheckSquareIcon },
+  },
+  ens: {
+    unstarted: { label: "Connect ENS" },
+    completed: { label: "ENS Connected" },
+  },
+  send_email: {
+    unstarted: { label: "Send" },
+    completed: { label: "Verified e-mail" },
+  },
+  wallet_verification: {
+    unstarted: { label: "Verify Wallet" },
+    completed: { label: "Verified" },
   },
   verify_agora: {
-    statuses: {
-      unstarted: { label: "Connect Agora", icon: null },
-      completed: {
-        label: "Connected",
-        icon: null,
-      },
-    },
+    unstarted: { label: "Connect Agora" },
+    completed: { label: "Connected" },
   },
   verify_first_vote: {
-    statuses: {
-      unstarted: { label: "Confirm first vote", icon: null },
-      completed: {
-        label: "Vote confirmed",
-        icon: null,
-      },
-    },
+    unstarted: { label: "Confirm first vote" },
+    completed: { label: "Vote confirmed" },
   },
-};
+} as const;
 
-type ActionButtonProps<T extends ActionType> = {
+type ActionType = keyof typeof ACTIONS;
+type ActionStatus<T extends ActionType> = keyof (typeof ACTIONS)[T];
+
+interface ActionButtonProps<T extends ActionType> {
   actionType: T;
-  status: keyof ActionConfig[T]["statuses"];
+  status: ActionStatus<T>;
   onClick: () => void;
   disabled?: boolean;
   loading?: boolean;
   customLabel?: string;
-};
+}
 
 function ActionButton<T extends ActionType>({
   actionType,
@@ -183,24 +77,33 @@ function ActionButton<T extends ActionType>({
   loading = false,
   customLabel,
 }: ActionButtonProps<T>) {
-  const { label, icon } = actionConfig[actionType].statuses[status];
+  const config = ACTIONS[actionType][status];
+  const Icon = config.icon;
 
   return (
     <Button
-      className={cn(
-        "bg-secondary hover:bg-secondaryHover hover:text-white px-6 mr-6",
-        disabled &&
-          "bg-secondaryDisabled text-opacity-60 cursor-not-allowed pointer-events-none",
-      )}
+      variant="secondary"
       size="sm"
+      className={cn(
+        "mr-6",
+        disabled && "pointer-events-none",
+        status === "completed" && "opacity-50",
+      )}
       onClick={onClick}
-      disabled={disabled || status === "completed"}
-      loading={loading}
+      disabled={disabled || status === "completed" || loading}
     >
-      <span className="flex items-center">
-        {customLabel || label}
-        {icon}
-      </span>
+      {loading ? (
+        <span className="flex items-center gap-2">
+          <Spinner className="h-4 w-4" />
+          {customLabel || config.label}
+          {Icon && <Icon className="h-4 w-4" />}
+        </span>
+      ) : (
+        <span className="flex items-center gap-2">
+          {customLabel || config.label}
+          {Icon && <Icon className="h-4 w-4" />}
+        </span>
+      )}
     </Button>
   );
 }

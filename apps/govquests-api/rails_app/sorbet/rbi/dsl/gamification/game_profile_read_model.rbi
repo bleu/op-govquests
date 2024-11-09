@@ -564,6 +564,51 @@ class Gamification::GameProfileReadModel
 
   module GeneratedAttributeMethods
     sig { returns(T.untyped) }
+    def active_claim; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def active_claim=(value); end
+
+    sig { returns(T::Boolean) }
+    def active_claim?; end
+
+    sig { returns(T.untyped) }
+    def active_claim_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def active_claim_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def active_claim_came_from_user?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def active_claim_change; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def active_claim_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def active_claim_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def active_claim_in_database; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def active_claim_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def active_claim_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def active_claim_previously_was; end
+
+    sig { returns(T.untyped) }
+    def active_claim_was; end
+
+    sig { void }
+    def active_claim_will_change!; end
+
+    sig { returns(T.untyped) }
     def badges; end
 
     sig { params(value: T.untyped).returns(T.untyped) }
@@ -789,6 +834,9 @@ class Gamification::GameProfileReadModel
     def profile_id_will_change!; end
 
     sig { void }
+    def restore_active_claim!; end
+
+    sig { void }
     def restore_badges!; end
 
     sig { void }
@@ -816,7 +864,16 @@ class Gamification::GameProfileReadModel
     def restore_track!; end
 
     sig { void }
+    def restore_unclaimed_tokens!; end
+
+    sig { void }
     def restore_updated_at!; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def saved_change_to_active_claim; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_active_claim?; end
 
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def saved_change_to_badges; end
@@ -871,6 +928,12 @@ class Gamification::GameProfileReadModel
 
     sig { returns(T::Boolean) }
     def saved_change_to_track?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def saved_change_to_unclaimed_tokens; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_unclaimed_tokens?; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_updated_at; end
@@ -1058,6 +1121,51 @@ class Gamification::GameProfileReadModel
     sig { void }
     def track_will_change!; end
 
+    sig { returns(T.untyped) }
+    def unclaimed_tokens; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def unclaimed_tokens=(value); end
+
+    sig { returns(T::Boolean) }
+    def unclaimed_tokens?; end
+
+    sig { returns(T.untyped) }
+    def unclaimed_tokens_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def unclaimed_tokens_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def unclaimed_tokens_came_from_user?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def unclaimed_tokens_change; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def unclaimed_tokens_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def unclaimed_tokens_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def unclaimed_tokens_in_database; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def unclaimed_tokens_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def unclaimed_tokens_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def unclaimed_tokens_previously_was; end
+
+    sig { returns(T.untyped) }
+    def unclaimed_tokens_was; end
+
+    sig { void }
+    def unclaimed_tokens_will_change!; end
+
     sig { returns(::ActiveSupport::TimeWithZone) }
     def updated_at; end
 
@@ -1104,6 +1212,9 @@ class Gamification::GameProfileReadModel
     def updated_at_will_change!; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_active_claim?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_badges?; end
 
     sig { returns(T::Boolean) }
@@ -1129,6 +1240,9 @@ class Gamification::GameProfileReadModel
 
     sig { returns(T::Boolean) }
     def will_save_change_to_track?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_unclaimed_tokens?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_updated_at?; end

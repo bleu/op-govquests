@@ -1,106 +1,64 @@
+# spec/notifications/notification_spec.rb
 require "spec_helper"
 
 RSpec.describe Notifications::Notification do
   let(:notification_id) { SecureRandom.uuid }
   let(:notification) { described_class.new(notification_id) }
+  let(:user_id) { SecureRandom.uuid }
+  let(:content) { "Test notification" }
+  let(:type) { "test" }
 
   describe "#create" do
-    context "when creating a new notification" do
-      it "creates a NotificationCreated event with correct data" do
-        user_id = SecureRandom.uuid
-        content = "You've earned a badge!"
-        type = "tier_achieved"
-
-        notification.create(user_id, content, type)
-        events = notification.unpublished_events.to_a
-
-        expect(events.size).to eq(1)
-        event = events.first
-
-        expect(event).to be_a(Notifications::NotificationCreated)
-        expect(event.data[:notification_id]).to eq(notification_id)
-        expect(event.data[:user_id]).to eq(user_id)
-        expect(event.data[:content]).to eq(content)
-        expect(event.data[:notification_type]).to eq(type)
-      end
-    end
-  end
-
-  describe "#send_notification" do
-    context "when sending a notification" do
-      it "creates a NotificationSent event with correct data" do
-        user_id = SecureRandom.uuid
-        content = "Test content"
-        type = "test"
-
-        notification.create(user_id, content, type)
-        notification.send_notification
-        events = notification.unpublished_events.to_a
-
-        expect(events.size).to eq(2)
-        event = events.last
-
-        expect(event).to be_a(Notifications::NotificationSent)
-        expect(event.data[:notification_id]).to eq(notification_id)
-        expect(event.data[:sent_at]).to be_a(Time)
-      end
-    end
-  end
-
-  describe "#mark_as_read" do
-    context "when marking a notification as read" do
-      it "creates a NotificationMarkedAsRead event with correct data" do
-        user_id = SecureRandom.uuid
-        content = "Test content"
-        type = "test"
-
-        notification.create(user_id, content, type)
-        notification.send_notification
-        notification.mark_as_read
-        events = notification.unpublished_events.to_a
-
-        expect(events.size).to eq(3)
-        event = events.last
-
-        expect(event).to be_a(Notifications::NotificationMarkedAsRead)
-        expect(event.data[:notification_id]).to eq(notification_id)
-        expect(event.data[:read_at]).to be_a(Time)
-      end
-    end
-
-    context "when marking as read before sending" do
-      it "creates a NotificationMarkedAsRead event even if not sent" do
-        user_id = SecureRandom.uuid
-        content = "Test content"
-        type = "test"
-
-        notification.create(user_id, content, type)
-        notification.mark_as_read
-        events = notification.unpublished_events.to_a
-
-        expect(events.size).to eq(2)
-        event = events.last
-
-        expect(event).to be_a(Notifications::NotificationMarkedAsRead)
-      end
-    end
-  end
-
-  describe "state changes" do
-    it "updates sent_at and read_at timestamps appropriately" do
-      user_id = SecureRandom.uuid
-      content = "Test content"
-      type = "test"
-
+    it "creates notification with default in_app delivery" do
       notification.create(user_id, content, type)
-      expect(notification.instance_variable_get(:@sent_at)).to be_nil
-      expect(notification.instance_variable_get(:@read_at)).to be_nil
+      event = notification.unpublished_events.first
 
-      notification.send_notification
-      expect(notification.instance_variable_get(:@sent_at)).to be_a(Time)
+      expect(event.data[:delivery_methods]).to eq(["in_app"])
+    end
 
-      notification.mark_as_read
-      expect(notification.instance_variable_get(:@read_at)).to be_a(Time)
+    it "creates notification with specified delivery methods" do
+      notification.create(user_id, content, type, ["email", "sms"])
+      event = notification.unpublished_events.first
+
+      expect(event.data[:delivery_methods]).to eq(["email", "sms"])
+    end
+  end
+
+  describe "#deliver" do
+    before do
+      notification.create(user_id, content, type, ["in_app", "email"])
+    end
+
+    it "delivers via in_app" do
+      notification.deliver("in_app")
+      event = notification.unpublished_events.to_a.last
+
+      expect(event).to be_a(Notifications::NotificationDelivered)
+      expect(event.data[:delivery_method]).to eq("in_app")
+      expect(event.data[:metadata]).to include(user_id: user_id)
+    end
+
+    it "delivers via email" do
+      notification.deliver("email")
+      event = notification.unpublished_events.to_a.last
+
+      expect(event).to be_a(Notifications::NotificationDelivered)
+      expect(event.data[:delivery_method]).to eq("email")
+      expect(event.data[:metadata]).to include(to: "user@example.com")
+    end
+
+    it "raises error for unknown delivery method" do
+      expect {
+        notification.deliver("unknown")
+      }.to raise_error(Notifications::Delivery::DeliveryStrategyFactory::UnknownDeliveryMethodError)
+    end
+
+    it "raises error when delivering same method twice" do
+      notification.deliver("in_app")
+
+      expect {
+        notification.deliver("in_app")
+      }.to raise_error(Notifications::Notification::AlreadyDeliveredError)
     end
   end
 end

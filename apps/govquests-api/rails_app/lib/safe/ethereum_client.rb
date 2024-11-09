@@ -22,7 +22,12 @@ module Safe
     private
 
     def validate_network!
-      @network = (@network === "sepolia") ? EthereumNetwork.SEPOLIA : EthereumNetwork.OPTIMISM
+      networks = {
+        "sepolia" => EthereumNetwork.SEPOLIA,
+        "optimism" => EthereumNetwork.OPTIMISM
+      }
+
+      @network = networks[@network.downcase] || EthereumNetwork.SEPOLIA
     end
   end
 end

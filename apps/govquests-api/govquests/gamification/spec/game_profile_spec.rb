@@ -6,6 +6,14 @@ RSpec.describe Gamification::GameProfile do
   let(:token_address) { "0xabc123" }
   let(:pool_id) { SecureRandom.uuid }
 
+  let(:safe_mock) { instance_double(Safe::ProposeErc20Transfer) }
+  let(:safe_tx_hash) { "0xabcdef123456" }
+
+  before do
+    allow(Safe::ProposeErc20Transfer).to receive(:new).and_return(safe_mock)
+    allow(safe_mock).to receive(:call).and_return({"safe_tx_hash" => safe_tx_hash})
+  end
+
   describe "#update_score" do
     context "when updating score with positive points" do
       it "creates a ScoreUpdated event with correct data" do
@@ -119,15 +127,21 @@ RSpec.describe Gamification::GameProfile do
   end
 
   describe "#start_token_claim" do
-    let(:claim_metadata) { {"user_address" => "0xdef456"} }
+    let(:user_address) { "0xdef456" }
 
     before do
       profile.add_token_reward(token_address: token_address, amount: 100, pool_id: pool_id)
     end
 
     it "creates TokenClaimStarted event with correct data" do
-      user_address = "0xdef456"
-      profile.start_token_claim(token_address: token_address, claim_metadata:)
+      expect(Safe::ProposeErc20Transfer).to receive(:new).with(
+        to_address: user_address,
+        value: 100,
+        token_address: token_address
+      ).and_return(safe_mock)
+      expect(safe_mock).to receive(:call).and_return({"safe_tx_hash" => safe_tx_hash})
+
+      profile.start_token_claim(token_address: token_address, user_address: user_address)
 
       events = profile.unpublished_events.select { |e| e.is_a?(Gamification::TokenClaimStarted) }
       expect(events.size).to eq(1)
@@ -135,24 +149,35 @@ RSpec.describe Gamification::GameProfile do
 
       expect(event.data[:profile_id]).to eq(profile_id)
       expect(event.data[:token_address]).to eq(token_address)
+      expect(event.data[:user_address]).to eq(user_address)
       expect(event.data[:amount]).to eq(100)
-      expect(event.data[:claim_metadata]).to eq({"user_address" => user_address})
+      expect(event.data[:claim_metadata]).to eq({
+        "safe_tx_hash" => safe_tx_hash
+      })
       expect(event.data[:started_at]).to be_a(Time)
     end
 
     it "raises AlreadyClaimingError when a claim is in progress" do
-      profile.start_token_claim(token_address: token_address, claim_metadata:)
+      profile.start_token_claim(token_address: token_address, user_address: user_address)
 
       expect {
-        profile.start_token_claim(token_address: token_address, claim_metadata:)
+        profile.start_token_claim(token_address: token_address, user_address: user_address)
       }.to raise_error(Gamification::GameProfile::AlreadyClaimingError)
     end
 
     it "raises InsufficientClaimableBalance when balance is too low" do
       different_token = "0x789"
       expect {
-        profile.start_token_claim(token_address: different_token, claim_metadata:)
+        profile.start_token_claim(token_address: different_token, user_address: user_address)
       }.to raise_error(Gamification::GameProfile::InsufficientClaimableBalance)
+    end
+
+    it "raises an error when Safe service fails" do
+      allow(safe_mock).to receive(:call).and_raise("Safe service error")
+
+      expect {
+        profile.start_token_claim(token_address: token_address, user_address: user_address)
+      }.to raise_error(RuntimeError, "Safe service error")
     end
   end
 
@@ -162,7 +187,7 @@ RSpec.describe Gamification::GameProfile do
 
     before do
       profile.add_token_reward(token_address: token_address, amount: 100, pool_id: pool_id)
-      profile.start_token_claim(token_address: token_address, claim_metadata:)
+      profile.start_token_claim(token_address: token_address, user_address: user_address)
     end
 
     it "creates TokenClaimCompleted event with correct data" do
@@ -174,6 +199,7 @@ RSpec.describe Gamification::GameProfile do
 
       expect(event.data[:profile_id]).to eq(profile_id)
       expect(event.data[:token_address]).to eq(token_address)
+      expect(event.data[:user_address]).to eq(user_address)
       expect(event.data[:amount]).to eq(100)
       expect(event.data[:claim_metadata]).to eq(claim_metadata)
       expect(event.data[:completed_at]).to be_a(Time)

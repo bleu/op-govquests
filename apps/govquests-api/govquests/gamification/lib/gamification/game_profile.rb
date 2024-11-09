@@ -1,3 +1,5 @@
+require_relative "../../../../rails_app/lib/safe/propose_erc20_transfer"
+
 module Gamification
   class GameProfile
     MIN_CLAIMABLE_TOKEN_AMOUNT = 30
@@ -33,17 +35,26 @@ module Gamification
       })
     end
 
-    def start_token_claim(token_address:, claim_metadata:)
+    def start_token_claim(token_address:, user_address:)
       raise AlreadyClaimingError if @active_claim
       raise InsufficientClaimableBalance unless can_claim?(token_address)
 
-      total = @unclaimed_tokens[token_address] || 0
+      total = @unclaimed_tokens[token_address]
+
+      safe_service = Safe::ProposeErc20Transfer.new(
+        to_address: user_address,
+        value: total,
+        token_address: token_address
+      )
+
+      safe_response = safe_service.call
 
       apply TokenClaimStarted.new(data: {
         profile_id: @id,
         token_address: token_address,
         amount: total,
-        claim_metadata: claim_metadata,
+        claim_metadata: safe_response,
+        user_address: user_address,
         started_at: Time.now
       })
     end
@@ -55,6 +66,7 @@ module Gamification
       apply TokenClaimCompleted.new(data: {
         profile_id: @id,
         token_address: token_address,
+        user_address: @active_claim[:user_address],
         amount: @active_claim[:amount],
         claim_metadata: claim_metadata,
         completed_at: Time.now
@@ -113,6 +125,7 @@ module Gamification
       @active_claim = {
         token_address: event.data[:token_address],
         amount: event.data[:amount],
+        user_address: event.data[:user_address],
         claim_metadata: event.data[:claim_metadata],
         started_at: event.data[:started_at]
       }

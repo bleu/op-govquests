@@ -28,12 +28,15 @@ module QuestCreation
 
     quest_data[:rewards].each do |reward|
       pool_id = SecureRandom.uuid
+
+      reward.delete("inventory")
+
       Rails.configuration.command_bus.call(
         Rewarding::CreateRewardPool.new(
           pool_id: pool_id,
           quest_id: quest_id,
           reward_definition: reward,
-          initial_inventory: (reward["type"] == "Token") ? 1000 : nil
+          initial_inventory: (reward[:type] == "Token") ? reward[:inventory] : nil
         )
       )
 
@@ -240,7 +243,7 @@ module QuestData
         requirements: "<span>To complete this quest, you need to have:</span> <ul><li>A <strong>ENS</strong> — if you don't have it, <a href='https://ens.domains/' target='_blank' rel='noopener noreferrer'>register your ENS here</a> and remember to <strong>choose a distinct username</strong> that represents you (like yourname.eth).</li> <li>A <strong>Discourse account</strong> on <strong>Optimism Governance Forum</strong> — if you also don't have it, <a href='https://gov.optimism.io/' target='_blank' rel='noopener noreferrer'>create your account here.</a> We recommend you to use your ENS as username so you can get easily recognizable.</li></ul>"
       },
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 165}],
+      rewards: [{type: "Points", amount: 165}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
       actions: [ENS_ACTION, DISCOURSE_VERIFICATION_ACTION]
     },
     {
@@ -250,7 +253,9 @@ module QuestData
         image_url: "https://example.com/governance101.jpg"
       },
       audience: "AllUsers",
-      rewards: [{type: "Points", amount: 55}],
+      rewards: [
+        {type: "Points", amount: 55}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}
+      ],
       actions: UNLOCK_PROFILE_ACTIONS
     },
     {
@@ -260,7 +265,7 @@ module QuestData
         image_url: "https://example.com/governance101.jpg"
       },
       audience: "AllUsers",
-      rewards: [{type: "Points", amount: 165}],
+      rewards: [{type: "Points", amount: 165}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
       actions: READ_DOCUMENT_ACTIONS
     },
     {
@@ -271,7 +276,7 @@ module QuestData
         requirements: "Your Unique Humanity Score must be 20 or higher to complete this quest. Not there yet? Check some tips on how to increase your score."
       },
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 55}],
+      rewards: [{type: "Points", amount: 55}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
       actions: [GITCOIN_ACTION]
     },
 
@@ -283,7 +288,7 @@ module QuestData
         requirements: "You need to be a delegate to do this quest! If you’re not one, start with Become Delegate Quest."
       },
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 165}],
+      rewards: [{type: "Points", amount: 165}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
       actions: [VERIFY_POSITION_ACTION]
     },
     {
@@ -295,7 +300,7 @@ module QuestData
       },
       quest_type: "Governance",
       audience: "NonDelegates",
-      rewards: [{type: "Points", amount: 20}],
+      rewards: [{type: "Points", amount: 20}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
       actions: [VERIFY_DELEGATE_ACTION]
     },
     {
@@ -307,7 +312,7 @@ module QuestData
       },
       quest_type: "Governance",
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 20}],
+      rewards: [{type: "Points", amount: 20}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
       actions: [VERIFY_DELEGATE_STATEMENT]
     },
     {
@@ -319,7 +324,7 @@ module QuestData
       },
       quest_type: "Governance",
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 20}],
+      rewards: [{type: "Points", amount: 20}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
       actions: [VERIFY_AGORA, VERIFY_FIRST_VOTE]
     }
   ]

@@ -1,6 +1,7 @@
 "use client";
 
 import SignInButton from "@/domains/authentication/components/SignInButton";
+import { NotificationBell } from "@/domains/notifications/components/NotificationBell";
 import { cn } from "@/lib/utils";
 import { HomeIcon, MapIcon, StarIcon } from "lucide-react";
 import Link from "next/link";
@@ -61,7 +62,10 @@ const Header: React.FC = () => {
           </ul>
         </nav>
 
-        <SignInButton />
+        <div className="flex items-center gap-4">
+          <NotificationBell />
+          <SignInButton />
+        </div>
       </div>
     </header>
   );

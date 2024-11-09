@@ -18,7 +18,7 @@ module ActionTracking
       # and here what we want is to ensure that the user has the required domains, which have already been
       # fetched in the start_execution method.
       def completion_data_valid?
-        start_data.present? && start_data.with_indifferent_access[:domains]
+        start_data.present? && start_data.with_indifferent_access[:domains] && start_data.with_indifferent_access[:domains].any?
       end
 
       def ens_domains(address)

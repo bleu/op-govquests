@@ -25,8 +25,10 @@ const Button: React.FC<ButtonProps> = ({
     "flex items-center justify-center font-medium rounded-md transition-colors";
 
   const variantClasses = {
-    primary: "bg-primary text-foreground hover:bg-primary/70 transition",
-    secondary: "hover:bg-background/70 transition",
+    primary:
+      "bg-primary text-primary-foreground hover:bg-primary/70 transition",
+    secondary:
+      "bg-secondary text-secondary-foreground hover:bg-secondary/70 transition",
   };
   const sizeClasses = {
     sm: "px-3 py-1 text-sm",

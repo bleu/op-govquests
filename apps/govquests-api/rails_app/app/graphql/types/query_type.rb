@@ -24,5 +24,13 @@ module Types
     field :quest, resolver: Resolvers::FetchQuest
 
     field :current_user, resolver: Resolvers::CurrentUser, preauthorize: {with: AuthenticatedGraphqlPolicy}
+
+    field :notifications,
+      resolver: Resolvers::FetchNotifications,
+      preauthorize: {with: AuthenticatedGraphqlPolicy}
+
+    field :unread_notifications_count,
+      resolver: Resolvers::UnreadNotificationsCount,
+      preauthorize: {with: AuthenticatedGraphqlPolicy}
   end
 end

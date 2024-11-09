@@ -24,7 +24,13 @@ module ActionTracking
       protected
 
       def completion_data_valid?
-        validate_score
+        return false unless @completion_data && passport_response
+
+        score = passport_response["score"].to_f
+
+        return true unless score < GITCOIN_SCORE_HUMANITY_THRESHOLD
+
+        raise CompletionDataVerificationFailed.new("Your Unique Humanity Score is currently #{score}.")
       end
 
       def on_start_execution
@@ -37,6 +43,8 @@ module ActionTracking
       end
 
       def on_complete_execution
+        raise "Empty Gitcoin Passport response" unless passport_response
+
         {
           score: passport_response["score"].to_f,
           minimum_passing_score: GITCOIN_SCORE_HUMANITY_THRESHOLD,
@@ -52,14 +60,6 @@ module ActionTracking
           @completion_data[:signature],
           @completion_data[:nonce]
         )
-      end
-
-      def validate_score
-        score = passport_response["score"].to_f
-
-        return true unless score < GITCOIN_SCORE_HUMANITY_THRESHOLD
-
-        raise CompletionDataVerificationFailed.new("Your Unique Humanity Score is currently #{score}.")
       end
     end
   end

@@ -12,7 +12,7 @@ module Gamification
   class StartTokenClaim < Infra::Command
     attribute :profile_id, Infra::Types::UUID
     attribute :token_address, Infra::Types::String
-    attribute :claim_metadata, Gamification::Types::ClaimMetadata
+    attribute :user_address, Infra::Types::String
 
     alias_method :aggregate_id, :profile_id
   end

@@ -80,9 +80,11 @@ gem "memery"
 gem "oj"
 
 gem "graphql", "~> 2.3"
-
+gem "graphiql-rails"
 gem "siwe", "~> 2.0"
 gem "action_policy"
 gem "action_policy-graphql"
 
 gem "pycall"
+
+gem "sprockets-rails", "~> 3.5"

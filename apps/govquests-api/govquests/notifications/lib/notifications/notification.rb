@@ -1,38 +1,59 @@
+require_relative "delivery/base"
 module Notifications
   class Notification
     include AggregateRoot
+
+    class AlreadyDeliveredError < StandardError; end
+
+    class DeliveryError < StandardError; end
 
     def initialize(id)
       @id = id
       @user_id = nil
       @content = nil
       @type = nil
-      @sent_at = nil
+      @delivery_methods = []
+      @deliveries = {}
       @read_at = nil
     end
 
-    def create(user_id, content, type)
+    def create(user_id, content, type, delivery_methods = ["in_app"])
       apply NotificationCreated.new(data: {
         notification_id: @id,
         user_id: user_id,
         content: content,
-        notification_type: type
+        notification_type: type,
+        delivery_methods: delivery_methods
       })
     end
 
-    def send_notification
-      apply NotificationSent.new(data: {
+    def deliver(method)
+      raise AlreadyDeliveredError if delivered?(method)
+
+      delivery_strategy = Notifications::Delivery::DeliveryStrategyFactory.for(method, self)
+      result = delivery_strategy.deliver
+
+      apply NotificationDelivered.new(data: {
         notification_id: @id,
-        sent_at: Time.now
+        delivery_method: method,
+        delivered_at: result[:delivered_at],
+        metadata: result[:metadata]
       })
     end
 
-    def mark_as_read
+    def mark_as_read(delivery_method)
       apply NotificationMarkedAsRead.new(data: {
         notification_id: @id,
+        delivery_method: delivery_method,
         read_at: Time.now
       })
     end
+
+    def delivered?(method)
+      @deliveries.key?(method)
+    end
+
+    attr_reader :user_id, :content, :type, :delivery_methods
 
     private
 
@@ -40,14 +61,18 @@ module Notifications
       @user_id = event.data[:user_id]
       @content = event.data[:content]
       @type = event.data[:notification_type]
+      @delivery_methods = event.data[:delivery_methods]
     end
 
-    on NotificationSent do |event|
-      @sent_at = event.data[:sent_at]
+    on NotificationDelivered do |event|
+      @deliveries[event.data[:delivery_method]] = {
+        delivered_at: event.data[:delivered_at],
+        metadata: event.data[:metadata]
+      }
     end
 
     on NotificationMarkedAsRead do |event|
-      @read_at = event.data[:read_at]
+      @deliveries[event.data[:delivery_method]][:read_at] = event.data[:read_at]
     end
   end
 end
