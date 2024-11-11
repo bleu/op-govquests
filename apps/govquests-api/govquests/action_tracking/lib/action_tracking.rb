@@ -11,6 +11,7 @@ require_relative "action_tracking/strategies/read_document"
 require_relative "action_tracking/strategies/ens"
 require_relative "action_tracking/strategies/discourse_verification"
 require_relative "action_tracking/strategies/send_email"
+require_relative "action_tracking/strategies/verify_delegate"
 require_relative "action_tracking/strategies/wallet_verification"
 
 ACTION_EXECUTION_NAMESPACE_UUID = "061d2578-e3b3-41c0-b51d-b75b70876e71".freeze
@@ -65,6 +66,7 @@ module ActionTracking
       ActionExecutionStrategyFactory.register("discourse_verification", Strategies::DiscourseVerification)
       ActionExecutionStrategyFactory.register("send_email", Strategies::SendEmail)
       ActionExecutionStrategyFactory.register("wallet_verification", Strategies::WalletVerification)
+      ActionExecutionStrategyFactory.register("verify_delegate", Strategies::VerifyDelegate)
     end
   end
 end

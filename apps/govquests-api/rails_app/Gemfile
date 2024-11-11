@@ -88,3 +88,5 @@ gem "action_policy-graphql"
 gem "pycall"
 
 gem "sprockets-rails", "~> 3.5"
+
+gem "eth", "~> 0.5.12"
