@@ -27,6 +27,10 @@ module Mutations
         {
           email: send_email_verification_input&.email
         }
+      when "verify_delegate_statement"
+        {
+          address: current_user.address
+        }
       else
         {}
       end
