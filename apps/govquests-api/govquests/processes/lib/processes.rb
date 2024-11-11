@@ -10,7 +10,7 @@ require_relative "processes/notify_on_reward_issued"
 require_relative "processes/notify_on_badge_earned"
 require_relative "processes/notify_on_tier_achieved"
 
-require_relative "processes/send_notification_on_created"
+require_relative "processes/deliver_notification_on_created"
 module Processes
   class Configuration
     def call(event_store, command_bus)
