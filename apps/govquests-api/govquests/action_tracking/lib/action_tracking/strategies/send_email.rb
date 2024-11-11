@@ -5,7 +5,7 @@ module ActionTracking
     class SendEmail < Base
       def start_data_valid?
         # TODO: OP-473, check if email is a valid email address
-        return start_data[:email].present?
+        start_data[:email].present?
       end
 
       def can_complete?
