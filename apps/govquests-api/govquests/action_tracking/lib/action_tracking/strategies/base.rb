@@ -9,8 +9,8 @@ module ActionTracking
       attr_reader :start_data, :completion_data
 
       def initialize(start_data: nil, completion_data: nil)
-        @start_data = start_data
-        @completion_data = completion_data
+        @start_data = start_data&.with_indifferent_access
+        @completion_data = completion_data&.with_indifferent_access
       end
 
       def start_execution

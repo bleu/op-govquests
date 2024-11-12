@@ -31,6 +31,10 @@ module Mutations
         {
           address: current_user.address
         }
+      when "verify_delegate"
+        {
+          address: current_user.address
+        }
       else
         {}
       end

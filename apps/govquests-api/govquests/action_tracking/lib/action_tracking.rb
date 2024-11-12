@@ -11,6 +11,7 @@ require_relative "action_tracking/strategies/read_document"
 require_relative "action_tracking/strategies/ens"
 require_relative "action_tracking/strategies/discourse_verification"
 require_relative "action_tracking/strategies/send_email"
+require_relative "action_tracking/strategies/verify_delegate"
 require_relative "action_tracking/strategies/wallet_verification"
 require_relative "action_tracking/strategies/verify_delegate_statement"
 
@@ -67,6 +68,7 @@ module ActionTracking
       ActionExecutionStrategyFactory.register("send_email", Strategies::SendEmail)
       ActionExecutionStrategyFactory.register("wallet_verification", Strategies::WalletVerification)
       ActionExecutionStrategyFactory.register("verify_delegate_statement", Strategies::VerifyDelegateStatement)
+      ActionExecutionStrategyFactory.register("verify_delegate", Strategies::VerifyDelegate)
     end
   end
 end
