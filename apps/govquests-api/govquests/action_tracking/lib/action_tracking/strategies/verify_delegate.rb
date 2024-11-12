@@ -21,7 +21,7 @@ module ActionTracking
       private
 
       def verify_voting_power?  
-        agora_delegate["votingPower"]["total"].to_i > 0
+        (start_data["votingPower"]["total"]&.to_i || 0) > 0
       end
 
       def agora_delegate
