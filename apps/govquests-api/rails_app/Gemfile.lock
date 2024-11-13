@@ -111,11 +111,6 @@ PATH
       ruby_event_store-transformations
 
 GEM
-  remote: https://gem.mutant.dev/
-  specs:
-    mutant-license (0.1.1.2.1627430819213747598431630701693729869473.6)
-
-GEM
   remote: https://rubygems.org/
   specs:
     action_policy (0.7.1)
@@ -548,7 +543,6 @@ DEPENDENCIES
   jwt
   kamal (>= 2.0.0.rc2)
   memery
-  mutant-license!
   mutant-minitest (= 0.12.4)!
   oj
   pg (~> 1.1)
