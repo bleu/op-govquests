@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, SIWEProvider } from "connectkit";
 import { config, siweConfig } from "@/wagmi";
 import Header from "./Header";
+import NotificationToaster from "@/domains/notifications/components/NotificationToaster";
 
 export const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ export default function Layout({
   return (
     <Providers>
       <div className="h-full">{children}</div>
+      <NotificationToaster />
     </Providers>
   );
 }
