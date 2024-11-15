@@ -4,9 +4,7 @@ import { SIGN_IN_WITH_ETHEREUM } from "../graphql/signInWithEthereum";
 import { SIGN_OUT } from "../graphql/signOut";
 import { CURRENT_USER } from "../graphql/currentUser";
 import { ResultOf, VariablesOf } from "gql.tada";
-
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/graphql";
+import { API_URL } from "@/lib/utils";
 
 export const generateSiweMessage = async (
   variables: VariablesOf<typeof GENERATE_SIWE_MESSAGE>,

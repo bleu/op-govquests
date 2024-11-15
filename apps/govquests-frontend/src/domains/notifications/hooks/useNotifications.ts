@@ -11,9 +11,7 @@ import {
   MarkAllNotificationsAsReadMutation,
   MarkNotificationAsReadMutation,
 } from "../graphql/notifications";
-
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/graphql";
+import { API_URL } from "@/lib/utils";
 
 export const useNotifications = (readStatus?: string) => {
   return useInfiniteQuery({
