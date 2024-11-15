@@ -16,10 +16,12 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useInView } from "react-intersection-observer";
+import { useNotificationProcessor } from "../hooks/useNotificationProcessor";
 
 export const NotificationBell = () => {
   const { data: unreadCount } = useUnreadCount();
   const [isOpen, setIsOpen] = useState(false);
+  useNotificationProcessor();
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>

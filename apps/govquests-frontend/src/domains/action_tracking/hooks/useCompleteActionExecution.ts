@@ -13,8 +13,9 @@ export const useCompleteActionExecution = (invalidateKey: string[]) => {
     CompleteActionExecutionVariables
   >({
     mutationFn: completeActionExecution,
-    onSuccess: (data, variables) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: invalidateKey });
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
     },
   });
 };
