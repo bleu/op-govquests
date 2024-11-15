@@ -30,8 +30,6 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  useNotificationProcessor();
-
   return (
     <Providers>
       <div className="h-full">{children}</div>
