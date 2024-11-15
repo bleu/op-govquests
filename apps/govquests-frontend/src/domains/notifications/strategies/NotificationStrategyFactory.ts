@@ -1,14 +1,17 @@
-import { DefaultStrategy } from "./DefaultStrategy";
-import { NotificationStrategy } from "./NotificationStrategy";
-import { QuestCompletedStrategy } from "./QuestCompletedStrategy";
+import { useToast } from "@/hooks/use-toast";
+import { DefaultHandler } from "./DefaultHandler";
+import { OnNotificationHandler } from "./OnNotificationHandler";
+import { QuestCompletedHandler } from "./QuestCompletedHandler";
 
-export class NotificationStrategyFactory {
-  static createStrategy(notificationType: string): NotificationStrategy {
-    switch (notificationType) {
+export class OnNotificationHandlerFactory {
+  constructor(private toast: ReturnType<typeof useToast>["toast"]) {}
+
+  createHandler(type: string): OnNotificationHandler {
+    switch (type) {
       case "quest_completed":
-        return QuestCompletedStrategy;
+        return new QuestCompletedHandler(this.toast);
       default:
-        return DefaultStrategy;
+        return new DefaultHandler();
     }
   }
 }
