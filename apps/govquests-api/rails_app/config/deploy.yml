@@ -1,14 +1,13 @@
 # Name of your application. Used to uniquely configure containers.
-service: govquests_rails
+service: govquests-rails
 
 # Name of the container image.
-image: bleu/govquests_rails
+image: bleu/govquests-rails
 
 # Deploy to these servers.
 servers:
   web:
-    hosts:
-      - 157.230.83.175
+    - 157.230.83.175
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -16,9 +15,14 @@ servers:
 
 # Enable SSL auto certification via Let's Encrypt (and allow for multiple apps on one server).
 # Set ssl: false if using something like Cloudflare to terminate SSL (but keep host!).
-# proxy:
-#   ssl: true
-#   host: govquests.bleu.builders
+proxy:
+  app_port: 3000
+  healthcheck:
+    path: /up
+    interval: 2
+    timeout: 10
+  ssl: true
+  host: govquests.bleu.builders
 
 # Credentials for your image host.
 registry:
@@ -34,10 +38,16 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
+    - POSTGRES_PASSWORD
+    - POSTGRES_USER
+    - POSTGRES_DB
+    - DB_HOST
+    - DB_PORT
   clear:
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
     SOLID_QUEUE_IN_PUMA: true
+    PORT: 3000
 
     # Set number of processes dedicated to Solid Queue (default: 1)
     # JOB_CONCURRENCY: 3
@@ -62,7 +72,7 @@ aliases:
 # Use a persistent storage volume for sqlite database files and local Active Storage files.
 # Recommended to change this to a mounted volume path that is backed up off server.
 volumes:
-  - "govquests_api_storage:/rails/storage"
+  - "govquests_api_storage:/rails/rails_app/storage"
 
 # Bridge fingerprinted assets, like JS and CSS, between versions to avoid
 # hitting 404 on in-flight requests. Combines all files from new and old
@@ -83,29 +93,22 @@ builder:
   # secrets:
   #   - GITHUB_TOKEN
   #   - RAILS_MASTER_KEY
-# Use a different ssh user than root
-# ssh:
-#   user: app
 
 # Use accessory services (secrets come from .kamal/secrets).
-# accessories:
-#   db:
-#     image: mysql:8.0
-#     host: 192.168.0.2
-#     port: 3306
-#     env:
-#       clear:
-#         MYSQL_ROOT_HOST: '%'
-#       secret:
-#         - MYSQL_ROOT_PASSWORD
-#     files:
-#       - config/mysql/production.cnf:/etc/mysql/my.cnf
-#       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
-#     directories:
-#       - data:/var/lib/mysql
-#   redis:
-#     image: redis:7.0
-#     host: 192.168.0.2
-#     port: 6379
-#     directories:
-#       - data:/data
+accessories:
+  db:
+    image: postgres:latest
+    host: 157.230.83.175
+    port: "127.0.0.1:5432:5432"
+    env:
+      clear:
+        POSTGRES_USER: "govquests_api"
+        POSTGRES_DB: "govquests_api_production"
+        DB_HOST: "govquests-rails-db"
+        DB_PORT: "5432"
+      secret:
+        - POSTGRES_PASSWORD
+    files:
+      - config/init.sql:/docker-entrypoint-initdb.d/setup.sql
+    directories:
+      - data:/var/lib/postgresql/data

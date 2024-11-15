@@ -541,7 +541,7 @@ DEPENDENCIES
   httparty (~> 0.22.0)
   infra!
   jwt
-  kamal (>= 2.0.0.rc2)
+  kamal
   memery
   mutant-minitest (= 0.12.4)!
   oj

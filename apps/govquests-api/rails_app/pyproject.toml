@@ -6,10 +6,9 @@ authors = ["José Ribeiro <jose@bleu.studio>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
-safe-eth-py = "^5.8.0"
-web3 = "^7.4.0"
-hexbytes = "^1.2.1"
+python = "^3.11"
+safe-eth-py = "6.0.0b41"
+web3 = "6.14.0"
 
 
 [build-system]
