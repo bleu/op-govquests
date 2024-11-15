@@ -1,45 +1,45 @@
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/hooks/use-toast";
+import { useEffect } from "react";
+import { useNotificationDiff } from "../hooks/useNotificationDiff";
 import { useNotifications } from "../hooks/useNotifications";
-import { useEffect, useRef } from "react";
+import { NotificationStrategyFactory } from "../strategies/NotificationStrategyFactory";
+import { NotificationNode } from "../types/notificationTypes";
 
 const NotificationToaster = () => {
+  const { data } = useNotifications();
   const { toast } = useToast();
 
-  const { data } = useNotifications();
+  const notifications = data?.pages?.flatMap(
+    (value) => value.notifications.edges,
+  );
+  const { getNewNotifications } = useNotificationDiff(notifications);
 
-  const notifications = data?.pages.flatMap((page) => page.notifications.edges);
-  const prevNotifications: typeof notifications = usePrevious(notifications);
+  useEffect(() => {
+    const newNotifications = getNewNotifications();
 
-  const toastNewNotification = () => {
-    if (!!prevNotifications && notifications !== prevNotifications) {
-      const newNotifications = notifications.filter(
-        (notification) =>
-          !prevNotifications.find(
-            (value) => value.node.id == notification.node.id,
-          ),
-      );
-      newNotifications.forEach((notification) => {
-        if (notification?.node?.notificationType === "quest_completed") {
-          toast({ title: notification?.node?.content });
-        }
-      });
-    }
-  };
-
-  useEffect(toastNewNotification, [notifications]);
+    newNotifications.forEach((notification) => {
+      displayNotification(notification.node, toast);
+    });
+  }, [notifications]);
 
   return <Toaster />;
 };
 
 export default NotificationToaster;
 
-function usePrevious<T>(value: T): T | null {
-  const ref = useRef<T | null>(null);
-  
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
-  
-  return ref.current;
-}
+const displayNotification = (
+  notification: NotificationNode,
+  toast: ReturnType<typeof useToast>["toast"],
+) => {
+  const notificationStrategy = NotificationStrategyFactory.createStrategy(
+    notification.notificationType,
+  );
+
+  const { handleToast } = notificationStrategy({
+    notification,
+    toast,
+  });
+
+  handleToast();
+};
