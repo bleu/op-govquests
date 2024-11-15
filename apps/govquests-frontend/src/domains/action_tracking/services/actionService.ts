@@ -6,10 +6,8 @@ import {
   StartActionExecutionResult,
   CompleteActionExecutionVariables,
   CompleteActionExecutionResult,
-  ActionExecutionsQueryResult,
 } from "../types/actionTypes";
-
-const API_URL = "http://localhost:3000/graphql";
+import { API_URL } from "@/lib/utils";
 
 export const startActionExecution = async (
   variables: StartActionExecutionVariables,
