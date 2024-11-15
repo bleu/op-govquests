@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
 import { NotificationEdge } from "../types/notificationTypes";
+import { usePrevious } from "./usePrevious";
 
 export const useNotificationDiff = (notifications: NotificationEdge[]) => {
   const prevNotifications = usePrevious(notifications);
@@ -17,13 +17,3 @@ export const useNotificationDiff = (notifications: NotificationEdge[]) => {
 
   return { getNewNotifications };
 };
-
-function usePrevious<T>(value: T): T | null {
-  const ref = useRef<T | null>(null);
-
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
-
-  return ref.current;
-}
