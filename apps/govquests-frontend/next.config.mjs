@@ -4,10 +4,13 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   async rewrites() {
+    const destination =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
     return [
       {
         source: "/graphql",
-        destination: "http://localhost:3001/graphql",
+        destination,
       },
     ];
   },
