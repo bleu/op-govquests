@@ -5,7 +5,7 @@ module ActionTracking
     class VerifyFirstVote < Base
       def on_start_execution
         {
-          proposalsVotedOn: agora_delegate["proposalsVotedOn"].to_i
+          proposals_voted_on: agora_delegate["proposals_voted_on"].to_i
         }
       end
 
@@ -20,7 +20,7 @@ module ActionTracking
       private
 
       def has_any_vote?
-        (start_data["proposalsVotedOn"] || 0) > 0
+        (start_data["proposals_voted_on"] || 0) > 0
       end
 
       def agora_delegate
