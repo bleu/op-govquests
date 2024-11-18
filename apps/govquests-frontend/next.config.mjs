@@ -8,7 +8,7 @@ const nextConfig = {
   },
   async rewrites() {
     const destination =
-      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/graphql";
 
     return [
       {

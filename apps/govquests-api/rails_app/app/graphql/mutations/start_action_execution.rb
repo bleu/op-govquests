@@ -35,6 +35,10 @@ module Mutations
         {
           address: current_user.address
         }
+      when "verify_first_vote"
+        {
+          address: current_user.address
+        }
       else
         {}
       end
