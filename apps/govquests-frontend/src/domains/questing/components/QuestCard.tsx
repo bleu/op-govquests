@@ -12,6 +12,7 @@ interface QuestProps {
 }
 
 const QuestCard: React.FC<QuestProps> = ({ quest }) => {
+  console.log(quest);
   return (
     <Link
       href={`/quests/${quest.id}`}
