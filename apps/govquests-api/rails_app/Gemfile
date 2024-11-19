@@ -63,6 +63,7 @@ end
 
 group :development do
   gem "annotaterb"
+  gem "letter_opener"
 end
 
 group :test do
@@ -90,3 +91,5 @@ gem "pycall"
 gem "sprockets-rails", "~> 3.5"
 
 gem "eth", "~> 0.5.12"
+
+gem "postmark-rails"

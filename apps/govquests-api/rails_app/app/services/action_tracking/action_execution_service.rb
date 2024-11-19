@@ -7,7 +7,7 @@ module ActionTracking
       execution_id = ActionTracking.generate_execution_id(quest_id, action_id, user_id)
 
       nonce = SecureRandom.hex(16)
-      strategy = ActionTracking::ActionExecutionStrategyFactory.for(action_type, start_data:)
+      strategy = ActionTracking::ActionExecutionStrategyFactory.for(action_type, start_data:, email_client: ActionTracking::VerifyEmailClient)
       data = strategy.start_execution
 
       command = ActionTracking::StartActionExecution.new(
