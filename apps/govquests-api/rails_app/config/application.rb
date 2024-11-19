@@ -54,5 +54,8 @@ module GovquestsApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.action_mailer.delivery_method = :postmark
+    config.action_mailer.postmark_settings = {api_token: Rails.application.credentials.postmark[:api_token]}
   end
 end
