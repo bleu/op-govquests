@@ -3,10 +3,7 @@ require_relative "base"
 module ActionTracking
   module Strategies
     class SendEmail < Base
-      def initialize(email_client: nil, start_data: nil, completion_data: nil)
-        super(start_data:, completion_data:)
-        @email_client = email_client
-      end
+      include Import["services.email"]
 
       def start_data_valid?
         start_data[:email].present?
@@ -15,7 +12,7 @@ module ActionTracking
       def on_start_execution
         token = SecureRandom.hex(16)
 
-        @email_client.send_email_async(start_data[:email], token)
+        email.send_email_async(start_data[:email], token)
 
         start_data.merge({
           token:

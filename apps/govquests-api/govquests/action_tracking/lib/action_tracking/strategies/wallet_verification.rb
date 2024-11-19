@@ -5,7 +5,7 @@ module ActionTracking
     class WalletVerification < Base
       def start_data_valid?
         # TODO: OP-472, check if address is a valid Ethereum address
-        return start_data[:address].present?
+        start_data[:address].present?
       end
 
       def can_complete?

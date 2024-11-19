@@ -3,6 +3,8 @@ require_relative "base"
 module ActionTracking
   module Strategies
     class VerifyFirstVote < Base
+      include Import["services.agora"]
+
       def on_start_execution
         {
           proposals_voted_on: agora_delegate["proposals_voted_on"].to_i
@@ -24,7 +26,7 @@ module ActionTracking
       end
 
       def agora_delegate
-        @agora_delegate ||= AgoraApi::Client.new.get_delegate(start_data[:address])
+        @agora_delegate ||= agora.get_delegate(start_data[:address])
       end
     end
   end

@@ -93,3 +93,6 @@ gem "sprockets-rails", "~> 3.5"
 gem "eth", "~> 0.5.12"
 
 gem "postmark-rails"
+
+gem "dry-container"
+gem "dry-auto_inject"

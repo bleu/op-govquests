@@ -4,6 +4,8 @@ require "logger"
 module ActionTracking
   module Strategies
     class GitcoinScore < Base
+      include Import["services.gitcoin"]
+
       module Types
         include Dry.Types()
 
@@ -15,11 +17,6 @@ module ActionTracking
       end
 
       GITCOIN_SCORE_HUMANITY_THRESHOLD = 20
-
-      def initialize(start_data: nil, completion_data: nil, gitcoin_api: GitcoinPassportApi.new)
-        super(start_data:, completion_data:)
-        @gitcoin_api = gitcoin_api
-      end
 
       protected
 
@@ -34,7 +31,7 @@ module ActionTracking
       end
 
       def on_start_execution
-        response = @gitcoin_api.get_signing_message
+        response = gitcoin.get_signing_message
 
         start_data.merge({
           nonce: response["nonce"],
@@ -55,7 +52,7 @@ module ActionTracking
       private
 
       def passport_response
-        @passport_response ||= @gitcoin_api.submit_passport(
+        @passport_response ||= gitcoin.submit_passport(
           @completion_data[:address],
           @completion_data[:signature],
           @completion_data[:nonce]

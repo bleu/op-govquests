@@ -3,6 +3,8 @@ require_relative "base"
 module ActionTracking
   module Strategies
     class Ens < Base
+      include Import["services.ens"]
+
       private
 
       def on_start_execution
@@ -22,7 +24,7 @@ module ActionTracking
       end
 
       def ens_domains(address)
-        @ens_domains ||= EnsSubgraphClient.new.domains(address: address.downcase)
+        @ens_domains ||= ens.domains(address: address.downcase)
       end
     end
   end
