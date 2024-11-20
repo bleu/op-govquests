@@ -27,5 +27,11 @@ module ActionTracking
         raise NotImplementedError
       end
     end
+
+    module OpTokenBalanceService
+      def get_balance(address)
+        raise NotImplementedError
+      end
+    end
   end
 end

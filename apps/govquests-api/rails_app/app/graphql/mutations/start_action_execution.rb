@@ -39,6 +39,10 @@ module Mutations
         {
           address: current_user.address
         }
+      when "holds_op"
+        {
+          address: current_user.address
+        }
       else
         {}
       end
