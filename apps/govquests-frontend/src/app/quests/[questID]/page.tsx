@@ -15,9 +15,7 @@ interface QuestDetailsPageProps {
 export default function QuestDetailsPage(props: QuestDetailsPageProps) {
   const params = use(props.params);
 
-  const {
-    questID
-  } = params;
+  const { questID } = params;
 
   const { data, isLoading, isError } = useFetchQuest(questID as string);
 

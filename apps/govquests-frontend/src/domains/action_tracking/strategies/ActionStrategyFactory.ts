@@ -10,6 +10,7 @@ import { VerifyDelegateStrategy } from "./VerifyDelegateStrategy";
 import { VerifyFirstVote } from "./VerifyFirstVote";
 import { VerifyPositionStrategy } from "./VerifyPositionStrategy";
 import { VerifyWalletStrategy } from "./VerifyWalletStrategy";
+import { HoldsOpStrategy } from "./HoldsOpStrategy";
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class ActionStrategyFactory {
@@ -37,6 +38,8 @@ export class ActionStrategyFactory {
         return VerifyAgora;
       case "verify_first_vote":
         return VerifyFirstVote;
+      case "holds_op":
+        return HoldsOpStrategy;
       default:
         throw new Error(`Unsupported action type: ${actionType}`);
     }

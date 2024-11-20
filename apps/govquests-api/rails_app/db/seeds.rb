@@ -224,6 +224,17 @@ module QuestData
     }
   }
 
+  HOLDS_OP = {
+    action_type: "holds_op",
+    display_data: {
+      title: "Verify OP balance",
+      description: "<ul><li>If you have not done it yet, connect your wallet.</li><li>Click to verify, we'll check if you have OP tokens.</li><li>Submit!</li></ul>"
+    },
+    action_data: {
+      action_type: "holds_op"
+    }
+  }
+
   QUESTS = [
     {
       display_data: {
@@ -316,6 +327,17 @@ module QuestData
       audience: "Delegates",
       rewards: [{type: "Points", amount: 20}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
       actions: [VERIFY_AGORA, VERIFY_FIRST_VOTE]
+    },
+    {
+      display_data: {
+        title: "OP Holder",
+        intro: "Having OP tokens in your wallet is your gateway to participating in the Optimism ecosystem! This simple quest verifies your OP balance, unlocking access to essential governance activities like becoming a delegate or participating in delegation. Think of it as your first step into active participation in the Optimism community.",
+        image_url: "https://example.com/governance101.jpg"
+      },
+      quest_type: "Governance",
+      audience: "AllUsers",
+      rewards: [{type: "Points", amount: 55}],
+      actions: [HOLDS_OP]
     }
   ]
 end
