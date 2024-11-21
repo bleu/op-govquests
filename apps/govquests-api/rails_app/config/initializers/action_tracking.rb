@@ -4,5 +4,6 @@ Rails.application.config.after_initialize do
     container.register("services.gitcoin") { GitcoinPassportApi.new }
     container.register("services.ens") { EnsSubgraphClient.new }
     container.register("services.email") { ActionTracking::VerifyEmailClient }
+    container.register("services.balance") { ActionTracking::OpTokenBalance }
   end
 end

@@ -15,33 +15,14 @@ module Mutations
       end
 
       start_data = case action_type
-      when "ens"
-        {
-          address: current_user.address
-        }
-      when "wallet_verification"
+      when "ens", "wallet_verification", "verify_delegate_statement",
+        "verify_delegate", "verify_first_vote", "holds_op", "governance_voter_participation"
         {
           address: current_user.address
         }
       when "send_email"
         {
           email: send_email_verification_input&.email
-        }
-      when "verify_delegate_statement"
-        {
-          address: current_user.address
-        }
-      when "verify_delegate"
-        {
-          address: current_user.address
-        }
-      when "verify_first_vote"
-        {
-          address: current_user.address
-        }
-      when "governance_voter_participation"
-        {
-          address: current_user.address
         }
       else
         {}
