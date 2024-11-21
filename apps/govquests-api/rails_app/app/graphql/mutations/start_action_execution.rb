@@ -39,7 +39,7 @@ module Mutations
         {
           address: current_user.address
         }
-      when "governance_vote_participation"
+      when "governance_voter_participation"
         {
           address: current_user.address
         }
