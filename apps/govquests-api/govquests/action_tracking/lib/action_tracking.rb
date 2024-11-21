@@ -1,35 +1,39 @@
 require "active_support/core_ext/digest/uuid"
+require "active_support/core_ext/string/inflections"
 require "infra"
-require_relative "action_tracking/commands"
-require_relative "action_tracking/events"
-
-require_relative "action_tracking/action"
-require_relative "action_tracking/action_execution"
-require_relative "action_tracking/strategies/action_execution_strategy_factory"
-require_relative "action_tracking/strategies/gitcoin_score"
-require_relative "action_tracking/strategies/read_document"
-require_relative "action_tracking/strategies/ens"
-require_relative "action_tracking/strategies/discourse_verification"
-require_relative "action_tracking/strategies/send_email"
-require_relative "action_tracking/strategies/verify_delegate"
-require_relative "action_tracking/strategies/wallet_verification"
-require_relative "action_tracking/strategies/verify_delegate_statement"
-require_relative "action_tracking/strategies/verify_first_vote"
-require_relative "action_tracking/strategies/holds_op"
-
-ACTION_EXECUTION_NAMESPACE_UUID = "061d2578-e3b3-41c0-b51d-b75b70876e71".freeze
 
 module ActionTracking
   class << self
-    attr_accessor :event_store, :command_bus
-
     def generate_execution_id(quest_id, action_id, user_id)
       name = "Quest$#{quest_id}-Action$#{action_id}-User$#{user_id}"
       namespace_uuid = ACTION_EXECUTION_NAMESPACE_UUID
       Digest::UUID.uuid_v5(namespace_uuid, name)
     end
-  end
 
+    attr_accessor :event_store, :command_bus
+  end
+end
+
+ACTION_EXECUTION_NAMESPACE_UUID = "061d2578-e3b3-41c0-b51d-b75b70876e71".freeze
+
+require_relative "action_tracking/container"
+require_relative "action_tracking/commands"
+require_relative "action_tracking/events"
+
+require_relative "action_tracking/action"
+require_relative "action_tracking/action_execution"
+
+require_relative "action_tracking/strategies/base"
+require_relative "action_tracking/strategies/action_execution_strategy_factory"
+
+# Load all strategy implementations
+Dir[File.join(__dir__, "action_tracking/strategies/*.rb")].each do |f|
+  next if f.end_with?("base.rb") # Skip base.rb as it's already required
+  next if f.end_with?("action_execution_strategy_factory.rb") # Skip factory as it's already required
+  require_relative f
+end
+
+module ActionTracking
   class CommandHandler < Infra::CommandHandlerRegistry
     handle "ActionTracking::CreateAction", aggregate: Action do |action, cmd|
       action.create(cmd.action_type, cmd.action_data, cmd.display_data)
@@ -57,22 +61,6 @@ module ActionTracking
   class Configuration
     def call(event_store, command_bus)
       CommandHandler.register_commands(event_store, command_bus)
-      register_strategies
-    end
-
-    private
-
-    def register_strategies
-      ActionExecutionStrategyFactory.register("gitcoin_score", Strategies::GitcoinScore)
-      ActionExecutionStrategyFactory.register("read_document", Strategies::ReadDocument)
-      ActionExecutionStrategyFactory.register("ens", Strategies::Ens)
-      ActionExecutionStrategyFactory.register("discourse_verification", Strategies::DiscourseVerification)
-      ActionExecutionStrategyFactory.register("send_email", Strategies::SendEmail)
-      ActionExecutionStrategyFactory.register("wallet_verification", Strategies::WalletVerification)
-      ActionExecutionStrategyFactory.register("verify_delegate_statement", Strategies::VerifyDelegateStatement)
-      ActionExecutionStrategyFactory.register("verify_delegate", Strategies::VerifyDelegate)
-      ActionExecutionStrategyFactory.register("verify_first_vote", Strategies::VerifyFirstVote)
-      ActionExecutionStrategyFactory.register("holds_op", Strategies::HoldsOp)
     end
   end
 end
