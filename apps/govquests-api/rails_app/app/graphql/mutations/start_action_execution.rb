@@ -17,7 +17,7 @@ module Mutations
       start_data = case action_type
       when "ens", "wallet_verification", "verify_delegate_statement",
         "verify_delegate", "verify_first_vote", "holds_op", "governance_voter_participation",
-        "become_delegate"
+        "become_delegator"
         {
           address: current_user.address
         }
