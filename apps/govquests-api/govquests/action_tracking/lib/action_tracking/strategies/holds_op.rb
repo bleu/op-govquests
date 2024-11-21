@@ -10,7 +10,7 @@ module ActionTracking
       end
 
       def start_data_valid? 
-        start_data[:address].present?
+        start_data[:address].present? && has_op_tokens?
       end
 
       def can_complete?
