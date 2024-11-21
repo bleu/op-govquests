@@ -15,6 +15,7 @@ require_relative "action_tracking/strategies/verify_delegate"
 require_relative "action_tracking/strategies/wallet_verification"
 require_relative "action_tracking/strategies/verify_delegate_statement"
 require_relative "action_tracking/strategies/verify_first_vote"
+require_relative "action_tracking/strategies/holds_op"
 
 ACTION_EXECUTION_NAMESPACE_UUID = "061d2578-e3b3-41c0-b51d-b75b70876e71".freeze
 
@@ -71,6 +72,7 @@ module ActionTracking
       ActionExecutionStrategyFactory.register("verify_delegate_statement", Strategies::VerifyDelegateStatement)
       ActionExecutionStrategyFactory.register("verify_delegate", Strategies::VerifyDelegate)
       ActionExecutionStrategyFactory.register("verify_first_vote", Strategies::VerifyFirstVote)
+      ActionExecutionStrategyFactory.register("holds_op", Strategies::HoldsOp)
     end
   end
 end
