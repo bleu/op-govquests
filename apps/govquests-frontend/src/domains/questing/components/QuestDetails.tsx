@@ -1,14 +1,13 @@
-import { ArrowLeft, MapIcon } from "lucide-react";
-import Link from "next/link";
 import RewardIndicator from "@/components/RewardIndicator";
+import { Button } from "@/components/ui/shadcn-button";
 import ActionList from "@/domains/action_tracking/components/ActionList";
 import type { Quest } from "@/domains/questing/types/questTypes";
 import { useSIWE } from "connectkit";
+import { ArrowLeft, MapIcon } from "lucide-react";
+import { redirect } from "next/navigation";
 import { useAccount } from "wagmi";
 import QuestButton from "./QuestButton";
 import QuestContentSection from "./QuestContentSection";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/shadcn-button";
 
 interface QuestDetailsProps {
   quest: Quest;
@@ -28,7 +27,7 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
           variant="ghost"
           size="sm"
           className="w-fit -ml-2"
-          onClick={() => window.history.back()}
+          onClick={() => redirect("/quests")}
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Quests
