@@ -57,6 +57,10 @@ const ACTIONS = {
     unstarted: { label: "Verify" },
     completed: { label: "Verified", icon: CheckSquareIcon },
   },
+  become_delegator: {
+    unstarted: { label: "Verify" },
+    completed: { label: "Verified", icon: CheckSquareIcon },
+  },
 } as const;
 
 type ActionType = keyof typeof ACTIONS;

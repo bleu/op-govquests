@@ -235,6 +235,17 @@ module QuestData
     }
   }
 
+  BECOME_DELEGATOR = {
+    action_type: "become_delegator",
+    display_data: {
+      title: "Become a Delegator",
+      description: "<ul><li>Connect your wallet at <a href='https://vote.optimism.io/'>Agora</a></li><li>Delegate OP to a chosen delegate or a community member.</li><li>Submit for completion.</li></ul>"
+    },
+    action_data: {
+      action_type: "become_delegator"
+    }
+  }
+
   QUESTS = [
     {
       display_data: {
@@ -338,6 +349,17 @@ module QuestData
       audience: "AllUsers",
       rewards: [{type: "Points", amount: 55}],
       actions: [HOLDS_OP]
+    },
+    {
+      display_data: {
+        title: "Become a Delegator",
+        intro: "Take the first step in your delegation journey within the Optimism ecosystem! This quest encourages you to delegate OP to someone. Let’s get started on empowering the community!",
+        image_url: "https://example.com/governance101.jpg",
+        requirements: "To complete this quest, you have to be an OP holder. If you don't have OP in your wallet, complete the OP Holder quest first [<a href='/quests/op-holder'>link</a>]."
+      },
+      audience: "AllUsers",
+      rewards: [{type: "Points", amount: 330}],
+      actions: [BECOME_DELEGATOR]
     }
   ]
 end
