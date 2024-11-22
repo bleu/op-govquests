@@ -4,7 +4,6 @@ import type React from "react";
 
 import RewardIndicator from "@/components/RewardIndicator";
 import Image from "@/components/ui/Image";
-import { titleToSlug } from "../lib/utils";
 import { Quests } from "../types/questTypes";
 
 interface QuestProps {
