@@ -5,7 +5,6 @@ import type React from "react";
 import RewardIndicator from "@/components/RewardIndicator";
 import Image from "@/components/ui/Image";
 import { Quests } from "../types/questTypes";
-import { cn } from "@/lib/utils";
 
 interface QuestProps {
   quest: Quests[number];
@@ -14,7 +13,7 @@ interface QuestProps {
 const QuestCard: React.FC<QuestProps> = ({ quest }) => {
   return (
     <Link
-      href={`/quests/${quest.id}`}
+      href={`/quests/${quest.slug}`}
       className="group flex flex-col bg-primary/10 border border-primary/20 rounded-lg overflow-hidden transition-all duration-200 hover:shadow-md hover:bg-primary/15"
     >
       <div className="relative w-full h-48 overflow-hidden">

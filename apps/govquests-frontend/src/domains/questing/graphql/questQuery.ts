@@ -1,10 +1,11 @@
 import { graphql } from "gql.tada";
 
 export const QuestQuery = graphql(`
-  query GetQuest($id: ID!) {
-    quest(id: $id) {
+  query GetQuest($slug: String!) {
+    quest(slug: $slug) {
       id
       audience
+      slug
       rewardPools {
         rewardDefinition {
           type

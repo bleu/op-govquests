@@ -2,10 +2,10 @@ module Resolvers
   class FetchQuest < BaseResolver
     type Types::QuestType, null: true
 
-    argument :id, ID, required: true
+    argument :slug, String, required: true
 
-    def resolve(id:)
-      Questing::Queries::FindQuest.call(id)
+    def resolve(slug:)
+      Questing::Queries::FindQuest.call(slug)
     end
   end
 end

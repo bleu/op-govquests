@@ -11,6 +11,7 @@ import { VerifyFirstVote } from "./VerifyFirstVote";
 import { VerifyPositionStrategy } from "./VerifyPositionStrategy";
 import { VerifyWalletStrategy } from "./VerifyWalletStrategy";
 import { HoldsOpStrategy } from "./HoldsOpStrategy";
+import { BecomeDelegatorStrategy } from "./BecomeDelegatorStrategy";
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class ActionStrategyFactory {
@@ -40,6 +41,8 @@ export class ActionStrategyFactory {
         return VerifyFirstVote;
       case "holds_op":
         return HoldsOpStrategy;
+      case "become_delegator":
+        return BecomeDelegatorStrategy;
       default:
         throw new Error(`Unsupported action type: ${actionType}`);
     }
