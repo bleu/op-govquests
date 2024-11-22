@@ -5,6 +5,7 @@ export const QuestsQuery = graphql(`
     quests {
       id
       audience
+      slug
       status
       rewardPools {
         rewardDefinition {

@@ -7,8 +7,8 @@ module Questing
     end
 
     class FindQuest
-      def self.call(quest_id)
-        Questing::QuestReadModel.find_by(quest_id: quest_id)
+      def self.call(slug)
+        Questing::QuestReadModel.find_by(slug: slug)
       end
     end
   end

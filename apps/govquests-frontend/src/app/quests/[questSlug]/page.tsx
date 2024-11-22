@@ -3,7 +3,7 @@
 import React, { use } from "react";
 
 import LoadingIndicator from "@/components/ui/LoadingIndicator";
-import { useFetchQuestByTitle } from "@/domains/questing/hooks/useFetchQuest";
+import { useFetchQuest } from "@/domains/questing/hooks/useFetchQuest";
 import QuestDetails from "@/domains/questing/components/QuestDetails";
 
 interface QuestDetailsPageProps {
@@ -17,9 +17,7 @@ export default function QuestDetailsPage(props: QuestDetailsPageProps) {
 
   const { questSlug } = params;
 
-  const { data, isLoading, isError } = useFetchQuestByTitle(
-    questSlug as string,
-  );
+  const { data, isLoading, isError } = useFetchQuest(questSlug as string);
 
   if (isLoading) {
     return <LoadingIndicator />;
