@@ -31,6 +31,7 @@ module AgoraApi
     end
 
     def get_delegatees(address_or_ens)
+      Rails.logger.info("Getting delegatees for #{address_or_ens}")
       handle_response(self.class.get("/delegates/#{address_or_ens}/delegatees", @options))
     end
 
