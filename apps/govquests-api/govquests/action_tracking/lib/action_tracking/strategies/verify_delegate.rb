@@ -12,17 +12,17 @@ module ActionTracking
       end
 
       def start_data_valid?
-        start_data[:address].present?
+        start_data[:address].present? && verify_voting_power?
       end
 
       def can_complete?
-        start_data_valid? && verify_voting_power?
+        start_data_valid?
       end
 
       private
 
       def verify_voting_power?
-        (start_data["votingPower"]["total"]&.to_i || 0) > 0
+        (agora_delegate["votingPower"]["total"]&.to_i || 0) > 0
       end
 
       def agora_delegate

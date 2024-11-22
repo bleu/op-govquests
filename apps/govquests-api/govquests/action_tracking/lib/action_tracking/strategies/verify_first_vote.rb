@@ -22,7 +22,7 @@ module ActionTracking
       private
 
       def has_any_vote?
-        (start_data["proposals_voted_on"] || 0) > 0
+        (agora_delegate["proposals_voted_on"].to_i || 0) > 0
       end
 
       def agora_delegate

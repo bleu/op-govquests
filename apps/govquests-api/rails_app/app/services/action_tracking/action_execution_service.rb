@@ -20,7 +20,8 @@ module ActionTracking
       ActiveRecord::Base.transaction do
         Rails.configuration.command_bus.call(command)
 
-        if ActionTracking::ActionExecutionStrategyFactory.for(action_type, start_data: start_data).complete_execution(dry_run: true)
+        action_execution = ActionTracking::ActionExecutionReadModel.find_by(execution_id: execution_id)
+        if ActionTracking::ActionExecutionStrategyFactory.for(action_type, start_data: action_execution.reload.start_data).complete_execution(dry_run: true)
           return complete(execution_id: execution_id, nonce: nonce, user_id: user_id, completion_data: {}, action_type:)
         end
       end

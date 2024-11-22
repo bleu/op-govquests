@@ -4,9 +4,9 @@ module ActionTracking
       include Import['services.balance']
 
       def on_start_execution
-        start_data.merge({
-          balance: balance.get_balance(start_data[:address])
-        })
+        {
+          balance: op_balance
+        }
       end
 
       def start_data_valid? 
@@ -20,8 +20,12 @@ module ActionTracking
       private
 
       def has_op_tokens?
-        (start_data["balance"] || 0) > 0
+        (op_balance || 0) > 0
       end   
+
+      def op_balance
+        @op_balance ||= balance.get_balance(start_data[:address])
+      end
     end
   end
 end
