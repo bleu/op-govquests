@@ -67,16 +67,7 @@ class DiscourseApiClient
       headers: auth_headers(api_key)
     )
 
-    case response.code
-    when 200
-      response.parsed_response
-    when 401, 403
-      raise AuthenticationError, "Invalid API key"
-    when 404
-      raise ResourceNotFound, "User not found"
-    else
-      raise ApiError, "Request failed with status #{response.code}: #{response.body}"
-    end
+    handle_response(response)
   end
 
   def fetch_user_activity(username)
@@ -85,14 +76,7 @@ class DiscourseApiClient
       headers: {"Accept" => "application/json"}
     )
 
-    case response.code
-    when 200
-      response.parsed_response
-    when 404
-      raise ResourceNotFound, "User not found"
-    else
-      raise ApiError, "Request failed with status #{response.code}: #{response.body}"
-    end
+    handle_response(response)
   end
 
   private
@@ -100,7 +84,20 @@ class DiscourseApiClient
   def auth_headers(api_key)
     {
       "User-Api-Key" => api_key,
-      "Accept" => "application/json"
+      "Accept" => "application/json",
     }
+  end
+
+  def handle_response(response)
+    case response.code
+    when 200
+      response.parsed_response
+    when 401, 403
+      raise AuthenticationError, "Invalid API key"
+    when 404
+      raise ResourceNotFound, "Resource not found"
+    else
+      raise ApiError, "Request failed with status #{response.code}: #{response.body}"
+    end
   end
 end

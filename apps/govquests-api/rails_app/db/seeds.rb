@@ -572,10 +572,32 @@ module QuestData
     },
     action_data: {
       action_type: "op_active_debater"
+    },
+  }
+  
+  OP_FORUM_CONTRIBUTOR = {
+    action_type: "op_forum_contributor",
+    display_data: {
+      title: "Created one post, post has one like, char count > 200",
+      description: "TBD"
+    },
+    action_data: {
+      action_type: "op_forum_contributor"
     }
   }
 
   QUESTS = [
+    {
+      display_data: {
+        title: "Op Collective First Like",
+        intro: "Create valuable content on OP Collective and get endorsed by at least one community member through a like or reinforcement on your post!",
+        image_url: "https://example.com/first-like.jpg",
+        requirements: "TBD"
+      },
+      audience: "AllUsers",
+      rewards: [{type: "Points", amount: 165}],
+      actions: [OP_FORUM_CONTRIBUTOR]
+    },
     {
       display_data: {
         title: "Claim Your Identity",
