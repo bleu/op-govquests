@@ -79,13 +79,33 @@ class DiscourseApiClient
     end
   end
 
+  def fetch_user_activity(username)
+    response = self.class.get(
+      "#{host}/u/#{username}/activity.json",
+      headers: auth_headers
+    )
+    handle_response(response)
+  end
+
   private
 
   def auth_headers(api_key)
     {
       "User-Api-Key" => api_key,
-      "User-Api-Client-Id" => "GovQuests",
-      "Accept" => "application/json"
+      "User-Api-Client-Id" => "GovQuests"
     }
+  end
+
+  def handle_response(response)
+    case response.code
+    when 200
+      response.parsed_response
+    when 401, 403
+      raise AuthenticationError, "Invalid API key"
+    when 404
+      raise ResourceNotFound, "Resource not found"
+    else
+      raise ApiError, "Request failed with status #{response.code}: #{response.body}"
+    end
   end
 end
