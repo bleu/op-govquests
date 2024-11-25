@@ -1,6 +1,11 @@
-import { Action, ActionExecution } from "@/domains/questing/types/questTypes";
+import {
+  Action,
+  ActionExecution,
+  Quest,
+} from "@/domains/questing/types/questTypes";
 
 export interface ActionStrategyProps {
+  quest: Quest;
   questId: string;
   action: Action;
   execution: ActionExecution | null;

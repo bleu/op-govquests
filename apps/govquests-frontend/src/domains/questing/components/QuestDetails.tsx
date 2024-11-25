@@ -83,7 +83,7 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
               </h2>
             </div>
             <div className="flex-1 p-8">
-              <ActionList questId={quest.id} actions={quest.actions} />
+              <ActionList questSlug={quest.slug} actions={quest.actions} />
             </div>
           </div>
         </div>
