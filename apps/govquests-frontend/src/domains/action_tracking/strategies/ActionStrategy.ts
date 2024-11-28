@@ -1,4 +1,6 @@
 import { Action, ActionExecution } from "@/domains/questing/types/questTypes";
+import { useStartActionExecution } from "../hooks/useStartActionExecution";
+import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
 
 export interface ActionStrategyProps {
   questId: string;
@@ -8,3 +10,14 @@ export interface ActionStrategyProps {
 }
 
 export type ActionStrategy = React.FC<ActionStrategyProps>;
+
+export interface StrategyContext {
+  handleStart: () => Promise<void>;
+  handleComplete: () => Promise<void>;
+  isSignedIn: boolean;
+  isConnected: boolean;
+  startMutation: ReturnType<typeof useStartActionExecution>;
+  completeMutation: ReturnType<typeof useCompleteActionExecution>;
+  errorMessage: string | null;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
+}

@@ -1,17 +1,12 @@
 import type { ActionStrategy } from "./ActionStrategy";
+import { DefaultStrategy } from "./DefaultStrategy";
 import { DiscourseVerificationStrategy } from "./DiscourseVerificationStrategy";
 import { EnsStrategy } from "./EnsStrategy";
 import { GitcoinScoreStrategy } from "./GitcoinScoreStrategy";
 import { ReadDocumentStrategy } from "./ReadDocumentStrategy";
 import { SendEmailStrategy } from "./SendEmailStrategy";
 import { VerifyAgora } from "./VerifyAgora";
-import { VerifyDelegateStatement } from "./VerifyDelegateStatement";
-import { VerifyDelegateStrategy } from "./VerifyDelegateStrategy";
-import { VerifyFirstVote } from "./VerifyFirstVote";
 import { VerifyPositionStrategy } from "./VerifyPositionStrategy";
-import { VerifyWalletStrategy } from "./VerifyWalletStrategy";
-import { HoldsOpStrategy } from "./HoldsOpStrategy";
-import { BecomeDelegatorStrategy } from "./BecomeDelegatorStrategy";
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class ActionStrategyFactory {
@@ -29,22 +24,10 @@ export class ActionStrategyFactory {
         return VerifyPositionStrategy;
       case "send_email":
         return SendEmailStrategy;
-      case "wallet_verification":
-        return VerifyWalletStrategy;
-      case "verify_delegate":
-        return VerifyDelegateStrategy;
-      case "verify_delegate_statement":
-        return VerifyDelegateStatement;
       case "verify_agora":
         return VerifyAgora;
-      case "verify_first_vote":
-        return VerifyFirstVote;
-      case "holds_op":
-        return HoldsOpStrategy;
-      case "become_delegator":
-        return BecomeDelegatorStrategy;
       default:
-        throw new Error(`Unsupported action type: ${actionType}`);
+        return DefaultStrategy;
     }
   }
 }
