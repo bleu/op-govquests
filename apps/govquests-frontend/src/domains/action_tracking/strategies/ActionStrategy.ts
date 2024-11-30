@@ -21,3 +21,7 @@ export interface StrategyContext {
   errorMessage: string | null;
   setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
 }
+
+export type StrategyChildComponent<T extends object = {}> = React.FC<
+  StrategyContext & ActionStrategyProps & T
+>;

@@ -5,7 +5,7 @@ import { CheckIcon, CheckSquareIcon, ExternalLinkIcon } from "lucide-react";
 
 const ACTIONS = {
   gitcoin_score: {
-    unstarted: { label: "Connect Passport"},
+    unstarted: { label: "Connect Passport" },
     started: { label: "Sign Message" },
     verify: { label: "Verify Score" },
     completed: { label: "Connected" },

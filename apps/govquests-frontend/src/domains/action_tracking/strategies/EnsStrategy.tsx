@@ -1,47 +1,36 @@
-import { useSIWE } from "connectkit";
-import React, { useCallback, useMemo, useState } from "react";
-import { useAccount } from "wagmi";
+import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
-import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
-import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import type { ActionType, EnsStatus } from "../types/actionButtonTypes";
-import type { ActionStrategy } from "./ActionStrategy";
+import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
+import { BaseStrategy } from "./BaseStrategy";
 
-export const EnsStrategy: ActionStrategy = ({
-  questId,
-  action,
-  execution,
-  refetch,
-}) => {
-  const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
-  const { isSignedIn } = useSIWE();
-  const { isConnected, address } = useAccount();
+export const EnsStrategy: ActionStrategy = (props) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleStart = useCallback(async () => {
-    if (!address) {
-      setErrorMessage("Wallet address not found");
-      return;
-    }
-    try {
-      await startMutation.mutateAsync({
-        questId,
-        actionId: action.id,
-        actionType: action.actionType,
-      });
-      refetch();
-      setErrorMessage(null);
-    } catch (error) {
-      console.error("Error starting action:", error);
-      setErrorMessage("Failed to start the action. Please try again.");
-    }
-  }, [startMutation, questId, action.id, action.actionType, address, refetch]);
+  return (
+    <BaseStrategy
+      {...props}
+      errorMessage={errorMessage}
+      setErrorMessage={setErrorMessage}
+    >
+      {(context) => <EnsStrategyContent {...context} {...props} />}
+    </BaseStrategy>
+  );
+};
 
+const EnsStrategyContent: StrategyChildComponent = ({
+  execution,
+  action,
+  isConnected,
+  isSignedIn,
+  startMutation,
+  completeMutation,
+  handleStart,
+  errorMessage,
+}) => {
   const getStatus = useCallback((): EnsStatus => {
-    if (!execution || execution.status === "unstarted") return "unstarted";
-    if (execution.status === "started") return "started";
-    return "completed";
+    if (execution && execution.status === "completed") return "completed";
+    return "unstarted";
   }, [execution]);
 
   const buttonProps = useMemo(() => {

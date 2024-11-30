@@ -1,44 +1,37 @@
 import HtmlRender from "@/components/ui/HtmlRender";
-import { cn } from "@/lib/utils";
-import { useSIWE } from "connectkit";
-import React, { useCallback, useMemo, useState } from "react";
-import { useAccount } from "wagmi";
+import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
-import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
-import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import type {
   ActionType,
   VerifyWalletStatus,
 } from "../types/actionButtonTypes";
-import type { ActionStrategy } from "./ActionStrategy";
+import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
+import { BaseStrategy } from "./BaseStrategy";
 
-export const VerifyAgora: ActionStrategy = ({
-  questId,
+export const VerifyAgora: ActionStrategy = (props) => {
+  const [errorMessage, setErrorMessage] = useState<string>();
+
+  return (
+    <BaseStrategy
+      {...props}
+      errorMessage={errorMessage}
+      setErrorMessage={setErrorMessage}
+    >
+      {(context) => <VerifyAgoraChild {...context} {...props} />}
+    </BaseStrategy>
+  );
+};
+
+const VerifyAgoraChild: StrategyChildComponent = ({
+  handleStart,
+  isConnected,
+  isSignedIn,
+  startMutation,
+  completeMutation,
+  errorMessage,
   action,
   execution,
-  refetch,
 }) => {
-  const { isSignedIn } = useSIWE();
-  const { isConnected } = useAccount();
-  const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const handleStart = useCallback(async () => {
-    try {
-      await startMutation.mutateAsync({
-        questId,
-        actionId: action.id,
-        actionType: action.actionType,
-      });
-      refetch();
-      setErrorMessage(null);
-    } catch (error) {
-      console.error("Error starting action:", error);
-      setErrorMessage("Failed to start the verification. Please try again.");
-    }
-  }, [startMutation, questId, action.id, action.actionType, refetch]);
-
   const getStatus = useCallback((): VerifyWalletStatus => {
     if (execution?.status === "completed") return "completed";
     return "unstarted";
