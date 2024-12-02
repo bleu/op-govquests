@@ -3,6 +3,7 @@ import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
 
 export interface ActionStrategyProps {
+  questSlug: string;
   questId: string;
   action: Action;
   execution: ActionExecution | null;

@@ -4,11 +4,11 @@ import type React from "react";
 import ActionHandler from "./ActionHandler";
 
 interface ActionListProps {
-  questId: string;
+  questSlug: string;
   actions: Action[];
 }
 
-const ActionList: React.FC<ActionListProps> = ({ questId, actions }) => {
+const ActionList: React.FC<ActionListProps> = ({ questSlug, actions }) => {
   return (
     <div>
       {actions.every((action) => action.actionType === "read_document") && (
@@ -22,7 +22,7 @@ const ActionList: React.FC<ActionListProps> = ({ questId, actions }) => {
             index === 0 && "border-b-2 border-transparent",
           )}
         >
-          <ActionHandler questId={questId} action={action} />
+          <ActionHandler questSlug={questSlug} action={action} />
         </div>
       ))}
     </div>

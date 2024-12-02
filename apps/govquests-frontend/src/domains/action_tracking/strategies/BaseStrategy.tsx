@@ -40,6 +40,7 @@ export const BaseStrategy = (props: BaseStrategyProps) => {
   };
 
   const {
+    questSlug,
     questId,
     action,
     execution,
@@ -58,7 +59,7 @@ export const BaseStrategy = (props: BaseStrategyProps) => {
   const { isSignedIn } = useSIWE();
   const { isConnected } = useAccount();
   const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
+  const completeMutation = useCompleteActionExecution(["quest", questSlug]);
 
   const handleStart = useCallback(async () => {
     try {
