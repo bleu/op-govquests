@@ -43,8 +43,6 @@ export const SendEmailStrategy: ActionStrategy = ({
     return "unstarted";
   }, [execution]);
 
-  console.log(execution);
-
   const buttonProps = useMemo(
     () => ({
       actionType: action.actionType as ActionType,
