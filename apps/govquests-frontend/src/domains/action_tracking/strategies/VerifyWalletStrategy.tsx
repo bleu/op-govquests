@@ -12,6 +12,7 @@ import type { ActionStrategy } from "./ActionStrategy";
 
 export const VerifyWalletStrategy: ActionStrategy = ({
   questSlug,
+  questId,
   action,
   execution,
   refetch,
