@@ -13,6 +13,7 @@ import type {
 import type { ActionStrategy } from "./ActionStrategy";
 
 export const VerifyAgora: ActionStrategy = ({
+  questSlug,
   questId,
   action,
   execution,
@@ -21,7 +22,7 @@ export const VerifyAgora: ActionStrategy = ({
   const { isSignedIn } = useSIWE();
   const { isConnected } = useAccount();
   const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
+  const completeMutation = useCompleteActionExecution(["quest", questSlug]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleStart = useCallback(async () => {

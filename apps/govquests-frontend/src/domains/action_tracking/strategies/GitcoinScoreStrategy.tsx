@@ -9,13 +9,14 @@ import type { ActionStrategy } from "./ActionStrategy";
 import invariant from "tiny-invariant";
 
 export const GitcoinScoreStrategy: ActionStrategy = ({
+  questSlug,
   questId,
   action,
   execution,
   refetch,
 }) => {
   const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
+  const completeMutation = useCompleteActionExecution(["quest", questSlug]);
   const { isSignedIn } = useSIWE();
   const { isConnected, address } = useAccount();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
