@@ -54,6 +54,7 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
 }) => {
   const getStatus = useCallback((): SendEmailStatus => {
     if (execution?.status === "completed") return "completed";
+    if (execution?.status === "started") return "started";
     return "unstarted";
   }, [execution]);
 
@@ -63,7 +64,11 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
       status: getStatus(),
       onClick: handleStart,
       disabled:
-        getStatus() === "completed" || !isSignedIn || !isConnected || !email,
+        getStatus() === "completed" ||
+        getStatus() === "started" ||
+        !isSignedIn ||
+        !isConnected ||
+        !email,
       loading: startMutation.isPending,
     }),
     [
@@ -80,6 +85,14 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
   const renderedContent = useMemo(() => {
     if (errorMessage) {
       return <span className="text-sm font-bold">{errorMessage}</span>;
+    }
+
+    if (getStatus() === "started") {
+      return (
+        <span className="text-sm text-foreground/70">
+          An email has been sent to {email} with a verification link. 📧
+        </span>
+      );
     }
 
     if (getStatus() === "completed") {

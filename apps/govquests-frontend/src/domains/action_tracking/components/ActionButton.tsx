@@ -39,6 +39,7 @@ const ACTIONS = {
   },
   send_email: {
     unstarted: { label: "Send" },
+    started: { label: "Email sent" },
     completed: { label: "Verified e-mail" },
   },
   wallet_verification: {
