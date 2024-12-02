@@ -8,6 +8,7 @@ import type { ReadDocumentStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy } from "./ActionStrategy";
 
 export const ReadDocumentStrategy: ActionStrategy = ({
+  questSlug,
   questId,
   action,
   execution,
@@ -16,7 +17,7 @@ export const ReadDocumentStrategy: ActionStrategy = ({
   const { isSignedIn } = useSIWE();
   const { isConnected } = useAccount();
   const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
+  const completeMutation = useCompleteActionExecution(["quest", questSlug]);
 
   const handleStart = useCallback(async () => {
     try {

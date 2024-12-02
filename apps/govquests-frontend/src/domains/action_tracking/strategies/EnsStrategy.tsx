@@ -8,13 +8,14 @@ import type { ActionType, EnsStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy } from "./ActionStrategy";
 
 export const EnsStrategy: ActionStrategy = ({
+  questSlug,
   questId,
   action,
   execution,
   refetch,
 }) => {
   const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
+  const completeMutation = useCompleteActionExecution(["quest", questSlug]);
   const { isSignedIn } = useSIWE();
   const { isConnected, address } = useAccount();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);

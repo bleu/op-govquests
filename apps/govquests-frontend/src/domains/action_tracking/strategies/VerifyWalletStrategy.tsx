@@ -11,7 +11,7 @@ import type {
 import type { ActionStrategy } from "./ActionStrategy";
 
 export const VerifyWalletStrategy: ActionStrategy = ({
-  questId,
+  questSlug,
   action,
   execution,
   refetch,
@@ -19,7 +19,7 @@ export const VerifyWalletStrategy: ActionStrategy = ({
   const { isSignedIn } = useSIWE();
   const { isConnected } = useAccount();
   const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
+  const completeMutation = useCompleteActionExecution(["quest", questSlug]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleStart = useCallback(async () => {

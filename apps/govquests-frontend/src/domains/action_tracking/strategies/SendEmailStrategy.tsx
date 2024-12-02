@@ -8,6 +8,7 @@ import type { ActionType, SendEmailStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy } from "./ActionStrategy";
 
 export const SendEmailStrategy: ActionStrategy = ({
+  questSlug,
   questId,
   action,
   execution,

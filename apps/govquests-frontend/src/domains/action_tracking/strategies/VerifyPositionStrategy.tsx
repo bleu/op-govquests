@@ -8,6 +8,7 @@ import type { VerifyPositionStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy } from "./ActionStrategy";
 
 export const VerifyPositionStrategy: ActionStrategy = ({
+  questSlug,
   questId,
   action,
   execution,
@@ -16,7 +17,7 @@ export const VerifyPositionStrategy: ActionStrategy = ({
   const { isSignedIn } = useSIWE();
   const { isConnected } = useAccount();
   const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
+  const completeMutation = useCompleteActionExecution(["quest", questSlug]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleStart = useCallback(async () => {
