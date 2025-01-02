@@ -3,7 +3,7 @@
 import React from "react";
 
 import LoadingIndicator from "@/components/ui/LoadingIndicator";
-import QuestList from "@/domains/questing/components/QuestList";
+import { TrackList } from "@/domains/questing/components/track/TrackList";
 import { useFetchQuests } from "@/domains/questing/hooks/useFetchQuests";
 
 const QuestsPage: React.FC = () => {
@@ -19,7 +19,7 @@ const QuestsPage: React.FC = () => {
 
   return (
     <div className="p-8">
-      <QuestList quests={data.quests} />
+      <TrackList />
     </div>
   );
 };
