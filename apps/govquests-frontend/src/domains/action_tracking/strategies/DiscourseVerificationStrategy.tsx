@@ -1,77 +1,63 @@
 import { Input } from "@/components/ui/Input";
-import { useSIWE } from "connectkit";
 import React, { useCallback, useMemo, useState } from "react";
-import { useAccount } from "wagmi";
 import ActionButton from "../components/ActionButton";
-import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
-import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import type {
   ActionType,
   DiscourseVerificationStatus,
 } from "../types/actionButtonTypes";
-import type { ActionStrategy } from "./ActionStrategy";
+import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
+import { BaseStrategy } from "./BaseStrategy";
 
-export const DiscourseVerificationStrategy: ActionStrategy = ({
-  questSlug,
-  questId,
-  action,
-  execution,
-  refetch,
-}) => {
-  const { isSignedIn } = useSIWE();
-  const { isConnected } = useAccount();
-  const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questSlug]);
+export const DiscourseVerificationStrategy: ActionStrategy = (props) => {
   const [encryptedKey, setEncryptedKey] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleStart = useCallback(async () => {
-    try {
-      await startMutation.mutateAsync({
-        questId,
-        actionId: action.id,
-        actionType: action.actionType,
-        discourseVerificationStartData: null,
-      });
-      refetch();
-      setErrorMessage(null);
-    } catch (error) {
-      console.error("Error starting action:", error);
-      setErrorMessage("Failed to start the action. Please try again.");
-    }
-  }, [
-    questId,
-    action.id,
-    action.actionType,
-    startMutation.mutateAsync,
-    refetch,
-  ]);
+  const getCompleteData = useCallback(
+    () => ({
+      discourseVerificationCompletionData: { encryptedKey },
+    }),
+    [encryptedKey],
+  );
 
-  const handleComplete = useCallback(async () => {
-    if (!execution) return;
-    try {
-      await completeMutation.mutateAsync({
-        executionId: execution.id,
-        nonce: execution.nonce,
-        actionType: action.actionType,
-        discourseVerificationCompletionData: { encryptedKey },
-      });
-      refetch();
-      setErrorMessage(null);
-    } catch (error) {
-      console.error("Error completing action:", error);
-      setErrorMessage("Failed to complete the action. Please try again.");
-    }
-  }, [
-    action.actionType,
-    encryptedKey,
-    execution,
-    execution?.id,
-    execution?.nonce,
-    refetch,
-    completeMutation.mutateAsync,
-  ]);
+  return (
+    <BaseStrategy
+      {...props}
+      errorMessage={errorMessage}
+      setErrorMessage={setErrorMessage}
+      getCompleteData={getCompleteData}
+    >
+      {(context) => (
+        <DiscourseVerificationContent
+          {...props}
+          {...context}
+          encryptedKey={encryptedKey}
+          setEncryptedKey={setEncryptedKey}
+        />
+      )}
+    </BaseStrategy>
+  );
+};
 
+interface DiscourseVerificationContentProps {
+  encryptedKey: string;
+  setEncryptedKey: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const DiscourseVerificationContent: StrategyChildComponent<
+  DiscourseVerificationContentProps
+> = ({
+  execution,
+  completeMutation,
+  action,
+  isConnected,
+  isSignedIn,
+  errorMessage,
+  startMutation,
+  handleComplete,
+  handleStart,
+  encryptedKey,
+  setEncryptedKey,
+}) => {
   const getStatus = useCallback((): DiscourseVerificationStatus => {
     if (execution?.status === "completed") {
       return "completed";

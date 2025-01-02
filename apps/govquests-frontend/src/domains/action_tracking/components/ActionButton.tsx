@@ -39,6 +39,7 @@ const ACTIONS = {
   },
   send_email: {
     unstarted: { label: "Send" },
+    started: { label: "Email sent" },
     completed: { label: "Verified e-mail" },
   },
   wallet_verification: {
@@ -58,6 +59,10 @@ const ACTIONS = {
     completed: { label: "Verified", icon: CheckSquareIcon },
   },
   become_delegator: {
+    unstarted: { label: "Verify" },
+    completed: { label: "Verified", icon: CheckSquareIcon },
+  },
+  governance_voter_participation: {
     unstarted: { label: "Verify" },
     completed: { label: "Verified", icon: CheckSquareIcon },
   },

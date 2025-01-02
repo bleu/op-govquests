@@ -1,24 +1,15 @@
-import { useSIWE } from "connectkit";
-import React, { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useAccount, useSignMessage } from "wagmi";
 import ActionButton from "../components/ActionButton";
-import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
-import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import { GitcoinScoreStatus } from "../types/actionButtonTypes";
-import type { ActionStrategy } from "./ActionStrategy";
-import invariant from "tiny-invariant";
+import { CompleteActionExecutionResult } from "../types/actionTypes";
+import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
+import { BaseStrategy } from "./BaseStrategy";
 
-export const GitcoinScoreStrategy: ActionStrategy = ({
-  questSlug,
-  questId,
-  action,
-  execution,
-  refetch,
-}) => {
-  const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questSlug]);
-  const { isSignedIn } = useSIWE();
-  const { isConnected, address } = useAccount();
+export const GitcoinScoreStrategy: ActionStrategy = (props) => {
+  const { refetch, execution } = props;
+
+  const { address } = useAccount();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const {
@@ -26,21 +17,6 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
     data: signature,
     isPending: isSigning,
   } = useSignMessage();
-
-  const handleStart = useCallback(async () => {
-    try {
-      await startMutation.mutateAsync({
-        questId,
-        actionId: action.id,
-        actionType: action.actionType,
-      });
-      refetch();
-      setErrorMessage(null);
-    } catch (error) {
-      console.error("Error starting action:", error);
-      setErrorMessage("Failed to start the action. Please try again.");
-    }
-  }, [startMutation, questId, action.id, action.actionType, refetch]);
 
   const handleSignMessage = useCallback(() => {
     // invariant(execution?.startData?.__typename === "GitcoinScoreStartData");
@@ -55,45 +31,67 @@ export const GitcoinScoreStrategy: ActionStrategy = ({
     }
   }, [execution, signMessage]);
 
-  const handleComplete = useCallback(async () => {
-    // invariant(execution?.startData?.__typename === "GitcoinScoreStartData");
+  const getCompleteData = useCallback(
+    () => ({
+      gitcoinScoreCompletionData: {
+        address: address!,
+        signature,
+        nonce: execution.startData.nonce,
+      },
+    }),
+    [address, signature, execution],
+  );
 
-    if (!execution || !signature) return;
-    const completionData = {
-      address: address!,
-      signature,
-      nonce: execution.startData.nonce,
-    };
-
-    try {
-      const result = await completeMutation.mutateAsync({
-        executionId: execution.id,
-        nonce: execution.nonce,
-        actionType: action.actionType,
-        gitcoinScoreCompletionData: completionData,
-      });
-
-      if (result?.completeActionExecution?.errors?.length) {
-        setErrorMessage(result?.completeActionExecution?.errors[0]);
-      } else {
-        setErrorMessage(null);
-        refetch();
-      }
-    } catch (error) {
-      console.error("Error completing action:", error);
-      setErrorMessage(
-        "An error occurred while completing the action. Please try again.",
-      );
+  const onCompleteMutationSuccess = (result: CompleteActionExecutionResult) => {
+    if (result?.completeActionExecution?.errors?.length) {
+      setErrorMessage(result?.completeActionExecution?.errors[0]);
+    } else {
+      setErrorMessage(null);
+      refetch();
     }
-  }, [
-    execution,
-    signature,
-    address,
-    completeMutation,
-    action.actionType,
-    refetch,
-  ]);
+  };
 
+  return (
+    <BaseStrategy
+      {...props}
+      errorMessage={errorMessage}
+      setErrorMessage={setErrorMessage}
+      onCompleteMutationSuccess={onCompleteMutationSuccess}
+      getCompleteData={getCompleteData}
+    >
+      {(context) => (
+        <GitcoinScoreContent
+          {...props}
+          {...context}
+          signature={signature}
+          isSigning={isSigning}
+          handleSignMessage={handleSignMessage}
+        />
+      )}
+    </BaseStrategy>
+  );
+};
+
+interface GitcoinScoreContentProps {
+  signature: string | null;
+  isSigning: boolean;
+  handleSignMessage: () => void;
+}
+
+const GitcoinScoreContent: StrategyChildComponent<GitcoinScoreContentProps> = ({
+  execution,
+  action,
+  startMutation,
+  completeMutation,
+  handleComplete,
+  handleStart,
+  isConnected,
+  isSignedIn,
+  errorMessage,
+  signature,
+  isSigning,
+  handleSignMessage,
+}) => {
   const getStatus = useCallback((): GitcoinScoreStatus => {
     if (!execution || execution.status === "unstarted") return "unstarted";
     if (execution.status === "started" && !signature) return "started";
