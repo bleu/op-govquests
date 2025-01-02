@@ -285,7 +285,7 @@ module QuestData
         title: "Gitcoin Score",
         intro: "Connect your Gitcoin Passport and verify your Unique Humanity Score to help strengthen our community. It's quick and easy, and you'll be contributing to a more secure ecosystem!",
         image_url: "https://example.com/advanced-governance.jpg",
-        requirements: "Your Unique Humanity Score must be 20 or higher to complete this quest. Not there yet? Check some tips on how to increase your score."
+        requirements: "Your Unique Humanity Score must be 20 or higher to complete this quest. Not there yet? <a href='https://support.passport.xyz/passport-knowledge-base/using-passport/scoring-20-for-humans'>Check some tips on how to increase your score.</a>"
       },
       audience: "Delegates",
       rewards: [{type: "Points", amount: 55}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
