@@ -61,9 +61,22 @@ const ReadDocumentContent: StrategyChildComponent = ({
     ],
   );
 
+  const handleTitleClick = () => {
+    if (getStatus() === "unstarted") {
+      handleStart();
+    } else {
+      window.open(action.actionData.documentUrl, "_blank");
+    }
+  };
+
   return (
     <div className="flex w-full justify-between">
-      <span className="font-medium">{action.displayData.title}</span>
+      <span
+        className="font-medium hover:cursor-pointer"
+        onClick={handleTitleClick}
+      >
+        {action.displayData.title}
+      </span>
       <ActionButton {...buttonProps} />
     </div>
   );
