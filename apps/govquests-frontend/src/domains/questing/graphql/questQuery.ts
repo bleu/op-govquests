@@ -48,6 +48,7 @@ export const QuestQuery = graphql(`
           startedAt
           completedAt
           startData {
+            __typename
             ... on GitcoinScoreStartData {
               message
               nonce
@@ -66,6 +67,7 @@ export const QuestQuery = graphql(`
             }
           }
           completionData {
+            __typename
             ... on GitcoinScoreCompletionData {
               score
               minimumPassingScore

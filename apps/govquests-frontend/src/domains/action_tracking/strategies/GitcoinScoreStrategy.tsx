@@ -23,7 +23,7 @@ export const GitcoinScoreStrategy: ActionStrategy = (props) => {
 
     if (!execution) return;
     try {
-      signMessage({ message: execution.startData.message });
+      signMessage({ account: address, message: execution.startData.message });
       setErrorMessage(null);
     } catch (error) {
       console.error("Error signing message:", error);
