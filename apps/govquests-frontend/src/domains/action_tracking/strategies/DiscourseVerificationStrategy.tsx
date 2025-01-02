@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/Input";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { FormEvent, useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import type {
   ActionType,
@@ -121,23 +121,25 @@ const DiscourseVerificationContent: StrategyChildComponent<
     encryptedKey,
   ]);
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (getStatus() === "started") {
+      handleComplete();
+    } else if (getStatus() === "unstarted") {
+      handleStart();
+    }
+  };
+
   const buttonProps = useMemo(() => {
     const status = getStatus();
-    const baseProps = {
+    return {
       actionType: action.actionType as ActionType,
       status,
-      disabled: !isSignedIn || !isConnected || status === "completed",
+      disabled:
+        !isSignedIn || !isConnected || status === "completed" || !encryptedKey,
       loading: startMutation.isPending || completeMutation.isPending,
+      onClick: handleSubmit,
     };
-
-    switch (status) {
-      case "unstarted":
-        return { ...baseProps, onClick: handleStart };
-      case "started":
-        return { ...baseProps, onClick: handleComplete };
-      case "completed":
-        return { ...baseProps, onClick: () => {} };
-    }
   }, [
     isSignedIn,
     isConnected,
@@ -150,7 +152,7 @@ const DiscourseVerificationContent: StrategyChildComponent<
   ]);
 
   return (
-    <div className="flex flex-1  items-center">
+    <form onSubmit={handleSubmit} className="flex flex-1  items-center">
       <div className="flex flex-col flex-1 pr-6">
         <span className="text-xl font-semibold">
           {action.displayData.title}
@@ -164,7 +166,7 @@ const DiscourseVerificationContent: StrategyChildComponent<
           <span className="text-sm font-bold">{errorMessage} </span>
         )}
       </div>
-      <ActionButton {...buttonProps} />
-    </div>
+      <ActionButton type="submit" {...buttonProps} />
+    </form>
   );
 };
