@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { Quests } from "../../types/questTypes";
 import { TrackAccordionHeader } from "./TrackAccordionHeader";
+import { TrackDescription } from "./TrackDescription";
 
 export type Badge = {
   id: number;
@@ -25,13 +26,13 @@ export type Track = {
 
 export const TrackAccordion = ({ track }: { track: Track }) => {
   return (
-    <Accordion type="single" collapsible className="border rounded-lg px-10">
+    <Accordion type="single" collapsible className="border rounded-lg">
       <AccordionItem value="item-1">
-        <AccordionTrigger>
+        <AccordionTrigger className="px-10">
           <TrackAccordionHeader track={track} />
         </AccordionTrigger>
         <AccordionContent>
-          Yes. It adheres to the WAI-ARIA design pattern.
+          <TrackDescription track={track} />
         </AccordionContent>
       </AccordionItem>
     </Accordion>

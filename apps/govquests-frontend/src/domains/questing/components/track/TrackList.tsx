@@ -11,7 +11,7 @@ const mockTracks: Track[] = [
     badge: {
       id: 0,
       name: "Teste",
-      image: "https://via.placeholder.com/150",
+      image: "https://placehold.co/400",
     },
     quests: [],
   },
@@ -29,7 +29,10 @@ export const TrackList = () => {
         </h2>
       </div>
       {mockTracks.map((track) => (
-        <TrackAccordion track={{ ...track, quests: data.quests }} />
+        <TrackAccordion
+          track={{ ...track, quests: data.quests }}
+          key={track.id}
+        />
       ))}
     </div>
   );
