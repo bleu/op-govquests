@@ -195,7 +195,7 @@ module QuestData
     action_type: "verify_delegate_statement",
     display_data: {
       title: "Delegate Statement",
-      description: "<ul><li>Watch <a href='https://www.loom.com/share/4833b161f3514e82adbf8d5445eb3cb6' target='_blank' rel='noopener noreferrer'>this cool video</a> about how to create your delegate statement (optional).</li><li><strong>If you haven't done it yet, connect your wallet at <a href='https://vote.optimism.io/' target='_blank' rel='noopener noreferrer'>Agora</a></strong></li><li><strong>Write and publish your delegate statement.</strong><ul><li><em>Keep in mind that your statement will be reviewed by Delegators who will decide whether to grant you voting power!</em></li><strong>Here's a suggested format for your delegate statement:</strong><ul><li>A brief introduction about your background in crypto and what makes you a valuable candidate.</li><li>Your thoughts on the <a href='https://www.optimism.io/vision' target='_blank' rel='noopener noreferrer'>Optimistic Vision</a>.</li><li>Insights on the first three articles of the <a href='https://gov.optimism.io/t/working-constitution-of-the-optimism-collective/55' target='_blank' rel='noopener noreferrer'>Working Constitution</a></li><li>Your interests, which can be either general or crypto-related.</li><li>Your favorite crypto projects.</li><li>After you have published your delegate statement, click the submit button to complete the quest.</li></ul></ul></li><li>Make your own communication thread (optional). <a href='https://gov.optimism.io/c/delegates/delegate-updates/45' target='_blank' rel='noopener noreferrer'>You can find some inspiration here</a>!</li><li>Once your delegate statement is published, submit it!</li></ul>"
+      description: "<ul><li>Watch <a href='https://www.loom.com/share/4833b161f3514e82adbf8d5445eb3cb6' target='_blank' rel='noopener noreferrer'>this cool video</a> about how to create your delegate statement (optional).</li><li><strong>Write and publish your delegate statement <a href='https://vote.optimism.io/' target='_blank' rel='noopener noreferrer'>at Agora</a>.</strong><ul><em>Here's a suggested format for your delegate statement:</em><ul><li>A brief introduction about your background in crypto and what makes you a valuable candidate.</li><li>Your thoughts on the <a href='https://www.optimism.io/vision' target='_blank' rel='noopener noreferrer'>Optimistic Vision</a>.</li><li>Insights on the first three articles of the <a href='https://gov.optimism.io/t/working-constitution-of-the-optimism-collective/55' target='_blank' rel='noopener noreferrer'>Working Constitution</a></li><li>Your favorite crypto projects.</li></ul></ul></li><li>Make your own communication thread on <a href='https://gov.optimism.io/' target='_blank' rel='noopener noreferrer'>Op Collective's Forum</a> (optional). <a href='https://gov.optimism.io/c/delegates/delegate-updates/45' target='_blank' rel='noopener noreferrer'>You can find some inspiration here</a>!</li><li>After you have published your delegate statement, click the submit button to complete the quest.</li></ul>"
     },
     action_data: {
       action_type: "verify_delegate_statement"
@@ -310,7 +310,7 @@ module QuestData
       },
       quest_type: "Governance",
       audience: "NonDelegates",
-      rewards: [{type: "Points", amount: 20}],
+      rewards: [{type: "Points", amount: 1000}],
       actions: [VERIFY_DELEGATE_ACTION]
     },
     {
@@ -322,7 +322,7 @@ module QuestData
       },
       quest_type: "Governance",
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 20}],
+      rewards: [{type: "Points", amount: 330}],
       actions: [VERIFY_DELEGATE_STATEMENT]
     },
     {
@@ -334,7 +334,7 @@ module QuestData
       },
       quest_type: "Governance",
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 20}],
+      rewards: [{type: "Points", amount: 330}],
       actions: [VERIFY_AGORA, VERIFY_FIRST_VOTE]
     },
     {
