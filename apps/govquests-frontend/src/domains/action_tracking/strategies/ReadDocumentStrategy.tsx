@@ -42,8 +42,6 @@ const ReadDocumentContent: StrategyChildComponent = ({
     return "unstarted";
   }, [execution]);
 
-  console.log(execution);
-
   const buttonProps = useMemo(
     () => ({
       actionType: "read_document" as const,
