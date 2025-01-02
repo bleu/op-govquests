@@ -26,8 +26,16 @@ export class ActionStrategyFactory {
         return SendEmailStrategy;
       case "verify_agora":
         return VerifyAgora;
-      default:
+      case "become_delegator":
+      case "governance_voter_participation":
+      case "holds_op":
+      case "verify_delegate_statement":
+      case "verify_delegate":
+      case "verify_first_vote":
+      case "wallet_verification":
         return DefaultStrategy;
+      default:
+        throw new Error(`Unsupported action type: ${actionType}`);
     }
   }
 }
