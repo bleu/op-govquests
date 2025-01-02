@@ -160,8 +160,8 @@ module QuestData
   ENS_ACTION = {
     action_type: "ens",
     display_data: {
-      title: "Verify ENS",
-      description: "Claim your unique ENS name!"
+      title: "Verify your ENS name",
+      description: "Connect with the Ethereum address that has your ENS name."
     },
     action_data: {
       action_type: "ens"
