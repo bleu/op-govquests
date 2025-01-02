@@ -40,9 +40,8 @@ const QuestCard: React.FC<QuestProps> = ({ quest }) => {
           <div className="w-full h-full bg-primary/5" />
         )}
       </div>
-      <div className="flex flex-col p-5 gap-4 m-3">
+      <div className="flex flex-col p-7 gap-4">
         <h3 className="font-semibold text-lg leading-tight line-clamp-2 group-hover:text-primary/90 transition-colors flex gap-2">
-          <Image src="/questIcon.svg" alt="Quest Icon" />
           {quest.displayData.title}
         </h3>
         <p className="text-sm text-foreground/70 line-clamp-3">
