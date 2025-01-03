@@ -15,6 +15,19 @@ const mockTracks: Track[] = [
     },
     quests: [],
   },
+  {
+    id: 2,
+    title: "Track 1",
+    description: "Description 1",
+    image: "https://via.placeholder.com/150",
+    totalPoints: 0,
+    badge: {
+      id: 0,
+      name: "Teste",
+      image: "https://placehold.co/400",
+    },
+    quests: [],
+  },
 ];
 
 export const TrackList = () => {
@@ -28,12 +41,14 @@ export const TrackList = () => {
           Complete quests to earn points and unlock rewards.
         </h2>
       </div>
-      {mockTracks.map((track) => (
-        <TrackAccordion
-          track={{ ...track, quests: data.quests }}
-          key={track.id}
-        />
-      ))}
+      <div className="px-8 flex flex-col gap-6">
+        {mockTracks.map((track) => (
+          <TrackAccordion
+            track={{ ...track, quests: data.quests }}
+            key={track.id}
+          />
+        ))}
+      </div>
     </div>
   );
 };

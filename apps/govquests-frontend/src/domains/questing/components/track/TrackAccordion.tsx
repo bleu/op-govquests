@@ -34,7 +34,7 @@ export const TrackAccordion = ({ track }: { track: Track }) => {
         </AccordionTrigger>
         <AccordionContent>
           <TrackDescription track={track} />
-          <QuestCarousel quests={track.quests.slice(0, 4)} />
+          <QuestCarousel quests={track.quests} />
         </AccordionContent>
       </AccordionItem>
     </Accordion>
