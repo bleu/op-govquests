@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/carousel";
 import { Quests } from "../types/questTypes";
 import QuestCard from "./QuestCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UseEmblaCarouselType } from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,16 @@ import { cn } from "@/lib/utils";
 export const QuestCarousel = ({ quests }: { quests: Quests }) => {
   const [api, setApi] = useState<UseEmblaCarouselType[1] | null>(null);
   const hasNavigationButtons = quests.length > 3;
+  const [isLast, setIsLast] = useState(false);
+  const [isFirst, setIsFirst] = useState(true);
+
+  useEffect(() => {
+    api &&
+      api.on("scroll", () => {
+        setIsLast(!api.canScrollNext());
+        setIsFirst(!api.canScrollPrev());
+      });
+  }, [api]);
 
   return (
     <div className="flex flex-col gap-8 mt-7 mb-3">
@@ -24,10 +34,11 @@ export const QuestCarousel = ({ quests }: { quests: Quests }) => {
       <div className="relative mx-10">
         {hasNavigationButtons && (
           <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
-            <button onClick={() => api.scrollPrev()} className="p-2">
-              <ChevronLeft
-                className={cn("w-5 h-5", !api.canScrollPrev() && "opacity-30")}
-              />
+            <button
+              onClick={() => api.scrollPrev()}
+              className={cn("p2", isFirst && "opacity-30 cursor-default")}
+            >
+              <ChevronLeft className="w-5 h-5" />
             </button>
           </div>
         )}
@@ -47,10 +58,11 @@ export const QuestCarousel = ({ quests }: { quests: Quests }) => {
 
         {hasNavigationButtons && (
           <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
-            <button onClick={() => api.scrollNext()} className="p-2">
-              <ChevronRight
-                className={cn("w-5 h-5", !api.canScrollNext() && "opacity-30")}
-              />
+            <button
+              onClick={() => api.scrollNext()}
+              className={cn("p2", isLast && "opacity-30 cursor-default")}
+            >
+              <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         )}
