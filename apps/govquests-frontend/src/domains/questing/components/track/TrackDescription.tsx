@@ -13,12 +13,7 @@ export const TrackDescription = ({ track }: { track: Track }) => {
       </div>
       <div className="items-center justify-center flex gap-12 mx-20">
         <BadgeCard badge={track.badge} />
-        <div className="col-span-8 w-full">
-          {track.description} Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Impedit incidunt architecto soluta ab magnam explicabo
-          voluptatem nulla sit nihil eaque! Magni tempora explicabo eum
-          laboriosam, at asperiores. Rem, incidunt nemo!
-        </div>
+        <div className="col-span-8 w-full">{track.description}</div>
       </div>
     </div>
   );
