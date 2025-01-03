@@ -23,6 +23,8 @@ module Types
     field :quests, resolver: Resolvers::FetchQuests
     field :quest, resolver: Resolvers::FetchQuest
 
+    field :track, resolver: Resolvers::FetchTrack
+
     field :current_user, resolver: Resolvers::CurrentUser, preauthorize: {with: AuthenticatedGraphqlPolicy}
 
     field :notifications,
