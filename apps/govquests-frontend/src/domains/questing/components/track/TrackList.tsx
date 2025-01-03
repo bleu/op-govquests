@@ -1,4 +1,5 @@
 import { useFetchQuests } from "../../hooks/useFetchQuests";
+import { useFetchTracks } from "../../hooks/useFetchTracks";
 import { Track, TrackAccordion } from "./TrackAccordion";
 
 const mockTracks: Track[] = [
@@ -32,6 +33,8 @@ const mockTracks: Track[] = [
 
 export const TrackList = () => {
   const { data } = useFetchQuests();
+
+  const { data: tracks } = useFetchTracks();
 
   return (
     <div>

@@ -530,6 +530,7 @@ type Query {
   quest(id: ID!): Quest
   quests: [Quest!]!
   track(id: ID!): Track
+  tracks: [Track!]
   unreadNotificationsCount: Int!
 }
 

@@ -1,5 +1,5 @@
 module Tracking
-  module Tracks
+  module Queries
     class AllTracks
       def self.call
         Tracking::TrackReadModel.all

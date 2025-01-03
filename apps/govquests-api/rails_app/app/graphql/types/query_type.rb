@@ -24,6 +24,7 @@ module Types
     field :quest, resolver: Resolvers::FetchQuest
 
     field :track, resolver: Resolvers::FetchTrack
+    field :tracks, resolver: Resolvers::FetchTracks
 
     field :current_user, resolver: Resolvers::CurrentUser, preauthorize: {with: AuthenticatedGraphqlPolicy}
 

@@ -94,7 +94,7 @@ module TrackData
   DELEGATE_TRACK = {
     display_data: {
       title: "Delegate Journey",
-      intro: "Master the fundamentals of being an Optimism delegate. This track guides you through essential steps from verifying your identity to casting your first vote."
+      description: "Master the fundamentals of being an Optimism delegate. This track guides you through essential steps from verifying your identity to casting your first vote."
     },
     quests: [
       "Claim Your Identity",
@@ -110,7 +110,7 @@ module TrackData
   NEWCOMER_TRACK = {
     display_data: {
       title: "Welcome to Optimism",
-      intro: "Start your journey in the Optimism community. Complete these quests to understand our governance and establish your presence."
+      description: "Start your journey in the Optimism community. Complete these quests to understand our governance and establish your presence."
     },
     quests: [
       "Unlock Your Profile",
