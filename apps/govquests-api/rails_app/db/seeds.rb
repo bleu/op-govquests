@@ -91,36 +91,44 @@ module TrackCreation
 end
 
 module TrackData
-  DELEGATE_TRACK = {
+  NEWCOMER_TRACK = {
     display_data: {
-      title: "Delegate Journey",
-      description: "Master the fundamentals of being an Optimism delegate. This track guides you through essential steps from verifying your identity to casting your first vote."
+      title: "Account Setup",
+      description: "Be among the first to join Govquests and unlock future perks exclusive to early adopters."
     },
     quests: [
-      "Claim Your Identity",
       "Unlock Your Profile",
+      "Gitcoin Score"
+    ]
+  }
+
+  DELEGATE_TRACK = {
+    display_data: {
+      title: "Delegate Starter Guide",
+      description: "Master the essentials of governance to establish yourself as a trusted delegate."
+    },
+    quests: [
       "Governance 101",
-      "Gitcoin Score",
-      "Become a delegate",
-      "Delegate statement",
+      "Become a Delegate",
+      "Delegate Statement",
       "First Vote Milestone"
     ]
   }
 
-  NEWCOMER_TRACK = {
+  IDENTITY_TRACK = {
     display_data: {
-      title: "Welcome to Optimism",
-      description: "Start your journey in the Optimism community. Complete these quests to understand our governance and establish your presence."
+      title: "Identity Recognition",
+      description: "Build trust in the community by linking your ENS and Governance Forum profiles."
     },
     quests: [
-      "Unlock Your Profile",
-      "Governance 101"
+      "Claim Your Identity"
     ]
   }
 
   TRACKS = [
+    NEWCOMER_TRACK,
     DELEGATE_TRACK,
-    NEWCOMER_TRACK
+    IDENTITY_TRACK
   ]
 end
 
@@ -366,7 +374,7 @@ module QuestData
     },
     {
       display_data: {
-        title: "Become a delegate",
+        title: "Become a Delegate",
         intro: "Start your journey as a delegate in the Optimism community! This quest will guide you through the essential steps to become a representative within the ecosystem and share your ideas. Let’s get started!",
         image_url: "https://example.com/governance101.jpg",
         requirements: "This quest is for new delegates — those who become delegates after opening this content. If you're already a delegate, try referring new delegates to earn rewards!"
@@ -378,7 +386,7 @@ module QuestData
     },
     {
       display_data: {
-        title: "Delegate statement",
+        title: "Delegate Statement",
         intro: "Creating a delegate statement helps you communicate your values and priorities within the Optimism governance. It allows delegators to make informed decisions about whom to support.",
         image_url: "https://example.com/governance101.jpg",
         requirements: "This quest is for delegates who don't have their delegate statement yet. If you already have one, take a look in the other quests for delegates!"
