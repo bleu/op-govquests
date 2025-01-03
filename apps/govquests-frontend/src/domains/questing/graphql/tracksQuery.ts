@@ -4,6 +4,7 @@ export const TracksQuery = graphql(`
   query GetTracks {
     tracks {
       id
+      points
       displayData {
         title
         description

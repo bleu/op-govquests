@@ -672,6 +672,7 @@ interface StartDataInterface {
 type Track {
   displayData: TrackDisplayData!
   id: ID!
+  points: Int!
   quests: [Quest!]!
 }
 
