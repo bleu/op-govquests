@@ -1,65 +1,53 @@
-import { useSIWE } from "connectkit";
-import React, { useCallback, useMemo, useState } from "react";
-import { useAccount } from "wagmi";
+import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
-import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
-import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import type { VerifyPositionStatus } from "../types/actionButtonTypes";
-import type { ActionStrategy } from "./ActionStrategy";
+import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
+import { BaseStrategy } from "./BaseStrategy";
 
-export const VerifyPositionStrategy: ActionStrategy = ({
-  questId,
-  action,
-  execution,
-  refetch,
-}) => {
-  const { isSignedIn } = useSIWE();
-  const { isConnected } = useAccount();
-  const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
+export const VerifyPositionStrategy: ActionStrategy = (props) => {
+  const { refetch } = props;
+
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleStart = useCallback(async () => {
-    try {
-      await startMutation.mutateAsync({
-        questId,
-        actionId: action.id,
-        actionType: action.actionType,
-      });
-      refetch();
-      setErrorMessage(null);
-    } catch (error) {
-      console.error("Error starting action:", error);
-      setErrorMessage("Failed to start the verification. Please try again.");
-    }
-  }, [startMutation, questId, action.id, action.actionType, refetch]);
-
-  const handleComplete = useCallback(async () => {
-    if (!execution) return;
-    const completionData = { completed: true };
-    try {
-      const result = await completeMutation.mutateAsync({
-        executionId: execution.id,
-        nonce: execution.nonce,
-        actionType: action.actionType,
-        completionData,
-      });
-      if (result.completeActionExecution?.errors.length > 0) {
-        setErrorMessage(
-          "You haven't reached the Top 100 Delegates ranking for Season 6. Keep contributing and aim higher next season to unlock this reward.",
-        );
-      } else {
-        setErrorMessage(null);
-      }
-      refetch();
-    } catch (error) {
-      console.error("Error completing action:", error);
+  const onCompleteMutationSuccess = (result) => {
+    if (result.completeActionExecution?.errors.length > 0) {
       setErrorMessage(
-        "An error occurred during verification. Please try again.",
+        "You haven't reached the Top 100 Delegates ranking for Season 6. Keep contributing and aim higher next season to unlock this reward.",
       );
+    } else {
+      setErrorMessage(null);
     }
-  }, [completeMutation, execution, action.actionType, refetch]);
+    refetch();
+  };
 
+  return (
+    <BaseStrategy
+      {...props}
+      errorMessage={errorMessage}
+      setErrorMessage={setErrorMessage}
+      onCompleteMutationSuccess={onCompleteMutationSuccess}
+      getCompleteData={() => ({ completed: true })}
+    >
+      {(context) => <VerifyPositionContent {...props} {...context} />}
+    </BaseStrategy>
+  );
+};
+
+interface VerifyPositionContentProps {}
+
+const VerifyPositionContent: StrategyChildComponent<
+  VerifyPositionContentProps
+> = ({
+  action,
+  execution,
+  handleComplete,
+  handleStart,
+  completeMutation,
+  startMutation,
+  isSignedIn,
+  isConnected,
+  errorMessage,
+}) => {
   const getStatus = useCallback((): VerifyPositionStatus => {
     if (execution?.status === "completed") return "completed";
     if (execution) return "started";

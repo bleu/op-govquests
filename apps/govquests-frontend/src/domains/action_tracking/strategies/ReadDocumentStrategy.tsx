@@ -1,65 +1,48 @@
-import { useSIWE } from "connectkit";
-import React, { useCallback, useMemo } from "react";
-import { useAccount } from "wagmi";
+import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
-import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
-import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import type { ReadDocumentStatus } from "../types/actionButtonTypes";
-import type { ActionStrategy } from "./ActionStrategy";
+import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
+import { BaseStrategy } from "./BaseStrategy";
 
-export const ReadDocumentStrategy: ActionStrategy = ({
-  questId,
+export const ReadDocumentStrategy: ActionStrategy = (props) => {
+  const { refetch, action } = props;
+
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const onStartMutationSuccess = () => {
+    window.open(action.actionData.documentUrl, "_blank");
+    refetch();
+  };
+
+  return (
+    <BaseStrategy
+      {...props}
+      onStartMutationSuccess={onStartMutationSuccess}
+      errorMessage={errorMessage}
+      setErrorMessage={setErrorMessage}
+    >
+      {(context) => <ReadDocumentContent {...props} {...context} />}
+    </BaseStrategy>
+  );
+};
+
+const ReadDocumentContent: StrategyChildComponent = ({
   action,
   execution,
-  refetch,
+  handleComplete,
+  handleStart,
+  isConnected,
+  isSignedIn,
+  startMutation,
+  completeMutation,
 }) => {
-  const { isSignedIn } = useSIWE();
-  const { isConnected } = useAccount();
-  const startMutation = useStartActionExecution();
-  const completeMutation = useCompleteActionExecution(["quest", questId]);
-
-  const handleStart = useCallback(async () => {
-    try {
-      await startMutation.mutateAsync({
-        questId,
-        actionId: action.id,
-        actionType: action.actionType,
-      });
-      window.open(action.actionData.documentUrl, "_blank");
-      refetch();
-    } catch (error) {
-      console.error("Error starting action:", error);
-    }
-  }, [
-    startMutation,
-    questId,
-    action.id,
-    action.actionType,
-    action.actionData.documentUrl,
-    refetch,
-  ]);
-
-  const handleComplete = useCallback(async () => {
-    if (!execution) return;
-    const completionData = { completed: true };
-    try {
-      await completeMutation.mutateAsync({
-        executionId: execution.id,
-        nonce: execution.nonce,
-        actionType: action.actionType,
-        completionData,
-      });
-      refetch();
-    } catch (error) {
-      console.error("Error completing action:", error);
-    }
-  }, [completeMutation, execution, action.actionType, refetch]);
-
   const getStatus = useCallback((): ReadDocumentStatus => {
     if (execution?.status === "completed") return "completed";
     if (execution) return "started";
     return "unstarted";
   }, [execution]);
+
+  console.log(execution);
 
   const buttonProps = useMemo(
     () => ({

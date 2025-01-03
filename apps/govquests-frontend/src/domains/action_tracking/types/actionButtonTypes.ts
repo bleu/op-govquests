@@ -12,7 +12,7 @@ export type DiscourseVerificationStatus = "unstarted" | "started" | "completed";
 
 export type EnsStatus = "unstarted" | "completed";
 
-export type SendEmailStatus = "unstarted" | "completed";
+export type SendEmailStatus = "unstarted" | "started" | "completed";
 
 export type VerifyWalletStatus = "unstarted" | "completed";
 

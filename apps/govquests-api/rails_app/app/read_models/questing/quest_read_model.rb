@@ -8,6 +8,7 @@ module Questing
     has_many :reward_pools, class_name: "Rewarding::RewardPoolReadModel", foreign_key: "quest_id", primary_key: "quest_id"
 
     validates :quest_id, presence: true, uniqueness: true
+    validates :slug, presence: true
     validates :audience, presence: true
     validates :status, presence: true
     validates :display_data, presence: true
@@ -21,6 +22,7 @@ end
 #  id           :bigint           not null, primary key
 #  audience     :string           not null
 #  display_data :jsonb            not null
+#  slug         :string
 #  status       :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null

@@ -5,6 +5,22 @@ module AgoraApi
       handle_response(self.class.get("/proposals", @options.merge(query: query)))
     end
 
+    def fetch_all_proposals
+      proposals = []
+      limit = 50
+      offset = 0
+
+      loop do
+        response = get_proposals(limit: limit, offset: offset)
+        proposals += response["data"]
+        break unless response["meta"]["has_next"]
+
+        offset += limit
+      end
+
+      proposals
+    end
+
     def get_proposal(proposal_id)
       handle_response(self.class.get("/proposals/#{proposal_id}", @options))
     end

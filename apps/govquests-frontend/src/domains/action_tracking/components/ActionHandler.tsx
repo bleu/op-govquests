@@ -1,17 +1,15 @@
 import { useFetchQuest } from "@/domains/questing/hooks/useFetchQuest";
 import { Action } from "@/domains/questing/types/questTypes";
 import React from "react";
-import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
-import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import { ActionStrategyFactory } from "../strategies/ActionStrategyFactory";
 
 interface ActionHandlerProps {
-  questId: string;
+  questSlug: string;
   action: Action;
 }
 
-const ActionHandler: React.FC<ActionHandlerProps> = ({ questId, action }) => {
-  const { data, isLoading, refetch } = useFetchQuest(questId);
+const ActionHandler: React.FC<ActionHandlerProps> = ({ questSlug, action }) => {
+  const { data, isLoading, refetch } = useFetchQuest(questSlug);
 
   const quest = data?.quest || null;
   const actionExecutions = quest?.actions.find(
@@ -30,7 +28,8 @@ const ActionHandler: React.FC<ActionHandlerProps> = ({ questId, action }) => {
 
   return (
     <StrategyComponent
-      questId={questId}
+      questSlug={questSlug}
+      questId={quest.id}
       action={action}
       execution={execution}
       refetch={refetch}

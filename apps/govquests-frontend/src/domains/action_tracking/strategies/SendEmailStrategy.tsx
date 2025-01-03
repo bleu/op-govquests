@@ -1,44 +1,60 @@
 import { Input } from "@/components/ui/Input";
-import { useSIWE } from "connectkit";
-import React, { useCallback, useMemo, useState } from "react";
-import { useAccount } from "wagmi";
+import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
-import { useStartActionExecution } from "../hooks/useStartActionExecution";
 import type { ActionType, SendEmailStatus } from "../types/actionButtonTypes";
-import type { ActionStrategy } from "./ActionStrategy";
+import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
+import { BaseStrategy } from "./BaseStrategy";
 
-export const SendEmailStrategy: ActionStrategy = ({
-  questId,
-  action,
-  execution,
-  refetch,
-}) => {
-  const { isSignedIn } = useSIWE();
-  const { isConnected } = useAccount();
-  const startMutation = useStartActionExecution();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+export const SendEmailStrategy: ActionStrategy = (props) => {
   const [email, setEmail] = useState<string>("");
 
-  const handleStart = useCallback(async () => {
-    try {
-      await startMutation.mutateAsync({
-        questId,
-        actionId: action.id,
-        actionType: action.actionType,
-        sendEmailVerificationInput: {
-          email: email.trim(),
-        },
-      });
-      refetch();
-      setErrorMessage(null);
-    } catch (error) {
-      console.error("Error starting action:", error);
-      setErrorMessage("Failed to start the verification. Please try again.");
-    }
-  }, [startMutation, questId, action.id, action.actionType, refetch, email]);
+  const [errorMessage, setErrorMessage] = useState<string>();
 
+  const getStartData = useCallback(
+    () => ({
+      sendEmailVerificationInput: { email: email.trim() },
+    }),
+    [email],
+  );
+
+  return (
+    <BaseStrategy
+      {...props}
+      getStartData={getStartData}
+      errorMessage={errorMessage}
+      setErrorMessage={setErrorMessage}
+    >
+      {(context) => (
+        <SendEmailContent
+          {...context}
+          {...props}
+          email={email}
+          setEmail={setEmail}
+        />
+      )}
+    </BaseStrategy>
+  );
+};
+
+interface SendEmailContentProps {
+  email: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
+  handleStart,
+  isConnected,
+  isSignedIn,
+  startMutation,
+  errorMessage,
+  email,
+  setEmail,
+  execution,
+  action,
+}) => {
   const getStatus = useCallback((): SendEmailStatus => {
     if (execution?.status === "completed") return "completed";
+    if (execution?.status === "started") return "started";
     return "unstarted";
   }, [execution]);
 
@@ -48,7 +64,11 @@ export const SendEmailStrategy: ActionStrategy = ({
       status: getStatus(),
       onClick: handleStart,
       disabled:
-        getStatus() === "completed" || !isSignedIn || !isConnected || !email,
+        getStatus() === "completed" ||
+        getStatus() === "started" ||
+        !isSignedIn ||
+        !isConnected ||
+        !email,
       loading: startMutation.isPending,
     }),
     [
@@ -65,6 +85,14 @@ export const SendEmailStrategy: ActionStrategy = ({
   const renderedContent = useMemo(() => {
     if (errorMessage) {
       return <span className="text-sm font-bold">{errorMessage}</span>;
+    }
+
+    if (getStatus() === "started") {
+      return (
+        <span className="text-sm text-foreground/70">
+          An email has been sent to {email} with a verification link. 📧
+        </span>
+      );
     }
 
     if (getStatus() === "completed") {

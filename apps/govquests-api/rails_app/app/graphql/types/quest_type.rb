@@ -2,6 +2,7 @@ module Types
   class QuestType < Types::BaseObject
     field :id, ID, null: false, method: :quest_id
     field :audience, String, null: false
+    field :slug, String, null: false
     field :status, String, null: false
     field :display_data, Types::DisplayDataType, null: false
     field :actions, [Types::ActionType], null: false

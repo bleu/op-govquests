@@ -8,18 +8,16 @@ import QuestDetails from "@/domains/questing/components/QuestDetails";
 
 interface QuestDetailsPageProps {
   params: Promise<{
-    questID: string;
+    questSlug: string;
   }>;
 }
 
 export default function QuestDetailsPage(props: QuestDetailsPageProps) {
   const params = use(props.params);
 
-  const {
-    questID
-  } = params;
+  const { questSlug } = params;
 
-  const { data, isLoading, isError } = useFetchQuest(questID as string);
+  const { data, isLoading, isError } = useFetchQuest(questSlug as string);
 
   if (isLoading) {
     return <LoadingIndicator />;

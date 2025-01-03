@@ -1,10 +1,11 @@
 import { graphql } from "gql.tada";
 
 export const QuestQuery = graphql(`
-  query GetQuest($id: ID!) {
-    quest(id: $id) {
+  query GetQuest($slug: String!) {
+    quest(slug: $slug) {
       id
       audience
+      slug
       rewardPools {
         rewardDefinition {
           type
@@ -47,6 +48,7 @@ export const QuestQuery = graphql(`
           startedAt
           completedAt
           startData {
+            __typename
             ... on GitcoinScoreStartData {
               message
               nonce
@@ -65,6 +67,7 @@ export const QuestQuery = graphql(`
             }
           }
           completionData {
+            __typename
             ... on GitcoinScoreCompletionData {
               score
               minimumPassingScore

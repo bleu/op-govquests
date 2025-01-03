@@ -1,12 +1,12 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { fetchQuestById } from "../services/questService";
+import { fetchQuestBySlug } from "../services/questService";
 
-export const useFetchQuest = (id: string) => {
+export const useFetchQuest = (slug: string) => {
   return useQuery({
-    queryKey: ["quest", id],
-    queryFn: () => fetchQuestById(id),
-    enabled: !!id,
+    queryKey: ["quest", slug],
+    queryFn: () => fetchQuestBySlug(slug),
+    enabled: !!slug,
   });
 };

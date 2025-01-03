@@ -14,7 +14,24 @@ module AgoraApi
       handle_response(self.class.get("/delegates/#{address_or_ens}/votes", @options.merge(query: query)))
     end
 
+    def fetch_all_delegate_votes(address_or_ens)
+      votes = []
+      limit = 50
+      offset = 0
+
+      loop do
+        response = get_delegate_votes(address_or_ens, limit: limit, offset: offset)
+        votes += response["data"]
+        break unless response["meta"]["has_next"]
+
+        offset += limit
+      end
+
+      votes
+    end
+
     def get_delegatees(address_or_ens)
+      Rails.logger.info("Getting delegatees for #{address_or_ens}")
       handle_response(self.class.get("/delegates/#{address_or_ens}/delegatees", @options))
     end
 

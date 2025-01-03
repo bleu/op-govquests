@@ -3,6 +3,8 @@ require_relative "base"
 module ActionTracking
   module Strategies
     class VerifyDelegateStatement < Base
+      include Import["services.agora"]
+
       def on_start_execution
         {
           statement: agora_delegate["statement"]
@@ -33,7 +35,7 @@ module ActionTracking
       end
 
       def agora_delegate
-        @agora_delegate ||= AgoraApi::Client.new.get_delegate(start_data[:address])
+        @agora_delegate ||= agora.get_delegate(start_data[:address])
       end
     end
   end

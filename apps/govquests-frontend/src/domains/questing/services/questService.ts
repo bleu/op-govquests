@@ -7,6 +7,6 @@ export const fetchAllQuests = async () => {
   return await request(API_URL, QuestsQuery);
 };
 
-export const fetchQuestById = async (id: string) => {
-  return await request(API_URL, QuestQuery, { id });
+export const fetchQuestBySlug = async (slug: string) => {
+  return await request(API_URL, QuestQuery, { slug });
 };

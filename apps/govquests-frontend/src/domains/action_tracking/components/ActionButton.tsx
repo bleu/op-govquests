@@ -2,8 +2,6 @@ import { Button } from "@/components/ui/shadcn-button";
 import Spinner from "@/components/ui/Spinner";
 import { cn } from "@/lib/utils";
 import { CheckIcon, CheckSquareIcon, ExternalLinkIcon } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import type React from "react";
 
 const ACTIONS = {
   gitcoin_score: {
@@ -41,6 +39,7 @@ const ACTIONS = {
   },
   send_email: {
     unstarted: { label: "Send" },
+    started: { label: "Email sent" },
     completed: { label: "Verified e-mail" },
   },
   wallet_verification: {
@@ -54,6 +53,18 @@ const ACTIONS = {
   verify_first_vote: {
     unstarted: { label: "Confirm first vote" },
     completed: { label: "Vote confirmed" },
+  },
+  holds_op: {
+    unstarted: { label: "Verify" },
+    completed: { label: "Verified", icon: CheckSquareIcon },
+  },
+  become_delegator: {
+    unstarted: { label: "Verify" },
+    completed: { label: "Verified", icon: CheckSquareIcon },
+  },
+  governance_voter_participation: {
+    unstarted: { label: "Verify" },
+    completed: { label: "Verified", icon: CheckSquareIcon },
   },
 } as const;
 
