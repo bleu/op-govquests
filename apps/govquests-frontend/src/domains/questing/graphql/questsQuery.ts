@@ -19,6 +19,9 @@ export const QuestsQuery = graphql(`
         intro
         imageUrl
       }
+      userQuests {
+        status
+      }
       actions {
         id
         actionType

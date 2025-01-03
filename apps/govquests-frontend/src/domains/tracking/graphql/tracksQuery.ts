@@ -26,6 +26,9 @@ export const TracksQuery = graphql(`
           intro
           imageUrl
         }
+        userQuests {
+          status
+        }
         actions {
           id
           actionType
