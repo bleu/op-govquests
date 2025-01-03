@@ -5,6 +5,7 @@ require_relative "notifications/lib/notifications"
 require_relative "action_tracking/lib/action_tracking"
 require_relative "gamification/lib/gamification"
 require_relative "processes/lib/processes"
+require_relative "tracking/lib/tracking"
 
 module GovQuests
   class Configuration
@@ -24,6 +25,7 @@ module GovQuests
       [
         Authentication::Configuration.new,
         Questing::Configuration.new,
+        Tracking::Configuration.new,
         Rewarding::Configuration.new,
         Notifications::Configuration.new,
         ActionTracking::Configuration.new,

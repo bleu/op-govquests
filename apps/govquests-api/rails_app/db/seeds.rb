@@ -63,6 +63,67 @@ module QuestCreation
   end
 end
 
+module TrackCreation
+  def self.create_track_with_quests(track_data, quest_id_map)
+    track_id = SecureRandom.uuid
+
+    Rails.configuration.command_bus.call(
+      Tracking::CreateTrack.new(
+        track_id: track_id,
+        display_data: track_data[:display_data]
+      )
+    )
+
+    track_data[:quests].each_with_index do |quest_title, index|
+      quest_id = quest_id_map[quest_title]
+
+      Rails.configuration.command_bus.call(
+        Tracking::AssociateQuestWithTrack.new(
+          track_id: track_id,
+          quest_id: quest_id,
+          position: index + 1
+        )
+      )
+    end
+
+    track_id
+  end
+end
+
+module TrackData
+  DELEGATE_TRACK = {
+    display_data: {
+      title: "Delegate Journey",
+      intro: "Master the fundamentals of being an Optimism delegate. This track guides you through essential steps from verifying your identity to casting your first vote."
+    },
+    quests: [
+      "Claim Your Identity",
+      "Unlock Your Profile",
+      "Governance 101",
+      "Gitcoin Score",
+      "Become a delegate",
+      "Delegate statement",
+      "First Vote Milestone"
+    ]
+  }
+
+  NEWCOMER_TRACK = {
+    display_data: {
+      title: "Welcome to Optimism",
+      intro: "Start your journey in the Optimism community. Complete these quests to understand our governance and establish your presence."
+    },
+    quests: [
+      "Unlock Your Profile",
+      "Governance 101"
+    ]
+  }
+
+  TRACKS = [
+    DELEGATE_TRACK,
+    NEWCOMER_TRACK
+  ]
+end
+
 module QuestData
   DISCOURSE_VERIFICATION_ACTION = {
     action_type: "discourse_verification",
@@ -367,9 +428,13 @@ end
 def create_quests_and_actions
   puts "Creating quests, actions, and reward pools..."
 
+  quest_id_map = {}
+
   QuestData::QUESTS.each do |quest_data|
     # Create quest and its reward pools
     quest_id = QuestCreation.create_quest_with_rewards(quest_data)
+    quest_id_map[quest_data[:display_data][:title]] = quest_id
+
     puts "Created quest: #{quest_data[:display_data][:title]} (#{quest_id})"
     puts "Created reward pools for quest rewards: #{quest_data[:rewards].inspect}"
 
@@ -385,6 +450,25 @@ def create_quests_and_actions
   end
 
   puts "All quests created with their actions and reward pools successfully!"
+  quest_id_map
 end
 
-create_quests_and_actions
+def create_tracks(quest_id_map)
+  puts "Creating tracks..."
+
+  TrackData::TRACKS.each do |track_data|
+    track_id = TrackCreation.create_track_with_quests(track_data, quest_id_map)
+    puts "Created track: #{track_data[:display_data][:title]} (#{track_id})"
+    puts "Associated quests: #{track_data[:quests].join(", ")}"
+    puts "---"
+  end
+
+  puts "All tracks created with their quests successfully!"
+end
+
+def create_all
+  quest_id_map = create_quests_and_actions
+  create_tracks(quest_id_map)
+end
+
+create_all
