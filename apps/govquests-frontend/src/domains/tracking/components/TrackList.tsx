@@ -1,4 +1,4 @@
-import { useFetchTracks } from "../../hooks/useFetchTracks";
+import { useFetchTracks } from "../hooks/useFetchTracks";
 import { TrackAccordion } from "./TrackAccordion";
 
 export const TrackList = () => {

@@ -13,6 +13,7 @@ export const TracksQuery = graphql(`
         id
         audience
         status
+        slug
         rewardPools {
           rewardDefinition {
             type

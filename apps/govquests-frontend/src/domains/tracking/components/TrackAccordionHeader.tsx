@@ -1,4 +1,4 @@
-import { Tracks } from "../../types/trackTypes";
+import { Tracks } from "../types/trackTypes";
 
 interface TrackAccordionHeader {
   track: Tracks[number];

@@ -527,7 +527,7 @@ type Query {
     notificationTypes: [String!] = []
     readStatus: String = "all"
   ): NotificationConnection!
-  quest(id: ID!): Quest
+  quest(slug: String!): Quest
   quests: [Quest!]!
   track(id: ID!): Track
   tracks: [Track!]
@@ -540,6 +540,7 @@ type Quest {
   displayData: DisplayData!
   id: ID!
   rewardPools: [RewardPool!]!
+  slug: String!
   status: String!
   userQuests: [UserQuest!]!
 }

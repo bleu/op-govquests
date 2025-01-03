@@ -4,8 +4,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Tracks } from "../../types/trackTypes";
-import { QuestCarousel } from "../QuestCarousel";
+import { Tracks } from "../types/trackTypes";
+import { QuestCarousel } from "../../questing/components/QuestCarousel";
 import { TrackAccordionHeader } from "./TrackAccordionHeader";
 import { TrackDescription } from "./TrackDescription";
 

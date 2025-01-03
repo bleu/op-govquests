@@ -3,7 +3,7 @@
 import React from "react";
 
 import LoadingIndicator from "@/components/ui/LoadingIndicator";
-import { TrackList } from "@/domains/questing/components/track/TrackList";
+import { TrackList } from "@/domains/tracking/components/TrackList";
 import { useFetchQuests } from "@/domains/questing/hooks/useFetchQuests";
 
 const QuestsPage: React.FC = () => {
