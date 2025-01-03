@@ -23,37 +23,30 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
   return (
     <main className="flex justify-center min-h-full bg-background/50">
       <div className="flex flex-col w-[70%] max-w-5xl py-8 gap-6">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-fit -ml-2"
-          onClick={() => redirect("/quests")}
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Quests
-        </Button>
-
         {/* Main content area */}
-        <div className="border-primary/20 border shadow-sm p-6 md:p-8 rounded-lg">
-          <div className="flex-col space-y-8">
-            <div className="flex justify-between items-start">
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/5 rounded-md">
-                <MapIcon width={18} height={18} className="text-primary/70" />
-                <span className="font-medium text-primary/70 tracking-wide">
-                  QUEST
-                </span>
+        <div className="border-primary/20 border shadow-sm py-6 md:py-8 rounded-lg">
+          <div className="flex-col">
+            <div className="space-y-4 px-10">
+              <Button
+                variant="outline"
+                size="sm"
+                className="p-2 h-6"
+                onClick={() => redirect("/quests")}
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Tracks
+              </Button>
+              <div className="flex justify-between items-center">
+                <h1 className="text-2xl font-bold tracking-tight text-foreground/80 flex gap-2">
+                  <span className="text-foreground/50"># QUEST</span>
+                  {quest.displayData.title}
+                </h1>
+                <div className="flex items-center gap-2">
+                  {quest.rewardPools.map(({ rewardDefinition: reward }) => (
+                    <RewardIndicator key={reward.type} reward={reward} />
+                  ))}
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                {quest.rewardPools.map(({ rewardDefinition: reward }) => (
-                  <RewardIndicator key={reward.type} reward={reward} />
-                ))}
-              </div>
-            </div>
-
-            <div className="flex flex-1 items-center">
-              <h1 className="text-4xl font-bold tracking-tight text-foreground/90">
-                {quest.displayData.title}
-              </h1>
             </div>
 
             <div className="space-y-8 [&_p]:text-foreground/70">
