@@ -22,7 +22,7 @@
     "gql.tada": "^1.8.10",
     "graphql-request": "^7.1.2",
     "lucide-react": "^0.462.0",
-    "next": "15.0.3",
+    "next": "15.1.2",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028",
     "react-intersection-observer": "^9.13.1",
