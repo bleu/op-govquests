@@ -229,8 +229,8 @@ module QuestData
   ENS_ACTION = {
     action_type: "ens",
     display_data: {
-      title: "Verify ENS",
-      description: "Claim your unique ENS name!"
+      title: "Verify your ENS name",
+      description: "Connect with the Ethereum address that has your ENS name."
     },
     action_data: {
       action_type: "ens"
@@ -324,7 +324,7 @@ module QuestData
         requirements: "<span>To complete this quest, you need to have:</span> <ul><li>A <strong>ENS</strong> — if you don't have it, <a href='https://ens.domains/' target='_blank' rel='noopener noreferrer'>register your ENS here</a> and remember to <strong>choose a distinct username</strong> that represents you (like yourname.eth).</li> <li>A <strong>Discourse account</strong> on <strong>Optimism Governance Forum</strong> — if you also don't have it, <a href='https://gov.optimism.io/' target='_blank' rel='noopener noreferrer'>create your account here.</a> We recommend you to use your ENS as username so you can get easily recognizable.</li></ul>"
       },
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 165}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
+      rewards: [{type: "Points", amount: 165}],
       actions: [ENS_ACTION, DISCOURSE_VERIFICATION_ACTION]
     },
     {
@@ -334,9 +334,7 @@ module QuestData
         image_url: "https://example.com/governance101.jpg"
       },
       audience: "AllUsers",
-      rewards: [
-        {type: "Points", amount: 55}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}
-      ],
+      rewards: [{type: "Points", amount: 55}],
       actions: UNLOCK_PROFILE_ACTIONS
     },
     {
@@ -346,7 +344,7 @@ module QuestData
         image_url: "https://example.com/governance101.jpg"
       },
       audience: "AllUsers",
-      rewards: [{type: "Points", amount: 165}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
+      rewards: [{type: "Points", amount: 165}],
       actions: READ_DOCUMENT_ACTIONS
     },
     {
@@ -354,10 +352,10 @@ module QuestData
         title: "Gitcoin Score",
         intro: "Connect your Gitcoin Passport and verify your Unique Humanity Score to help strengthen our community. It's quick and easy, and you'll be contributing to a more secure ecosystem!",
         image_url: "https://example.com/advanced-governance.jpg",
-        requirements: "Your Unique Humanity Score must be 20 or higher to complete this quest. Not there yet? Check some tips on how to increase your score."
+        requirements: "Your Unique Humanity Score must be 20 or higher to complete this quest. Not there yet? <a href='https://support.passport.xyz/passport-knowledge-base/using-passport/scoring-20-for-humans'>Check some tips on how to increase your score.</a>"
       },
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 55}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
+      rewards: [{type: "Points", amount: 55}],
       actions: [GITCOIN_ACTION]
     },
 
@@ -369,7 +367,7 @@ module QuestData
         requirements: "You need to be a delegate to do this quest! If you’re not one, start with Become Delegate Quest."
       },
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 165}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
+      rewards: [{type: "Points", amount: 165}],
       actions: [VERIFY_POSITION_ACTION]
     },
     {
@@ -381,7 +379,7 @@ module QuestData
       },
       quest_type: "Governance",
       audience: "NonDelegates",
-      rewards: [{type: "Points", amount: 20}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
+      rewards: [{type: "Points", amount: 20}],
       actions: [VERIFY_DELEGATE_ACTION]
     },
     {
@@ -393,7 +391,7 @@ module QuestData
       },
       quest_type: "Governance",
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 20}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
+      rewards: [{type: "Points", amount: 20}],
       actions: [VERIFY_DELEGATE_STATEMENT]
     },
     {
@@ -405,7 +403,7 @@ module QuestData
       },
       quest_type: "Governance",
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 20}, {type: "Token", amount: 100, token_address: "0x4200000000000000000000000000000000000042", inventory: 100}],
+      rewards: [{type: "Points", amount: 20}],
       actions: [VERIFY_AGORA, VERIFY_FIRST_VOTE]
     },
     {

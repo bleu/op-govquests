@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/shadcn-button";
 import Spinner from "@/components/ui/Spinner";
 import { cn } from "@/lib/utils";
 import { CheckIcon, CheckSquareIcon, ExternalLinkIcon } from "lucide-react";
+import { ComponentProps } from "react";
 
 const ACTIONS = {
   gitcoin_score: {
@@ -71,7 +72,8 @@ const ACTIONS = {
 type ActionType = keyof typeof ACTIONS;
 type ActionStatus<T extends ActionType> = keyof (typeof ACTIONS)[T];
 
-interface ActionButtonProps<T extends ActionType> {
+interface ActionButtonProps<T extends ActionType>
+  extends ComponentProps<"button"> {
   actionType: T;
   status: ActionStatus<T>;
   onClick: () => void;
@@ -87,6 +89,7 @@ function ActionButton<T extends ActionType>({
   disabled = false,
   loading = false,
   customLabel,
+  ...props
 }: ActionButtonProps<T>) {
   const config = ACTIONS[actionType][status];
   const Icon = config.icon;
@@ -102,6 +105,7 @@ function ActionButton<T extends ActionType>({
       )}
       onClick={onClick}
       disabled={disabled || status === "completed" || loading}
+      {...props}
     >
       {loading ? (
         <span className="flex items-center gap-2">
