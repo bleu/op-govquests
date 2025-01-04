@@ -70,7 +70,6 @@ module ActionTracking
 
         headers = {
           "User-Api-Key" => api_key,
-          "User-Api-Client-Id" => "GovQuests"
         }
 
         request = Net::HTTP::Get.new(url.request_uri, headers)
