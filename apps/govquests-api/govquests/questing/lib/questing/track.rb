@@ -1,4 +1,4 @@
-module Tracking
+module Questing
   class Track
     include AggregateRoot
 
@@ -11,35 +11,21 @@ module Tracking
       @display_data = nil
     end
 
-    def create(display_data:)
+    def create(display_data:, quest_ids:)
       raise AlreadyExists if @display_data
 
       apply TrackCreated.new(
         data: {
           track_id: @id,
           display_data: display_data,
-        }
-      )
-    end
-
-    def associate_quest(quest_id:, position:)
-      raise QuestAlreadyAssociated if @quests.include?(quest_id)
-
-      apply QuestAssociatedWithTrack.new(
-        data: {
-          track_id: @id,
-          quest_id: quest_id,
-          position: position
+          quest_ids: quest_ids
         }
       )
     end
 
     on TrackCreated do |event|
       @display_data = event.data[:display_data]
-    end
-
-    on QuestAssociatedWithTrack do |event|
-      @quests << event.data[:quest_id]
+      @quest_ids = event.data[:quest_ids]
     end
   end
 end

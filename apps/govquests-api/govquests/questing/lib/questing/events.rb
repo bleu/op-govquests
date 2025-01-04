@@ -34,4 +34,11 @@ module Questing
     attribute :action_id, Infra::Types::UUID
     attribute :data, Infra::Types::Hash
   end
+
+  # Tracks-related events
+  class TrackCreated < Infra::Event
+    attribute :track_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :quest_ids, Infra::Types::Array
+  end
 end
