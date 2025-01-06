@@ -5,7 +5,7 @@ module Resolvers
     argument :id, ID, required: true
 
     def resolve(id:)
-      Tracking::Queries::FindTrack.call(id)
+      Questing::Queries::FindTrack.call(id)
     end
   end
 end

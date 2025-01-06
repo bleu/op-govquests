@@ -4,6 +4,7 @@ require_relative "questing/events"
 
 require_relative "questing/quest"
 require_relative "questing/user_quest"
+require_relative "questing/track"
 
 QUESTING_NAMESPACE_UUID = "14f9d670-d4f7-4fea-bc48-1438f0f9f11c".freeze
 
@@ -49,6 +50,13 @@ module Questing
 
     handle "Questing::UpdateUserQuestProgress", aggregate: UserQuest do |user_quest, cmd|
       user_quest.add_progress(cmd.action_id, cmd.data)
+    end
+
+    handle "Questing::CreateTrack", aggregate: Track do |track, cmd|
+      track.create(
+        display_data: cmd.display_data,
+        quest_ids: cmd.quest_ids,
+      )
     end
   end
 end

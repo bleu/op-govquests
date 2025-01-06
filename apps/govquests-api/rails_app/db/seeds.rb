@@ -68,23 +68,12 @@ module TrackCreation
     track_id = SecureRandom.uuid
 
     Rails.configuration.command_bus.call(
-      Tracking::CreateTrack.new(
+      Questing::CreateTrack.new(
         track_id: track_id,
-        display_data: track_data[:display_data]
+        display_data: track_data[:display_data],
+        quest_ids: track_data[:quests].map { |quest_title| quest_id_map[quest_title] }
       )
     )
-
-    track_data[:quests].each_with_index do |quest_title, index|
-      quest_id = quest_id_map[quest_title]
-
-      Rails.configuration.command_bus.call(
-        Tracking::AssociateQuestWithTrack.new(
-          track_id: track_id,
-          quest_id: quest_id,
-          position: index + 1
-        )
-      )
-    end
 
     track_id
   end

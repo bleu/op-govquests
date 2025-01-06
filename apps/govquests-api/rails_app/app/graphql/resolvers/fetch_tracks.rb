@@ -3,7 +3,7 @@ module Resolvers
     type [Types::TrackType], null: true
 
     def resolve
-      Tracking::Queries::AllTracks.call
+      Questing::Queries::AllTracks.call
     end
   end
 end

@@ -11,7 +11,6 @@ class ReadModelsConfiguration
     enable_action_tracking_read_model(event_store)
     enable_gamification_read_model(event_store)
     enable_notifications_read_model(event_store)
-    enable_tracking_read_model(event_store)
 
     GovQuests::Configuration.new.call(event_store, command_bus)
   end
@@ -40,10 +39,6 @@ class ReadModelsConfiguration
 
   def enable_notifications_read_model(event_store)
     Notifications::ReadModelConfiguration.new.call(event_store)
-  end
-
-  def enable_tracking_read_model(event_store)
-    Tracking::ReadModelConfiguration.new.call(event_store)
   end
 
   def enable_res_infra_event_linking(event_store)

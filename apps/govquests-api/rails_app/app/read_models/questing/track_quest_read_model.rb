@@ -1,4 +1,4 @@
-module Tracking
+module Questing
   class TrackQuestReadModel < ApplicationRecord
     self.table_name = "track_quests"
 
