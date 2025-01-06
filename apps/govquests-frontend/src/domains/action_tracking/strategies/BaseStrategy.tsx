@@ -131,7 +131,7 @@ export const ActionContent = (props: ComponentProps<"div">) => {
 export const ActionFooter = (props: ComponentProps<"div">) => {
   return (
     <div
-      className="self-end mb-2 flex flex-col gap-1 items-end [&>button]:w-52"
+      className="self-end mb-2 flex flex-col gap-1 items-end [&>button]:w-52 [&>span]:text-xs"
       {...props}
     />
   );

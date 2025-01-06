@@ -5,7 +5,6 @@ import { GitcoinScoreStatus } from "../types/actionButtonTypes";
 import { CompleteActionExecutionResult } from "../types/actionTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
 import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
-import QuestButton from "@/domains/questing/components/QuestButton";
 
 export const GitcoinScoreStrategy: ActionStrategy = (props) => {
   const { refetch, execution } = props;
@@ -135,14 +134,14 @@ const GitcoinScoreContent: StrategyChildComponent<GitcoinScoreContentProps> = ({
   const verificationStatus = useMemo(() => {
     if (!isConnected) {
       return (
-        <span className="text-sm text-red-500">
+        <span className="text-red-500">
           Connect your wallet to start the quest.
         </span>
       );
     }
     if (errorMessage) {
       return (
-        <span className="text-sm text-red-500">
+        <span className="text-red-500">
           Verification failed. Sorry, you look like a bot. 🤖
         </span>
       );
@@ -154,13 +153,13 @@ const GitcoinScoreContent: StrategyChildComponent<GitcoinScoreContentProps> = ({
       // );
 
       return (
-        <span className="text-sm text-foreground/70">
+        <span className="text-foreground/70">
           Verification succeeded! Seems like you're human. ✅
         </span>
       );
     } else if (status === "unstarted") {
       return (
-        <span className="text-sm text-foreground/70">
+        <span className="text-foreground/70">
           Connect your passport to start.
         </span>
       );
