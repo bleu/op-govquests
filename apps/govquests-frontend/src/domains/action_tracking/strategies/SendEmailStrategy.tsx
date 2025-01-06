@@ -112,7 +112,7 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
         </span>
         <Input
           type="email"
-          className="my-2 max-w-[90%]"
+          className="my-2 max-w-[90%] ml-1"
           value={
             getStatus() === "completed" ? execution?.startData?.email : email
           }

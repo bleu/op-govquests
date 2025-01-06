@@ -5,6 +5,7 @@ import { GitcoinScoreStatus } from "../types/actionButtonTypes";
 import { CompleteActionExecutionResult } from "../types/actionTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
 import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
+import QuestButton from "@/domains/questing/components/QuestButton";
 
 export const GitcoinScoreStrategy: ActionStrategy = (props) => {
   const { refetch, execution } = props;
@@ -131,43 +132,39 @@ const GitcoinScoreContent: StrategyChildComponent<GitcoinScoreContentProps> = ({
     handleComplete,
   ]);
 
-  const renderedContent = useMemo(() => {
-    if (errorMessage) {
-      return {
-        message: (
-          <span className="text-sm text-foreground/70">
-            Verification failed. Sorry, you look like a bot. 🤖
-          </span>
-        ),
-        description: <span className="text-sm font-bold">{errorMessage}</span>,
-      };
+  const verificationStatus = useMemo(() => {
+    if (!isConnected) {
+      return (
+        <span className="text-sm text-red-500">
+          Connect your wallet to start the quest.
+        </span>
+      );
     }
-    if (getStatus() === "completed") {
+    if (errorMessage) {
+      return (
+        <span className="text-sm text-red-500">
+          Verification failed. Sorry, you look like a bot. 🤖
+        </span>
+      );
+    }
+    const status = getStatus();
+    if (status === "completed") {
       // invariant(
       //   execution?.completionData?.__typename === "GitcoinScoreCompletionData",
       // );
 
-      return {
-        message: (
-          <span className="text-sm text-foreground/70">
-            Verification succeeded! Seems like you're human. ✅
-          </span>
-        ),
-        description: (
-          <span className="text-sm font-bold">
-            Your Unique Humanity Score is currently{" "}
-            {execution?.completionData.score}.
-          </span>
-        ),
-      };
-    }
-    return {
-      description: (
+      return (
         <span className="text-sm text-foreground/70">
-          {action.displayData.description}
+          Verification succeeded! Seems like you're human. ✅
         </span>
-      ),
-    };
+      );
+    } else if (status === "unstarted") {
+      return (
+        <span className="text-sm text-foreground/70">
+          Connect your passport to start.
+        </span>
+      );
+    }
   }, [
     errorMessage,
     getStatus,
@@ -179,12 +176,12 @@ const GitcoinScoreContent: StrategyChildComponent<GitcoinScoreContentProps> = ({
     <ActionContent>
       <div className="flex flex-col">
         <span className="text-sm text-foreground/70">
-          {renderedContent.description}
+          {action.displayData.description}
         </span>
       </div>
       <ActionFooter>
         <ActionButton {...buttonProps} />
-        {renderedContent.message}
+        {verificationStatus}
       </ActionFooter>
     </ActionContent>
   );
