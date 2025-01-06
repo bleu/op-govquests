@@ -1,3 +1,4 @@
+import { IndicatorPill } from "@/components/IndicatorPill";
 import { Track } from "./TrackAccordion";
 
 interface TrackAccordionHeader {
@@ -11,14 +12,8 @@ export const TrackAccordionHeader = ({ track }: TrackAccordionHeader) => {
         <p className="text-foreground/60">#TRACK</p> {track.title}
       </h1>
       <div className="flex gap-4 hover:no-underline">
-        <div className="flex border py-1 px-4 rounded-lg hover:no-underline">
-          <p className="text-sm font-bold hover:no-underline">
-            {track.quests.length} quests
-          </p>
-        </div>
-        <div className="flex border py-1 px-4 rounded-lg">
-          <p className="text-sm font-bold">{track.totalPoints} points</p>
-        </div>
+        <IndicatorPill>{track.quests.length} quests</IndicatorPill>
+        <IndicatorPill>{track.totalPoints} points</IndicatorPill>
       </div>
     </div>
   );
