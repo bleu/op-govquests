@@ -4,6 +4,7 @@ import SignInButton from "@/domains/authentication/components/SignInButton";
 import { NotificationBell } from "@/domains/notifications/components/NotificationBell";
 import { cn } from "@/lib/utils";
 import { HomeIcon, MapIcon, StarIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type React from "react";
@@ -12,51 +13,47 @@ const Header: React.FC = () => {
   const currentPath = usePathname();
 
   return (
-    <header className="p-8">
+    <header className="p-8 pr-16">
       <div className="flex justify-between items-center">
-        <Link
-          href="/"
-          className="bg-primary text-foreground px-12 py-1 rounded-md"
-        >
-          Logo
+        <Link href="/" className="text-foreground py-1 rounded-md">
+          <Image src="/logo.svg" alt="logo" width={200} height={200} />
         </Link>
 
-        <nav className="bg-primary rounded-lg">
+        <nav>
           <ul className="flex space-x-5 px-1 py-1">
             <li>
               <Link
                 className={cn(
-                  "flex items-center text-foreground px-3 py-1 rounded-full hover:bg-primary/70 transition",
-                  currentPath.startsWith("/quests") && "font-bold",
+                  "flex items-center text-foreground/80 px-3 py-1 rounded-full transition hover:scale-110",
+                  currentPath.startsWith("/quests") &&
+                    "font-black text-foreground",
                 )}
                 href="/quests"
               >
-                <MapIcon className="w-4 h-4 mr-1" />
-                Quests
+                # Quests
               </Link>
             </li>
             <li>
               <Link
                 className={cn(
-                  "flex items-center text-foreground px-3 py-1 rounded-full hover:bg-primary/70 transition",
-                  currentPath === "/" && "font-bold",
+                  "flex items-center text-foreground/80 px-3 py-1 rounded-full transition hover:scale-110",
+                  currentPath === "/" && "font-black text-foreground",
                 )}
                 href="/"
               >
-                <HomeIcon className="w-4 h-4 mr-1" />
-                Home
+                # Achievements
               </Link>
             </li>
             <li>
               <Link
                 className={cn(
-                  "flex items-center text-foreground px-3 py-1 rounded-full hover:bg-primary/70 transition",
-                  currentPath.startsWith("/leaderboard") && "font-bold",
+                  "flex items-center text-foreground/80 px-3 py-1 rounded-full transition hover:scale-110",
+                  currentPath.startsWith("/leaderboard") &&
+                    "font-black text-foreground",
                 )}
                 href="/leaderboard"
               >
-                <StarIcon className="w-4 h-4 mr-1" />
-                Leaderboard
+                # Leaderboard
               </Link>
             </li>
           </ul>
