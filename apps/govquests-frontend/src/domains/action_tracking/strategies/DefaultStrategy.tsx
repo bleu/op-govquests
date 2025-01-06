@@ -4,6 +4,12 @@ import ActionButton from "../components/ActionButton";
 import { ActionType, VerifyWalletStatus } from "../types/actionButtonTypes";
 import { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
 import { BaseStrategy } from "./BaseStrategy";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { AccordionItem } from "@radix-ui/react-accordion";
 
 export const DefaultStrategy: ActionStrategy = (props) => {
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -53,18 +59,14 @@ const DefaultContent: StrategyChildComponent = ({
     ],
   );
   return (
-    <div className="flex flex-1 justify-between items-center">
-      <div className="flex flex-col">
-        <span className="text-xl font-semibold mb-1">
-          {action.displayData.title}
-        </span>
-
+    <div className="flex flex-col justify-between items-start gap-10">
+      <div className="flex flex-col text-sm font-normal">
         <HtmlRender content={action.displayData.description || ""} />
         {errorMessage && (
           <span className="text-sm font-bold">{errorMessage}</span>
         )}
       </div>
-      <ActionButton {...buttonProps} />
+      <ActionButton {...buttonProps} className="self-end" />
     </div>
   );
 };
