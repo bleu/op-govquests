@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html
       className={cn(
-        "bg-background text-foreground h-full",
+        "bg-background text-foreground h-full dark",
         jetBrains.className,
       )}
       lang="en"

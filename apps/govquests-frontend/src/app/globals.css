@@ -45,7 +45,7 @@
 
   .dark {
     /* Optimism-inspired colors for dark mode */
-    --background: 230 11% 11%; /* Dark background #191B1F */
+    --background: 228 9% 11%; /* Dark background #1a1b1f */
     --foreground: 0 0% 100%;
 
     --card: 230 11% 11%;
@@ -54,8 +54,8 @@
     --popover: 230 11% 11%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 352 100% 50%; /* Optimism Red */
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 100%; /* White */
+    --primary-foreground: 0 0% 0% /* Black text */;
 
     --secondary: 228 9% 23%; /* Dark grey #333640 */
     --secondary-foreground: 0 0% 100%;
