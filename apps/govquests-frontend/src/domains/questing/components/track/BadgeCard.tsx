@@ -1,15 +1,26 @@
+import { cn } from "@/lib/utils";
 import { Badge } from "./TrackAccordion";
 import Image from "next/image";
 
-export const BadgeCard = ({ badge }: { badge: Badge }) => {
+interface BadgeCardProps {
+  badge: Badge;
+  isCompleted: boolean;
+}
+
+export const BadgeCard = ({ badge, isCompleted }: BadgeCardProps) => {
+  // TODO - Add badge image
+
   return (
-    <div className="items-center justify-center min-w-52 h-60 border col-span-2">
+    <div className="relative items-center justify-center min-w-52 h-60 col-span-2">
       <Image
-        src={badge.image}
+        src={"/badges/track1.png"}
         alt="badge_image"
         width={100}
         height={100}
-        className="object-cover w-full h-full"
+        className={cn(
+          "object-cover w-full h-full grayscale",
+          isCompleted && "grayscale-0",
+        )}
         unoptimized
       />
     </div>
