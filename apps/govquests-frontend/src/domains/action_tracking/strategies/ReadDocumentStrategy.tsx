@@ -72,10 +72,10 @@ const ReadDocumentContent: StrategyChildComponent = ({
   return (
     <ActionContent>
       <span
-        className="font-medium hover:cursor-pointer"
+        className="font-normal hover:cursor-pointer"
         onClick={handleTitleClick}
       >
-        {action.displayData.title}
+        Read {action.displayData.title}
       </span>
       <ActionFooter>
         <ActionButton {...buttonProps} />

@@ -1,14 +1,11 @@
-import RewardIndicator from "@/components/RewardIndicator";
+import { DividerHeader } from "@/components/ui/DividerHeader";
 import { Button } from "@/components/ui/shadcn-button";
 import ActionList from "@/domains/action_tracking/components/ActionList";
 import type { Quest } from "@/domains/questing/types/questTypes";
-import { useSIWE } from "connectkit";
-import { ArrowLeft, MapIcon } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { redirect } from "next/navigation";
-import { useAccount } from "wagmi";
-import QuestButton from "./QuestButton";
 import QuestContentSection from "./QuestContentSection";
-import { DividerHeader } from "@/components/ui/DividerHeader";
+import { QuestPeels } from "./QuestPeels";
 
 interface QuestDetailsProps {
   quest: Quest;
@@ -16,10 +13,6 @@ interface QuestDetailsProps {
 
 const QuestDetails = ({ quest }: QuestDetailsProps) => {
   if (!quest) return null;
-
-  const { isConnected } = useAccount();
-  const { isSignedIn, signIn } = useSIWE();
-  const status = quest.userQuests?.[0]?.status || "unstarted";
 
   return (
     <main className="flex justify-center min-h-full bg-background/50">
@@ -42,11 +35,7 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
                   <span className="text-foreground/50"># QUEST</span>
                   {quest.displayData.title}
                 </h1>
-                <div className="flex items-center gap-2">
-                  {quest.rewardPools.map(({ rewardDefinition: reward }) => (
-                    <RewardIndicator key={reward.type} reward={reward} />
-                  ))}
-                </div>
+                <QuestPeels quest={quest} variant="ghost" />
               </div>
             </div>
 

@@ -1,33 +1,27 @@
-import { Map as MapIcon } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
 
-import RewardIndicator from "@/components/RewardIndicator";
 import Image from "@/components/ui/Image";
 import { Quests } from "../types/questTypes";
+import { QuestPeels } from "./QuestPeels";
 
 interface QuestProps {
   quest: Quests[number];
 }
 
 const QuestCard: React.FC<QuestProps> = ({ quest }) => {
-  console.log(quest);
   return (
     <Link
       href={`/quests/${quest.slug}`}
       className="group flex flex-col bg-primary/10 border border-primary/20 rounded-lg overflow-hidden transition-all duration-200 hover:shadow-md hover:bg-primary/15"
     >
       <div className="relative w-full h-48 overflow-hidden">
-        <div className="absolute w-21 left-0 right-0 top-0 z-10 p-3 flex flex-col gap-3 justify-between items-start">
-          {quest.rewardPools
-            .toReversed()
-            .map(({ rewardDefinition: reward }) => (
-              <RewardIndicator
-                key={reward.type}
-                reward={reward}
-                className="bg-primary/50 text-white backdrop-blur-sm border border-primary/20 "
-              />
-            ))}
+        <div className="absolute w-21 flex left-0 right-0 top-0 z-10 p-3 justify-between items-start">
+          <QuestPeels
+            quest={quest}
+            variant="primary"
+            className="flex flex-col gap-3"
+          />
         </div>
         {quest.displayData.imageUrl ? (
           <Image
