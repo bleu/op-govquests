@@ -132,7 +132,7 @@ const GitcoinScoreContent: StrategyChildComponent<GitcoinScoreContentProps> = ({
   ]);
 
   const verificationStatus = useMemo(() => {
-    if (!isConnected) {
+    if (!isConnected || !isSignedIn) {
       return (
         <span className="text-red-500">
           Connect your wallet to start the quest.
@@ -170,6 +170,7 @@ const GitcoinScoreContent: StrategyChildComponent<GitcoinScoreContentProps> = ({
     execution?.completionData,
     action.displayData.description,
     isConnected,
+    isSignedIn,
   ]);
 
   return (

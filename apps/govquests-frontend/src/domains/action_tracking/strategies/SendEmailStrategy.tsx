@@ -83,7 +83,7 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
   );
 
   const verificationStatus = useMemo(() => {
-    if (!isConnected) {
+    if (!isConnected || !isSignedIn) {
       return (
         <span className="text-red-500">
           Connect your wallet to start the quest.
@@ -92,6 +92,14 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
     }
     if (errorMessage) {
       return <span className="font-bold">{errorMessage}</span>;
+    }
+
+    if (getStatus() === "unstarted") {
+      return (
+        <span className="text-foreground/70">
+          Type your email and click to send the verification link.
+        </span>
+      );
     }
 
     if (getStatus() === "started") {
@@ -109,7 +117,7 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
         </span>
       );
     }
-  }, [getStatus, errorMessage, isConnected]);
+  }, [getStatus, errorMessage, isConnected, isSignedIn, email]);
 
   return (
     <ActionContent>

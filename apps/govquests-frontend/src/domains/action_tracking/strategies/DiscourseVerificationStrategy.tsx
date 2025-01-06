@@ -69,7 +69,7 @@ const DiscourseVerificationContent: StrategyChildComponent<
   }, [execution]);
 
   const verificationStatus = useMemo(() => {
-    if (!isConnected) {
+    if (!isConnected || !isSignedIn) {
       return (
         <span className="text-red-500">
           Connect your wallet to start the quest.
@@ -90,7 +90,13 @@ const DiscourseVerificationContent: StrategyChildComponent<
         </span>
       );
     }
-  }, [execution?.completionData, getStatus, isConnected, errorMessage]);
+  }, [
+    execution?.completionData,
+    getStatus,
+    isConnected,
+    errorMessage,
+    isSignedIn,
+  ]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

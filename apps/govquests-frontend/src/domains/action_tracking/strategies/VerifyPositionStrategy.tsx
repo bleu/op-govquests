@@ -89,7 +89,7 @@ const VerifyPositionContent: StrategyChildComponent<
   }, [getStatus, errorMessage]);
 
   const verificationStatus = useMemo(() => {
-    if (!isConnected) {
+    if (!isConnected || isSignedIn) {
       return (
         <span className="text-red-500">
           Connect your wallet to start the quest.
@@ -110,7 +110,7 @@ const VerifyPositionContent: StrategyChildComponent<
         </span>
       );
     }
-  }, [errorMessage, isConnected, getStatus]);
+  }, [errorMessage, isConnected, getStatus, isSignedIn]);
 
   return (
     <div className="flex justify-between items-center">
