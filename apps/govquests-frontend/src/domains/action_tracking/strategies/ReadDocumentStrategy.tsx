@@ -61,6 +61,16 @@ const ReadDocumentContent: StrategyChildComponent = ({
     ],
   );
 
+  const verificationStatus = useMemo(() => {
+    if (!isConnected) {
+      return (
+        <span className="text-red-500">
+          Connect your wallet to start the quest.
+        </span>
+      );
+    }
+  }, [isConnected]);
+
   const handleTitleClick = () => {
     if (getStatus() === "unstarted") {
       handleStart();
@@ -79,6 +89,7 @@ const ReadDocumentContent: StrategyChildComponent = ({
       </span>
       <ActionFooter>
         <ActionButton {...buttonProps} />
+        {verificationStatus}
       </ActionFooter>
     </ActionContent>
   );

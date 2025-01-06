@@ -75,49 +75,52 @@ const VerifyPositionContent: StrategyChildComponent<
 
   const renderedContent = useMemo(() => {
     if (errorMessage) {
-      return {
-        message: (
-          <span className="text-sm text-foreground/70">
-            Verification failed. 👎
-          </span>
-        ),
-        description: <span className="text-sm font-bold">{errorMessage}</span>,
-      };
+      return <span className="text-sm font-bold">{errorMessage}</span>;
     }
-    const status = getStatus();
 
-    if (status === "completed") {
-      return {
-        message: (
-          <span className="text-sm text-foreground/70">
-            Verification succeeded. ✅
-          </span>
-        ),
-        description: (
-          <span className="text-sm font-bold">
-            Congratulations! You're in the Top 100 Delegates for Season 6. Claim
-            your reward and celebrate your accomplishment!
-          </span>
-        ),
-      };
-    }
-    return {
-      description: (
-        <span className="text-sm text-foreground/70">
-          {action.displayData.description}
+    if (getStatus() === "completed") {
+      return (
+        <span className="text-sm font-bold">
+          Congratulations! You're in the Top 100 Delegates for Season 6. Claim
+          your reward and celebrate your accomplishment!
         </span>
-      ),
-    };
+      );
+    }
   }, [getStatus, errorMessage]);
+
+  const verificationStatus = useMemo(() => {
+    if (!isConnected) {
+      return (
+        <span className="text-red-500">
+          Connect your wallet to start the quest.
+        </span>
+      );
+    }
+    if (errorMessage) {
+      return (
+        <span className="text-sm text-foreground/70">
+          Verification failed. 👎
+        </span>
+      );
+    }
+    if (getStatus() === "completed") {
+      return (
+        <span className="text-sm text-foreground/70">
+          Verification succeeded. ✅
+        </span>
+      );
+    }
+  }, [errorMessage, isConnected, getStatus]);
 
   return (
     <div className="flex justify-between items-center">
       <span className="text-sm text-foreground/70">
-        {renderedContent.description}
+        {action.displayData.description}
       </span>
+      {renderedContent}
       <ActionFooter>
         <ActionButton {...buttonProps} />
-        {renderedContent.message}
+        {verificationStatus}
       </ActionFooter>
     </div>
   );

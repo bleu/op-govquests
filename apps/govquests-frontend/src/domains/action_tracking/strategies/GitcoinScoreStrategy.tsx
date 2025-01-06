@@ -169,6 +169,7 @@ const GitcoinScoreContent: StrategyChildComponent<GitcoinScoreContentProps> = ({
     getStatus,
     execution?.completionData,
     action.displayData.description,
+    isConnected,
   ]);
 
   return (

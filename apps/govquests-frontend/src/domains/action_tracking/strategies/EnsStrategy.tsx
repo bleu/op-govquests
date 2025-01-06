@@ -58,50 +58,67 @@ const EnsStrategyContent: StrategyChildComponent = ({
     handleStart,
   ]);
 
+  const verificationStatus = useMemo(() => {
+    if (!isConnected) {
+      return (
+        <span className="text-red-500">
+          Connect your wallet to start the quest.
+        </span>
+      );
+    }
+    if (errorMessage) {
+      return (
+        <span className="text-foreground/70">ENS verification failed. 😕</span>
+      );
+    }
+    const status = getStatus();
+    if (status === "completed") {
+      return (
+        <span className="text-foreground/70">
+          ENS verification succeeded! ✅
+        </span>
+      );
+    } else if (status === "unstarted") {
+      return <span className="text-foreground/70">Connect ENS to start.</span>;
+    }
+  }, [
+    errorMessage,
+    getStatus,
+    execution?.completionData,
+    action.displayData.description,
+    isConnected,
+  ]);
+
   const renderedContent = useMemo(() => {
     if (errorMessage) {
-      return {
-        message: (
-          <span className="text-sm text-foreground/70">
-            ENS verification failed. 😕
-          </span>
-        ),
-        description: <span className="text-sm font-bold">{errorMessage}</span>,
-      };
+      return <span className="text-sm font-bold">{errorMessage}</span>;
     }
     if (getStatus() === "completed") {
-      return {
-        message: (
-          <span className="text-sm text-foreground/70">
-            ENS verification succeeded! ✅
-          </span>
-        ),
-        description: (
-          <span className="text-sm font-bold">
-            Your ENS name is {execution?.startData.domains[0].name}.
-          </span>
-        ),
-      };
-    }
-    return {
-      description: (
-        <span className="text-sm text-foreground/70">
-          {action.displayData.description}
+      return (
+        <span className="text-sm font-bold">
+          Your ENS name is {execution?.startData.domains[0].name}.
         </span>
-      ),
-    };
-  }, [errorMessage, getStatus, action.displayData, execution?.startData]);
+      );
+    }
+  }, [
+    errorMessage,
+    getStatus,
+    action.displayData,
+    execution?.startData,
+    isConnected,
+  ]);
 
   return (
     <ActionContent>
       <div className="flex flex-col">
         <span className="text-sm text-foreground/70">
-          {renderedContent.description}
+          {action.displayData.description}
         </span>
+        {renderedContent}
       </div>
       <ActionFooter>
         <ActionButton {...buttonProps} />
-        {renderedContent.message}
+        {verificationStatus}
       </ActionFooter>
     </ActionContent>
   );

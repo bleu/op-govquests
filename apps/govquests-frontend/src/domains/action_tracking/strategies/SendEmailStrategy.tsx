@@ -82,14 +82,21 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
     ],
   );
 
-  const renderedContent = useMemo(() => {
+  const verificationStatus = useMemo(() => {
+    if (!isConnected) {
+      return (
+        <span className="text-red-500">
+          Connect your wallet to start the quest.
+        </span>
+      );
+    }
     if (errorMessage) {
-      return <span className="text-sm font-bold">{errorMessage}</span>;
+      return <span className="font-bold">{errorMessage}</span>;
     }
 
     if (getStatus() === "started") {
       return (
-        <span className="text-sm text-foreground/70">
+        <span className="text-foreground/70">
           An email has been sent to {email} with a verification link. 📧
         </span>
       );
@@ -97,12 +104,12 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
 
     if (getStatus() === "completed") {
       return (
-        <span className="text-sm text-foreground/70">
+        <span className="text-foreground/70">
           Your email has been successfully verified! ✅
         </span>
       );
     }
-  }, [getStatus, errorMessage]);
+  }, [getStatus, errorMessage, isConnected]);
 
   return (
     <ActionContent>
@@ -122,7 +129,7 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
       </div>
       <ActionFooter>
         <ActionButton {...buttonProps} />
-        {renderedContent}
+        {verificationStatus}
       </ActionFooter>
     </ActionContent>
   );

@@ -85,12 +85,12 @@ const DiscourseVerificationContent: StrategyChildComponent<
       "discourseUsername" in execution.completionData
     ) {
       return (
-        <span className="text-sm font-bold">
+        <span className="font-bold">
           Verified as: {execution.completionData.discourseUsername}
         </span>
       );
     }
-  }, [execution?.completionData, getStatus]);
+  }, [execution?.completionData, getStatus, isConnected, errorMessage]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
