@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import type { ActionType, SendEmailStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
 
 export const SendEmailStrategy: ActionStrategy = (props) => {
   const [email, setEmail] = useState<string>("");
@@ -105,11 +105,8 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
   }, [getStatus, errorMessage]);
 
   return (
-    <div className="flex flex-1 justify-between items-center">
+    <ActionContent>
       <div className="flex flex-col">
-        <span className="text-xl font-semibold mb-1">
-          {action.displayData.title}
-        </span>
         <span className="text-sm text-foreground/70">
           {action.displayData.description}
         </span>
@@ -122,9 +119,11 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
           onChange={(e) => setEmail(e.target.value)}
           disabled={getStatus() === "completed"}
         />
-        {renderedContent}
       </div>
-      <ActionButton {...buttonProps} />
-    </div>
+      <ActionFooter>
+        <ActionButton {...buttonProps} />
+        {renderedContent}
+      </ActionFooter>
+    </ActionContent>
   );
 };

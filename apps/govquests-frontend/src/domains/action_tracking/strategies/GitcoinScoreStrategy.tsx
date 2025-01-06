@@ -4,7 +4,7 @@ import ActionButton from "../components/ActionButton";
 import { GitcoinScoreStatus } from "../types/actionButtonTypes";
 import { CompleteActionExecutionResult } from "../types/actionTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
 
 export const GitcoinScoreStrategy: ActionStrategy = (props) => {
   const { refetch, execution } = props;
@@ -133,37 +133,41 @@ const GitcoinScoreContent: StrategyChildComponent<GitcoinScoreContentProps> = ({
 
   const renderedContent = useMemo(() => {
     if (errorMessage) {
-      return (
-        <>
+      return {
+        message: (
           <span className="text-sm text-foreground/70">
             Verification failed. Sorry, you look like a bot. 🤖
           </span>
-          <span className="text-sm font-bold">{errorMessage}</span>
-        </>
-      );
+        ),
+        description: <span className="text-sm font-bold">{errorMessage}</span>,
+      };
     }
     if (getStatus() === "completed") {
       // invariant(
       //   execution?.completionData?.__typename === "GitcoinScoreCompletionData",
       // );
 
-      return (
-        <>
+      return {
+        message: (
           <span className="text-sm text-foreground/70">
             Verification succeeded! Seems like you're human. ✅
           </span>
+        ),
+        description: (
           <span className="text-sm font-bold">
             Your Unique Humanity Score is currently{" "}
             {execution?.completionData.score}.
           </span>
-        </>
-      );
+        ),
+      };
     }
-    return (
-      <span className="text-sm text-foreground/70">
-        {action.displayData.description}
-      </span>
-    );
+    return {
+      description: (
+        <span className="text-sm text-foreground/70">
+          {action.displayData.description}
+        </span>
+      ),
+    };
   }, [
     errorMessage,
     getStatus,
@@ -172,14 +176,16 @@ const GitcoinScoreContent: StrategyChildComponent<GitcoinScoreContentProps> = ({
   ]);
 
   return (
-    <div className="flex justify-between items-center">
+    <ActionContent>
       <div className="flex flex-col">
-        <span className="text-xl font-semibold mb-1">
-          {action.displayData.title}
+        <span className="text-sm text-foreground/70">
+          {renderedContent.description}
         </span>
-        {renderedContent}
       </div>
-      <ActionButton {...buttonProps} />
-    </div>
+      <ActionFooter>
+        <ActionButton {...buttonProps} />
+        {renderedContent.message}
+      </ActionFooter>
+    </ActionContent>
   );
 };

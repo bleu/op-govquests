@@ -6,7 +6,7 @@ import type {
   DiscourseVerificationStatus,
 } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
 
 export const DiscourseVerificationStrategy: ActionStrategy = (props) => {
   const [encryptedKey, setEncryptedKey] = useState<string>("");
@@ -136,7 +136,10 @@ const DiscourseVerificationContent: StrategyChildComponent<
       actionType: action.actionType as ActionType,
       status,
       disabled:
-        !isSignedIn || !isConnected || status === "completed" || !encryptedKey,
+        !isSignedIn ||
+        !isConnected ||
+        status === "completed" ||
+        (status == "started" && !encryptedKey),
       loading: startMutation.isPending || completeMutation.isPending,
       onClick: handleSubmit,
     };
@@ -152,21 +155,28 @@ const DiscourseVerificationContent: StrategyChildComponent<
   ]);
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-1  items-center">
-      <div className="flex flex-col flex-1 pr-6">
-        <span className="text-xl font-semibold">
-          {action.displayData.title}
-        </span>
-        <span className="text-sm text-foreground/70">
-          {action.displayData.description}
-        </span>
+    <ActionContent>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col justify-between items-start gap-8"
+      >
+        <div className="flex flex-col flex-1 pr-6">
+          <span className="flex flex-col text-sm font-normal">
+            {action.displayData.description}
+          </span>
 
-        {renderedContent}
-        {errorMessage && (
-          <span className="text-sm font-bold">{errorMessage} </span>
-        )}
-      </div>
-      <ActionButton type="submit" {...buttonProps} />
-    </form>
+          {renderedContent}
+          {errorMessage && (
+            <span className="text-sm font-bold">{errorMessage} </span>
+          )}
+        </div>
+        <ActionFooter>
+          <ActionButton type="submit" {...buttonProps} />
+          {errorMessage && (
+            <span className="text-xs font-bold self-end">{errorMessage}</span>
+          )}
+        </ActionFooter>
+      </form>
+    </ActionContent>
   );
 };

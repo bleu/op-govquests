@@ -6,7 +6,7 @@ import type {
   VerifyWalletStatus,
 } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
 
 export const VerifyAgora: ActionStrategy = (props) => {
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -57,17 +57,14 @@ const VerifyAgoraChild: StrategyChildComponent = ({
   );
 
   return (
-    <div className="flex flex-1 justify-between items-center">
-      <div className="flex flex-col">
-        <span className="text-xl font-semibold mb-1">
-          {action.displayData.title}
-        </span>
-        <HtmlRender content={action.displayData.description || ""} />
+    <ActionContent>
+      <HtmlRender content={action.displayData.description || ""} />
+      <ActionFooter>
+        <ActionButton {...buttonProps} />
         {errorMessage && (
           <span className="text-sm font-bold">{errorMessage}</span>
         )}
-      </div>
-      <ActionButton {...buttonProps} />
-    </div>
+      </ActionFooter>
+    </ActionContent>
   );
 };

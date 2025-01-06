@@ -42,7 +42,7 @@ const ActionHandler: React.FC<ActionHandlerProps> = ({
       <AccordionItem value="item-1" className="px-10">
         <AccordionTrigger className="py-4">
           <span className="text-lg font-semibold mb-1 py-0 flex gap-2">
-            <span className="text-black/50">#{actionIndex}</span>
+            <span className="text-black/50">#{actionIndex + 1}</span>
             {action.displayData.title}
           </span>
         </AccordionTrigger>

@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import type { VerifyPositionStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionFooter, BaseStrategy } from "./BaseStrategy";
 
 export const VerifyPositionStrategy: ActionStrategy = (props) => {
   const { refetch } = props;
@@ -75,46 +75,50 @@ const VerifyPositionContent: StrategyChildComponent<
 
   const renderedContent = useMemo(() => {
     if (errorMessage) {
-      return (
-        <>
+      return {
+        message: (
           <span className="text-sm text-foreground/70">
             Verification failed. 👎
           </span>
-          <span className="text-sm font-bold">{errorMessage}</span>
-        </>
-      );
+        ),
+        description: <span className="text-sm font-bold">{errorMessage}</span>,
+      };
     }
     const status = getStatus();
 
     if (status === "completed") {
-      return (
-        <>
+      return {
+        message: (
           <span className="text-sm text-foreground/70">
             Verification succeeded. ✅
           </span>
+        ),
+        description: (
           <span className="text-sm font-bold">
             Congratulations! You're in the Top 100 Delegates for Season 6. Claim
             your reward and celebrate your accomplishment!
           </span>
-        </>
-      );
+        ),
+      };
     }
-    return (
-      <span className="text-sm text-foreground/70">
-        Click to verify your status as a Top 100 Delegate.
-      </span>
-    );
+    return {
+      description: (
+        <span className="text-sm text-foreground/70">
+          {action.displayData.description}
+        </span>
+      ),
+    };
   }, [getStatus, errorMessage]);
 
   return (
     <div className="flex justify-between items-center">
-      <div className="flex flex-col">
-        <span className="text-xl font-semibold mb-1">
-          {action.displayData.title}
-        </span>
-        {renderedContent}
-      </div>
-      <ActionButton {...buttonProps} />
+      <span className="text-sm text-foreground/70">
+        {renderedContent.description}
+      </span>
+      <ActionFooter>
+        <ActionButton {...buttonProps} />
+        {renderedContent.message}
+      </ActionFooter>
     </div>
   );
 };

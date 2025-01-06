@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import type { ReadDocumentStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
 
 export const ReadDocumentStrategy: ActionStrategy = (props) => {
   const { refetch, action } = props;
@@ -70,14 +70,16 @@ const ReadDocumentContent: StrategyChildComponent = ({
   };
 
   return (
-    <div className="flex w-full justify-between">
+    <ActionContent>
       <span
         className="font-medium hover:cursor-pointer"
         onClick={handleTitleClick}
       >
         {action.displayData.title}
       </span>
-      <ActionButton {...buttonProps} />
-    </div>
+      <ActionFooter>
+        <ActionButton {...buttonProps} />
+      </ActionFooter>
+    </ActionContent>
   );
 };

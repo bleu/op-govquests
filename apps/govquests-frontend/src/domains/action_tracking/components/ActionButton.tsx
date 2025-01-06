@@ -99,7 +99,6 @@ function ActionButton<T extends ActionType>({
       variant="secondary"
       size="sm"
       className={cn(
-        "mr-6",
         disabled && "pointer-events-none",
         status === "completed" && "opacity-50",
       )}

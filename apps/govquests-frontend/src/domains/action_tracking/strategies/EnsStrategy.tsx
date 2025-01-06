@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import type { ActionType, EnsStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
 
 export const EnsStrategy: ActionStrategy = (props) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -60,43 +60,49 @@ const EnsStrategyContent: StrategyChildComponent = ({
 
   const renderedContent = useMemo(() => {
     if (errorMessage) {
-      return (
-        <>
+      return {
+        message: (
           <span className="text-sm text-foreground/70">
             ENS verification failed. 😕
           </span>
-          <span className="text-sm font-bold">{errorMessage}</span>
-        </>
-      );
+        ),
+        description: <span className="text-sm font-bold">{errorMessage}</span>,
+      };
     }
     if (getStatus() === "completed") {
-      return (
-        <>
+      return {
+        message: (
           <span className="text-sm text-foreground/70">
             ENS verification succeeded! ✅
           </span>
+        ),
+        description: (
           <span className="text-sm font-bold">
             Your ENS name is {execution?.startData.domains[0].name}.
           </span>
-        </>
-      );
+        ),
+      };
     }
-    return (
-      <span className="text-sm text-foreground/70">
-        {action.displayData.description}
-      </span>
-    );
+    return {
+      description: (
+        <span className="text-sm text-foreground/70">
+          {action.displayData.description}
+        </span>
+      ),
+    };
   }, [errorMessage, getStatus, action.displayData, execution?.startData]);
 
   return (
-    <div className="flex justify-between items-center">
+    <ActionContent>
       <div className="flex flex-col">
-        <span className="text-xl font-semibold mb-1">
-          {action.displayData.title}
+        <span className="text-sm text-foreground/70">
+          {renderedContent.description}
         </span>
-        {renderedContent}
       </div>
-      <ActionButton {...buttonProps} />
-    </div>
+      <ActionFooter>
+        <ActionButton {...buttonProps} />
+        {renderedContent.message}
+      </ActionFooter>
+    </ActionContent>
   );
 };
