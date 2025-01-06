@@ -10,7 +10,7 @@ interface QuestProps {
   quest: Quests[number];
 }
 
-const QuestCard: React.FC<QuestProps> = ({ quest }) => {
+const QuestCard2: React.FC<QuestProps> = ({ quest }) => {
   console.log(quest);
   return (
     <Link
@@ -50,6 +50,31 @@ const QuestCard: React.FC<QuestProps> = ({ quest }) => {
             }}
           />
         </p>
+      </div>
+    </Link>
+  );
+};
+
+const QuestCard: React.FC<QuestProps> = ({ quest }) => {
+  const isCompleted = quest.status == "completed";
+
+  return (
+    <Link href={`/quests/${quest.slug}`}>
+      <div className="rounded-lg h-56 overflow-hidden group transition-all duration-300 hover:shadow-lg">
+        <div className="bg-secondary h-[40%] flex justify-center items-center px-6">
+          <div className="w-full text-center text-primary-foreground font-bold text-lg py-3 bg-primary border border-primary-foreground shadow-[1px_1px_0px_0px_#000000] rounded-lg transition-all duration-300 group-hover:shadow-[2px_2px_0px_0px_#000000] group-hover:scale-105">
+            {quest.displayData.title}
+          </div>
+        </div>
+        <div className="bg-background/60 h-full p-7">
+          <p className="text-sm text-foreground line-clamp-4">
+            <span
+              dangerouslySetInnerHTML={{
+                __html: quest.displayData.intro || "",
+              }}
+            />
+          </p>
+        </div>
       </div>
     </Link>
   );

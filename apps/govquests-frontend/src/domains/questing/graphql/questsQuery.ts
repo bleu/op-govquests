@@ -27,6 +27,9 @@ export const QuestsQuery = graphql(`
           description
         }
       }
+      userQuests {
+        status
+      }
     }
   }
 `);
