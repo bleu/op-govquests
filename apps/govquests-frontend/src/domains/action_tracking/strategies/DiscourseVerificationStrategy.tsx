@@ -68,15 +68,51 @@ const DiscourseVerificationContent: StrategyChildComponent<
     return "unstarted";
   }, [execution]);
 
-  const renderedContent = useMemo(() => {
+  const verificationStatus = useMemo(() => {
+    if (!isConnected) {
+      return (
+        <span className="text-red-500">
+          Connect your wallet to start the quest.
+        </span>
+      );
+    }
+    if (errorMessage) {
+      return <span className="text-red-500">{errorMessage}</span>;
+    }
+    if (
+      getStatus() === "completed" &&
+      execution?.completionData &&
+      "discourseUsername" in execution.completionData
+    ) {
+      return (
+        <span className="text-sm font-bold">
+          Verified as: {execution.completionData.discourseUsername}
+        </span>
+      );
+    }
+  }, [execution?.completionData, getStatus]);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (getStatus() === "started") {
+      handleComplete();
+    } else if (getStatus() === "unstarted") {
+      handleStart();
+    }
+  };
+
+  const APIKeyComponent = useMemo(() => {
+    if (getStatus() === "started")
       return (
         <div className="flex flex-col">
           <div className="text-sm text-foreground/70">
             <p className="my-3">
               Please visit{" "}
               <a
-                href={execution?.startData?.verificationUrl}
+                href={
+                  (execution?.startData as Record<string, string>)
+                    ?.verificationUrl
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 underline"
@@ -101,34 +137,7 @@ const DiscourseVerificationContent: StrategyChildComponent<
           </div>
         </div>
       );
-    }
-    if (
-      getStatus() === "completed" &&
-      execution?.completionData &&
-      "discourseUsername" in execution.completionData
-    ) {
-      return (
-        <span className="text-sm font-bold">
-          Verified as: {execution.completionData.discourseUsername}
-        </span>
-      );
-    }
-  }, [
-    completeMutation.isPending,
-    execution?.startData,
-    execution?.completionData,
-    getStatus,
-    encryptedKey,
-  ]);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (getStatus() === "started") {
-      handleComplete();
-    } else if (getStatus() === "unstarted") {
-      handleStart();
-    }
-  };
+  }, [getStatus, execution?.startData, encryptedKey]);
 
   const buttonProps = useMemo(() => {
     const status = getStatus();
@@ -164,17 +173,11 @@ const DiscourseVerificationContent: StrategyChildComponent<
           <span className="flex flex-col text-sm font-normal">
             {action.displayData.description}
           </span>
-
-          {renderedContent}
-          {errorMessage && (
-            <span className="text-sm font-bold">{errorMessage} </span>
-          )}
+          {APIKeyComponent}
         </div>
         <ActionFooter>
           <ActionButton type="submit" {...buttonProps} />
-          {errorMessage && (
-            <span className="text-xs font-bold self-end">{errorMessage}</span>
-          )}
+          {verificationStatus}
         </ActionFooter>
       </form>
     </ActionContent>
