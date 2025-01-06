@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { useAccount } from "wagmi";
 import QuestButton from "./QuestButton";
 import QuestContentSection from "./QuestContentSection";
+import { DividerHeader } from "@/components/ui/DividerHeader";
 
 interface QuestDetailsProps {
   quest: Quest;
@@ -66,32 +67,14 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
         </div>
 
         {/* Steps section */}
-        <div className="border-primary/20 border shadow-sm rounded-lg overflow-hidden">
-          <div className="flex items-center">
-            <div className="shrink-0 p-8  border-r border-primary/20">
-              <h2 className="text-xl font-bold text-primary/70">
-                Steps to
-                <br />
-                complete
-              </h2>
-            </div>
-            <div className="flex-1 p-8">
-              <ActionList
-                questSlug={quest.slug as string}
-                actions={quest.actions}
-              />
-            </div>
+        <div className="border-primary/20 border shadow-sm rounded-lg overflow-hidden pt-10">
+          <DividerHeader className="text-black/70">Steps to earn</DividerHeader>
+          <div className="flex-1 p-8">
+            <ActionList
+              questSlug={quest.slug as string}
+              actions={quest.actions}
+            />
           </div>
-        </div>
-
-        {/* Action button */}
-        <div className="flex justify-center pt-4">
-          <QuestButton
-            status={status}
-            isSignedIn={isSignedIn && isConnected}
-            onConnect={signIn}
-            onClaim={() => alert("Coming soon")}
-          />
         </div>
       </div>
     </main>
