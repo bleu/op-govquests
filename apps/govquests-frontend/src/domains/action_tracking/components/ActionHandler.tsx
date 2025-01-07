@@ -38,11 +38,15 @@ const ActionHandler: React.FC<ActionHandlerProps> = ({
   }
 
   return (
-    <Accordion type="single" collapsible className="border rounded-lg py-0">
+    <Accordion
+      type="single"
+      collapsible
+      className="border rounded-lg py-0 bg-background/60"
+    >
       <AccordionItem value="item-1" className="px-10">
         <AccordionTrigger className="py-4">
-          <span className="text-lg text-black/80 font-semibold mb-1 py-0 flex gap-2">
-            <span className="text-black/50">#{actionIndex + 1}</span>
+          <span className="text-lg font-semibold mb-1 py-0 flex gap-2">
+            <span className="opacity-60">#{actionIndex + 1}</span>
             {action.displayData.title}
           </span>
         </AccordionTrigger>

@@ -4,6 +4,7 @@ import ActionButton from "../components/ActionButton";
 import type { ActionType, SendEmailStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
 import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
+import HtmlRender from "@/components/ui/HtmlRender";
 
 export const SendEmailStrategy: ActionStrategy = (props) => {
   const [email, setEmail] = useState<string>("");
@@ -83,9 +84,9 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
   );
 
   const verificationStatus = useMemo(() => {
-    if (!isConnected) {
+    if (!isConnected || !isSignedIn) {
       return (
-        <span className="text-red-500">
+        <span className="text-destructive">
           Connect your wallet to start the quest.
         </span>
       );
@@ -94,9 +95,17 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
       return <span className="font-bold">{errorMessage}</span>;
     }
 
+    if (getStatus() === "unstarted") {
+      return (
+        <span className="text-foreground">
+          Type your email and click to send the verification link.
+        </span>
+      );
+    }
+
     if (getStatus() === "started") {
       return (
-        <span className="text-foreground/70">
+        <span className="text-foreground">
           An email has been sent to {email} with a verification link. 📧
         </span>
       );
@@ -104,22 +113,20 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
 
     if (getStatus() === "completed") {
       return (
-        <span className="text-foreground/70">
+        <span className="text-foreground">
           Your email has been successfully verified! ✅
         </span>
       );
     }
-  }, [getStatus, errorMessage, isConnected]);
+  }, [getStatus, errorMessage, isConnected, isSignedIn, email]);
 
   return (
     <ActionContent>
       <div className="flex flex-col">
-        <span className="text-sm text-foreground/70">
-          {action.displayData.description}
-        </span>
+        <HtmlRender content={action.displayData.description} />
         <Input
           type="email"
-          className="my-2 max-w-[90%] ml-1"
+          className="my-2 max-w-[90%] ml-1 bg-primary text-primary-foreground"
           value={
             getStatus() === "completed" ? execution?.startData?.email : email
           }

@@ -16,10 +16,10 @@ const QuestContentSection: React.FC<QuestContentSectionProps> = ({
 }) => {
   return (
     <div className={cn(`mt-8`, className)}>
-      <div className="flex items-center gap-3 justify-center">
+      <h1 className="flex items-center gap-3 justify-center">
         <DividerHeader>{title}</DividerHeader>
-      </div>
-      <div className="m-9 px-20">
+      </h1>
+      <div className="m-9 px-20 font-thin">
         <HtmlRender content={content} />
       </div>
     </div>

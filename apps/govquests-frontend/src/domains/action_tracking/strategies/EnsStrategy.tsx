@@ -59,9 +59,9 @@ const EnsStrategyContent: StrategyChildComponent = ({
   ]);
 
   const verificationStatus = useMemo(() => {
-    if (!isConnected) {
+    if (!isConnected || !isSignedIn) {
       return (
-        <span className="text-red-500">
+        <span className="text-destructive">
           Connect your wallet to start the quest.
         </span>
       );
@@ -87,6 +87,7 @@ const EnsStrategyContent: StrategyChildComponent = ({
     execution?.completionData,
     action.displayData.description,
     isConnected,
+    isSignedIn,
   ]);
 
   const renderedContent = useMemo(() => {

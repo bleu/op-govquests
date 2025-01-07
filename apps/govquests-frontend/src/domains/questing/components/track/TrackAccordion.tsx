@@ -27,9 +27,13 @@ export type Track = {
 
 export const TrackAccordion = ({ track }: { track: Track }) => {
   return (
-    <Accordion type="single" collapsible className="border rounded-lg">
+    <Accordion
+      type="single"
+      collapsible
+      className="border rounded-lg bg-background/60"
+    >
       <AccordionItem value="item-1">
-        <AccordionTrigger className="px-10 py-5">
+        <AccordionTrigger className="px-10 py-5 text-foreground">
           <TrackAccordionHeader track={track} />
         </AccordionTrigger>
         <AccordionContent>

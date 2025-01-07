@@ -57,17 +57,17 @@ const VerifyAgoraChild: StrategyChildComponent = ({
   );
 
   const verificationStatus = useMemo(() => {
-    if (!isConnected) {
+    if (!isConnected || !isSignedIn) {
       return (
-        <span className="text-red-500">
+        <span className="text-destructive">
           Connect your wallet to start the quest.
         </span>
       );
     }
     if (errorMessage) {
-      return <span className="font-bold">{errorMessage}</span>;
+      return <span className="font-bold ">{errorMessage}</span>;
     }
-  }, [errorMessage, isConnected]);
+  }, [errorMessage, isConnected, isSignedIn]);
 
   return (
     <ActionContent>

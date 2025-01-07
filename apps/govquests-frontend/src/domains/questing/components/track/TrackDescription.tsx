@@ -12,7 +12,7 @@ export const TrackDescription = ({ track }: { track: Track }) => {
         <div className="border-b h-0 w-full" />
       </div>
       <div className="items-center justify-center flex gap-12 mx-20">
-        <BadgeCard badge={track.badge} />
+        <BadgeCard badge={track.badge} isCompleted={false} />
         <div className="col-span-8 w-full">{track.description}</div>
       </div>
     </div>
