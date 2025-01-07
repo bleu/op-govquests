@@ -66,12 +66,14 @@ end
 module TrackCreation
   def self.create_track_with_quests(track_data, quest_id_map)
     track_id = SecureRandom.uuid
+    badge_id = SecureRandom.uuid
 
     Rails.configuration.command_bus.call(
       Questing::CreateTrack.new(
         track_id: track_id,
         display_data: track_data[:display_data],
-        quest_ids: track_data[:quests].map { |quest_title| quest_id_map[quest_title] }
+        quest_ids: track_data[:quests].map { |quest_title| quest_id_map[quest_title] },
+        badge_id: badge_id
       )
     )
 
