@@ -5,9 +5,10 @@ import type { Quest } from "@/domains/questing/types/questTypes";
 import { ArrowLeft } from "lucide-react";
 import { redirect } from "next/navigation";
 import QuestContentSection from "./QuestContentSection";
-import { QuestPeels } from "./QuestPeels";
 import { BadgeCard } from "./track/BadgeCard";
 import HtmlRender from "@/components/ui/HtmlRender";
+import { IndicatorPill } from "@/components/IndicatorPill";
+import RewardIndicator from "@/components/RewardIndicator";
 
 interface QuestDetailsProps {
   quest: Quest;
@@ -19,10 +20,10 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
   const isCompleted = quest.userQuests[0].status == "completed";
 
   return (
-    <main className="flex justify-center min-h-full bg-background/50">
+    <main className="flex justify-center min-h-full">
       <div className="flex flex-col w-[70%] max-w-5xl py-8 gap-6">
         {/* Main content area */}
-        <div className="border-primary/20 border shadow-sm py-6 md:py-8 rounded-lg">
+        <div className="border-primary/20 border shadow-sm py-6 md:py-8 rounded-lg bg-background/60">
           <div className="flex-col">
             <div className="space-y-4 px-10">
               <Button
@@ -39,7 +40,14 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
                   <span className="text-foreground/60"># QUEST</span>
                   {quest.displayData.title}
                 </h1>
-                <QuestPeels quest={quest} variant="ghost" />
+                {isCompleted ? (
+                  <IndicatorPill className="text-xs">Completed</IndicatorPill>
+                ) : (
+                  <RewardIndicator
+                    reward={quest.rewardPools[0].rewardDefinition}
+                    className="text-xs"
+                  />
+                )}
               </div>
             </div>
 
@@ -56,8 +64,8 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
                     <HtmlRender content={quest.displayData.intro} />
                     <span className="font-black">
                       {isCompleted
-                        ? "Complete this quest to unlock a new Badge."
-                        : `Quest completed — ${"Teste"} unlocked.`}
+                        ? `Quest completed — ${"Teste"} unlocked.`
+                        : "Complete this quest to unlock a new Badge."}
                     </span>
                   </div>
                 </div>
@@ -74,7 +82,7 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
         </div>
 
         {/* Steps section */}
-        <div className="border-primary/20 border shadow-sm rounded-lg overflow-hidden pt-10">
+        <div className="border-primary/20 border shadow-sm rounded-lg overflow-hidden pt-10  bg-background/60">
           <DividerHeader className="text-black/70">Steps to earn</DividerHeader>
           <div className="flex-1 p-8">
             <ActionList

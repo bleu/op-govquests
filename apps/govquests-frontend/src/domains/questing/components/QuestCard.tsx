@@ -3,7 +3,6 @@ import type React from "react";
 
 import Image from "@/components/ui/Image";
 import { Quests } from "../types/questTypes";
-import { QuestPeels } from "./QuestPeels";
 
 interface QuestProps {
   quest: Quests[number];
@@ -17,11 +16,6 @@ const QuestCard: React.FC<QuestProps> = ({ quest }) => {
     >
       <div className="relative w-full h-48 overflow-hidden">
         <div className="absolute w-21 flex left-0 right-0 top-0 z-10 p-3 justify-between items-start">
-          <QuestPeels
-            quest={quest}
-            variant="primary"
-            className="flex flex-col gap-3"
-          />
         </div>
         {quest.displayData.imageUrl ? (
           <Image
