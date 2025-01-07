@@ -3,7 +3,7 @@ module Questing
     def call(event)
       Rewarding::BadgeReadModel.create!(
         badge_id: event.data[:badge_id],
-        display_data: event.data[:display_data]
+        display_data: event.data[:badge_display_data]
       )
       TrackReadModel.create!(
         track_id: event.data[:track_id],

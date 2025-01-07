@@ -73,7 +73,8 @@ module TrackCreation
         track_id: track_id,
         display_data: track_data[:display_data],
         quest_ids: track_data[:quests].map { |quest_title| quest_id_map[quest_title] },
-        badge_id: badge_id
+        badge_id: badge_id,
+        badge_display_data: track_data[:badge_display_data]
       )
     )
 
@@ -87,6 +88,11 @@ module TrackData
       title: "Account Setup",
       description: "Be among the first to join Govquests and unlock future perks exclusive to early adopters."
     },
+    badge_display_data: {
+      title: "Govquests Early Supporter",
+      description: "Be among the first to join Govquests and unlock future perks exclusive to early adopters.",
+      image_url: "https://example.com/newcomer-badge.jpg"
+    },
     quests: [
       "Unlock Your Profile",
       "Gitcoin Score"
@@ -97,6 +103,11 @@ module TrackData
     display_data: {
       title: "Delegate Starter Guide",
       description: "Master the essentials of governance to establish yourself as a trusted delegate."
+    },
+    badge_display_data: {
+      title: "Delegate Starter Guide",
+      description: "Master the essentials of governance to establish yourself as a trusted delegate.",
+      image_url: "https://example.com/newcomer-badge.jpg"
     },
     quests: [
       "Governance 101",
@@ -110,6 +121,11 @@ module TrackData
     display_data: {
       title: "Identity Recognition",
       description: "Build trust in the community by linking your ENS and Governance Forum profiles."
+    },
+    badge_display_data: {
+      title: "OP Identified Contributor",
+      description: "Build trust in the community by linking your ENS and Governance Forum profiles.",
+      image_url: "https://example.com/newcomer-badge.jpg"
     },
     quests: [
       "Claim Your Identity"

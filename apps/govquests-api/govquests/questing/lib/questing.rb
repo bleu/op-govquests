@@ -56,7 +56,8 @@ module Questing
       track.create(
         display_data: cmd.display_data,
         quest_ids: cmd.quest_ids,
-        badge_id: cmd.badge_id
+        badge_id: cmd.badge_id,
+        badge_display_data: cmd.badge_display_data
       )
     end
   end

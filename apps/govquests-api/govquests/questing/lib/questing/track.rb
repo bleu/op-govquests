@@ -12,7 +12,7 @@ module Questing
       @badge_id = nil
     end
 
-    def create(display_data:, quest_ids:, badge_id:)
+    def create(display_data:, quest_ids:, badge_id:, badge_display_data:)
       raise AlreadyExists if @display_data
 
       apply TrackCreated.new(
@@ -20,7 +20,8 @@ module Questing
           track_id: @id,
           display_data: display_data,
           quest_ids: quest_ids,
-          badge_id: nil
+          badge_id: badge_id,
+          badge_display_data: badge_display_data
         }
       )
     end

@@ -20,3 +20,21 @@ module Questing
       optional: true
   end
 end
+
+# == Schema Information
+#
+# Table name: tracks
+#
+#  id           :bigint           not null, primary key
+#  display_data :jsonb            not null
+#  quest_ids    :jsonb            is an Array
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  badge_id     :string
+#  track_id     :string           not null
+#
+# Indexes
+#
+#  index_tracks_on_badge_id  (badge_id)
+#  index_tracks_on_track_id  (track_id) UNIQUE
+#

@@ -16,3 +16,18 @@ module Rewarding
     validates :display_data, presence: true
   end
 end
+
+# == Schema Information
+#
+# Table name: badges
+#
+#  id           :bigint           not null, primary key
+#  display_data :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  badge_id     :string           not null
+#
+# Indexes
+#
+#  index_badges_on_badge_id  (badge_id) UNIQUE
+#
