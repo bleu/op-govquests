@@ -6,6 +6,8 @@ import { ArrowLeft } from "lucide-react";
 import { redirect } from "next/navigation";
 import QuestContentSection from "./QuestContentSection";
 import { QuestPeels } from "./QuestPeels";
+import { BadgeCard } from "./track/BadgeCard";
+import HtmlRender from "@/components/ui/HtmlRender";
 
 interface QuestDetailsProps {
   quest: Quest;
@@ -13,6 +15,8 @@ interface QuestDetailsProps {
 
 const QuestDetails = ({ quest }: QuestDetailsProps) => {
   if (!quest) return null;
+
+  const isCompleted = quest.userQuests[0].status == "completed";
 
   return (
     <main className="flex justify-center min-h-full bg-background/50">
@@ -40,13 +44,24 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
             </div>
 
             <div className="space-y-8 [&_div]:text-foreground [&_p]:font-bold [&_a]:text-foreground ">
-              <QuestContentSection
-                title="About this quest"
-                content={quest.displayData.intro || ""}
-              />
-              <span className="font-black px-20 mx-9">
-                Complete this quest to unlock a new Badge.
-              </span>
+              <div className="flex flex-col mt-8">
+                <DividerHeader>About this quest</DividerHeader>
+
+                <div className="items-center justify-center flex gap-12 mx-20 pt-8">
+                  <BadgeCard
+                    badge={{ id: 1, image: "/badge/quest1.png", name: "Teste" }}
+                    isCompleted={isCompleted}
+                  />
+                  <div className="font-thin flex flex-col gap-4">
+                    <HtmlRender content={quest.displayData.intro} />
+                    <span className="font-black">
+                      {isCompleted
+                        ? "Complete this quest to unlock a new Badge."
+                        : `Quest completed — ${"Teste"} unlocked.`}
+                    </span>
+                  </div>
+                </div>
+              </div>
 
               {quest.displayData.requirements && (
                 <QuestContentSection
