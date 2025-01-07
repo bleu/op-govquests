@@ -22,7 +22,7 @@ end
 # Table name: badges
 #
 #  id           :bigint           not null, primary key
-#  display_data :string           not null
+#  display_data :jsonb            not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  badge_id     :string           not null

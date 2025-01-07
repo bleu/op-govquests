@@ -50,8 +50,13 @@ type ActionExecution {
 }
 
 type Badge {
-  displayData: TrackDisplayData!
+  displayData: BadgeDisplayData!
   id: ID!
+}
+
+type BadgeDisplayData {
+  imageUrl: String
+  title: String
 }
 
 """

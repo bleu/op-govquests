@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_01_07_183005) do
+ActiveRecord::Schema[8.1].define(version: 2025_01_07_210235) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -44,7 +44,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_07_183005) do
 
   create_table "badges", force: :cascade do |t|
     t.string "badge_id", null: false
-    t.string "display_data", null: false
+    t.jsonb "display_data", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["badge_id"], name: "index_badges_on_badge_id", unique: true
