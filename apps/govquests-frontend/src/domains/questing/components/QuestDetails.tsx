@@ -29,7 +29,7 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
               <Button
                 variant="outline"
                 size="sm"
-                className="p-2 h-6"
+                className="p-2 h-6 hover:bg-primary/10"
                 onClick={() => redirect("/quests")}
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
