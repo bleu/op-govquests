@@ -31,19 +31,22 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
                 Back to Tracks
               </Button>
               <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold tracking-tight text-foreground/80 flex gap-2">
-                  <span className="text-foreground/50"># QUEST</span>
+                <h1 className="text-2xl font-bold tracking-tight flex gap-2">
+                  <span className="text-foreground/60"># QUEST</span>
                   {quest.displayData.title}
                 </h1>
                 <QuestPeels quest={quest} variant="ghost" />
               </div>
             </div>
 
-            <div className="space-y-8 [&_p]:text-foreground/70">
+            <div className="space-y-8 [&_div]:text-foreground [&_p]:font-bold [&_a]:text-foreground ">
               <QuestContentSection
                 title="About this quest"
                 content={quest.displayData.intro || ""}
               />
+              <span className="font-black px-20 mx-9">
+                Complete this quest to unlock a new Badge.
+              </span>
 
               {quest.displayData.requirements && (
                 <QuestContentSection
