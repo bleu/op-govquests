@@ -4,6 +4,7 @@ module Types
     field :display_data, Types::TrackDisplayDataType, null: false
     field :quests, [Types::QuestType], null: false
     field :points, Integer, null: false
+    field :badge, Types::BadgeType, null: true
 
     def points
       object.quests.includes(:reward_pools).sum do |quest|
