@@ -17,12 +17,15 @@ end
 module QuestCreation
   def self.create_quest_with_rewards(quest_data)
     quest_id = SecureRandom.uuid
+    badge_id = SecureRandom.uuid
 
     Rails.configuration.command_bus.call(
       Questing::CreateQuest.new(
         quest_id: quest_id,
         display_data: quest_data[:display_data],
-        audience: quest_data[:audience]
+        audience: quest_data[:audience],
+        badge_id: badge_id,
+        badge_display_data: quest_data[:badge_display_data]
       )
     )
 
@@ -330,6 +333,10 @@ module QuestData
         image_url: "https://example.com/discourse-verification.jpg",
         requirements: "<span>To complete this quest, you need to have:</span> <ul><li>A <strong>ENS</strong> — if you don't have it, <a href='https://ens.domains/' target='_blank' rel='noopener noreferrer'>register your ENS here</a> and remember to <strong>choose a distinct username</strong> that represents you (like yourname.eth).</li> <li>A <strong>Discourse account</strong> on <strong>Optimism Governance Forum</strong> — if you also don't have it, <a href='https://gov.optimism.io/' target='_blank' rel='noopener noreferrer'>create your account here.</a> We recommend you to use your ENS as username so you can get easily recognizable.</li></ul>"
       },
+      badge_display_data: {
+        title: "Claim Your Identity",
+        image_url: "https://example.com/discourse-verification.jpg"
+      },
       audience: "Delegates",
       rewards: [{type: "Points", amount: 165}],
       actions: [ENS_ACTION, DISCOURSE_VERIFICATION_ACTION]
@@ -341,6 +348,10 @@ module QuestData
         image_url: "https://example.com/governance101.jpg"
       },
       audience: "AllUsers",
+      badge_display_data: {
+        title: "Unlock Your Profile",
+        image_url: "https://example.com/governance101.jpg"
+      },
       rewards: [{type: "Points", amount: 55}],
       actions: UNLOCK_PROFILE_ACTIONS
     },
@@ -351,6 +362,10 @@ module QuestData
         image_url: "https://example.com/governance101.jpg"
       },
       audience: "AllUsers",
+      badge_display_data: {
+        title: "Governance 101",
+        image_url: "https://example.com/governance101.jpg"
+      },
       rewards: [{type: "Points", amount: 165}],
       actions: READ_DOCUMENT_ACTIONS
     },
@@ -360,6 +375,10 @@ module QuestData
         intro: "Connect your Gitcoin Passport and verify your Unique Humanity Score to help strengthen our community. It's quick and easy, and you'll be contributing to a more secure ecosystem!",
         image_url: "https://example.com/advanced-governance.jpg",
         requirements: "Your Unique Humanity Score must be 20 or higher to complete this quest. Not there yet? <a href='https://support.passport.xyz/passport-knowledge-base/using-passport/scoring-20-for-humans'>Check some tips on how to increase your score.</a>"
+      },
+      badge_display_data: {
+        title: "Gitcoin Score",
+        image_url: "https://example.com/advanced-governance.jpg"
       },
       audience: "Delegates",
       rewards: [{type: "Points", amount: 55}],
@@ -373,6 +392,10 @@ module QuestData
         image_url: "https://example.com/advanced-governance.jpg",
         requirements: "You need to be a delegate to do this quest! If you’re not one, start with Become Delegate Quest."
       },
+      badge_display_data: {
+        title: "Top 100 Delegates",
+        image_url: "https://example.com/advanced-governance.jpg"
+      },
       audience: "Delegates",
       rewards: [{type: "Points", amount: 165}],
       actions: [VERIFY_POSITION_ACTION]
@@ -383,6 +406,10 @@ module QuestData
         intro: "Start your journey as a delegate in the Optimism community! This quest will guide you through the essential steps to become a representative within the ecosystem and share your ideas. Let’s get started!",
         image_url: "https://example.com/governance101.jpg",
         requirements: "This quest is for new delegates — those who become delegates after opening this content. If you're already a delegate, try referring new delegates to earn rewards!"
+      },
+      badge_display_data: {
+        title: "Become a Delegate",
+        image_url: "https://example.com/governance101.jpg"
       },
       quest_type: "Governance",
       audience: "NonDelegates",
@@ -396,6 +423,10 @@ module QuestData
         image_url: "https://example.com/governance101.jpg",
         requirements: "This quest is for delegates who don't have their delegate statement yet. If you already have one, take a look in the other quests for delegates!"
       },
+      badge_display_data: {
+        title: "Delegate Statement",
+        image_url: "https://example.com/governance101.jpg"
+      },
       quest_type: "Governance",
       audience: "Delegates",
       rewards: [{type: "Points", amount: 330}],
@@ -407,6 +438,10 @@ module QuestData
         intro: "As a delegate, casting your first vote is an important step in shaping the future. Step up, participate, and make your mark with your first vote!",
         image_url: "https://example.com/governance101.jpg",
         requirements: "To complete this quest, you need to <strong>be a registered delegate</strong> — if you’re not, start with Become Delegate Quest — and <strong>not have cast a vote</strong> yet."
+      },
+      badge_display_data: {
+        title: "First Vote Milestone",
+        image_url: "https://example.com/governance101.jpg"
       },
       quest_type: "Governance",
       audience: "Delegates",
@@ -420,6 +455,10 @@ module QuestData
         image_url: "https://example.com/governance101.jpg"
       },
       quest_type: "Governance",
+      badge_display_data: {
+        title: "OP Holder",
+        image_url: "https://example.com/governance101.jpg"
+      },
       audience: "AllUsers",
       rewards: [{type: "Points", amount: 55}],
       actions: [HOLDS_OP]
@@ -430,6 +469,10 @@ module QuestData
         intro: "Take the first step in your delegation journey within the Optimism ecosystem! This quest encourages you to delegate OP to someone. Let’s get started on empowering the community!",
         image_url: "https://example.com/governance101.jpg",
         requirements: "To complete this quest, you have to be an OP holder. If you don't have OP in your wallet, complete the OP Holder quest first [<a href='/quests/op-holder'>link</a>]."
+      },
+      badge_display_data: {
+        title: "Become a Delegator",
+        image_url: "https://example.com/governance101.jpg"
       },
       audience: "AllUsers",
       rewards: [{type: "Points", amount: 330}],
