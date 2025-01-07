@@ -3,9 +3,13 @@ import { Track } from "./TrackAccordion";
 
 interface TrackAccordionHeader {
   track: Track;
+  isCompleted: boolean;
 }
 
-export const TrackAccordionHeader = ({ track }: TrackAccordionHeader) => {
+export const TrackAccordionHeader = ({
+  track,
+  isCompleted,
+}: TrackAccordionHeader) => {
   return (
     <div className="flex justify-between items-center w-full pr-10">
       <h1 className="text-2xl font-bold flex gap-2">
@@ -13,7 +17,9 @@ export const TrackAccordionHeader = ({ track }: TrackAccordionHeader) => {
       </h1>
       <div className="flex gap-4 hover:no-underline">
         <IndicatorPill>{track.quests.length} quests</IndicatorPill>
-        <IndicatorPill>{track.totalPoints} points</IndicatorPill>
+        <IndicatorPill>
+          {isCompleted ? "Completed" : track.totalPoints + " points"}
+        </IndicatorPill>
       </div>
     </div>
   );

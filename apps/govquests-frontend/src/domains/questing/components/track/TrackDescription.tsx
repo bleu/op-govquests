@@ -1,11 +1,15 @@
 import { BadgeCard } from "./BadgeCard";
 import { Track } from "./TrackAccordion";
 
-export const TrackDescription = ({ track }: { track: Track }) => {
-  const isCompleted = track.quests
-    .map((quest) => quest.userQuests[0]?.status)
-    .every((status) => status === "completed");
+interface TrackDescriptionProps {
+  track: Track;
+  isCompleted: boolean;
+}
 
+export const TrackDescription = ({
+  track,
+  isCompleted,
+}: TrackDescriptionProps) => {
   return (
     <div className="flex flex-col gap-8 mt-7">
       <div className="flex items-center justify-center w-full gap-9">
