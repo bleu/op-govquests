@@ -7,6 +7,7 @@ import type {
 } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
 import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
+import { Html } from "next/document";
 
 export const DiscourseVerificationStrategy: ActionStrategy = (props) => {
   const [encryptedKey, setEncryptedKey] = useState<string>("");
@@ -71,13 +72,13 @@ const DiscourseVerificationContent: StrategyChildComponent<
   const verificationStatus = useMemo(() => {
     if (!isConnected || !isSignedIn) {
       return (
-        <span className="text-red-500">
+        <span className="text-destructive">
           Connect your wallet to start the quest.
         </span>
       );
     }
     if (errorMessage) {
-      return <span className="text-red-500">{errorMessage}</span>;
+      return <span className="text-destructive">{errorMessage}</span>;
     }
     if (
       getStatus() === "completed" &&
@@ -85,7 +86,7 @@ const DiscourseVerificationContent: StrategyChildComponent<
       "discourseUsername" in execution.completionData
     ) {
       return (
-        <span className="font-bold">
+        <span className="font-bold text-foreground/80">
           Verified as: {execution.completionData.discourseUsername}
         </span>
       );
@@ -135,7 +136,7 @@ const DiscourseVerificationContent: StrategyChildComponent<
               value={encryptedKey}
               onChange={(e) => setEncryptedKey(e.target.value)}
               placeholder="Enter the encrypted key"
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded bg-primary text-primary-foreground"
               disabled={
                 completeMutation.isPending || getStatus() === "completed"
               }
@@ -176,9 +177,7 @@ const DiscourseVerificationContent: StrategyChildComponent<
         className="flex flex-col justify-between items-start gap-8"
       >
         <div className="flex flex-col flex-1 pr-6">
-          <span className="flex flex-col text-sm font-normal">
-            {action.displayData.description}
-          </span>
+          <Html content={action.displayData.description} />
           {APIKeyComponent}
         </div>
         <ActionFooter>

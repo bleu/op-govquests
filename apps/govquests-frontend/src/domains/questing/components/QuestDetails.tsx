@@ -17,7 +17,7 @@ interface QuestDetailsProps {
 const QuestDetails = ({ quest }: QuestDetailsProps) => {
   if (!quest) return null;
 
-  const isCompleted = quest.userQuests[0].status == "completed";
+  const isCompleted = quest.userQuests?.[0]?.status == "completed";
 
   return (
     <main className="flex justify-center min-h-full">
@@ -36,8 +36,8 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
                 Back to Tracks
               </Button>
               <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold tracking-tight flex gap-2">
-                  <span className="text-foreground/60"># QUEST</span>
+                <h1 className="text-2xl font-bold tracking-tight flex gap-3">
+                  <span className="text-foreground/60">#QUEST</span>
                   {quest.displayData.title}
                 </h1>
                 {isCompleted ? (
@@ -82,8 +82,10 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
         </div>
 
         {/* Steps section */}
-        <div className="border-primary/20 border shadow-sm rounded-lg overflow-hidden pt-10  bg-background/60">
-          <DividerHeader className="text-black/70">Steps to earn</DividerHeader>
+        <div className="border-primary/20 border shadow-sm rounded-lg overflow-hidden pt-10 bg-background/60">
+          <DividerHeader className="text-foreground">
+            Steps to earn
+          </DividerHeader>
           <div className="flex-1 p-8">
             <ActionList
               questSlug={quest.slug as string}

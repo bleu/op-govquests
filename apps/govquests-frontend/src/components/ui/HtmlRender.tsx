@@ -9,8 +9,8 @@ const HtmlRender: React.FC<HtmlRenderProps> = ({ content }) => {
   return (
     <div
       className={cn(
-        "prose prose-sm max-w-none",
-        "prose-a:underline",
+        "prose prose-sm max-w-none font-thin text-foreground/80",
+        "prose-a:underline prose-a:text-foreground/80",
         "prose-strong:font-bold prose-strong:text-inherit",
         "prose-ul:list-disc prose-ul:pl-5 prose-ul:mt-0",
         "prose-li:pl-0 prose-li:my-0",

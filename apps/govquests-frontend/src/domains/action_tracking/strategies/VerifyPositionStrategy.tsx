@@ -2,7 +2,8 @@ import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import type { VerifyPositionStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { ActionFooter, BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
+import HtmlRender from "@/components/ui/HtmlRender";
 
 export const VerifyPositionStrategy: ActionStrategy = (props) => {
   const { refetch } = props;
@@ -113,15 +114,13 @@ const VerifyPositionContent: StrategyChildComponent<
   }, [errorMessage, isConnected, getStatus, isSignedIn]);
 
   return (
-    <div className="flex justify-between items-center">
-      <span className="text-sm text-foreground/70">
-        {action.displayData.description}
-      </span>
+    <ActionContent>
+      <HtmlRender content={action.displayData.description} />
       {renderedContent}
       <ActionFooter>
         <ActionButton {...buttonProps} />
         {verificationStatus}
       </ActionFooter>
-    </div>
+    </ActionContent>
   );
 };

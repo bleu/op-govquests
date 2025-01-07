@@ -54,7 +54,7 @@ const DefaultContent: StrategyChildComponent = ({
   );
   return (
     <ActionContent>
-      <div className="text-sm font-normal">
+      <div className="text-sm">
         <HtmlRender content={action.displayData.description || ""} />
       </div>
       <ActionFooter>
