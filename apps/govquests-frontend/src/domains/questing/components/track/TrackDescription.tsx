@@ -1,5 +1,5 @@
 import { BadgeCard } from "./BadgeCard";
-import { Tracks } from "../types/trackTypes";
+import { Tracks } from "../../types/trackTypes";
 
 export const TrackDescription = ({ track }: { track: Tracks[number] }) => {
   return (
