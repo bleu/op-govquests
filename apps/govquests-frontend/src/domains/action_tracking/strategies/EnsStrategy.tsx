@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import type { ActionType, EnsStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
 
 export const EnsStrategy: ActionStrategy = (props) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -58,45 +58,69 @@ const EnsStrategyContent: StrategyChildComponent = ({
     handleStart,
   ]);
 
-  const renderedContent = useMemo(() => {
+  const verificationStatus = useMemo(() => {
+    if (!isConnected || !isSignedIn) {
+      return (
+        <span className="text-destructive">
+          Connect your wallet to start the quest.
+        </span>
+      );
+    }
     if (errorMessage) {
       return (
-        <>
-          <span className="text-sm text-foreground/70">
-            ENS verification failed. 😕
-          </span>
-          <span className="text-sm font-bold">{errorMessage}</span>
-        </>
+        <span className="text-foreground/70">ENS verification failed. 😕</span>
       );
+    }
+    const status = getStatus();
+    if (status === "completed") {
+      return (
+        <span className="text-foreground/70">
+          ENS verification succeeded! ✅
+        </span>
+      );
+    } else if (status === "unstarted") {
+      return <span className="text-foreground/70">Connect ENS to start.</span>;
+    }
+  }, [
+    errorMessage,
+    getStatus,
+    execution?.completionData,
+    action.displayData.description,
+    isConnected,
+    isSignedIn,
+  ]);
+
+  const renderedContent = useMemo(() => {
+    if (errorMessage) {
+      return <span className="text-sm font-bold">{errorMessage}</span>;
     }
     if (getStatus() === "completed") {
       return (
-        <>
-          <span className="text-sm text-foreground/70">
-            ENS verification succeeded! ✅
-          </span>
-          <span className="text-sm font-bold">
-            Your ENS name is {execution?.startData.domains[0].name}.
-          </span>
-        </>
+        <span className="text-sm font-bold">
+          Your ENS name is {execution?.startData.domains[0].name}.
+        </span>
       );
     }
-    return (
-      <span className="text-sm text-foreground/70">
-        {action.displayData.description}
-      </span>
-    );
-  }, [errorMessage, getStatus, action.displayData, execution?.startData]);
+  }, [
+    errorMessage,
+    getStatus,
+    action.displayData,
+    execution?.startData,
+    isConnected,
+  ]);
 
   return (
-    <div className="flex justify-between items-center">
+    <ActionContent>
       <div className="flex flex-col">
-        <span className="text-xl font-semibold mb-1">
-          {action.displayData.title}
+        <span className="text-sm text-foreground/70">
+          {action.displayData.description}
         </span>
         {renderedContent}
       </div>
-      <ActionButton {...buttonProps} />
-    </div>
+      <ActionFooter>
+        <ActionButton {...buttonProps} />
+        {verificationStatus}
+      </ActionFooter>
+    </ActionContent>
   );
 };

@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import { ActionType, VerifyWalletStatus } from "../types/actionButtonTypes";
 import { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
 
 export const DefaultStrategy: ActionStrategy = (props) => {
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -53,18 +53,16 @@ const DefaultContent: StrategyChildComponent = ({
     ],
   );
   return (
-    <div className="flex flex-1 justify-between items-center">
-      <div className="flex flex-col">
-        <span className="text-xl font-semibold mb-1">
-          {action.displayData.title}
-        </span>
-
+    <ActionContent>
+      <div className="text-sm">
         <HtmlRender content={action.displayData.description || ""} />
-        {errorMessage && (
-          <span className="text-sm font-bold">{errorMessage}</span>
-        )}
       </div>
-      <ActionButton {...buttonProps} />
-    </div>
+      <ActionFooter>
+        <ActionButton {...buttonProps} />
+        {errorMessage && (
+          <span className="text-xs font-bold self-end">{errorMessage}</span>
+        )}
+      </ActionFooter>
+    </ActionContent>
   );
 };

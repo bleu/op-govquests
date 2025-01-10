@@ -1,5 +1,8 @@
+import { DividerHeader } from "@/components/ui/DividerHeader";
 import HtmlRender from "@/components/ui/HtmlRender";
+import { cn } from "@/lib/utils";
 import type React from "react";
+
 interface QuestContentSectionProps {
   title: string;
   content: string;
@@ -12,10 +15,13 @@ const QuestContentSection: React.FC<QuestContentSectionProps> = ({
   content,
 }) => {
   return (
-    <div className={`border-t-2 mt-8 pt-3 ${className}`}>
-      <h2 className="text-2xl font-medium mb-2">{title}</h2>
-
-      <HtmlRender content={content} />
+    <div className={cn(`mt-8`, className)}>
+      <h1 className="flex items-center gap-3 justify-center">
+        <DividerHeader>{title}</DividerHeader>
+      </h1>
+      <div className="m-9 px-20 font-thin">
+        <HtmlRender content={content} />
+      </div>
     </div>
   );
 };

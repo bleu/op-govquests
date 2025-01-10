@@ -10,7 +10,8 @@ interface QuestProps {
 }
 
 const QuestCard: React.FC<QuestProps> = ({ quest }) => {
-  const isCompleted = quest.status == "completed";
+  const status = quest.userQuests?.[0]?.status || "unstarted";
+  const isCompleted = status === "completed";
 
   return (
     <Link href={`/quests/${quest.slug}`}>

@@ -4,32 +4,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Quests } from "../../types/questTypes";
+import { Tracks } from "../../types/trackTypes";
+import { QuestCarousel } from "../QuestCarousel";
 import { TrackAccordionHeader } from "./TrackAccordionHeader";
 import { TrackDescription } from "./TrackDescription";
-import { QuestCarousel } from "../QuestCarousel";
 
-export type Badge = {
-  id: number;
-  name: string;
-  image: string;
-};
-
-export type Track = {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  totalPoints: number;
-  badge: Badge;
-  quests: Quests;
-};
-
-export const TrackAccordion = ({ track }: { track: Track }) => {
+export const TrackAccordion = ({ track }: { track: Tracks[number] }) => {
   const isCompleted = track.quests
     .map((quest) => quest.userQuests[0]?.status)
     .every((status) => status === "completed");
-
   return (
     <Accordion
       type="single"

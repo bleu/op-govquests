@@ -527,8 +527,10 @@ type Query {
     notificationTypes: [String!] = []
     readStatus: String = "all"
   ): NotificationConnection!
-  quest(id: ID!): Quest
+  quest(slug: String!): Quest
   quests: [Quest!]!
+  track(id: ID!): Track
+  tracks: [Track!]
   unreadNotificationsCount: Int!
 }
 
@@ -538,6 +540,7 @@ type Quest {
   displayData: DisplayData!
   id: ID!
   rewardPools: [RewardPool!]!
+  slug: String!
   status: String!
   userQuests: [UserQuest!]!
 }
@@ -665,6 +668,18 @@ interface StartDataInterface {
   Type of the action
   """
   actionType: String!
+}
+
+type Track {
+  displayData: TrackDisplayData!
+  id: ID!
+  points: Int!
+  quests: [Quest!]!
+}
+
+type TrackDisplayData {
+  description: String!
+  title: String!
 }
 
 type User {

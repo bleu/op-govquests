@@ -4,7 +4,7 @@ import ActionButton from "../components/ActionButton";
 import { GitcoinScoreStatus } from "../types/actionButtonTypes";
 import { CompleteActionExecutionResult } from "../types/actionTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
 
 export const GitcoinScoreStrategy: ActionStrategy = (props) => {
   const { refetch, execution } = props;
@@ -131,55 +131,59 @@ const GitcoinScoreContent: StrategyChildComponent<GitcoinScoreContentProps> = ({
     handleComplete,
   ]);
 
-  const renderedContent = useMemo(() => {
-    if (errorMessage) {
+  const verificationStatus = useMemo(() => {
+    if (!isConnected || !isSignedIn) {
       return (
-        <>
-          <span className="text-sm text-foreground/70">
-            Verification failed. Sorry, you look like a bot. 🤖
-          </span>
-          <span className="text-sm font-bold">{errorMessage}</span>
-        </>
+        <span className="text-destructive">
+          Connect your wallet to start the quest.
+        </span>
       );
     }
-    if (getStatus() === "completed") {
+    if (errorMessage) {
+      return (
+        <span className="text-destructive">
+          Verification failed. Sorry, you look like a bot. 🤖
+        </span>
+      );
+    }
+    const status = getStatus();
+    if (status === "completed") {
       // invariant(
       //   execution?.completionData?.__typename === "GitcoinScoreCompletionData",
       // );
 
       return (
-        <>
-          <span className="text-sm text-foreground/70">
-            Verification succeeded! Seems like you're human. ✅
-          </span>
-          <span className="text-sm font-bold">
-            Your Unique Humanity Score is currently{" "}
-            {execution?.completionData.score}.
-          </span>
-        </>
+        <span className="text-foreground/70">
+          Verification succeeded! Seems like you're human. ✅
+        </span>
+      );
+    } else if (status === "unstarted") {
+      return (
+        <span className="text-foreground/70">
+          Connect your passport to start.
+        </span>
       );
     }
-    return (
-      <span className="text-sm text-foreground/70">
-        {action.displayData.description}
-      </span>
-    );
   }, [
     errorMessage,
     getStatus,
     execution?.completionData,
     action.displayData.description,
+    isConnected,
+    isSignedIn,
   ]);
 
   return (
-    <div className="flex justify-between items-center">
+    <ActionContent>
       <div className="flex flex-col">
-        <span className="text-xl font-semibold mb-1">
-          {action.displayData.title}
+        <span className="text-sm text-foreground/70">
+          {action.displayData.description}
         </span>
-        {renderedContent}
       </div>
-      <ActionButton {...buttonProps} />
-    </div>
+      <ActionFooter>
+        <ActionButton {...buttonProps} />
+        {verificationStatus}
+      </ActionFooter>
+    </ActionContent>
   );
 };

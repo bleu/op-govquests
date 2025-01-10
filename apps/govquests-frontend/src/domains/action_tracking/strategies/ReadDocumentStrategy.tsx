@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import type { ReadDocumentStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
 
 export const ReadDocumentStrategy: ActionStrategy = (props) => {
   const { refetch, action } = props;
@@ -61,6 +61,16 @@ const ReadDocumentContent: StrategyChildComponent = ({
     ],
   );
 
+  const verificationStatus = useMemo(() => {
+    if (!isConnected || !isSignedIn) {
+      return (
+        <span className="text-destructive">
+          Connect your wallet to start the quest.
+        </span>
+      );
+    }
+  }, [isConnected, isSignedIn]);
+
   const handleTitleClick = () => {
     if (getStatus() === "unstarted") {
       handleStart();
@@ -70,14 +80,17 @@ const ReadDocumentContent: StrategyChildComponent = ({
   };
 
   return (
-    <div className="flex w-full justify-between">
+    <ActionContent>
       <span
-        className="font-medium hover:cursor-pointer"
+        className="font-thin hover:cursor-pointer text-foreground/80"
         onClick={handleTitleClick}
       >
-        {action.displayData.title}
+        Read {action.displayData.title}
       </span>
-      <ActionButton {...buttonProps} />
-    </div>
+      <ActionFooter>
+        <ActionButton {...buttonProps} />
+        {verificationStatus}
+      </ActionFooter>
+    </ActionContent>
   );
 };

@@ -1,13 +1,14 @@
-import RewardIndicator from "@/components/RewardIndicator";
+import { DividerHeader } from "@/components/ui/DividerHeader";
 import { Button } from "@/components/ui/shadcn-button";
 import ActionList from "@/domains/action_tracking/components/ActionList";
 import type { Quest } from "@/domains/questing/types/questTypes";
-import { useSIWE } from "connectkit";
-import { ArrowLeft, MapIcon } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { redirect } from "next/navigation";
-import { useAccount } from "wagmi";
-import QuestButton from "./QuestButton";
 import QuestContentSection from "./QuestContentSection";
+import { BadgeCard } from "./track/BadgeCard";
+import HtmlRender from "@/components/ui/HtmlRender";
+import { IndicatorPill } from "@/components/IndicatorPill";
+import RewardIndicator from "@/components/RewardIndicator";
 
 interface QuestDetailsProps {
   quest: Quest;
@@ -16,51 +17,59 @@ interface QuestDetailsProps {
 const QuestDetails = ({ quest }: QuestDetailsProps) => {
   if (!quest) return null;
 
-  const { isConnected } = useAccount();
-  const { isSignedIn, signIn } = useSIWE();
-  const status = quest.userQuests?.[0]?.status || "unstarted";
+  const isCompleted = quest.userQuests?.[0]?.status == "completed";
 
   return (
-    <main className="flex justify-center min-h-full bg-background/50">
+    <main className="flex justify-center min-h-full">
       <div className="flex flex-col w-[70%] max-w-5xl py-8 gap-6">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-fit -ml-2"
-          onClick={() => redirect("/quests")}
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Quests
-        </Button>
-
         {/* Main content area */}
-        <div className="border-primary/20 border shadow-sm p-6 md:p-8 rounded-lg">
-          <div className="flex-col space-y-8">
-            <div className="flex justify-between items-start">
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/5 rounded-md">
-                <MapIcon width={18} height={18} className="text-primary/70" />
-                <span className="font-medium text-primary/70 tracking-wide">
-                  QUEST
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                {quest.rewardPools.map(({ rewardDefinition: reward }) => (
-                  <RewardIndicator key={reward.type} reward={reward} />
-                ))}
+        <div className="border-primary/20 border shadow-sm py-6 md:py-8 rounded-lg bg-background/60">
+          <div className="flex-col">
+            <div className="space-y-4 px-10">
+              <Button
+                variant="outline"
+                size="sm"
+                className="p-2 h-6 hover:bg-primary/10"
+                onClick={() => redirect("/quests")}
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Tracks
+              </Button>
+              <div className="flex justify-between items-center">
+                <h1 className="text-2xl font-bold tracking-tight flex gap-3">
+                  <span className="text-foreground/60">#QUEST</span>
+                  {quest.displayData.title}
+                </h1>
+                {isCompleted ? (
+                  <IndicatorPill className="text-xs">Completed</IndicatorPill>
+                ) : (
+                  <RewardIndicator
+                    reward={quest.rewardPools[0].rewardDefinition}
+                    className="text-xs"
+                  />
+                )}
               </div>
             </div>
 
-            <div className="flex flex-1 items-center">
-              <h1 className="text-4xl font-bold tracking-tight text-foreground/90">
-                {quest.displayData.title}
-              </h1>
-            </div>
+            <div className="space-y-8 [&_div]:text-foreground [&_p]:font-bold [&_a]:text-foreground ">
+              <div className="flex flex-col mt-8">
+                <DividerHeader>About this quest</DividerHeader>
 
-            <div className="space-y-8 [&_p]:text-foreground/70">
-              <QuestContentSection
-                title="About this quest"
-                content={quest.displayData.intro || ""}
-              />
+                <div className="items-center justify-center flex gap-12 mx-20 pt-8">
+                  <BadgeCard
+                    badge={{ id: 1, image: "/badge/quest1.png", name: "Teste" }}
+                    isCompleted={isCompleted}
+                  />
+                  <div className="font-thin flex flex-col gap-4">
+                    <HtmlRender content={quest.displayData.intro} />
+                    <span className="font-black">
+                      {isCompleted
+                        ? `Quest completed — ${"Teste"} unlocked.`
+                        : "Complete this quest to unlock a new Badge."}
+                    </span>
+                  </div>
+                </div>
+              </div>
 
               {quest.displayData.requirements && (
                 <QuestContentSection
@@ -73,32 +82,16 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
         </div>
 
         {/* Steps section */}
-        <div className="border-primary/20 border shadow-sm rounded-lg overflow-hidden">
-          <div className="flex items-center">
-            <div className="shrink-0 p-8  border-r border-primary/20">
-              <h2 className="text-xl font-bold text-primary/70">
-                Steps to
-                <br />
-                complete
-              </h2>
-            </div>
-            <div className="flex-1 p-8">
-              <ActionList
-                questSlug={quest.slug as string}
-                actions={quest.actions}
-              />
-            </div>
+        <div className="border-primary/20 border shadow-sm rounded-lg overflow-hidden pt-10 bg-background/60">
+          <DividerHeader className="text-foreground">
+            Steps to earn
+          </DividerHeader>
+          <div className="flex-1 p-8">
+            <ActionList
+              questSlug={quest.slug as string}
+              actions={quest.actions}
+            />
           </div>
-        </div>
-
-        {/* Action button */}
-        <div className="flex justify-center pt-4">
-          <QuestButton
-            status={status}
-            isSignedIn={isSignedIn && isConnected}
-            onConnect={signIn}
-            onClaim={() => alert("Coming soon")}
-          />
         </div>
       </div>
     </main>
