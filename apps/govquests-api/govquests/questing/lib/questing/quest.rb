@@ -13,14 +13,13 @@ module Questing
       @reward_pools = {}
     end
 
-    def create(display_data, audience, badge_id, badge_display_data)
+    def create(display_data, audience, badge_display_data)
       display_data ||= {}
 
       apply QuestCreated.new(data: {
         quest_id: @id,
         display_data: display_data,
         audience: audience,
-        badge_id: badge_id,
         badge_display_data: badge_display_data
       })
     end

@@ -5,7 +5,6 @@ module Questing
     attribute :quest_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
     attribute :audience, Infra::Types::String
-    attribute :badge_id, Infra::Types::UUID
     attribute :badge_display_data, Infra::Types::Hash
 
     alias_method :aggregate_id, :quest_id
@@ -54,7 +53,6 @@ module Questing
     attribute :track_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
     attribute :quest_ids, Infra::Types::Array
-    attribute :badge_id, Infra::Types::UUID
     attribute :badge_display_data, Infra::Types::Hash
 
     alias_method :aggregate_id, :track_id

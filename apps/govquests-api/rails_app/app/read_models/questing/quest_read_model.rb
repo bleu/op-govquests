@@ -13,11 +13,9 @@ module Questing
     validates :status, presence: true
     validates :display_data, presence: true
 
-    belongs_to :badge,
+    has_one :badge,
       class_name: "Rewarding::BadgeReadModel",
-      foreign_key: "badge_id",
-      primary_key: "badge_id",
-      optional: true
+      as: :badgeable
   end
 end
 
@@ -32,11 +30,9 @@ end
 #  status       :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  badge_id     :string
 #  quest_id     :string           not null
 #
 # Indexes
 #
-#  index_quests_on_badge_id  (badge_id)
 #  index_quests_on_quest_id  (quest_id) UNIQUE
 #
