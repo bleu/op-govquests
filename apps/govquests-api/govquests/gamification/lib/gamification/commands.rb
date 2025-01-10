@@ -67,4 +67,13 @@ module Gamification
 
     alias_method :aggregate_id, :leaderboard_id
   end
+
+  class CreateBadge < Infra::Command
+    attribute :badge_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :badgeable_id, Infra::Types::UUID
+    attribute :badgeable_type, Infra::Types::String
+
+    alias_method :aggregate_id, :badge_id
+  end
 end

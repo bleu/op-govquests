@@ -11,12 +11,6 @@ module Questing
         display_data: event.data[:display_data]
       )
 
-      badge_id = SecureRandom.uuid
-      Rewarding::BadgeReadModel.create!(
-        badge_id: badge_id,
-        display_data: event.data[:badge_display_data],
-        badgeable: quest
-      )
       Rails.logger.info "Quest created in read model: #{quest.quest_id}"
     end
   end
