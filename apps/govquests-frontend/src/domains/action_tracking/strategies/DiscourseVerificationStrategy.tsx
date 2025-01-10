@@ -7,7 +7,7 @@ import type {
 } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
 import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
-import { Html } from "next/document";
+import HtmlRender from "@/components/ui/HtmlRender";
 
 export const DiscourseVerificationStrategy: ActionStrategy = (props) => {
   const [encryptedKey, setEncryptedKey] = useState<string>("");
@@ -32,7 +32,7 @@ export const DiscourseVerificationStrategy: ActionStrategy = (props) => {
           {...props}
           {...context}
           encryptedKey={encryptedKey}
-          setEncryptedKey={setEncryptedKey}
+          setEncryFptedKey={setEncryptedKey}
         />
       )}
     </BaseStrategy>
@@ -177,7 +177,7 @@ const DiscourseVerificationContent: StrategyChildComponent<
         className="flex flex-col justify-between items-start gap-8"
       >
         <div className="flex flex-col flex-1 pr-6">
-          <Html content={action.displayData.description} />
+          <HtmlRender content={action.displayData.description} />
           {APIKeyComponent}
         </div>
         <ActionFooter>

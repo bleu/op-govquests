@@ -12,7 +12,7 @@ module Questing
     end
 
     has_one :badge,
-      class_name: "Rewarding::BadgeReadModel",
+      class_name: "Gamification::BadgeReadModel",
       as: :badgeable
   end
 end
