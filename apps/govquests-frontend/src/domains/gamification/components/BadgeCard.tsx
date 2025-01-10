@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { useFetchBadge } from "../../questing/hooks/useFetchBadge";
+import { useFetchBadge } from "../hooks/useFetchBadge";
 
 interface BadgeCardProps {
   badgeId: string;
