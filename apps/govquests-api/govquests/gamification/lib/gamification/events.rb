@@ -57,4 +57,11 @@ module Gamification
     attribute :profile_id, Infra::Types::UUID
     attribute :score, Infra::Types::Integer
   end
+
+  class BadgeCreated < Infra::Event
+    attribute :badge_id, Infra::Types::String
+    attribute :display_data, Infra::Types::Hash
+    attribute :badgeable_id, Infra::Types::UUID
+    attribute :badgeable_type, Infra::Types::String
+  end
 end

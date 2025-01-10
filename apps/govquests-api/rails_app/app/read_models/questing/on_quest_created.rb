@@ -10,6 +10,7 @@ module Questing
         status: "created",
         display_data: event.data[:display_data]
       )
+
       Rails.logger.info "Quest created in read model: #{quest.quest_id}"
     end
   end

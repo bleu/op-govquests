@@ -25,7 +25,7 @@ module Questing
 
   class CommandHandler < Infra::CommandHandlerRegistry
     handle "Questing::CreateQuest", aggregate: Quest do |quest, cmd|
-      quest.create(cmd.display_data, cmd.audience)
+      quest.create(cmd.display_data, cmd.audience, cmd.badge_display_data)
     end
 
     handle "Questing::AssociateActionWithQuest", aggregate: Quest do |quest, cmd|
@@ -56,6 +56,7 @@ module Questing
       track.create(
         display_data: cmd.display_data,
         quest_ids: cmd.quest_ids,
+        badge_display_data: cmd.badge_display_data
       )
     end
   end

@@ -9,6 +9,13 @@ export const TracksQuery = graphql(`
         title
         description
       }
+      badge {
+        id
+        displayData {
+          title
+          imageUrl
+        }
+      }
       quests {
         id
         audience

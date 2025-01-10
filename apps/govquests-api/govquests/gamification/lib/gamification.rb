@@ -3,8 +3,21 @@ require_relative "gamification/commands"
 require_relative "gamification/events"
 require_relative "gamification/game_profile"
 require_relative "gamification/leaderboard"
+require_relative "gamification/badge"
+
+ACTION_BADGE_NAMESPACE_UUID = "5FA78373-03E0-4D0B-91D1-3F2C6CA3F088"
 
 module Gamification
+  class << self
+    def generate_badge_id(entity_name, entity_id)
+      name = "#{entity_name}$#{entity_id}"
+      namespace_uuid = ACTION_BADGE_NAMESPACE_UUID
+      Digest::UUID.uuid_v5(namespace_uuid, name)
+    end
+
+    attr_accessor :event_store, :command_bus
+  end
+
   class Configuration
     def call(event_store, command_bus)
       CommandHandler.register_commands(event_store, command_bus)
@@ -59,6 +72,10 @@ module Gamification
         token_address: cmd.token_address,
         claim_metadata: cmd.claim_metadata
       )
+    end
+
+    handle "Gamification::CreateBadge", aggregate: Badge do |badge, cmd|
+      badge.create(cmd.display_data, cmd.badgeable_id, cmd.badgeable_type)
     end
   end
 end

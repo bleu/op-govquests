@@ -12,6 +12,10 @@ module Questing
     validates :audience, presence: true
     validates :status, presence: true
     validates :display_data, presence: true
+
+    has_one :badge,
+      class_name: "Gamification::BadgeReadModel",
+      as: :badgeable
   end
 end
 
