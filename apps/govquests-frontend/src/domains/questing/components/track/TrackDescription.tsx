@@ -2,6 +2,8 @@ import { BadgeCard } from "./BadgeCard";
 import { Tracks } from "../../types/trackTypes";
 
 export const TrackDescription = ({ track }: { track: Tracks[number] }) => {
+  const badge = { id: "1", image: "/badge/track1.png", title: "Track Badge" };
+
   return (
     <div className="flex flex-col gap-8 mt-7">
       <div className="flex items-center justify-center w-full gap-9">
@@ -12,7 +14,7 @@ export const TrackDescription = ({ track }: { track: Tracks[number] }) => {
         <div className="border-b h-0 w-full" />
       </div>
       <div className="items-center justify-center flex gap-12 mx-20">
-        <BadgeCard />
+        <BadgeCard badge={badge} isCompleted={false} />
         <div className="col-span-8 w-full">{track.displayData.description}</div>
       </div>
     </div>

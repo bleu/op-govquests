@@ -6,7 +6,8 @@ import type {
   DiscourseVerificationStatus,
 } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
+import { Html } from "next/document";
 
 export const DiscourseVerificationStrategy: ActionStrategy = (props) => {
   const [encryptedKey, setEncryptedKey] = useState<string>("");
@@ -68,15 +69,57 @@ const DiscourseVerificationContent: StrategyChildComponent<
     return "unstarted";
   }, [execution]);
 
-  const renderedContent = useMemo(() => {
+  const verificationStatus = useMemo(() => {
+    if (!isConnected || !isSignedIn) {
+      return (
+        <span className="text-destructive">
+          Connect your wallet to start the quest.
+        </span>
+      );
+    }
+    if (errorMessage) {
+      return <span className="text-destructive">{errorMessage}</span>;
+    }
+    if (
+      getStatus() === "completed" &&
+      execution?.completionData &&
+      "discourseUsername" in execution.completionData
+    ) {
+      return (
+        <span className="font-bold text-foreground/80">
+          Verified as: {execution.completionData.discourseUsername}
+        </span>
+      );
+    }
+  }, [
+    execution?.completionData,
+    getStatus,
+    isConnected,
+    errorMessage,
+    isSignedIn,
+  ]);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (getStatus() === "started") {
+      handleComplete();
+    } else if (getStatus() === "unstarted") {
+      handleStart();
+    }
+  };
+
+  const APIKeyComponent = useMemo(() => {
+    if (getStatus() === "started")
       return (
         <div className="flex flex-col">
           <div className="text-sm text-foreground/70">
             <p className="my-3">
               Please visit{" "}
               <a
-                href={execution?.startData?.verificationUrl}
+                href={
+                  (execution?.startData as Record<string, string>)
+                    ?.verificationUrl
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 underline"
@@ -93,7 +136,7 @@ const DiscourseVerificationContent: StrategyChildComponent<
               value={encryptedKey}
               onChange={(e) => setEncryptedKey(e.target.value)}
               placeholder="Enter the encrypted key"
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded bg-primary text-primary-foreground"
               disabled={
                 completeMutation.isPending || getStatus() === "completed"
               }
@@ -101,34 +144,7 @@ const DiscourseVerificationContent: StrategyChildComponent<
           </div>
         </div>
       );
-    }
-    if (
-      getStatus() === "completed" &&
-      execution?.completionData &&
-      "discourseUsername" in execution.completionData
-    ) {
-      return (
-        <span className="text-sm font-bold">
-          Verified as: {execution.completionData.discourseUsername}
-        </span>
-      );
-    }
-  }, [
-    completeMutation.isPending,
-    execution?.startData,
-    execution?.completionData,
-    getStatus,
-    encryptedKey,
-  ]);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (getStatus() === "started") {
-      handleComplete();
-    } else if (getStatus() === "unstarted") {
-      handleStart();
-    }
-  };
+  }, [getStatus, execution?.startData, encryptedKey]);
 
   const buttonProps = useMemo(() => {
     const status = getStatus();
@@ -136,7 +152,10 @@ const DiscourseVerificationContent: StrategyChildComponent<
       actionType: action.actionType as ActionType,
       status,
       disabled:
-        !isSignedIn || !isConnected || status === "completed" || !encryptedKey,
+        !isSignedIn ||
+        !isConnected ||
+        status === "completed" ||
+        (status == "started" && !encryptedKey),
       loading: startMutation.isPending || completeMutation.isPending,
       onClick: handleSubmit,
     };
@@ -152,21 +171,20 @@ const DiscourseVerificationContent: StrategyChildComponent<
   ]);
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-1  items-center">
-      <div className="flex flex-col flex-1 pr-6">
-        <span className="text-xl font-semibold">
-          {action.displayData.title}
-        </span>
-        <span className="text-sm text-foreground/70">
-          {action.displayData.description}
-        </span>
-
-        {renderedContent}
-        {errorMessage && (
-          <span className="text-sm font-bold">{errorMessage} </span>
-        )}
-      </div>
-      <ActionButton type="submit" {...buttonProps} />
-    </form>
+    <ActionContent>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col justify-between items-start gap-8"
+      >
+        <div className="flex flex-col flex-1 pr-6">
+          <Html content={action.displayData.description} />
+          {APIKeyComponent}
+        </div>
+        <ActionFooter>
+          <ActionButton type="submit" {...buttonProps} />
+          {verificationStatus}
+        </ActionFooter>
+      </form>
+    </ActionContent>
   );
 };

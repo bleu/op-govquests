@@ -1,5 +1,5 @@
 import { useSIWE } from "connectkit";
-import React, { useCallback } from "react";
+import React, { ComponentProps, useCallback } from "react";
 import { useAccount } from "wagmi";
 import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
 import { useStartActionExecution } from "../hooks/useStartActionExecution";
@@ -117,4 +117,22 @@ export const BaseStrategy = (props: BaseStrategyProps) => {
   };
 
   return <>{children({ ...contextValue, ...props })}</>;
+};
+
+export const ActionContent = (props: ComponentProps<"div">) => {
+  return (
+    <div
+      className="flex flex-col justify-between items-start gap-5"
+      {...props}
+    />
+  );
+};
+
+export const ActionFooter = (props: ComponentProps<"div">) => {
+  return (
+    <div
+      className="self-end mb-2 flex flex-col gap-1 items-end [&>button]:w-52 [&>span]:text-xs"
+      {...props}
+    />
+  );
 };

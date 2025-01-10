@@ -2,7 +2,8 @@ import { useCallback, useMemo, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import type { VerifyPositionStatus } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
+import HtmlRender from "@/components/ui/HtmlRender";
 
 export const VerifyPositionStrategy: ActionStrategy = (props) => {
   const { refetch } = props;
@@ -75,46 +76,51 @@ const VerifyPositionContent: StrategyChildComponent<
 
   const renderedContent = useMemo(() => {
     if (errorMessage) {
-      return (
-        <>
-          <span className="text-sm text-foreground/70">
-            Verification failed. 👎
-          </span>
-          <span className="text-sm font-bold">{errorMessage}</span>
-        </>
-      );
+      return <span className="text-sm font-bold">{errorMessage}</span>;
     }
-    const status = getStatus();
 
-    if (status === "completed") {
+    if (getStatus() === "completed") {
       return (
-        <>
-          <span className="text-sm text-foreground/70">
-            Verification succeeded. ✅
-          </span>
-          <span className="text-sm font-bold">
-            Congratulations! You're in the Top 100 Delegates for Season 6. Claim
-            your reward and celebrate your accomplishment!
-          </span>
-        </>
+        <span className="text-sm font-bold">
+          Congratulations! You're in the Top 100 Delegates for Season 6. Claim
+          your reward and celebrate your accomplishment!
+        </span>
       );
     }
-    return (
-      <span className="text-sm text-foreground/70">
-        Click to verify your status as a Top 100 Delegate.
-      </span>
-    );
   }, [getStatus, errorMessage]);
 
-  return (
-    <div className="flex justify-between items-center">
-      <div className="flex flex-col">
-        <span className="text-xl font-semibold mb-1">
-          {action.displayData.title}
+  const verificationStatus = useMemo(() => {
+    if (!isConnected || isSignedIn) {
+      return (
+        <span className="text-destructive">
+          Connect your wallet to start the quest.
         </span>
-        {renderedContent}
-      </div>
-      <ActionButton {...buttonProps} />
-    </div>
+      );
+    }
+    if (errorMessage) {
+      return (
+        <span className="text-sm text-foreground/70">
+          Verification failed. 👎
+        </span>
+      );
+    }
+    if (getStatus() === "completed") {
+      return (
+        <span className="text-sm text-foreground/70">
+          Verification succeeded. ✅
+        </span>
+      );
+    }
+  }, [errorMessage, isConnected, getStatus, isSignedIn]);
+
+  return (
+    <ActionContent>
+      <HtmlRender content={action.displayData.description} />
+      {renderedContent}
+      <ActionFooter>
+        <ActionButton {...buttonProps} />
+        {verificationStatus}
+      </ActionFooter>
+    </ActionContent>
   );
 };

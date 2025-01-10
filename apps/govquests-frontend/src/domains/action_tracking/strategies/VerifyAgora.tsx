@@ -6,7 +6,7 @@ import type {
   VerifyWalletStatus,
 } from "../types/actionButtonTypes";
 import type { ActionStrategy, StrategyChildComponent } from "./ActionStrategy";
-import { BaseStrategy } from "./BaseStrategy";
+import { ActionContent, ActionFooter, BaseStrategy } from "./BaseStrategy";
 
 export const VerifyAgora: ActionStrategy = (props) => {
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -56,18 +56,26 @@ const VerifyAgoraChild: StrategyChildComponent = ({
     ],
   );
 
-  return (
-    <div className="flex flex-1 justify-between items-center">
-      <div className="flex flex-col">
-        <span className="text-xl font-semibold mb-1">
-          {action.displayData.title}
+  const verificationStatus = useMemo(() => {
+    if (!isConnected || !isSignedIn) {
+      return (
+        <span className="text-destructive">
+          Connect your wallet to start the quest.
         </span>
-        <HtmlRender content={action.displayData.description || ""} />
-        {errorMessage && (
-          <span className="text-sm font-bold">{errorMessage}</span>
-        )}
-      </div>
-      <ActionButton {...buttonProps} />
-    </div>
+      );
+    }
+    if (errorMessage) {
+      return <span className="font-bold ">{errorMessage}</span>;
+    }
+  }, [errorMessage, isConnected, isSignedIn]);
+
+  return (
+    <ActionContent>
+      <HtmlRender content={action.displayData.description || ""} />
+      <ActionFooter>
+        <ActionButton {...buttonProps} />
+        {verificationStatus}
+      </ActionFooter>
+    </ActionContent>
   );
 };

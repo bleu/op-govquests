@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type React from "react";
 
-import RewardIndicator from "@/components/RewardIndicator";
 import Image from "@/components/ui/Image";
 import { Quests } from "../types/questTypes";
 import { cn } from "@/lib/utils";
+import RewardIndicator from "@/components/RewardIndicator";
 
 interface QuestProps {
   quest: Quests[number];
