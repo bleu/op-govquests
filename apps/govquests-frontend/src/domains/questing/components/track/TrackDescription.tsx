@@ -1,4 +1,4 @@
-import { BadgeCard } from "../BadgeCard";
+import { BadgeCard } from "../../../gamification/components/BadgeCard";
 import { Tracks } from "../../types/trackTypes";
 
 interface TrackDescriptionProps {

@@ -5,7 +5,7 @@ import type { Quest } from "@/domains/questing/types/questTypes";
 import { ArrowLeft } from "lucide-react";
 import { redirect } from "next/navigation";
 import QuestContentSection from "./QuestContentSection";
-import { BadgeCard } from "./BadgeCard";
+import { BadgeCard } from "../../gamification/components/BadgeCard";
 import HtmlRender from "@/components/ui/HtmlRender";
 import { IndicatorPill } from "@/components/IndicatorPill";
 import RewardIndicator from "@/components/RewardIndicator";
