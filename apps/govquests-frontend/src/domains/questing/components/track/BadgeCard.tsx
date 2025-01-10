@@ -9,6 +9,7 @@ interface BadgeCardProps {
 }
 
 export const BadgeCard = ({ badge, isCompleted }: BadgeCardProps) => {
+  // TODO - Add badge image - OP-671
   return (
     <div className="relative items-center justify-center min-w-52 h-60 col-span-2">
       <Link href={`/badges/${badge.id}`}>

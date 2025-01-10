@@ -57,8 +57,8 @@
     --primary: 0 0% 100%; /* White */
     --primary-foreground: 0 0% 0% /* Black text */;
 
-    --secondary: 228 9% 23%; /* Dark grey #333640 */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 0 0% 82%; /* Dark grey 210 210 210 */
+    --secondary-foreground: 0 0% 0%;
 
     --muted: 228 9% 23%;
     --muted-foreground: 0 0% 64%;

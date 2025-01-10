@@ -1,7 +1,15 @@
 import { BadgeCard } from "./BadgeCard";
 import { Tracks } from "../../types/trackTypes";
 
-export const TrackDescription = ({ track }: { track: Tracks[number] }) => {
+interface TrackDescriptionProps {
+  track: Tracks[number];
+  isCompleted: boolean;
+}
+
+export const TrackDescription = ({
+  track,
+  isCompleted,
+}: TrackDescriptionProps) => {
   const badge = { id: "1", image: "/badge/track1.png", title: "Track Badge" };
 
   return (
@@ -14,8 +22,15 @@ export const TrackDescription = ({ track }: { track: Tracks[number] }) => {
         <div className="border-b h-0 w-full" />
       </div>
       <div className="items-center justify-center flex gap-12 mx-20">
-        <BadgeCard badge={badge} isCompleted={false} />
-        <div className="col-span-8 w-full">{track.displayData.description}</div>
+        <BadgeCard badge={badge} isCompleted={isCompleted} />
+        <div className="flex flex-col gap-4 col-span-8 w-full font-bold">
+          <span>{track.displayData.description}</span>
+          <span>
+            {isCompleted
+              ? `Track completed — ${badge.title} unlocked. `
+              : "Complete all quests to Unlock this Track Badge."}
+          </span>
+        </div>
       </div>
     </div>
   );
