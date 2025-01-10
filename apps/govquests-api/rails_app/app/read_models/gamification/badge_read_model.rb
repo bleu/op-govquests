@@ -1,4 +1,4 @@
-module Rewarding
+module Gamification
   class BadgeReadModel < ApplicationRecord
     self.table_name = "badges"
 
