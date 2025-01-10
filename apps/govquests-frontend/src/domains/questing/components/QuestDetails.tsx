@@ -5,7 +5,7 @@ import type { Quest } from "@/domains/questing/types/questTypes";
 import { ArrowLeft } from "lucide-react";
 import { redirect } from "next/navigation";
 import QuestContentSection from "./QuestContentSection";
-import { BadgeCard } from "./track/BadgeCard";
+import { BadgeCard } from "./BadgeCard";
 import HtmlRender from "@/components/ui/HtmlRender";
 import { IndicatorPill } from "@/components/IndicatorPill";
 import RewardIndicator from "@/components/RewardIndicator";
@@ -57,7 +57,7 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
 
                 <div className="items-center justify-center flex gap-12 mx-20 pt-8">
                   <BadgeCard
-                    badge={{ id: 1, image: "/badge/quest1.png", name: "Teste" }}
+                    badgeId={quest.badge.id}
                     isCompleted={isCompleted}
                   />
                   <div className="font-thin flex flex-col gap-4">

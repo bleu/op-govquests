@@ -6,6 +6,12 @@ export const QuestQuery = graphql(`
       id
       audience
       slug
+      badge {
+        id
+        displayData {
+          imageUrl
+        }
+      }
       rewardPools {
         rewardDefinition {
           type

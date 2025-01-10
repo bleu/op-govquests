@@ -55,6 +55,7 @@ type Badge {
 }
 
 type BadgeDisplayData {
+  description: String
   imageUrl: String
   title: String
 }
@@ -513,6 +514,7 @@ type PageInfo {
 }
 
 type Query {
+  badge(id: ID!): Badge
   currentUser: User
   notifications(
     """

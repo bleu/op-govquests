@@ -1,4 +1,4 @@
-import { BadgeCard } from "./BadgeCard";
+import { BadgeCard } from "../BadgeCard";
 import { Tracks } from "../../types/trackTypes";
 
 interface TrackDescriptionProps {
@@ -22,7 +22,7 @@ export const TrackDescription = ({
         <div className="border-b h-0 w-full" />
       </div>
       <div className="items-center justify-center flex gap-12 mx-20">
-        <BadgeCard badge={badge} isCompleted={isCompleted} />
+        <BadgeCard badgeId={track.badge.id} isCompleted={isCompleted} />
         <div className="flex flex-col gap-4 col-span-8 w-full font-bold">
           <span>{track.displayData.description}</span>
           <span>
