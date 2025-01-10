@@ -5,7 +5,7 @@ module Resolvers
     argument :id, ID, required: true
 
     def resolve(id:)
-      Rewarding::BadgeReadModel.find_by(badge_id: id)
+      Gamification::BadgeReadModel.find_by(badge_id: id)
     end
   end
 end
