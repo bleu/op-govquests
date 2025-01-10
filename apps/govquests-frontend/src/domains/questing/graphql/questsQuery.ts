@@ -28,7 +28,6 @@ export const QuestsQuery = graphql(`
         }
       }
       userQuests {
-        id
         status
       }
     }

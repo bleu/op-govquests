@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Badge } from "./TrackAccordion";
+import { Badge } from "../../types/trackTypes";
 import Image from "next/image";
 import Link from "next/link";
 

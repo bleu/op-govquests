@@ -63,6 +63,64 @@ module QuestCreation
   end
 end
 
+module TrackCreation
+  def self.create_track_with_quests(track_data, quest_id_map)
+    track_id = SecureRandom.uuid
+
+    Rails.configuration.command_bus.call(
+      Questing::CreateTrack.new(
+        track_id: track_id,
+        display_data: track_data[:display_data],
+        quest_ids: track_data[:quests].map { |quest_title| quest_id_map[quest_title] }
+      )
+    )
+
+    track_id
+  end
+end
+
+module TrackData
+  NEWCOMER_TRACK = {
+    display_data: {
+      title: "Account Setup",
+      description: "Be among the first to join Govquests and unlock future perks exclusive to early adopters."
+    },
+    quests: [
+      "Unlock Your Profile",
+      "Gitcoin Score"
+    ]
+  }
+
+  DELEGATE_TRACK = {
+    display_data: {
+      title: "Delegate Starter Guide",
+      description: "Master the essentials of governance to establish yourself as a trusted delegate."
+    },
+    quests: [
+      "Governance 101",
+      "Become a Delegate",
+      "Delegate Statement",
+      "First Vote Milestone"
+    ]
+  }
+
+  IDENTITY_TRACK = {
+    display_data: {
+      title: "Identity Recognition",
+      description: "Build trust in the community by linking your ENS and Governance Forum profiles."
+    },
+    quests: [
+      "Claim Your Identity"
+    ]
+  }
+
+  TRACKS = [
+    NEWCOMER_TRACK,
+    DELEGATE_TRACK,
+    IDENTITY_TRACK
+  ]
+end
+
 module QuestData
   DISCOURSE_VERIFICATION_ACTION = {
     action_type: "discourse_verification",
@@ -184,7 +242,7 @@ module QuestData
     action_type: "verify_delegate",
     display_data: {
       title: "Become a Delegate",
-      description: "<ul><li>Connect your wallet at <a href='https://vote.optimism.io/' target='_blank' rel='noopener noreferrer' >Agora</a> - the home of Optimism voters.</li><li>At Agora, to become a delegate, you must have OP tokens <strong>delegated to your address.</strong> </li><li>That means that someone has to delegate their tokens to you, or you can delegate your own tokens to yourself, by following Agora's instructions. </li><li>Once OP tokens delegates to your address, come back to GovQuest and claim your rewards!</li></ul>"
+      description: "<ul><li>Connect your wallet at <a href='https://vote.optimism.io/' target='_blank' rel='noopener noreferrer' >Agora</a> - the home of Optimism voters.</li><li>At Agora, to become a delegate, you must have OP tokens <strong>delegated to your address.</strong> </li><li>That means that someone has to delegate their tokens to you, or you can delegate your own tokens to yourself, by following Agora's instructions. </li></ul>"
     },
     action_data: {
       action_type: "verify_delegate"
@@ -195,7 +253,7 @@ module QuestData
     action_type: "verify_delegate_statement",
     display_data: {
       title: "Delegate Statement",
-      description: "<ul><li>Watch <a href='https://www.loom.com/share/4833b161f3514e82adbf8d5445eb3cb6' target='_blank' rel='noopener noreferrer'>this cool video</a> about how to create your delegate statement (optional).</li><li><strong>If you haven't done it yet, connect your wallet at <a href='https://vote.optimism.io/' target='_blank' rel='noopener noreferrer'>Agora</a></strong></li><li><strong>Write and publish your delegate statement.</strong><ul><li><em>Keep in mind that your statement will be reviewed by Delegators who will decide whether to grant you voting power!</em></li><strong>Here's a suggested format for your delegate statement:</strong><ul><li>A brief introduction about your background in crypto and what makes you a valuable candidate.</li><li>Your thoughts on the <a href='https://www.optimism.io/vision' target='_blank' rel='noopener noreferrer'>Optimistic Vision</a>.</li><li>Insights on the first three articles of the <a href='https://gov.optimism.io/t/working-constitution-of-the-optimism-collective/55' target='_blank' rel='noopener noreferrer'>Working Constitution</a></li><li>Your interests, which can be either general or crypto-related.</li><li>Your favorite crypto projects.</li><li>After you have published your delegate statement, click the submit button to complete the quest.</li></ul></ul></li><li>Make your own communication thread (optional). <a href='https://gov.optimism.io/c/delegates/delegate-updates/45' target='_blank' rel='noopener noreferrer'>You can find some inspiration here</a>!</li><li>Once your delegate statement is published, submit it!</li></ul>"
+      description: "<ul><li>Watch <a href='https://www.loom.com/share/4833b161f3514e82adbf8d5445eb3cb6' target='_blank' rel='noopener noreferrer'>this cool video</a> about how to create your delegate statement (optional).</li><li><strong>Write and publish your delegate statement <a href='https://vote.optimism.io/' target='_blank' rel='noopener noreferrer'>at Agora</a>.</strong><ul><em>Here's a suggested format for your delegate statement:</em><ul><li>A brief introduction about your background in crypto and what makes you a valuable candidate.</li><li>Your thoughts on the <a href='https://www.optimism.io/vision' target='_blank' rel='noopener noreferrer'>Optimistic Vision</a>.</li><li>Insights on the first three articles of the <a href='https://gov.optimism.io/t/working-constitution-of-the-optimism-collective/55' target='_blank' rel='noopener noreferrer'>Working Constitution</a></li><li>Your favorite crypto projects.</li></ul></ul></li><li>Make your own communication thread on <a href='https://gov.optimism.io/' target='_blank' rel='noopener noreferrer'>Op Collective's Forum</a> (optional). <a href='https://gov.optimism.io/c/delegates/delegate-updates/45' target='_blank' rel='noopener noreferrer'>You can find some inspiration here</a>!</li><li>After you have published your delegate statement, click the submit button to complete the quest.</li></ul>"
     },
     action_data: {
       action_type: "verify_delegate_statement"
@@ -303,26 +361,26 @@ module QuestData
     },
     {
       display_data: {
-        title: "Become a delegate",
+        title: "Become a Delegate",
         intro: "Start your journey as a delegate in the Optimism community! This quest will guide you through the essential steps to become a representative within the ecosystem and share your ideas. Let’s get started!",
         image_url: "https://example.com/governance101.jpg",
         requirements: "This quest is for new delegates — those who become delegates after opening this content. If you're already a delegate, try referring new delegates to earn rewards!"
       },
       quest_type: "Governance",
       audience: "NonDelegates",
-      rewards: [{type: "Points", amount: 20}],
+      rewards: [{type: "Points", amount: 1000}],
       actions: [VERIFY_DELEGATE_ACTION]
     },
     {
       display_data: {
-        title: "Delegate statement",
+        title: "Delegate Statement",
         intro: "Creating a delegate statement helps you communicate your values and priorities within the Optimism governance. It allows delegators to make informed decisions about whom to support.",
         image_url: "https://example.com/governance101.jpg",
         requirements: "This quest is for delegates who don't have their delegate statement yet. If you already have one, take a look in the other quests for delegates!"
       },
       quest_type: "Governance",
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 20}],
+      rewards: [{type: "Points", amount: 330}],
       actions: [VERIFY_DELEGATE_STATEMENT]
     },
     {
@@ -334,7 +392,7 @@ module QuestData
       },
       quest_type: "Governance",
       audience: "Delegates",
-      rewards: [{type: "Points", amount: 20}],
+      rewards: [{type: "Points", amount: 330}],
       actions: [VERIFY_AGORA, VERIFY_FIRST_VOTE]
     },
     {
@@ -365,9 +423,13 @@ end
 def create_quests_and_actions
   puts "Creating quests, actions, and reward pools..."
 
+  quest_id_map = {}
+
   QuestData::QUESTS.each do |quest_data|
     # Create quest and its reward pools
     quest_id = QuestCreation.create_quest_with_rewards(quest_data)
+    quest_id_map[quest_data[:display_data][:title]] = quest_id
+
     puts "Created quest: #{quest_data[:display_data][:title]} (#{quest_id})"
     puts "Created reward pools for quest rewards: #{quest_data[:rewards].inspect}"
 
@@ -383,6 +445,25 @@ def create_quests_and_actions
   end
 
   puts "All quests created with their actions and reward pools successfully!"
+  quest_id_map
 end
 
-create_quests_and_actions
+def create_tracks(quest_id_map)
+  puts "Creating tracks..."
+
+  TrackData::TRACKS.each do |track_data|
+    track_id = TrackCreation.create_track_with_quests(track_data, quest_id_map)
+    puts "Created track: #{track_data[:display_data][:title]} (#{track_id})"
+    puts "Associated quests: #{track_data[:quests].join(", ")}"
+    puts "---"
+  end
+
+  puts "All tracks created with their quests successfully!"
+end
+
+def create_all
+  quest_id_map = create_quests_and_actions
+  create_tracks(quest_id_map)
+end
+
+create_all

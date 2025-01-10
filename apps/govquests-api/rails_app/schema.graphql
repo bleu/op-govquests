@@ -529,6 +529,8 @@ type Query {
   ): NotificationConnection!
   quest(slug: String!): Quest
   quests: [Quest!]!
+  track(id: ID!): Track
+  tracks: [Track!]
   unreadNotificationsCount: Int!
 }
 
@@ -666,6 +668,18 @@ interface StartDataInterface {
   Type of the action
   """
   actionType: String!
+}
+
+type Track {
+  displayData: TrackDisplayData!
+  id: ID!
+  points: Int!
+  quests: [Quest!]!
+}
+
+type TrackDisplayData {
+  description: String!
+  title: String!
 }
 
 type User {
