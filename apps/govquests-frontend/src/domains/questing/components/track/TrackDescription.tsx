@@ -1,7 +1,7 @@
 import { BadgeCard } from "./BadgeCard";
-import { Track } from "./TrackAccordion";
+import { Tracks } from "../../types/trackTypes";
 
-export const TrackDescription = ({ track }: { track: Track }) => {
+export const TrackDescription = ({ track }: { track: Tracks[number] }) => {
   return (
     <div className="flex flex-col gap-8 mt-7">
       <div className="flex items-center justify-center w-full gap-9">
@@ -12,8 +12,8 @@ export const TrackDescription = ({ track }: { track: Track }) => {
         <div className="border-b h-0 w-full" />
       </div>
       <div className="items-center justify-center flex gap-12 mx-20">
-        <BadgeCard badge={track.badge} />
-        <div className="col-span-8 w-full">{track.description}</div>
+        <BadgeCard />
+        <div className="col-span-8 w-full">{track.displayData.description}</div>
       </div>
     </div>
   );
