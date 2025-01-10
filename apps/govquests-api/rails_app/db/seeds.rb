@@ -84,17 +84,18 @@ end
 module TrackData
   NEWCOMER_TRACK = {
     display_data: {
-      title: "Account Setup",
-      description: "Be among the first to join Govquests and unlock future perks exclusive to early adopters."
+      title: "First Things First",
+      description: "Kick off your Govquests journey by setting up your profile."
     },
     badge_display_data: {
-      title: "Govquests Early Supporter",
-      description: "Be among the first to join Govquests and unlock future perks exclusive to early adopters.",
-      image_url: "https://example.com/newcomer-badge.jpg"
+      title: "Profile Unlocked",
+      description: "Kick off your Govquests journey by setting up your profile.",
+      image_url: "/badges/QUEST BADGE_01_06"
     },
     quests: [
       "Unlock Your Profile",
-      "Gitcoin Score"
+      "Gitcoin Score",
+      "OP Holder"
     ]
   }
 
@@ -106,7 +107,7 @@ module TrackData
     badge_display_data: {
       title: "Delegate Starter Guide",
       description: "Master the essentials of governance to establish yourself as a trusted delegate.",
-      image_url: "https://example.com/newcomer-badge.jpg"
+      image_url: "/badges/QUEST BADGE_02_06"
     },
     quests: [
       "Governance 101",
@@ -116,15 +117,30 @@ module TrackData
     ]
   }
 
-  IDENTITY_TRACK = {
+  DELEGATION_WITH_PURPOSE = {
     display_data: {
-      title: "Identity Recognition",
-      description: "Build trust in the community by linking your ENS and Governance Forum profiles."
+      title: "Delegation with Purpose",
+      description: "Dive deep into the delegation process and make informed choices to empower Optimism governance."
     },
     badge_display_data: {
-      title: "OP Identified Contributor",
-      description: "Build trust in the community by linking your ENS and Governance Forum profiles.",
-      image_url: "https://example.com/newcomer-badge.jpg"
+      title: "Informed Delegator",
+      description: "Dive deep into the delegation process and make informed choices to empower Optimism governance.",
+      image_url: "/badges/QUEST BADGE_03_06"
+    },
+    quests: [
+      "Become a Delegator"
+    ]
+  }
+
+  GOVERNANCE_TRACK = {
+    display_data: {
+      title: "Governance Engagement",
+      description: "Establish a trusted presence in the Optimism Collective with a verified identity and active participation."
+    },
+    badge_display_data: {
+      title: "OP Promising Contributor",
+      description: "Establish a trusted presence in the Optimism Collective with a verified identity and active participation.",
+      image_url: "/badges/QUEST BADGE_05_06"
     },
     quests: [
       "Claim Your Identity"
@@ -134,7 +150,8 @@ module TrackData
   TRACKS = [
     NEWCOMER_TRACK,
     DELEGATE_TRACK,
-    IDENTITY_TRACK
+    DELEGATION_WITH_PURPOSE,
+    GOVERNANCE_TRACK
   ]
 end
 
