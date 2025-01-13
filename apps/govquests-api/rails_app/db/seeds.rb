@@ -94,7 +94,7 @@ module TrackData
     badge_display_data: {
       title: "Profile Unlocked",
       description: "Kick off your Govquests journey by setting up your profile.",
-      image_url: "/badges/QUEST BADGE_01_06"
+      image_url: "/badges/QUEST BADGE_01_06.png"
     },
     quests: [
       "Unlock Your Profile",
@@ -115,7 +115,7 @@ module TrackData
     badge_display_data: {
       title: "Delegate Starter Guide",
       description: "Master the essentials of governance to establish yourself as a trusted delegate.",
-      image_url: "/badges/QUEST BADGE_02_06"
+      image_url: "/badges/QUEST BADGE_02_06.png"
     },
     quests: [
       "Governance 101",
@@ -137,7 +137,7 @@ module TrackData
     badge_display_data: {
       title: "Informed Delegator",
       description: "Dive deep into the delegation process and make informed choices to empower Optimism governance.",
-      image_url: "/badges/QUEST BADGE_03_06"
+      image_url: "/badges/QUEST BADGE_03_06.png"
     },
     quests: [
       "Become a Delegator"
@@ -156,7 +156,7 @@ module TrackData
     badge_display_data: {
       title: "OP Promising Contributor",
       description: "Establish a trusted presence in the Optimism Collective with a verified identity and active participation.",
-      image_url: "/badges/QUEST BADGE_05_06",
+      image_url: "/badges/QUEST BADGE_05_06.png"
     },
     quests: [
       "Claim Your Identity"

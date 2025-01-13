@@ -16,7 +16,7 @@ export const BadgeCard = ({ badgeId, isCompleted }: BadgeCardProps) => {
       <div className="relative items-center justify-center min-w-52 h-60 col-span-2">
         <Link href={`/badges/${data.badge.id}`}>
           <Image
-            src={data.badge.displayData.imageUrl || ""}
+            src={data.badge.displayData.imageUrl}
             alt="badge_image"
             width={100}
             height={100}
