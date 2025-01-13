@@ -50,8 +50,8 @@ type ActionExecution {
 }
 
 type BackgroundGradient {
-  fromColor: String!
-  toColor: String!
+  fromColor: String
+  toColor: String
 }
 
 type Badge {
@@ -692,6 +692,7 @@ type Track {
   badge: Badge
   displayData: TrackDisplayData!
   id: ID!
+  isCompleted: Boolean!
   points: Int!
   quests: [Quest!]!
 }

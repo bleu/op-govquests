@@ -64,7 +64,7 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
                     <HtmlRender content={quest.displayData.intro} />
                     <span className="font-black">
                       {isCompleted
-                        ? `Quest completed — ${"Teste"} unlocked.`
+                        ? `Quest completed — ${quest.badge.displayData.title} unlocked.`
                         : "Complete this quest to unlock a new Badge."}
                     </span>
                   </div>

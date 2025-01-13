@@ -10,6 +10,7 @@ export const QuestQuery = graphql(`
         id
         displayData {
           imageUrl
+          title
         }
       }
       rewardPools {

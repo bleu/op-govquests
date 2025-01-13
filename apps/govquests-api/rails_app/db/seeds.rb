@@ -438,7 +438,7 @@ module QuestData
       },
       badge_display_data: {
         title: "Govquests new delegate",
-        image_url: "/badge/QUEST BADGE_02_01.png"
+        image_url: "/badges/QUEST BADGE_02_01.png"
       },
       quest_type: "Governance",
       audience: "NonDelegates",
@@ -454,7 +454,7 @@ module QuestData
       },
       badge_display_data: {
         title: "Delegate Statement",
-        image_url: "/badge/QUEST BADGE_02_02.png"
+        image_url: "/badges/QUEST BADGE_02_02.png"
       },
       quest_type: "Governance",
       audience: "Delegates",
@@ -470,7 +470,7 @@ module QuestData
       },
       badge_display_data: {
         title: "First Vote Milestone",
-        image_url: "/badge/QUEST BADGE_02_03.png"
+        image_url: "/badges/QUEST BADGE_02_03.png"
       },
       quest_type: "Governance",
       audience: "Delegates",

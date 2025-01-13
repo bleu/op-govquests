@@ -49,6 +49,7 @@ export const TracksQuery = graphql(`
           }
         }
       }
+      isCompleted
     }
   }
 `);
