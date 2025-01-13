@@ -10,8 +10,6 @@ export const TrackDescription = ({
   track,
   isCompleted,
 }: TrackDescriptionProps) => {
-  const badge = { id: "1", image: "/badge/track1.png", title: "Track Badge" };
-
   return (
     <div className="flex flex-col gap-8 mt-7">
       <div className="flex items-center justify-center w-full gap-9">
@@ -27,7 +25,7 @@ export const TrackDescription = ({
           <span>{track.displayData.description}</span>
           <span>
             {isCompleted
-              ? `Track completed — ${badge.title} unlocked. `
+              ? `Track completed — ${track.badge.displayData.title} unlocked. `
               : "Complete all quests to Unlock this Track Badge."}
           </span>
         </div>

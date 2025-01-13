@@ -364,7 +364,7 @@ module QuestData
       },
       badge_display_data: {
         title: "Claim Your Identity",
-        image_url: "https://example.com/discourse-verification.jpg"
+        image_url: "/badges/QUEST BADGE_05_04.png"
       },
       audience: "Delegates",
       rewards: [{type: "Points", amount: 165}],
@@ -378,8 +378,8 @@ module QuestData
       },
       audience: "AllUsers",
       badge_display_data: {
-        title: "Unlock Your Profile",
-        image_url: "https://example.com/governance101.jpg"
+        title: "Profile Unlocked",
+        image_url: "/badges/QUEST BADGE_01_04.png"
       },
       rewards: [{type: "Points", amount: 55}],
       actions: UNLOCK_PROFILE_ACTIONS
@@ -393,7 +393,7 @@ module QuestData
       audience: "AllUsers",
       badge_display_data: {
         title: "Governance 101",
-        image_url: "https://example.com/governance101.jpg"
+        image_url: "/badges/QUEST BADGE_02_04.png"
       },
       rewards: [{type: "Points", amount: 165}],
       actions: READ_DOCUMENT_ACTIONS
@@ -406,8 +406,8 @@ module QuestData
         requirements: "Your Unique Humanity Score must be 20 or higher to complete this quest. Not there yet? <a href='https://support.passport.xyz/passport-knowledge-base/using-passport/scoring-20-for-humans'>Check some tips on how to increase your score.</a>"
       },
       badge_display_data: {
-        title: "Gitcoin Score",
-        image_url: "https://example.com/advanced-governance.jpg"
+        title: "Gitcoin Human",
+        image_url: "/badges/QUEST BADGE_01_01.png"
       },
       audience: "Delegates",
       rewards: [{type: "Points", amount: 55}],
@@ -437,8 +437,8 @@ module QuestData
         requirements: "This quest is for new delegates — those who become delegates after opening this content. If you're already a delegate, try referring new delegates to earn rewards!"
       },
       badge_display_data: {
-        title: "Become a Delegate",
-        image_url: "https://example.com/governance101.jpg"
+        title: "Govquests new delegate",
+        image_url: "/badge/QUEST BADGE_02_01.png"
       },
       quest_type: "Governance",
       audience: "NonDelegates",
@@ -454,7 +454,7 @@ module QuestData
       },
       badge_display_data: {
         title: "Delegate Statement",
-        image_url: "https://example.com/governance101.jpg"
+        image_url: "/badge/QUEST BADGE_02_02.png"
       },
       quest_type: "Governance",
       audience: "Delegates",
@@ -470,7 +470,7 @@ module QuestData
       },
       badge_display_data: {
         title: "First Vote Milestone",
-        image_url: "https://example.com/governance101.jpg"
+        image_url: "/badge/QUEST BADGE_02_03.png"
       },
       quest_type: "Governance",
       audience: "Delegates",
@@ -486,7 +486,7 @@ module QuestData
       quest_type: "Governance",
       badge_display_data: {
         title: "OP Holder",
-        image_url: "https://example.com/governance101.jpg"
+        image_url: "/badges/QUEST BADGE_01_02.png"
       },
       audience: "AllUsers",
       rewards: [{type: "Points", amount: 55}],
@@ -500,8 +500,8 @@ module QuestData
         requirements: "To complete this quest, you have to be an OP holder. If you don't have OP in your wallet, complete the OP Holder quest first [<a href='/quests/op-holder'>link</a>]."
       },
       badge_display_data: {
-        title: "Become a Delegator",
-        image_url: "https://example.com/governance101.jpg"
+        title: "Govquests New Delegator",
+        image_url: "/badges/QUEST BADGE_03_01.png"
       },
       audience: "AllUsers",
       rewards: [{type: "Points", amount: 330}],
