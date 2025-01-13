@@ -1,6 +1,6 @@
 import { isServer } from "@tanstack/react-query";
 import { clsx, type ClassValue } from "clsx";
-import { Koulen } from "next/font/google";
+import { Koulen, Redacted_Script } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -15,3 +15,8 @@ export const API_URL =
       : window.location.origin + "/graphql";
 
 export const koulen = Koulen({ weight: "400", subsets: ["latin"] });
+
+export const redactedScript = Redacted_Script({
+  weight: "400",
+  subsets: ["latin"],
+});
