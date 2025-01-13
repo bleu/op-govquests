@@ -25,7 +25,10 @@ export const TrackAccordion = ({ track }: { track: Tracks[number] }) => {
         </AccordionTrigger>
         <AccordionContent>
           <TrackDescription track={track} isCompleted={isCompleted} />
-          <QuestCarousel quests={track.quests} />
+          <QuestCarousel
+            quests={track.quests}
+            backgroundGradient={track.displayData.backgroundGradient}
+          />
         </AccordionContent>
       </AccordionItem>
     </Accordion>

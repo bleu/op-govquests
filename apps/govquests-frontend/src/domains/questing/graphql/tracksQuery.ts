@@ -8,6 +8,10 @@ export const TracksQuery = graphql(`
       displayData {
         title
         description
+        backgroundGradient {
+          fromColor
+          toColor
+        }
       }
       badge {
         id

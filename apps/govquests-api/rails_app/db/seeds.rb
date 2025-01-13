@@ -85,7 +85,11 @@ module TrackData
   NEWCOMER_TRACK = {
     display_data: {
       title: "First Things First",
-      description: "Kick off your Govquests journey by setting up your profile."
+      description: "Kick off your Govquests journey by setting up your profile.",
+      background_gradient: {
+        from_color: "#696EDE",
+        to_color: "#EC61CE"
+      }
     },
     badge_display_data: {
       title: "Profile Unlocked",
@@ -102,7 +106,11 @@ module TrackData
   DELEGATE_TRACK = {
     display_data: {
       title: "Delegate Starter Guide",
-      description: "Master the essentials of governance to establish yourself as a trusted delegate."
+      description: "Master the essentials of governance to establish yourself as a trusted delegate.",
+      background_gradient: {
+        from_color: "#B95FC2",
+        to_color: "#F8808E"
+      }
     },
     badge_display_data: {
       title: "Delegate Starter Guide",
@@ -120,7 +128,11 @@ module TrackData
   DELEGATION_WITH_PURPOSE = {
     display_data: {
       title: "Delegation with Purpose",
-      description: "Dive deep into the delegation process and make informed choices to empower Optimism governance."
+      description: "Dive deep into the delegation process and make informed choices to empower Optimism governance.",
+      background_gradient: {
+        from_color: "#D07C9A",
+        to_color: "#FAC995"
+      }
     },
     badge_display_data: {
       title: "Informed Delegator",
@@ -135,12 +147,16 @@ module TrackData
   GOVERNANCE_TRACK = {
     display_data: {
       title: "Governance Engagement",
-      description: "Establish a trusted presence in the Optimism Collective with a verified identity and active participation."
+      description: "Establish a trusted presence in the Optimism Collective with a verified identity and active participation.",
+      background_gradient: {
+        from_color: "#FF80ED",
+        to_color: "#8FD4C7"
+      }
     },
     badge_display_data: {
       title: "OP Promising Contributor",
       description: "Establish a trusted presence in the Optimism Collective with a verified identity and active participation.",
-      image_url: "/badges/QUEST BADGE_05_06"
+      image_url: "/badges/QUEST BADGE_05_06",
     },
     quests: [
       "Claim Your Identity"

@@ -4,12 +4,14 @@ import type React from "react";
 import { IndicatorPill } from "@/components/IndicatorPill";
 import { cn } from "@/lib/utils";
 import { Quests } from "../types/questTypes";
+import { Tracks } from "../types/trackTypes";
 
 interface QuestProps {
   quest: Quests[number];
+  backgroundGradient: Tracks[number]["displayData"]["backgroundGradient"];
 }
 
-const QuestCard: React.FC<QuestProps> = ({ quest }) => {
+const QuestCard: React.FC<QuestProps> = ({ quest, backgroundGradient }) => {
   const status = quest.userQuests?.[0]?.status || "unstarted";
   const isCompleted = status === "completed";
 
@@ -18,9 +20,15 @@ const QuestCard: React.FC<QuestProps> = ({ quest }) => {
       <div className="rounded-lg overflow-hidden group transition-all duration-300 hover:shadow-lg">
         <div
           className={cn(
-            "relative bg-secondary flex justify-center items-center p-6",
-            isCompleted && "bg-gradient-to-b from-[#80F2FF] to-[#A1E0D2]",
+            "relative bg-secondary flex justify-center items-center p-6 bg-gradient-to-b from-[var(--from-color)] to-[var(--to-color)]",
+            !isCompleted && "grayscale",
           )}
+          style={
+            {
+              "--from-color": backgroundGradient.fromColor,
+              "--to-color": backgroundGradient.toColor,
+            } as React.CSSProperties
+          }
         >
           <div className="w-full text-center text-primary-foreground font-bold text-lg py-3 bg-primary border border-primary-foreground shadow-[1px_1px_0px_0px_#000000] rounded-lg transition-all duration-300 group-hover:shadow-[2px_2px_0px_0px_#000000] group-hover:scale-105">
             {quest.displayData.title}

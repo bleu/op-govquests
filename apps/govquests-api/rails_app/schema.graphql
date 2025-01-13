@@ -49,6 +49,11 @@ type ActionExecution {
   userId: ID!
 }
 
+type BackgroundGradient {
+  fromColor: String!
+  toColor: String!
+}
+
 type Badge {
   displayData: BadgeDisplayData!
   id: ID!
@@ -692,6 +697,7 @@ type Track {
 }
 
 type TrackDisplayData {
+  backgroundGradient: BackgroundGradient!
   description: String!
   title: String!
 }
