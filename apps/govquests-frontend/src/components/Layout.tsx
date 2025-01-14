@@ -8,6 +8,7 @@ import Header from "./Header";
 import { Toaster } from "./ui/toaster";
 import { useNotificationProcessor } from "@/domains/notifications/hooks/useNotificationProcessor";
 import Image from "next/image";
+import Footer from "./Footer";
 
 export const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <ConnectKitProvider>
             <Header />
             <div className="h-full">{children}</div>
+            <Footer />
           </ConnectKitProvider>
         </SIWEProvider>
       </QueryClientProvider>
