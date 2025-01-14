@@ -26,6 +26,8 @@ module Types
     field :track, resolver: Resolvers::FetchTrack
     field :tracks, resolver: Resolvers::FetchTracks
 
+    field :badge, resolver: Resolvers::FetchBadge
+
     field :current_user, resolver: Resolvers::CurrentUser, preauthorize: {with: AuthenticatedGraphqlPolicy}
 
     field :notifications,

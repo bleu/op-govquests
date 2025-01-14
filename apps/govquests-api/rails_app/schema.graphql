@@ -49,12 +49,18 @@ type ActionExecution {
   userId: ID!
 }
 
+type BackgroundGradient {
+  fromColor: String
+  toColor: String
+}
+
 type Badge {
   displayData: BadgeDisplayData!
   id: ID!
 }
 
 type BadgeDisplayData {
+  description: String
   imageUrl: String
   title: String
 }
@@ -513,6 +519,7 @@ type PageInfo {
 }
 
 type Query {
+  badge(id: ID!): Badge
   currentUser: User
   notifications(
     """
@@ -685,11 +692,13 @@ type Track {
   badge: Badge
   displayData: TrackDisplayData!
   id: ID!
+  isCompleted: Boolean!
   points: Int!
   quests: [Quest!]!
 }
 
 type TrackDisplayData {
+  backgroundGradient: BackgroundGradient!
   description: String!
   title: String!
 }

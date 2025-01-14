@@ -10,9 +10,6 @@ import { TrackAccordionHeader } from "./TrackAccordionHeader";
 import { TrackDescription } from "./TrackDescription";
 
 export const TrackAccordion = ({ track }: { track: Tracks[number] }) => {
-  const isCompleted = track.quests
-    .map((quest) => quest.userQuests[0]?.status)
-    .every((status) => status === "completed");
   return (
     <Accordion
       type="single"
@@ -21,11 +18,14 @@ export const TrackAccordion = ({ track }: { track: Tracks[number] }) => {
     >
       <AccordionItem value="item-1">
         <AccordionTrigger className="px-10 py-5 text-foreground">
-          <TrackAccordionHeader track={track} isCompleted={isCompleted} />
+          <TrackAccordionHeader track={track} />
         </AccordionTrigger>
         <AccordionContent>
-          <TrackDescription track={track} isCompleted={isCompleted} />
-          <QuestCarousel quests={track.quests} />
+          <TrackDescription track={track} />
+          <QuestCarousel
+            quests={track.quests}
+            backgroundGradient={track.displayData.backgroundGradient}
+          />
         </AccordionContent>
       </AccordionItem>
     </Accordion>

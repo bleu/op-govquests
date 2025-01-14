@@ -9,8 +9,17 @@ import { useEffect, useState } from "react";
 import { UseEmblaCarouselType } from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Tracks } from "../types/trackTypes";
 
-export const QuestCarousel = ({ quests }: { quests: Quests }) => {
+interface QuestCarouselProps {
+  quests: Quests;
+  backgroundGradient: Tracks[number]["displayData"]["backgroundGradient"];
+}
+
+export const QuestCarousel = ({
+  quests,
+  backgroundGradient,
+}: QuestCarouselProps) => {
   const [api, setApi] = useState<UseEmblaCarouselType[1] | null>(null);
   const hasNavigationButtons = quests.length > 3;
   const [isLast, setIsLast] = useState(false);
@@ -50,7 +59,10 @@ export const QuestCarousel = ({ quests }: { quests: Quests }) => {
           <CarouselContent>
             {quests.map((quest) => (
               <CarouselItem key={quest.id} className="basis-1/3">
-                <QuestCard quest={quest} />
+                <QuestCard
+                  quest={quest}
+                  backgroundGradient={backgroundGradient}
+                />
               </CarouselItem>
             ))}
           </CarouselContent>
