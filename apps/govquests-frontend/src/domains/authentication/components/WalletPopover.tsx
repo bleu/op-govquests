@@ -36,7 +36,7 @@ export const WalletPopover = ({ className }: { className: string }) => {
 
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button variant="secondary" className={cn(className, "w-48")}>
           <div className="flex items-center gap-2">
             <div className="size-6 rounded-full overflow-hidden">

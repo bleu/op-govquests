@@ -28,6 +28,7 @@ const Footer = () => {
             href={social.link}
             className="object-contain h-full"
             target="_blank"
+            key={social.name}
           >
             <Image
               src={social.icon}
