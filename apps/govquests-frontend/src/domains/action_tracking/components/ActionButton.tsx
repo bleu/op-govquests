@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/shadcn-button";
+import { Button } from "@/components/ui/button";
 import Spinner from "@/components/ui/Spinner";
 import { cn } from "@/lib/utils";
 import { CheckIcon, CheckSquareIcon, ExternalLinkIcon } from "lucide-react";
