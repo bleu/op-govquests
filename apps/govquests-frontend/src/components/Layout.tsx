@@ -45,7 +45,7 @@ export default function Layout({
           alt="background_tier"
         />
         <div className="fixed object-cover size-full z-[1] bg-gradient-to-b from-[#1A1B1F] to-[rgba(26,27,31,0.6)]" />
-        <div className="relative z-10">{children}</div>
+        <div className="relative z-10 h-full">{children}</div>
       </div>
       <Toaster />
     </Providers>
