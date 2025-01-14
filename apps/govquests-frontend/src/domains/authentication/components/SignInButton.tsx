@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import Spinner from "@/components/ui/Spinner";
 import { ConnectKitButton, useSIWE } from "connectkit";
 import { ChevronDown } from "lucide-react";
