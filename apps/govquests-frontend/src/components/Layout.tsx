@@ -1,26 +1,41 @@
 "use client";
 
-import { WagmiProvider } from "wagmi";
+import { config, getSiweConfig } from "@/wagmi";
+import {
+  RainbowKitAuthenticationProvider,
+  RainbowKitProvider,
+} from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ConnectKitProvider, SIWEProvider } from "connectkit";
-import { config, siweConfig } from "@/wagmi";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { WagmiProvider } from "wagmi";
 import Header from "./Header";
 import { Toaster } from "./ui/toaster";
-import { useNotificationProcessor } from "@/domains/notifications/hooks/useNotificationProcessor";
-import Image from "next/image";
 
 export const queryClient = new QueryClient();
 
 const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  const [authStatus, setAuthStatus] = useState("loading");
+
+  useEffect(() => {
+    // Check initial authentication status
+    fetch("/api/siwe/me").then((response) => {
+      setAuthStatus(response.ok ? "authenticated" : "unauthenticated");
+    });
+  }, []);
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <SIWEProvider {...siweConfig}>
-          <ConnectKitProvider>
+        <RainbowKitAuthenticationProvider
+          adapter={getSiweConfig()}
+          status={authStatus as any}
+        >
+          <RainbowKitProvider>
             <Header />
             <div className="h-full">{children}</div>
-          </ConnectKitProvider>
-        </SIWEProvider>
+          </RainbowKitProvider>
+        </RainbowKitAuthenticationProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );
