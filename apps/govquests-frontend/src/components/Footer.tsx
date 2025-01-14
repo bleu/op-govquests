@@ -8,14 +8,14 @@ const socials = [
     icon: "/footerIcons/notion.svg",
   },
   {
-    name: "x",
-    link: "https://x.com/bleubuilders",
-    icon: "/footerIcons/x.svg",
-  },
-  {
     name: "github",
     link: "https://github.com/bleu",
     icon: "/footerIcons/github.svg",
+  },
+  {
+    name: "x",
+    link: "https://x.com/bleubuilders",
+    icon: "/footerIcons/x.svg",
   },
 ];
 
@@ -42,13 +42,15 @@ const Footer = () => {
       </div>
       <div className="flex items-center gap-2 text-sm">
         built by
-        <Image
-          src="/bleuLogo.png"
-          alt="bleuLogo"
-          width={200}
-          height={200}
-          className="h-4 object-scale-down w-fit"
-        />
+        <Link href="https://bleu.builders/" target="_blank">
+          <Image
+            src="/bleuLogo.png"
+            alt="bleuLogo"
+            width={200}
+            height={200}
+            className="h-4 object-scale-down w-fit"
+          />
+        </Link>
       </div>
     </footer>
   );
