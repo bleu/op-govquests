@@ -17,9 +17,11 @@ const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <QueryClientProvider client={queryClient}>
         <SIWEProvider {...siweConfig}>
           <ConnectKitProvider>
-            <Header />
-            <div className="h-full">{children}</div>
-            <Footer />
+            <div className="min-h-screen flex flex-col">
+              <Header />
+              <div className="flex-1">{children}</div>
+              <Footer />
+            </div>
           </ConnectKitProvider>
         </SIWEProvider>
       </QueryClientProvider>

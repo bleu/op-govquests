@@ -96,12 +96,8 @@ function ActionButton<T extends ActionType>({
 
   return (
     <Button
-      variant="secondary"
       size="sm"
-      className={cn(
-        disabled && "pointer-events-none",
-        status === "completed" && "opacity-50",
-      )}
+      className={cn(status === "completed" && "opacity-50")}
       onClick={onClick}
       disabled={disabled || status === "completed" || loading}
       {...props}
