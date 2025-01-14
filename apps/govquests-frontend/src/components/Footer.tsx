@@ -23,9 +23,12 @@ const Footer = () => {
   return (
     <footer className="px-16 py-5 flex justify-between items-center w-full bg-background/70 relative z-10">
       <div className="flex items-center gap-2 h-8">
-        {/* icons */}
         {socials.map((social) => (
-          <Link href={social.link} className="object-contain h-full">
+          <Link
+            href={social.link}
+            className="object-contain h-full"
+            target="_blank"
+          >
             <Image
               src={social.icon}
               width={100}
