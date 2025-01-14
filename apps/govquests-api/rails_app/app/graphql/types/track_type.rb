@@ -14,7 +14,10 @@ module Types
     end
 
     def is_completed
-      object.quests.all? { |quest| quest.user_quests.any? && quest.user_quests[0].status == "completed" }
+      object.quests.all? do |quest|
+        user_quest = quest.user_quests.find_by(user: context[:current_user])
+        user_quest&.status == "completed"
+      end
     end
   end
 end
