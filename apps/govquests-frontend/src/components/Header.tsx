@@ -3,7 +3,7 @@
 import SignInButton from "@/domains/authentication/components/SignInButton";
 import { NotificationBell } from "@/domains/notifications/components/NotificationBell";
 import { cn } from "@/lib/utils";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { HomeIcon, MapIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -61,7 +61,7 @@ const Header: React.FC = () => {
 
         <div className="flex items-center gap-4">
           <NotificationBell />
-          <ConnectButton />
+          <SignInButton />
         </div>
       </div>
     </header>

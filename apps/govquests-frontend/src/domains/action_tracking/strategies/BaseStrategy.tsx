@@ -1,4 +1,4 @@
-import { useAuth } from "@/hooks/useAuth";
+import { useSIWE } from "connectkit";
 import React, { ComponentProps, useCallback } from "react";
 import { useAccount } from "wagmi";
 import { useCompleteActionExecution } from "../hooks/useCompleteActionExecution";
@@ -56,7 +56,7 @@ export const BaseStrategy = (props: BaseStrategyProps) => {
     onCompleteMutationError = defaultOnCompleteMutationError,
   } = props;
 
-  const { isSignedIn } = useAuth();
+  const { isSignedIn } = useSIWE();
   const { isConnected } = useAccount();
   const startMutation = useStartActionExecution();
   const completeMutation = useCompleteActionExecution(["quest", questSlug]);
