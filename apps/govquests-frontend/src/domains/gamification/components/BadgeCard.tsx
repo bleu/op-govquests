@@ -21,7 +21,7 @@ export const BadgeCard = ({
     data && (
       <div
         className={cn(
-          "relative items-center justify-center min-w-52 h-60 col-span-2",
+          "relative items-center justify-center col-span-2",
           className,
         )}
       >
