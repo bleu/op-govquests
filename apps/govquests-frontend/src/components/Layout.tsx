@@ -8,15 +8,23 @@ import { WagmiProvider } from "wagmi";
 import Footer from "./Footer";
 import Header from "./Header";
 import { Toaster } from "./ui/toaster";
+import { useRouter } from "next/router";
 
 export const queryClient = new QueryClient();
 
 const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  const router = useRouter();
+
+  const handleHomeToQuestsRedirect = () => {
+    if (window.location.pathname !== "/") return;
+    router.push("/quests");
+  };
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <SIWEProvider {...siweConfig}>
-          <ConnectKitProvider>
+          <ConnectKitProvider onConnect={handleHomeToQuestsRedirect}>
             <div className="min-h-screen flex flex-col">
               <Header />
               <div className="flex-1">{children}</div>
