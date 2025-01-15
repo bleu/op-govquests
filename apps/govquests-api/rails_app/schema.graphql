@@ -55,9 +55,10 @@ type BackgroundGradient {
 }
 
 type Badge {
-  badgeable: BadgeableUnion!
+  badgeable: BadgeableUnion
   displayData: BadgeDisplayData!
   id: ID!
+  special: Boolean
 }
 
 type BadgeDisplayData {
