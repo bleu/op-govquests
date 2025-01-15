@@ -62,7 +62,10 @@ export const SpecialBadgesSection: React.FC = () => {
           <Carousel setApi={setApi} className="mx-4 overflow-visible">
             <CarouselContent className="px-4">
               {data.badges.map((badge, index) => (
-                <CarouselItem key={badge.id} className="basis-1/5">
+                <CarouselItem
+                  key={badge.id}
+                  className="xl:basis-1/5 lg:basis-1/4 md:basis-1/3 sm:basis-1/2"
+                >
                   <Dialog defaultOpen={queryBadgeId == badge.id}>
                     <DialogTrigger>
                       <BadgeCard
@@ -70,6 +73,7 @@ export const SpecialBadgesSection: React.FC = () => {
                         isCompleted={true}
                         withTitle
                         header={`SPECIAL BADGE #${index + 1}`}
+                        className="w-full"
                       />
                     </DialogTrigger>
                     <BadgeDetails badgeId={badge.id} />
