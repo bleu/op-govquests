@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { BadgeCard } from "../../../gamification/components/BadgeCard";
 import { Tracks } from "../../types/trackTypes";
 
@@ -16,7 +17,15 @@ export const TrackDescription = ({ track }: TrackDescriptionProps) => {
         <div className="border-b h-0 w-full" />
       </div>
       <div className="items-center justify-center flex gap-12 mx-20">
-        <BadgeCard badgeId={track.badge.id} isCompleted={track.isCompleted} />
+        {track.badge.displayData.imageUrl && (
+          <Link href={`/badges/${track.badge.id}`}>
+            <BadgeCard
+              badgeId={track.badge.id}
+              isCompleted={track.isCompleted}
+              className="hover:scale-105 transition-all duration-300"
+            />
+          </Link>
+        )}
         <div className="flex flex-col gap-4 col-span-8 w-full font-bold">
           <span>{track.displayData.description}</span>
           <span>
