@@ -8,7 +8,22 @@ export const BadgeQuery = graphql(`
         title
         description
         imageUrl
-        source
+      }
+      badgeable {
+        __typename
+        ... on Quest {
+          id
+          slug
+          displayData {
+            title
+          }
+        }
+        ... on Track {
+          id
+          displayData {
+            title
+          }
+        }
       }
     }
   }

@@ -60,7 +60,10 @@ export const BadgeCard = ({
 
   if (withTitle)
     return (
-      <BadgeCardTitle header={header} source={data?.badge.displayData.source}>
+      <BadgeCardTitle
+        header={header}
+        badgeableTitle={data?.badge.badgeable.displayData.title}
+      >
         {Card}
       </BadgeCardTitle>
     );
@@ -69,15 +72,21 @@ export const BadgeCard = ({
 
 interface BadgeCardTitleProps extends ComponentProps<"div"> {
   header: string;
-  source: string;
+  badgeableTitle: string;
 }
 
-const BadgeCardTitle = ({ header, source, children }: BadgeCardTitleProps) => {
+const BadgeCardTitle = ({
+  header,
+  badgeableTitle,
+  children,
+}: BadgeCardTitleProps) => {
   return (
     <div className="my-5 p-2 rounded-lg bg-background/60 transition duration-300 hover:scale-105 flex flex-col">
       <div className="px-2 whitespace-nowrap">
         <h2 className="text-sm font-bold">{header.toUpperCase()}</h2>
-        <span className="text-xs font-thin">{source?.toUpperCase() || ""}</span>
+        <span className="text-xs font-thin">
+          {badgeableTitle?.toUpperCase() || ""}
+        </span>
       </div>
       <div className="w-full">{children}</div>
     </div>
