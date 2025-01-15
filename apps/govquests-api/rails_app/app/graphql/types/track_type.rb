@@ -15,7 +15,7 @@ module Types
 
     def is_completed
       object.quests.joins(:user_quests)
-        .where(user_quests: { user: context[:current_user], status: "completed" })
+        .where(user_quests: {user: context[:current_user], status: "completed"})
         .count == object.quests.count
     end
   end
