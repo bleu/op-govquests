@@ -1,7 +1,7 @@
 import { graphql } from "gql.tada";
 
 export const BadgesQuery = graphql(`
-  query GetBadges() {
+  query GetBadges {
     badges {
       id
     }
