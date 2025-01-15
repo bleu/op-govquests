@@ -58,19 +58,12 @@ export const SpecialBadgesSection: React.FC = () => {
             <CarouselContent className="px-4">
               {data.badges.map((badge, index) => (
                 <CarouselItem key={badge.id} className="basis-1/5">
-                  <div className="my-5 p-2 rounded-lg bg-background/60 transition duration-300 hover:scale-105 flex flex-col">
-                    <div className="px-2 whitespace-nowrap">
-                      <h2 className="text-sm font-bold">
-                        SPECIAL BADGE #{index}
-                      </h2>
-                      <span className="text-xs font-thin">
-                        PARTICIPATION MILESTONE
-                      </span>
-                    </div>
-                    <div className="w-full">
-                      <BadgeCard badgeId={badge.id} isCompleted={true} />
-                    </div>
-                  </div>
+                  <BadgeCard
+                    badgeId={badge.id}
+                    isCompleted={true}
+                    withTitle
+                    header={`SPECIAL BADGE #${index + 1}`}
+                  />
                 </CarouselItem>
               ))}
             </CarouselContent>

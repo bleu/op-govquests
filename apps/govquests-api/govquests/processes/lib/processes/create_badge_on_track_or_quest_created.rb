@@ -10,7 +10,10 @@ module Processes
     end
 
     def call(event)
-      display_data = event.data[:badge_display_data]
+      # Add source (quest / track title) to badge display data
+      display_data = event.data[:badge_display_data].merge(
+        source: event.data[:display_data][:title]
+      )
 
       entity_type = event.class.name.split('::').last.gsub('Created', '')
       entity_id = event.data["#{entity_type.downcase}_id".to_sym]

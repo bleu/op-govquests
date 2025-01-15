@@ -8,6 +8,7 @@ export const BadgeQuery = graphql(`
         title
         description
         imageUrl
+        source
       }
     }
   }
