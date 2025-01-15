@@ -38,7 +38,7 @@ export const BadgeCard = ({
         />
         <div
           className={cn(
-            "absolute w-full right-0 flex h-full top-0 pb-[42px] items-end whitespace-nowrap",
+            "absolute w-full right-0 flex h-full top-0 pb-[19.5%] items-end whitespace-nowrap",
             isCompleted ? koulen.className : redactedScript.className,
           )}
         >
