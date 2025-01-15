@@ -5,15 +5,20 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { UseEmblaCarouselType } from "embla-carousel-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useFetchBadges } from "../hooks/useFetchBadges";
 import { BadgeCard } from "./BadgeCard";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { BadgeDetails } from "./BadgeDetails";
 
 export const SpecialBadgesSection: React.FC = () => {
   const [api, setApi] = useState<UseEmblaCarouselType[1] | null>(null);
+  const params = useSearchParams();
+  const queryBadgeId = params.get("badgeId");
 
   const { data } = useFetchBadges();
 
@@ -58,12 +63,17 @@ export const SpecialBadgesSection: React.FC = () => {
             <CarouselContent className="px-4">
               {data.badges.map((badge, index) => (
                 <CarouselItem key={badge.id} className="basis-1/5">
-                  <BadgeCard
-                    badgeId={badge.id}
-                    isCompleted={true}
-                    withTitle
-                    header={`SPECIAL BADGE #${index + 1}`}
-                  />
+                  <Dialog defaultOpen={queryBadgeId == badge.id}>
+                    <DialogTrigger>
+                      <BadgeCard
+                        badgeId={badge.id}
+                        isCompleted={true}
+                        withTitle
+                        header={`SPECIAL BADGE #${index + 1}`}
+                      />
+                    </DialogTrigger>
+                    <BadgeDetails badgeId={badge.id} />
+                  </Dialog>
                 </CarouselItem>
               ))}
             </CarouselContent>
