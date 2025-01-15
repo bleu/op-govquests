@@ -12,6 +12,9 @@ module Gamification
       badgeable_id.nil? && badgeable_type.nil?
     end
 
+    scope :special, -> { where(badgeable_type: nil, badgeable_id: nil) }
+    scope :normal, -> { where.not(badgeable_type: nil, badgeable_id: nil) }
+
     private
 
     def validate_badgeable_consistency

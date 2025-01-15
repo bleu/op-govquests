@@ -524,7 +524,7 @@ type PageInfo {
 
 type Query {
   badge(id: ID!): Badge
-  badges: [Badge!]
+  badges(special: Boolean): [Badge!]
   currentUser: User
   notifications(
     """

@@ -10,7 +10,7 @@ export const SimpleBadgesSection: React.FC = () => {
   const params = useSearchParams();
   const queryBadgeId = params.get("badgeId");
 
-  const { data } = useFetchBadges();
+  const { data } = useFetchBadges(false);
 
   return (
     data && (

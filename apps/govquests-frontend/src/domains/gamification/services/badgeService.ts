@@ -7,6 +7,6 @@ export const fetchBadge = async (id: string) => {
   return await request(API_URL, BadgeQuery, { id });
 };
 
-export const fetchAllBadges = async () => {
-  return await request(API_URL, BadgesQuery);
+export const fetchAllBadges = async (special: boolean) => {
+  return await request(API_URL, BadgesQuery, { special });
 };

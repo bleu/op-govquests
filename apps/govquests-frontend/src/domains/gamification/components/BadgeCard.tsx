@@ -2,7 +2,7 @@
 
 import { cn, koulen, redactedScript } from "@/lib/utils";
 import Image from "next/image";
-import { ComponentProps, ReactNode } from "react";
+import { ComponentProps } from "react";
 import { useFetchBadge } from "../hooks/useFetchBadge";
 
 interface BadgeCardProps {
@@ -82,7 +82,7 @@ const BadgeCardTitle = ({
 }: BadgeCardTitleProps) => {
   return (
     <div className="my-5 p-2 rounded-lg bg-background/60 transition duration-300 hover:scale-105 flex flex-col">
-      <div className="px-2 whitespace-nowrap">
+      <div className="px-2 whitespace-nowrap w-full text-start">
         <h2 className="text-sm font-bold">{header.toUpperCase()}</h2>
         <span className="text-xs font-thin">
           {badgeableTitle?.toUpperCase() || ""}

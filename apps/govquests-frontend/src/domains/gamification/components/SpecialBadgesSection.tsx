@@ -20,7 +20,7 @@ export const SpecialBadgesSection: React.FC = () => {
   const params = useSearchParams();
   const queryBadgeId = params.get("badgeId");
 
-  const { data } = useFetchBadges();
+  const { data } = useFetchBadges(true);
 
   const hasNavigationButtons = useMemo<boolean>(
     () => api && (api.canScrollPrev() || api.canScrollNext()),

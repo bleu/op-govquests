@@ -3,9 +3,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchAllBadges } from "../services/badgeService";
 
-export const useFetchBadges = () => {
+export const useFetchBadges = (special) => {
   return useQuery({
-    queryKey: ["badges"],
-    queryFn: () => fetchAllBadges(),
+    queryKey: ["badges", special],
+    queryFn: () => fetchAllBadges(special),
   });
 };
