@@ -8,7 +8,7 @@ import { WagmiProvider } from "wagmi";
 import Footer from "./Footer";
 import Header from "./Header";
 import { Toaster } from "./ui/toaster";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export const queryClient = new QueryClient();
 
