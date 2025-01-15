@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/shadcn-button";
+import { Button } from "@/components/ui/Button";
 import Spinner from "@/components/ui/Spinner";
 import { cn } from "@/lib/utils";
 import { CheckIcon, CheckSquareIcon, ExternalLinkIcon } from "lucide-react";
@@ -96,12 +96,8 @@ function ActionButton<T extends ActionType>({
 
   return (
     <Button
-      variant="secondary"
       size="sm"
-      className={cn(
-        disabled && "pointer-events-none",
-        status === "completed" && "opacity-50",
-      )}
+      className={cn(status === "completed" && "opacity-50")}
       onClick={onClick}
       disabled={disabled || status === "completed" || loading}
       {...props}

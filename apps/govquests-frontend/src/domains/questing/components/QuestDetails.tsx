@@ -1,5 +1,5 @@
 import { DividerHeader } from "@/components/ui/DividerHeader";
-import { Button } from "@/components/ui/shadcn-button";
+import { Button } from "@/components/ui/Button";
 import ActionList from "@/domains/action_tracking/components/ActionList";
 import type { Quest } from "@/domains/questing/types/questTypes";
 import { ArrowLeft } from "lucide-react";

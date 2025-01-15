@@ -5,7 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "@/components/ui/shadcn-button";
+import { Button } from "@/components/ui/Button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   useNotifications,

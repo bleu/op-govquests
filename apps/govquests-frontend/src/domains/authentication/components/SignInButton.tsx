@@ -1,10 +1,14 @@
 "use client";
 
-import { Button } from "@/components/ui/shadcn-button";
+import { Button } from "@/components/ui/Button";
 import Spinner from "@/components/ui/Spinner";
 import { ConnectKitButton, useSIWE } from "connectkit";
 import React from "react";
-import { useAccount } from "wagmi";
+import {
+  useAccount
+} from "wagmi";
+import { WalletPopover } from "./WalletPopover";
+
 
 interface SignInButtonProps {
   className?: string;
@@ -15,10 +19,7 @@ const SignInButton: React.FC<SignInButtonProps> = ({ className }) => {
   const { signIn, signOut, isSignedIn } = useSIWE();
 
   const handleAuth = async () => {
-    if (!isConnected) {
-      // This will open the ConnectKit modal
-      return;
-    }
+    if (!isConnected) return;
     if (!isSignedIn) {
       await signIn();
     } else {
@@ -26,24 +27,29 @@ const SignInButton: React.FC<SignInButtonProps> = ({ className }) => {
     }
   };
 
-  const getButtonText = () => {
-    if (!isConnected) return "Connect Wallet";
-    if (isSignedIn) return "Sign Out";
-    return "Sign-In with Ethereum";
-  };
-
   return (
     <ConnectKitButton.Custom>
-      {({ isConnecting, show }) => (
-        <Button
-          variant="default"
-          onClick={isConnected ? handleAuth : show}
-          disabled={isConnecting}
-          className={className}
-        >
-          {isConnecting ? <Spinner /> : getButtonText()}
-        </Button>
-      )}
+      {({ isConnecting, show }) => {
+        if (isConnected && isSignedIn)
+          return <WalletPopover className={className} />;
+        else
+          return (
+            <Button
+              variant="default"
+              onClick={isConnected ? handleAuth : show}
+              disabled={isConnecting}
+              className={className}
+            >
+              {isConnecting ? (
+                <Spinner />
+              ) : !isConnected ? (
+                "Connect Wallet"
+              ) : (
+                !isSignedIn && "Sign-In with Ethereum"
+              )}
+            </Button>
+          );
+      }}
     </ConnectKitButton.Custom>
   );
 };
