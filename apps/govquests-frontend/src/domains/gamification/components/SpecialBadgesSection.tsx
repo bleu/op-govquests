@@ -42,12 +42,7 @@ export const SpecialBadgesSection: React.FC = () => {
           </span>
         </div>
 
-        <div
-          className={cn(
-            "relative w-full",
-            hasNavigationButtons && "mx-10 w-[calc(100%-2.5rem)]",
-          )}
-        >
+        <div className="relative w-full mx-2">
           {hasNavigationButtons && (
             <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
               <button
@@ -59,14 +54,11 @@ export const SpecialBadgesSection: React.FC = () => {
             </div>
           )}
 
-          <Carousel
-            setApi={setApi}
-            className={cn(hasNavigationButtons && "mx-10")}
-          >
-            <CarouselContent>
+          <Carousel setApi={setApi} className="mx-4 overflow-visible">
+            <CarouselContent className="px-4">
               {data.badges.map((badge, index) => (
                 <CarouselItem key={badge.id} className="basis-1/5">
-                  <div className="my-3 p-2 rounded-lg bg-background/60 transition duration-300 hover:scale-105 flex flex-col">
+                  <div className="my-5 p-2 rounded-lg bg-background/60 transition duration-300 hover:scale-105 flex flex-col">
                     <div className="px-2 whitespace-nowrap">
                       <h2 className="text-sm font-bold">
                         SPECIAL BADGE #{index}
