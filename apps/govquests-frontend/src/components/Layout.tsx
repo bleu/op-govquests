@@ -8,15 +8,23 @@ import { WagmiProvider } from "wagmi";
 import Footer from "./Footer";
 import Header from "./Header";
 import { Toaster } from "./ui/toaster";
+import { useRouter } from "next/navigation";
 
 export const queryClient = new QueryClient();
 
 const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  const router = useRouter();
+
+  const handleHomeToQuestsRedirect = () => {
+    if (window.location.pathname !== "/") return;
+    router.push("/quests");
+  };
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <SIWEProvider {...siweConfig}>
-          <ConnectKitProvider>
+          <ConnectKitProvider onConnect={handleHomeToQuestsRedirect}>
             <div className="min-h-screen flex flex-col">
               <Header />
               <div className="flex-1">{children}</div>
@@ -45,7 +53,7 @@ export default function Layout({
           alt="background_tier"
         />
         <div className="fixed object-cover size-full z-[1] bg-gradient-to-b from-[#1A1B1F] to-[rgba(26,27,31,0.6)]" />
-        <div className="relative z-10">{children}</div>
+        <div className="relative z-10 h-full">{children}</div>
       </div>
       <Toaster />
     </Providers>

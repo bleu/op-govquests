@@ -9,6 +9,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type React from "react";
 
+const headerPages = [
+  { href: "/", label: "Home" },
+  { href: "/quests", label: "Quests" },
+  { href: "/achievements", label: "Achievements" },
+  { href: "/leaderboard", label: "Leaderboard" },
+];
+
 const Header: React.FC = () => {
   const currentPath = usePathname();
 
@@ -21,41 +28,21 @@ const Header: React.FC = () => {
 
         <nav>
           <ul className="flex space-x-5 px-1 py-1">
-            <li>
-              <Link
-                className={cn(
-                  "flex items-center text-foreground/80 px-3 py-1 rounded-full transition hover:scale-110",
-                  currentPath.startsWith("/quests") &&
-                    "font-black text-foreground",
-                )}
-                href="/quests"
-              >
-                # Quests
-              </Link>
-            </li>
-            <li>
-              <Link
-                className={cn(
-                  "flex items-center text-foreground/80 px-3 py-1 rounded-full transition hover:scale-110",
-                  currentPath === "/" && "font-black text-foreground",
-                )}
-                href="/"
-              >
-                # Achievements
-              </Link>
-            </li>
-            <li>
-              <Link
-                className={cn(
-                  "flex items-center text-foreground/80 px-3 py-1 rounded-full transition hover:scale-110",
-                  currentPath.startsWith("/leaderboard") &&
-                    "font-black text-foreground",
-                )}
-                href="/leaderboard"
-              >
-                # Leaderboard
-              </Link>
-            </li>
+            {headerPages.map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  className={cn(
+                    "flex items-center text-foreground/80 px-3 py-1 rounded-full transition hover:scale-110",
+                    (currentPath === href ||
+                      (href !== "/" && currentPath.startsWith(href))) &&
+                      "font-black text-foreground",
+                  )}
+                  href={href}
+                >
+                  # {label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
 
