@@ -3,30 +3,33 @@ import {
   DialogDescription,
   DialogHeader,
 } from "@/components/ui/dialog";
-import { useFetchBadge } from "../hooks/useFetchBadge";
 import { BadgeCard } from "./BadgeCard";
 import { SimpleBadgeContent } from "./SimpleBadgeContent";
 import { SpecialBadgeContent } from "./SpecialBadgeContent";
 
-export const BadgeDetails = ({ badgeId }: { badgeId: string }) => {
-  const { data } = useFetchBadge(badgeId);
+interface BadgeDetailsProps {
+  badgeId: string;
+  special?: boolean;
+}
 
+export const BadgeDetails = ({
+  badgeId,
+  special = false,
+}: BadgeDetailsProps) => {
   return (
-    data && (
-      <DialogContent>
-        <DialogHeader>
-          <DialogDescription className="flex flex-col gap-8 items-center justify-center text-foreground">
-            <div className="w-[190px]">
-              <BadgeCard badgeId={badgeId} isCompleted={true} />
-            </div>
-            {data.badge.special ? (
-              <SpecialBadgeContent badge={data.badge} />
-            ) : (
-              <SimpleBadgeContent badge={data.badge} />
-            )}
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    )
+    <DialogContent>
+      <DialogHeader>
+        <DialogDescription className="flex flex-col gap-8 items-center justify-center text-foreground">
+          <div className="w-[190px]">
+            <BadgeCard badgeId={badgeId} isCompleted={true} />
+          </div>
+          {special ? (
+            <SpecialBadgeContent badgeId={badgeId} />
+          ) : (
+            <SimpleBadgeContent badgeId={badgeId} />
+          )}
+        </DialogDescription>
+      </DialogHeader>
+    </DialogContent>
   );
 };

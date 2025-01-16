@@ -58,7 +58,6 @@ type Badge {
   badgeable: BadgeableUnion
   displayData: BadgeDisplayData!
   id: ID!
-  special: Boolean
 }
 
 type BadgeDisplayData {
@@ -524,7 +523,7 @@ type PageInfo {
 
 type Query {
   badge(id: ID!): Badge
-  badges(special: Boolean): [Badge!]
+  badges: [Badge!]
   currentUser: User
   notifications(
     """
@@ -551,6 +550,8 @@ type Query {
   ): NotificationConnection!
   quest(slug: String!): Quest
   quests: [Quest!]!
+  specialBadge(id: ID!): SpecialBadge
+  specialBadges: [SpecialBadge!]
   track(id: ID!): Track
   tracks: [Track!]
   unreadNotificationsCount: Int!
@@ -649,6 +650,13 @@ type SignOutPayload {
   """
   clientMutationId: String
   success: Boolean!
+}
+
+type SpecialBadge {
+  badgeType: String!
+  displayData: BadgeDisplayData!
+  id: ID!
+  points: Int!
 }
 
 """

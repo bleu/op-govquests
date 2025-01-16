@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_01_15_203038) do
+ActiveRecord::Schema[8.1].define(version: 2025_01_16_122834) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,10 +47,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_15_203038) do
     t.jsonb "display_data", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "badgeable_type"
-    t.string "badgeable_id"
+    t.string "badgeable_type", null: false
+    t.string "badgeable_id", null: false
     t.index ["badge_id"], name: "index_badges_on_badge_id", unique: true
-    t.index ["badgeable_type", "badgeable_id"], name: "index_badges_on_badgeable_type_and_badgeable_id", unique: true, where: "((badgeable_type IS NOT NULL) AND (badgeable_id IS NOT NULL))"
+    t.index ["badgeable_type", "badgeable_id"], name: "index_badges_on_badgeable_type_and_badgeable_id", unique: true
   end
 
   create_table "event_store_events", force: :cascade do |t|
@@ -176,6 +176,17 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_15_203038) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_rewards_on_reward_id", unique: true
+  end
+
+  create_table "special_badges", force: :cascade do |t|
+    t.string "badge_id", null: false
+    t.jsonb "display_data", null: false
+    t.string "badge_type", null: false
+    t.jsonb "badge_data", null: false
+    t.integer "points", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_id"], name: "index_special_badges_on_badge_id", unique: true
   end
 
   create_table "tracks", force: :cascade do |t|

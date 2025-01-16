@@ -4,7 +4,6 @@ export const BadgeQuery = graphql(`
   query GetBadge($id: ID!) {
     badge(id: $id) {
       id
-      special
       displayData {
         title
         description

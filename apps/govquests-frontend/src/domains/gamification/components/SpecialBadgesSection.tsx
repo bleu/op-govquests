@@ -11,7 +11,7 @@ import { UseEmblaCarouselType } from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { useFetchBadges } from "../hooks/useFetchBadges";
+import { useFetchSpecialBadges } from "../hooks/useFetchSpecialBadges";
 import { BadgeCard } from "./BadgeCard";
 import { BadgeDetails } from "./BadgeDetails";
 
@@ -20,7 +20,7 @@ export const SpecialBadgesSection: React.FC = () => {
   const params = useSearchParams();
   const queryBadgeId = params.get("badgeId");
 
-  const { data } = useFetchBadges(true);
+  const { data } = useFetchSpecialBadges();
 
   const hasNavigationButtons = useMemo<boolean>(
     () => api && (api.canScrollPrev() || api.canScrollNext()),
@@ -61,7 +61,7 @@ export const SpecialBadgesSection: React.FC = () => {
 
           <Carousel setApi={setApi} className="mx-4 overflow-visible">
             <CarouselContent className="px-4">
-              {data.badges.map((badge, index) => (
+              {data.specialBadges.map((badge, index) => (
                 <CarouselItem
                   key={badge.id}
                   className="xl:basis-1/5 lg:basis-1/4 md:basis-1/3 sm:basis-1/2"
@@ -76,7 +76,7 @@ export const SpecialBadgesSection: React.FC = () => {
                         className="w-full"
                       />
                     </DialogTrigger>
-                    <BadgeDetails badgeId={badge.id} />
+                    <BadgeDetails badgeId={badge.id} special />
                   </Dialog>
                 </CarouselItem>
               ))}
