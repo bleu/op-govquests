@@ -59,5 +59,9 @@ module Questing
         badge_display_data: cmd.badge_display_data
       )
     end
+
+    handle "Questing::CompleteTrack", aggregate: Track do |track, cmd|
+      track.complete(user_id: cmd.user_id)
+    end
   end
 end

@@ -57,4 +57,11 @@ module Questing
 
     alias_method :aggregate_id, :track_id
   end
+
+  class CompleteTrack < Infra::Command
+    attribute :user_id, Infra::Types::UUID
+    attribute :track_id, Infra::Types::UUID
+
+    alias_method :aggregate_id, :track_id
+  end
 end

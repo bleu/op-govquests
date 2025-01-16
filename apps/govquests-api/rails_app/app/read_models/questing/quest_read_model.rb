@@ -7,6 +7,12 @@ module Questing
     has_many :user_quests, class_name: "Questing::UserQuestReadModel", foreign_key: "quest_id", primary_key: "quest_id"
     has_many :reward_pools, class_name: "Rewarding::RewardPoolReadModel", foreign_key: "quest_id", primary_key: "quest_id"
 
+    belongs_to :track,
+      class_name: "Questing::TrackReadModel",
+      foreign_key: "track_id",
+      primary_key: "track_id",
+      optional: true
+
     validates :quest_id, presence: true, uniqueness: true
     validates :slug, presence: true
     validates :audience, presence: true
@@ -31,8 +37,10 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  quest_id     :string           not null
+#  track_id     :string
 #
 # Indexes
 #
 #  index_quests_on_quest_id  (quest_id) UNIQUE
+#  index_quests_on_track_id  (track_id)
 #

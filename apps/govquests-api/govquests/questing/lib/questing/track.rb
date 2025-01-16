@@ -24,10 +24,20 @@ module Questing
       )
     end
 
+    def complete(user_id:)
+      apply(TrackCompleted.new(data: {
+        user_id:,
+        track_id: @id
+      }))
+    end
+
     on TrackCreated do |event|
       @display_data = event.data[:display_data]
       @quest_ids = event.data[:quest_ids]
       @badge_display_data = event.data[:badge_display_data]
+    end
+
+    on TrackCompleted do |event|
     end
   end
 end

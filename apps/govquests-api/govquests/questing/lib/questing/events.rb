@@ -43,4 +43,9 @@ module Questing
     attribute :quest_ids, Infra::Types::Array
     attribute :badge_display_data, Infra::Types::Hash
   end
+
+  class TrackCompleted < Infra::Event
+    attribute :user_id, Infra::Types::UUID
+    attribute :track_id, Infra::Types::UUID
+  end
 end

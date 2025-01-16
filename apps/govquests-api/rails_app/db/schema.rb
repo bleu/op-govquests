@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_01_16_135942) do
+ActiveRecord::Schema[8.1].define(version: 2025_01_16_200408) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -137,7 +137,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_16_135942) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.string "track_id"
     t.index ["quest_id"], name: "index_quests_on_quest_id", unique: true
+    t.index ["track_id"], name: "index_quests_on_track_id"
   end
 
   create_table "reward_issuances", force: :cascade do |t|
@@ -255,6 +257,18 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_16_135942) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_sessions_on_user_id"
+  end
+
+  create_table "user_tracks", force: :cascade do |t|
+    t.string "track_id", null: false
+    t.string "user_id", null: false
+    t.string "status", default: "in_progress", null: false
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_user_tracks_on_status"
+    t.index ["track_id"], name: "index_user_tracks_on_track_id"
+    t.index ["user_id", "track_id"], name: "index_user_tracks_on_user_id_and_track_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

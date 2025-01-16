@@ -10,14 +10,18 @@ module Processes
     end
 
     def call(event)
-      profile_id = event.data[:profile_id]
-      badge = event.data[:badge]
+      user_id = event.data[:user_id]
+      badgeable_id = event.data[:badgeable_id]
+      badgeable_type = event.data[:badgeable_type]
+      
+      badge_record = badgeable_type.constantize.find_by(id: badgeable_id)
+      badge_title = badge_record&.display_data&.dig("title") if badge_record
 
       @command_bus.call(
         ::Notifications::CreateNotification.new(
           notification_id: SecureRandom.uuid,
-          user_id: profile_id,
-          content: "Congratulations! You've earned the #{badge} badge!",
+          user_id: ,
+          content: "Congratulations! You've earned the #{badge_title} badge!",
           notification_type: "badge_earned"
         )
       )
