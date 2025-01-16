@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@0no-co/graphqlsp": "^1.12.16",
-    "@tailwindcss/typography": "^0.5.15",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^22",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-alpha.3",
