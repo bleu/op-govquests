@@ -22,7 +22,7 @@ export const SimpleBadgesSection: React.FC = () => {
 
         <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 w-full">
           {data.badges.map((badge, index) => (
-            <Dialog defaultOpen={queryBadgeId == badge.id}>
+            <Dialog defaultOpen={queryBadgeId == badge.id} key={index}>
               <DialogTrigger>
                 <BadgeCard
                   badgeId={badge.id}
