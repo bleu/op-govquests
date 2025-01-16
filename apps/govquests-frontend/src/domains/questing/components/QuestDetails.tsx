@@ -9,6 +9,7 @@ import { BadgeCard } from "../../gamification/components/BadgeCard";
 import HtmlRender from "@/components/ui/HtmlRender";
 import { IndicatorPill } from "@/components/IndicatorPill";
 import RewardIndicator from "@/components/RewardIndicator";
+import Link from "next/link";
 
 interface QuestDetailsProps {
   quest: Quest;
@@ -56,10 +57,15 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
                 <DividerHeader>About this quest</DividerHeader>
 
                 <div className="items-center justify-center flex gap-12 mx-20 pt-8">
-                  <BadgeCard
-                    badgeId={quest.badge.id}
-                    isCompleted={isCompleted}
-                  />
+                  {quest.badge.displayData.imageUrl && (
+                    <Link href={`/achievements?badgeId=${quest.badge.id}`}>
+                      <BadgeCard
+                        badgeId={quest.badge.id}
+                        isCompleted={isCompleted}
+                        className="hover:scale-105 transition-all duration-300 min-w-52 h-60"
+                      />
+                    </Link>
+                  )}
                   <div className="font-thin flex flex-col gap-4">
                     <HtmlRender content={quest.displayData.intro} />
                     <span className="font-black">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_01_10_140933) do
+ActiveRecord::Schema[8.1].define(version: 2025_01_15_203038) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,10 +47,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_10_140933) do
     t.jsonb "display_data", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "badgeable_type", null: false
-    t.string "badgeable_id", null: false
+    t.string "badgeable_type"
+    t.string "badgeable_id"
     t.index ["badge_id"], name: "index_badges_on_badge_id", unique: true
-    t.index ["badgeable_type", "badgeable_id"], name: "index_badges_on_badgeable_type_and_badgeable_id", unique: true
+    t.index ["badgeable_type", "badgeable_id"], name: "index_badges_on_badgeable_type_and_badgeable_id", unique: true, where: "((badgeable_type IS NOT NULL) AND (badgeable_id IS NOT NULL))"
   end
 
   create_table "event_store_events", force: :cascade do |t|
