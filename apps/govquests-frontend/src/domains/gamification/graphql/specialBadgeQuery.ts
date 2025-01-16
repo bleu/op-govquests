@@ -6,6 +6,7 @@ export const SpecialBadgeQuery = graphql(`
       id
       points
       badgeType
+      earnedByCurrentUser
       displayData {
         title
         description

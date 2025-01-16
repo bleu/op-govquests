@@ -6,6 +6,8 @@ module Resolvers
       current_user = context[:current_user]
       badges = Gamification::BadgeReadModel.includes(:user_badges)
 
+      return badges unless current_user
+
       earned_badge_ids = Gamification::UserBadgeReadModel
         .where(user_id: current_user.id)
         .where(badgeable_type: "Gamification::BadgeReadModel")

@@ -4,6 +4,7 @@ export const BadgesQuery = graphql(`
   query GetBadges {
     badges {
       id
+      earnedByCurrentUser
     }
   }
 `);

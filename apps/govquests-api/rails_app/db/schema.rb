@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_01_16_122834) do
+ActiveRecord::Schema[8.1].define(version: 2025_01_16_135942) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -196,6 +196,19 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_16_122834) do
     t.datetime "updated_at", null: false
     t.jsonb "quest_ids", default: [], array: true
     t.index ["track_id"], name: "index_tracks_on_track_id", unique: true
+  end
+
+  create_table "user_badges", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "badgeable_type", null: false
+    t.string "badgeable_id", null: false
+    t.datetime "earned_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badgeable_type", "badgeable_id"], name: "index_user_badges_on_badgeable_type_and_badgeable_id"
+    t.index ["earned_at"], name: "index_user_badges_on_earned_at"
+    t.index ["user_id", "badgeable_type", "badgeable_id"], name: "unique_normal_badges_index", unique: true, where: "((badgeable_type)::text = 'Gamification::BadgeReadModel'::text)"
+    t.index ["user_id"], name: "index_user_badges_on_user_id"
   end
 
   create_table "user_game_profiles", force: :cascade do |t|

@@ -56,9 +56,10 @@ type BackgroundGradient {
 
 type Badge {
   badgeable: BadgeableUnion
-  currentUserBadges: [UserBadge!]!
   displayData: BadgeDisplayData!
+  earnedByCurrentUser: Boolean!
   id: ID!
+  userBadges: [UserBadge!]!
 }
 
 type BadgeDisplayData {
@@ -655,10 +656,11 @@ type SignOutPayload {
 
 type SpecialBadge {
   badgeType: String!
-  currentUserBadges: [UserBadge!]!
   displayData: BadgeDisplayData!
+  earnedByCurrentUser: Boolean!
   id: ID!
   points: Int!
+  userBadges: [UserBadge!]!
 }
 
 """
