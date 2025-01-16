@@ -46,12 +46,7 @@ module Gamification
     attribute :profile_id, Infra::Types::UUID
     attribute :streak, Infra::Types::Integer
   end
-
-  class BadgeEarned < Infra::Event
-    attribute :profile_id, Infra::Types::UUID
-    attribute :badge, Infra::Types::String
-  end
-
+  
   class LeaderboardUpdated < Infra::Event
     attribute :leaderboard_id, Infra::Types::UUID
     attribute :profile_id, Infra::Types::UUID
@@ -63,5 +58,12 @@ module Gamification
     attribute :display_data, Infra::Types::Hash
     attribute :badgeable_id, Infra::Types::UUID
     attribute :badgeable_type, Infra::Types::String
+  end
+
+  class BadgeEarned < Infra::Event
+    attribute :user_id, Infra::Types::UUID
+    attribute :badgeable_id, Infra::Types::String
+    attribute :badgeable_type, Infra::Types::String
+    attribute :earned_at, Infra::Types::DateTime
   end
 end

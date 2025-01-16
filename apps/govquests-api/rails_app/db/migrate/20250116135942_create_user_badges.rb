@@ -1,7 +1,7 @@
 class CreateUserBadges < ActiveRecord::Migration[8.1]
   def change
     create_table :user_badges do |t|
-      t.references :user, null: false
+      t.string :user_id, null: false
       t.string :badgeable_type, null: false
       t.string :badgeable_id, null: false
       t.datetime :earned_at, null: false
