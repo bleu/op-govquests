@@ -7,6 +7,10 @@ module Gamification
     validates :badge_type, presence: true
     validates :badge_data, presence: true
     validates :points, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
+
+    has_many :user_badges,
+      class_name: "Gamification::UserBadgeReadModel",
+      as: :badgeable
   end
 end
 

@@ -56,6 +56,7 @@ type BackgroundGradient {
 
 type Badge {
   badgeable: BadgeableUnion
+  currentUserBadges: [UserBadge!]!
   displayData: BadgeDisplayData!
   id: ID!
 }
@@ -654,6 +655,7 @@ type SignOutPayload {
 
 type SpecialBadge {
   badgeType: String!
+  currentUserBadges: [UserBadge!]!
   displayData: BadgeDisplayData!
   id: ID!
   points: Int!
@@ -722,6 +724,11 @@ type User {
   email: String
   id: ID!
   userType: String!
+}
+
+type UserBadge {
+  earnedAt: ISO8601DateTime!
+  userId: ID!
 }
 
 type UserQuest {

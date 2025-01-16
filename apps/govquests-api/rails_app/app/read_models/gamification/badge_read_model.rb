@@ -6,6 +6,10 @@ module Gamification
 
     validates :badge_id, presence: true, uniqueness: true
     validates :display_data, presence: true
+
+    has_many :user_badges,
+      class_name: "Gamification::UserBadgeReadModel",
+      as: :badgeable
   end
 end
 
