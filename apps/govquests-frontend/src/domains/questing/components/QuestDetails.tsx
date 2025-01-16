@@ -58,7 +58,7 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
 
                 <div className="items-center justify-center flex gap-12 mx-20 pt-8">
                   {quest.badge.displayData.imageUrl && (
-                    <Link href={`/badges/${quest.badge.id}`}>
+                    <Link href={`/achievements?badgeId=${quest.badge.id}`}>
                       <BadgeCard
                         badgeId={quest.badge.id}
                         isCompleted={isCompleted}

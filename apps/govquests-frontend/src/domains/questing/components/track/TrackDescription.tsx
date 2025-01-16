@@ -18,7 +18,7 @@ export const TrackDescription = ({ track }: TrackDescriptionProps) => {
       </div>
       <div className="items-center justify-center flex gap-12 mx-20">
         {track.badge.displayData.imageUrl && (
-          <Link href={`/badges/${track.badge.id}`}>
+          <Link href={`/achievements?badgeId=${track.badge.id}`}>
             <BadgeCard
               badgeId={track.badge.id}
               isCompleted={track.isCompleted}
