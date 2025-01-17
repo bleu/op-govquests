@@ -66,4 +66,12 @@ module Gamification
     attribute :badge_type, Infra::Types::String
     attribute :earned_at, Infra::Types::DateTime
   end
+
+  class SpecialBadgeCreated < Infra::Event
+    attribute :badge_id, Infra::Types::String
+    attribute :display_data, Infra::Types::Hash
+    attribute :badge_type, Infra::Types::String
+    attribute :badge_data, Infra::Types::Hash
+    attribute :points, Infra::Types::Integer
+  end
 end
