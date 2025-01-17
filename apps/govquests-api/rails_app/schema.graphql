@@ -65,6 +65,7 @@ type Badge {
 type BadgeDisplayData {
   description: String
   imageUrl: String
+  sequenceNumber: Int
   title: String
 }
 

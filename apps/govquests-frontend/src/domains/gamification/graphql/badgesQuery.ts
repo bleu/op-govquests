@@ -5,6 +5,18 @@ export const BadgesQuery = graphql(`
     badges {
       id
       earnedByCurrentUser
+      displayData {
+        sequenceNumber
+      }
+      badgeable {
+        __typename
+        ... on Quest {
+          id
+        }
+        ... on Track {
+          id
+        }
+      }
     }
   }
 `);
