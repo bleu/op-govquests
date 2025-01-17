@@ -5,8 +5,7 @@ import { useFetchSpecialBadge } from "../hooks/useFetchSpecialBadge";
 export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
   const { data } = useFetchSpecialBadge(badgeId);
 
-  // TODO - get user badge - OP-677
-  const isCompleted = true;
+  const isCompleted = data.specialBadge.earnedByCurrentUser;
 
   const [error, setError] = useState(null);
 

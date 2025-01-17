@@ -26,7 +26,6 @@ export const SimpleBadgesSection: React.FC = () => {
               <DialogTrigger>
                 <BadgeCard
                   badgeId={badge.id}
-                  isCompleted={badge.earnedByCurrentUser}
                   withTitle
                   header={`${badge.badgeable.__typename} BADGE #${badge.displayData.sequenceNumber}`}
                   className="w-full"

@@ -61,7 +61,6 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
                     <Link href={`/achievements?badgeId=${quest.badge.id}`}>
                       <BadgeCard
                         badgeId={quest.badge.id}
-                        isCompleted={isCompleted}
                         className="hover:scale-105 transition-all duration-300 min-w-52 h-60"
                       />
                     </Link>

@@ -70,7 +70,6 @@ export const SpecialBadgesSection: React.FC = () => {
                     <DialogTrigger>
                       <BadgeCard
                         badgeId={badge.id}
-                        isCompleted={badge.earnedByCurrentUser}
                         withTitle
                         header={`SPECIAL BADGE #${index + 1}`}
                         className="w-full"

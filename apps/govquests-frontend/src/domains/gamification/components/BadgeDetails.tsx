@@ -21,7 +21,7 @@ export const BadgeDetails = ({
       <DialogHeader>
         <DialogDescription className="flex flex-col gap-8 items-center justify-center text-foreground">
           <div className="w-[190px]">
-            <BadgeCard badgeId={badgeId} isCompleted={true} />
+            <BadgeCard badgeId={badgeId} revealIncomplete />
           </div>
           {special ? (
             <SpecialBadgeContent badgeId={badgeId} />

@@ -6,8 +6,7 @@ import { useFetchBadge } from "../hooks/useFetchBadge";
 export const SimpleBadgeContent = ({ badgeId }: { badgeId: string }) => {
   const { data } = useFetchBadge(badgeId);
 
-  // TODO - get user badge - OP-677
-  const isCompleted = true;
+  const isCompleted = data.badge.earnedByCurrentUser;
 
   const linkToBadgeable = useCallback(() => {
     if (!data?.badge) return "";
