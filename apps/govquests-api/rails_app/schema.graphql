@@ -660,7 +660,7 @@ type SpecialBadge {
   displayData: BadgeDisplayData!
   earnedByCurrentUser: Boolean!
   id: ID!
-  points: Int!
+  rewardPools: [RewardPool!]!
   userBadges: [UserBadge!]!
 }
 

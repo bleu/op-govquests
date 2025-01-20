@@ -12,7 +12,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useFetchSpecialBadges } from "../hooks/useFetchSpecialBadges";
-import { BadgeCard } from "./BadgeCard";
+import { SpecialBadgeCard } from "./BadgeCard";
 import { BadgeDetails } from "./BadgeDetails";
 
 export const SpecialBadgesSection: React.FC = () => {
@@ -68,7 +68,7 @@ export const SpecialBadgesSection: React.FC = () => {
                 >
                   <Dialog defaultOpen={queryBadgeId == badge.id}>
                     <DialogTrigger>
-                      <BadgeCard
+                      <SpecialBadgeCard
                         badgeId={badge.id}
                         withTitle
                         header={`SPECIAL BADGE #${index + 1}`}
