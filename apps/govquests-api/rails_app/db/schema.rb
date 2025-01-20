@@ -202,14 +202,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_16_200408) do
 
   create_table "user_badges", force: :cascade do |t|
     t.string "user_id", null: false
-    t.string "badgeable_type", null: false
-    t.string "badgeable_id", null: false
+    t.string "badge_type", null: false
+    t.string "badge_id", null: false
     t.datetime "earned_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["badgeable_type", "badgeable_id"], name: "index_user_badges_on_badgeable_type_and_badgeable_id"
+    t.index ["badge_type", "badge_id"], name: "index_user_badges_on_badge_type_and_badge_id"
     t.index ["earned_at"], name: "index_user_badges_on_earned_at"
-    t.index ["user_id", "badgeable_type", "badgeable_id"], name: "unique_normal_badges_index", unique: true, where: "((badgeable_type)::text = 'Gamification::BadgeReadModel'::text)"
+    t.index ["user_id", "badge_type", "badge_id"], name: "unique_normal_badges_index", unique: true, where: "((badge_type)::text = 'Gamification::BadgeReadModel'::text)"
   end
 
   create_table "user_game_profiles", force: :cascade do |t|

@@ -62,8 +62,8 @@ module Gamification
 
   class BadgeEarned < Infra::Event
     attribute :user_id, Infra::Types::UUID
-    attribute :badgeable_id, Infra::Types::String
-    attribute :badgeable_type, Infra::Types::String
+    attribute :badge_id, Infra::Types::String
+    attribute :badge_type, Infra::Types::String
     attribute :earned_at, Infra::Types::DateTime
   end
 end

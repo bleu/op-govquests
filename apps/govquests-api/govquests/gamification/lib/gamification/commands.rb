@@ -72,8 +72,8 @@ module Gamification
 
   class EarnBadge < Infra::Command
     attribute :user_id, Infra::Types::UUID
-    attribute :badgeable_id, Infra::Types::String
-    attribute :badgeable_type, Infra::Types::String
+    attribute :badge_id, Infra::Types::String
+    attribute :badge_type, Infra::Types::String
     attribute :earned_at, Infra::Types::DateTime.default { Time.current.to_datetime }
 
     alias_method :aggregate_id, :user_id

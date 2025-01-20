@@ -80,7 +80,7 @@ module Gamification
     end
 
     handle "Gamification::EarnBadge", aggregate: UserBadge do |user_badge, cmd|
-      user_badge.earn_badge(cmd.user_id, cmd.badgeable_id, cmd.badgeable_type, cmd.earned_at)
+      user_badge.earn_badge(cmd.user_id, cmd.badge_id, cmd.badge_type, cmd.earned_at)
     end
   end
 end

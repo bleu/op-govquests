@@ -10,12 +10,6 @@ export const BadgesQuery = graphql(`
       }
       badgeable {
         __typename
-        ... on Quest {
-          id
-        }
-        ... on Track {
-          id
-        }
       }
     }
   }

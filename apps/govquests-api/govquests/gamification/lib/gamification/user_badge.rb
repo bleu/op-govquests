@@ -6,11 +6,11 @@ module Gamification
       @id = id
     end
 
-    def earn_badge(user_id, badgeable_id, badgeable_type, earned_at)
+    def earn_badge(user_id, badge_id, badge_type, earned_at)
       apply BadgeEarned.new(data: {
         user_id:,
-        badgeable_id:,
-        badgeable_type:,
+        badge_id:,
+        badge_type:,
         earned_at:,
       })
     end
@@ -19,8 +19,8 @@ module Gamification
 
     on BadgeEarned do |event|
       @user_id = event.data[:user_id]
-      @badgeable_id = event.data[:badgeable_id]
-      @badgeable_type = event.data[:badgeable_type]
+      @badge_id = event.data[:badge_id]
+      @badge_type = event.data[:badge_type]
       @earned_at = event.data[:earned_at]
     end
   end

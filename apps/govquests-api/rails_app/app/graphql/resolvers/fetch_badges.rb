@@ -10,8 +10,8 @@ module Resolvers
 
       earned_badge_ids = Gamification::UserBadgeReadModel
         .where(user_id: current_user.user_id)
-        .where(badgeable_type: "Gamification::BadgeReadModel")
-        .pluck(:badgeable_id)
+        .where(badge_type: "Gamification::BadgeReadModel")
+        .pluck(:badge_id)
 
       return badges if earned_badge_ids.empty?
 

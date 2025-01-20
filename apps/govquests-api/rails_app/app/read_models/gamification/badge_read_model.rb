@@ -9,7 +9,7 @@ module Gamification
 
     has_many :user_badges,
       class_name: "Gamification::UserBadgeReadModel",
-      as: :badgeable
+      as: :badge
   end
 end
 
