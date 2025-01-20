@@ -16,8 +16,6 @@ Dir[File.join(__dir__, "gamification/strategies/*.rb")].each do |f|
   require_relative f
 end
 
-puts "Available constants in Gamification::Strategies: #{Gamification::Strategies.constants}"
-
 ACTION_BADGE_NAMESPACE_UUID = "5FA78373-03E0-4D0B-91D1-3F2C6CA3F088"
 
 module Gamification

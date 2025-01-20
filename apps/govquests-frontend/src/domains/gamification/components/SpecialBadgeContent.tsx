@@ -2,9 +2,14 @@ import { Button } from "@/components/ui/Button";
 import { useState } from "react";
 import { useFetchSpecialBadge } from "../hooks/useFetchSpecialBadge";
 import { useCollectBadge } from "../hooks/useCollectBadge";
+import { useAccount } from "wagmi";
+import { useSIWE } from "connectkit";
 
 export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
   const { data } = useFetchSpecialBadge(badgeId);
+
+  const { isConnected } = useAccount();
+  const { isSignedIn } = useSIWE();
 
   const isCompleted = data.specialBadge.earnedByCurrentUser;
 
@@ -20,7 +25,7 @@ export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
       },
       {
         onSuccess: (result) => {
-          if (result.collectBadge.errors) {
+          if (!result.collectBadge.badgeEarned) {
             setError(result.collectBadge.errors);
           } else {
             setError(null);
@@ -53,15 +58,20 @@ export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
         <div className="flex flex-col gap-2 justify-center items-center">
           <Button
             className="px-5 w-fit self-center"
-            disabled={isCompleted}
+            disabled={isCompleted || !isSignedIn || !isConnected}
             onClick={handleCollectBadge}
           >
             Collect Badge
           </Button>
           {error && (
             <p className="text-destructive font-bold text-xs">
-              Sorry, you haven&apos;t met the requirements.Try again another
+              Sorry, you haven&apos;t met the requirements. Try again another
               time.
+            </p>
+          )}
+          {(!isConnected || !isSignedIn) && (
+            <p className="text-destructive font-bold text-xs">
+              You need to be connected to a wallet to collect this badge.
             </p>
           )}
         </div>
