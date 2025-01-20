@@ -109,7 +109,29 @@ module SpecialBadgeCreation
 end
 
 module SpecialBadgeData
-  SPECIAL_BADGES = []
+  SPECIAL_BADGES = [
+    {
+      display_data: {
+        title: "Govquests Certified New Delegate",
+        description: "Master the basics of delegation and voting. Complete the new delegate quest, submit your delegate statement, and cast your first vote!",
+        image_url: "/badges/SPECIAL BADGE_01_02.png"
+      },
+      badge_type: "certified_delegate",
+      badge_data: {
+        badge_type: "certified_delegate"
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 1000
+        },
+        {
+          type: "Token",
+          amount: 20
+        }
+      ]
+    }
+  ]
 end
 
 module TrackCreation

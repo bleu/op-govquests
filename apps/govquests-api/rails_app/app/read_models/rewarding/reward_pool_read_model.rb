@@ -28,7 +28,7 @@ end
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  pool_id             :uuid             not null
-#  rewardable_id       :uuid             not null
+#  rewardable_id       :string           not null
 #
 # Indexes
 #
