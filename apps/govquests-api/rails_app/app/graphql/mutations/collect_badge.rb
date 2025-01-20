@@ -27,7 +27,7 @@ module Mutations
     rescue Gamification::SpecialBadge::VerificationFailedError
       {
         badge_earned: false,
-        errors: ["Badge requirements not met"]
+        errors: ["Sorry, you haven't met the requirements. Try again another time."]
       }
     rescue => e
       {

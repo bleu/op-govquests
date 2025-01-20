@@ -26,7 +26,7 @@ export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
       {
         onSuccess: (result) => {
           if (!result.collectBadge.badgeEarned) {
-            setError(result.collectBadge.errors);
+            setError(result.collectBadge.errors?.[0]);
           } else {
             setError(null);
           }
@@ -64,13 +64,12 @@ export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
             Collect Badge
           </Button>
           {error && (
-            <p className="text-destructive font-bold text-xs">
-              Sorry, you haven&apos;t met the requirements. Try again another
-              time.
+            <p className="text-destructive font-bold text-xs text-centerπ">
+              {error}
             </p>
           )}
           {(!isConnected || !isSignedIn) && (
-            <p className="text-destructive font-bold text-xs">
+            <p className="text-destructive font-bold text-xs text-center">
               You need to be connected to a wallet to collect this badge.
             </p>
           )}

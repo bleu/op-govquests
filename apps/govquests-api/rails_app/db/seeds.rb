@@ -112,13 +112,14 @@ module SpecialBadgeData
   SPECIAL_BADGES = [
     {
       display_data: {
-        title: "Govquests Certified New Delegate",
+        title: "Certified New Delegate",
         description: "Master the basics of delegation and voting. Complete the new delegate quest, submit your delegate statement, and cast your first vote!",
         image_url: "/badges/SPECIAL BADGE_01_02.png"
       },
       badge_type: "certified_delegate",
       badge_data: {
-        badge_type: "certified_delegate"
+        badge_type: "certified_delegate",
+        quests: ["Become a Delegate", "Delegate Statement", "First Vote Milestone"]
       },
       rewards: [
         {
