@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_01_20_160049) do
+ActiveRecord::Schema[8.1].define(version: 2025_01_20_205824) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -266,9 +266,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_20_160049) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_track_id"
     t.index ["status"], name: "index_user_tracks_on_status"
     t.index ["track_id"], name: "index_user_tracks_on_track_id"
     t.index ["user_id", "track_id"], name: "index_user_tracks_on_user_id_and_track_id", unique: true
+    t.index ["user_track_id"], name: "index_user_tracks_on_user_track_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

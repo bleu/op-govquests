@@ -58,10 +58,25 @@ module Questing
     alias_method :aggregate_id, :track_id
   end
 
-  class CompleteTrack < Infra::Command
-    attribute :user_id, Infra::Types::UUID
+  class StartUserTrack < Infra::Command
+    attribute :user_track_id, Infra::Types::UUID
     attribute :track_id, Infra::Types::UUID
+    attribute :user_id, Infra::Types::UUID
 
-    alias_method :aggregate_id, :track_id
+    alias_method :aggregate_id, :user_track_id
+  end
+
+  class UpdateUserTrackProgress < Infra::Command
+    attribute :user_track_id, Infra::Types::UUID
+    attribute :quest_id, Infra::Types::UUID
+
+    alias_method :aggregate_id, :user_track_id
+  end
+
+
+  class CompleteUserTrack < Infra::Command
+    attribute :user_track_id, Infra::Types::UUID
+
+    alias_method :aggregate_id, :user_track_id
   end
 end

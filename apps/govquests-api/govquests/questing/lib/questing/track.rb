@@ -5,6 +5,8 @@ module Questing
     AlreadyExists = Class.new(StandardError)
     QuestAlreadyAssociated = Class.new(StandardError)
 
+    attr_reader :quests
+
     def initialize(id)
       @id = id
       @quests = []
@@ -25,22 +27,10 @@ module Questing
       )
     end
 
-    def complete(user_id:)
-      apply(TrackCompleted.new(data: {
-        user_id:,
-        track_id: @id
-      }))
-    end
-
     on TrackCreated do |event|
       @display_data = event.data[:display_data]
-      @quest_ids = event.data[:quest_ids]
+      @quests = event.data[:quest_ids]
       @badge_display_data = event.data[:badge_display_data]
-    end
-
-    on TrackCompleted do |event|
-      @completed_by ||= []
-      @completed_by << event.data[:user_id]
     end
   end
 end

@@ -1,5 +1,5 @@
 module Processes
-  class CompleteTrackOnQuestCompleted
+  class UpdateTrackOnQuestCompleted
     def initialize(event_store, command_bus)
       @event_store = event_store
       @command_bus = command_bus
@@ -16,23 +16,14 @@ module Processes
       track = quest.track
       user_id = event.data[:user_id]
 
-      completed_quests_count = track.quests
-        .joins(:user_quests)
-        .where(
-          user_quests: {
-            user_id: user_id,
-            status: "completed"
-          }
-        ).count
+      user_track_id = Questing.generate_user_track_id(track.track_id, user_id)
 
-      if completed_quests_count == track.quests.count
-        @command_bus.call(
-          Questing::CompleteTrack.new(
-            user_id: user_id,
-            track_id: track.track_id
-          )
+      @command_bus.call(
+        Questing::UpdateUserTrackProgress.new(
+          user_track_id: ,
+          quest_id: event.data[:quest_id]
         )
-      end
+      )
     end
   end
 end

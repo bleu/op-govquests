@@ -32,17 +32,19 @@ end
 #
 # Table name: user_tracks
 #
-#  id           :bigint           not null, primary key
-#  completed_at :datetime
-#  status       :string           default("in_progress"), not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  track_id     :string           not null
-#  user_id      :string           not null
+#  id            :bigint           not null, primary key
+#  completed_at  :datetime
+#  status        :string           default("in_progress"), not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  track_id      :string           not null
+#  user_id       :string           not null
+#  user_track_id :string
 #
 # Indexes
 #
 #  index_user_tracks_on_status                (status)
 #  index_user_tracks_on_track_id              (track_id)
 #  index_user_tracks_on_user_id_and_track_id  (user_id,track_id) UNIQUE
+#  index_user_tracks_on_user_track_id         (user_track_id) UNIQUE
 #
