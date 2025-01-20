@@ -34,14 +34,16 @@ module Gamification
       strategy.verify_completion?
     end
 
-    def collect_badge(user_id:)
+    def collect_badge(user_id)
       raise VerificationFailedError unless verify_completion?(user_id: user_id)
 
-      apply EarnBadge.new(data: {
-        user_id:,
-        badge_id: @id,
-        badge_type: "Gamification::SpecialBadgeReadModel",
-      })
+      Gamification.command_bus.call(
+        EarnBadge.new(
+          user_id: user_id,
+          badge_id: @id,
+          badge_type: "Gamification::SpecialBadgeReadModel"
+        )
+      )
     end
 
     private

@@ -7,6 +7,17 @@ require_relative "gamification/badge"
 require_relative "gamification/user_badge"
 require_relative "gamification/special_badge"
 
+require_relative "gamification/strategies/base"
+require_relative "gamification/strategies/special_badge_strategy_factory"
+
+Dir[File.join(__dir__, "gamification/strategies/*.rb")].each do |f|
+  next if f.end_with?("base.rb")
+  next if f.end_with?("special_badge_strategy_factory.rb")
+  require_relative f
+end
+
+puts "Available constants in Gamification::Strategies: #{Gamification::Strategies.constants}"
+
 ACTION_BADGE_NAMESPACE_UUID = "5FA78373-03E0-4D0B-91D1-3F2C6CA3F088"
 
 module Gamification
@@ -23,6 +34,8 @@ module Gamification
   class Configuration
     def call(event_store, command_bus)
       CommandHandler.register_commands(event_store, command_bus)
+
+      Gamification.command_bus = command_bus
     end
   end
 

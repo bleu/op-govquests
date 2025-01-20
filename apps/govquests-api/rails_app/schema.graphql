@@ -80,7 +80,7 @@ input CollectBadgeInput {
   """
   Type of the badge
   """
-  badgeType: ID!
+  badgeType: String!
 
   """
   A unique identifier for the client performing the mutation.

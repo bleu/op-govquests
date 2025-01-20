@@ -9,7 +9,9 @@ module Gamification
 
       def for(badge_type, **dependencies)
         strategy_name = badge_type.to_s.camelize
-        strategy_class = "Gamification::SpecialBadgeStrategies::#{strategy_name}".constantize
+        strategy_class = "Gamification::Strategies::#{strategy_name}".constantize
+
+        puts "Looking for class: Gamification::Strategies::#{strategy_name}" # Debug
         
         strategy_class.new(**dependencies)
       rescue NameError
