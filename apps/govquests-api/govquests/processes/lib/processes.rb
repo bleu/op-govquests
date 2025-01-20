@@ -30,7 +30,7 @@ module Processes
       NotifyOnBadgeEarned.new(event_store, command_bus).subscribe
       NotifyOnTierAchieved.new(event_store, command_bus).subscribe
 
-      DeliverNotificationOnCreated.new(event_store, command_bus).subscribe   
+      DeliverNotificationOnCreated.new(event_store, command_bus).subscribe
     end
   end
 end

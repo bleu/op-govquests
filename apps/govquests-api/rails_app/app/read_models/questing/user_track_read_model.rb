@@ -12,6 +12,11 @@ module Questing
       foreign_key: "track_id",
       primary_key: "track_id"
 
+    has_many :user_quests,
+      class_name: "Questing::UserQuestReadModel",
+      primary_key: "user_id",
+      foreign_key: "user_id"
+
     validates :user_id, presence: true
     validates :track_id, presence: true
     validates :completed_at, presence: true, if: :completed?

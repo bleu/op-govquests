@@ -9,6 +9,7 @@ module Questing
       @id = id
       @quests = []
       @display_data = nil
+      @completed_by = []
     end
 
     def create(display_data:, quest_ids:, badge_display_data:)
@@ -38,6 +39,8 @@ module Questing
     end
 
     on TrackCompleted do |event|
+      @completed_by ||= []
+      @completed_by << event.data[:user_id]
     end
   end
 end

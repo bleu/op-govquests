@@ -8,6 +8,8 @@ module Gamification
     validates :user_id, presence: true
     validates :earned_at, presence: true
 
+    default_scope { ordered_by_earned }
+
     scope :special, -> { where(badge_type: "Gamification::SpecialBadgeReadModel") }
     scope :normal, -> { where(badge_type: "Gamification::BadgeReadModel") }
     scope :earned_between, ->(start_date, end_date) { where(earned_at: start_date..end_date) }
