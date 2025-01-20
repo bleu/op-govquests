@@ -68,10 +68,15 @@ module Gamification
   end
 
   class SpecialBadgeCreated < Infra::Event
-    attribute :badge_id, Infra::Types::String
+    attribute :badge_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
     attribute :badge_type, Infra::Types::String
     attribute :badge_data, Infra::Types::Hash
-    attribute :points, Infra::Types::Integer
+  end
+
+  class RewardPoolAssociated < Infra::Event
+    attribute :badge_id, Infra::Types::UUID
+    attribute :pool_id, Infra::Types::String
+    attribute :reward_definition, Infra::Types::Hash
   end
 end

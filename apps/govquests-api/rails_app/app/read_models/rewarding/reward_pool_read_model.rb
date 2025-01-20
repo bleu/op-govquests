@@ -11,6 +11,8 @@ module Rewarding
       through: :issued_rewards,
       source: :user
 
+    belongs_to :rewardable, polymorphic: true
+
     scope :token, -> { where("reward_definition->>'type' = 'Token'") }
   end
 end
@@ -22,13 +24,15 @@ end
 #  id                  :bigint           not null, primary key
 #  remaining_inventory :integer
 #  reward_definition   :jsonb            not null
+#  rewardable_type     :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  pool_id             :uuid             not null
-#  quest_id            :uuid             not null
+#  rewardable_id       :uuid             not null
 #
 # Indexes
 #
-#  index_reward_pools_on_pool_id   (pool_id) UNIQUE
-#  index_reward_pools_on_quest_id  (quest_id)
+#  index_reward_pools_on_pool_id                            (pool_id) UNIQUE
+#  index_reward_pools_on_rewardable_id                      (rewardable_id)
+#  index_reward_pools_on_rewardable_type_and_rewardable_id  (rewardable_type,rewardable_id)
 #

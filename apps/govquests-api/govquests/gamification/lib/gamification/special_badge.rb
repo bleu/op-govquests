@@ -7,16 +7,23 @@ module Gamification
       @display_data = nil
       @badge_type = nil
       @badge_data = nil
-      @points = nil
+      @reward_pools = []
     end
 
-    def create(display_data, badge_type, badge_data, points)
+    def create(display_data, badge_type, badge_data)
       apply SpecialBadgeCreated.new(data: {
         badge_id: @id,
         display_data:,
         badge_type:,
-        badge_data:,
-        points:,
+        badge_data:
+      })
+    end
+
+    def associate_reward_pool(pool_id, reward_definition)
+      apply RewardPoolAssociated.new(data: {
+        badge_id: @id,
+        pool_id:,
+        reward_definition:
       })
     end
 
@@ -26,7 +33,13 @@ module Gamification
       @display_data = event.data[:display_data]
       @badge_type = event.data[:badge_type]
       @badge_data = event.data[:badge_data] 
-      @points = event.data[:points]
+    end
+
+    on RewardPoolAssociated do |event|
+      @reward_pools << {
+        pool_id: event.data[:pool_id],
+        reward_definition: event.data[:reward_definition]
+      }
     end
   end
 end
