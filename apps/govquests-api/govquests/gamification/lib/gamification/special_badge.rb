@@ -2,6 +2,8 @@ module Gamification
   class SpecialBadge
     include AggregateRoot
 
+    class VerificationFailedError < StandardError; end
+
     def initialize(id)
       @id = id
       @display_data = nil
@@ -27,12 +29,27 @@ module Gamification
       })
     end
 
+    def verify_completion?(user_id:)
+      strategy = Gamification::SpecialBadgeStrategyFactory.for(@badge_type, badge_data: @badge_data, user_id: user_id)
+      strategy.verify_completion?
+    end
+
+    def collect_badge(user_id:)
+      raise VerificationFailedError unless verify_completion?(user_id: user_id)
+
+      apply EarnBadge.new(data: {
+        user_id:,
+        badge_id: @id,
+        badge_type: "Gamification::SpecialBadgeReadModel",
+      })
+    end
+
     private
 
     on SpecialBadgeCreated do |event|
       @display_data = event.data[:display_data]
       @badge_type = event.data[:badge_type]
-      @badge_data = event.data[:badge_data] 
+      @badge_data = event.data[:badge_data]
     end
 
     on RewardPoolAssociated do |event|

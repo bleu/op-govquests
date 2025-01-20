@@ -78,7 +78,7 @@ module Gamification
 
     alias_method :aggregate_id, :user_id
   end
-
+  
   class CreateSpecialBadge < Infra::Command
     attribute :badge_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
@@ -92,6 +92,13 @@ module Gamification
     attribute :badge_id, Infra::Types::UUID
     attribute :pool_id, Infra::Types::UUID
     attribute :reward_definition, Infra::Types::Hash
+
+    alias :aggregate_id :badge_id
+  end
+
+  class CollectSpecialBadge < Infra::Command
+    attribute :badge_id, Infra::Types::UUID
+    attribute :user_id, Infra::Types::UUID
 
     alias :aggregate_id :badge_id
   end
