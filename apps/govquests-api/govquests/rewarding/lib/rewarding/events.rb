@@ -1,7 +1,8 @@
 module Rewarding
   class RewardPoolCreated < Infra::Event
     attribute :pool_id, Infra::Types::UUID
-    attribute :quest_id, Infra::Types::UUID
+    attribute :rewardable_id, Infra::Types::UUID
+    attribute :rewardable_type, Infra::Types::String
     attribute :reward_definition, SharedKernel::Types::RewardDefinition
     attribute :initial_inventory, Infra::Types::Integer.optional
   end

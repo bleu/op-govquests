@@ -14,7 +14,8 @@ module Rewarding
   class CommandHandler < Infra::CommandHandlerRegistry
     handle "Rewarding::CreateRewardPool", aggregate: RewardPool do |pool, cmd|
       pool.create(
-        quest_id: cmd.quest_id,
+        rewardable_id: cmd.rewardable_id,
+        rewardable_type: cmd.rewardable_type,
         reward_definition: cmd.reward_definition,
         initial_inventory: cmd.initial_inventory
       )

@@ -3,11 +3,17 @@ require_relative "../../../shared_kernel/lib/shared_kernel/types/reward_definiti
 module Rewarding
   class CreateRewardPool < Infra::Command
     attribute :pool_id, Infra::Types::UUID
-    attribute :quest_id, Infra::Types::UUID
+    attribute :rewardable_id, Infra::Types::UUID
+    attribute :rewardable_type, Infra::Types::String
     attribute :reward_definition, SharedKernel::Types::RewardDefinition
     attribute :initial_inventory, Infra::Types::Integer.optional
 
-    alias_method :aggregate_id, :pool_id
+    alias :aggregate_id :pool_id
+
+    def validate!
+      raise ArgumentError, "rewardable_type must be either Quest or SpecialBadgeReadModel" unless 
+        ['Questing::QuestReadModel', 'Gamification::SpecialBadgeReadModel'].include?(rewardable_type)
+    end
   end
 
   class IssueReward < Infra::Command
