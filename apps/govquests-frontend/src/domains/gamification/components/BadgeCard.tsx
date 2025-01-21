@@ -27,11 +27,11 @@ export const NormalBadgeCard = (props: Omit<BadgeCardProps, "badge">) => {
           header={props.header}
           badgeableTitle={data?.badge.badgeable.displayData.title}
         >
-          <BadgeCard badgeId={props.badgeId} badge={data.badge} />
+          <BadgeCard badge={data.badge} {...props} />
         </BadgeCardTitle>
       )
     );
-  else return data && <BadgeCard badgeId={props.badgeId} badge={data.badge} />;
+  else return data && <BadgeCard badge={data.badge} {...props} />;
 };
 
 export const SpecialBadgeCard = (props: Omit<BadgeCardProps, "badge">) => {
@@ -41,14 +41,11 @@ export const SpecialBadgeCard = (props: Omit<BadgeCardProps, "badge">) => {
     return (
       data && (
         <BadgeCardTitle header={props.header}>
-          <BadgeCard badgeId={props.badgeId} badge={data.specialBadge} />
+          <BadgeCard badge={data.specialBadge} {...props} />
         </BadgeCardTitle>
       )
     );
-  else
-    return (
-      data && <BadgeCard badgeId={props.badgeId} badge={data.specialBadge} />
-    );
+  else return data && <BadgeCard badge={data.specialBadge} {...props} />;
 };
 
 export const BadgeCard = ({
