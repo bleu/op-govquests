@@ -21,7 +21,6 @@ export const TrackDescription = ({ track }: TrackDescriptionProps) => {
           <Link href={`/achievements?badgeId=${track.badge.id}`}>
             <BadgeCard
               badgeId={track.badge.id}
-              isCompleted={track.isCompleted}
               className="hover:scale-105 transition-all duration-300 min-w-52 h-60"
             />
           </Link>

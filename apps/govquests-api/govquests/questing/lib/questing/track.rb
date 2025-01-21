@@ -5,10 +5,13 @@ module Questing
     AlreadyExists = Class.new(StandardError)
     QuestAlreadyAssociated = Class.new(StandardError)
 
+    attr_reader :quests
+
     def initialize(id)
       @id = id
       @quests = []
       @display_data = nil
+      @completed_by = []
     end
 
     def create(display_data:, quest_ids:, badge_display_data:)
@@ -26,7 +29,7 @@ module Questing
 
     on TrackCreated do |event|
       @display_data = event.data[:display_data]
-      @quest_ids = event.data[:quest_ids]
+      @quests = event.data[:quest_ids]
       @badge_display_data = event.data[:badge_display_data]
     end
   end

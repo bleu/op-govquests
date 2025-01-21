@@ -4,7 +4,7 @@ export const BadgeQuery = graphql(`
   query GetBadge($id: ID!) {
     badge(id: $id) {
       id
-      special
+      earnedByCurrentUser
       displayData {
         title
         description

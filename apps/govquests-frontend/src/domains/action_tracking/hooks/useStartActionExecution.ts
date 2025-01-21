@@ -15,6 +15,7 @@ export const useStartActionExecution = () => {
     mutationFn: startActionExecution,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notifications"] });
+      queryClient.invalidateQueries({ queryKey: ["badge"] });
     },
   });
 };

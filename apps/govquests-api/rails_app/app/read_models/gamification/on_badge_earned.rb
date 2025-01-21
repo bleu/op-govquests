@@ -1,21 +1,17 @@
 module Gamification
   class OnBadgeEarned
     def call(event)
-      profile_id = event.data[:profile_id]
-      badge = event.data[:badge]
+      user_id = event.data[:user_id]
+      badge_id = event.data[:badge_id]
+      badge_type = event.data[:badge_type]
+      earned_at = event.data[:earned_at]
 
-      game_profile = GameProfileReadModel.find_by(profile_id: profile_id)
-      if game_profile
-        badges = game_profile.badges || []
-        if badges.include?(badge)
-          Rails.logger.info "Badge '#{badge}' already exists for GameProfile #{profile_id}"
-        else
-          game_profile.update(badges: badges + [badge])
-          Rails.logger.info "Added badge '#{badge}' to GameProfile #{profile_id}"
-        end
-      else
-        Rails.logger.warn "GameProfile #{profile_id} not found for BadgeEarned event"
-      end
+      UserBadgeReadModel.create!(
+        user_id:,
+        badge_id: badge_id,
+        badge_type: badge_type,
+        earned_at: earned_at
+      )
     end
   end
 end

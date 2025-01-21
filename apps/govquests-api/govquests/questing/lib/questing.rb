@@ -5,6 +5,7 @@ require_relative "questing/events"
 require_relative "questing/quest"
 require_relative "questing/user_quest"
 require_relative "questing/track"
+require_relative "questing/user_track"
 
 QUESTING_NAMESPACE_UUID = "14f9d670-d4f7-4fea-bc48-1438f0f9f11c".freeze
 
@@ -12,6 +13,12 @@ module Questing
   class << self
     def generate_user_quest_id(quest_id, user_id)
       name = "Quest$#{quest_id}-User$#{user_id}"
+      namespace_uuid = QUESTING_NAMESPACE_UUID
+      Digest::UUID.uuid_v5(namespace_uuid, name)
+    end
+
+    def generate_user_track_id(track_id, user_id)
+      name = "Track$#{track_id}-User$#{user_id}"
       namespace_uuid = QUESTING_NAMESPACE_UUID
       Digest::UUID.uuid_v5(namespace_uuid, name)
     end
@@ -58,6 +65,20 @@ module Questing
         quest_ids: cmd.quest_ids,
         badge_display_data: cmd.badge_display_data
       )
+    end
+
+    handle "Questing::StartUserTrack", aggregate: UserTrack do |user_track, cmd, repository|
+      repository.with_aggregate(Track, cmd.track_id) do |track|
+        user_track.start(cmd.track_id, cmd.user_id, track.quests)
+      end
+    end
+
+    handle "Questing::UpdateUserTrackProgress", aggregate: UserTrack do |user_track, cmd|
+      user_track.add_progress(cmd.quest_id)
+    end
+
+    handle "Questing::CompleteUserTrack", aggregate: UserTrack do |user_track, cmd|
+      user_track.complete
     end
   end
 end
