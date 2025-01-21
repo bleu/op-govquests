@@ -116,9 +116,9 @@ module SpecialBadgeData
         description: "Master the basics of delegation and voting. Complete the new delegate quest, submit your delegate statement, and cast your first vote!",
         image_url: "/badges/SPECIAL BADGE_01_02.png"
       },
-      badge_type: "certified_delegate",
+      badge_type: "quests_completed",
       badge_data: {
-        badge_type: "certified_delegate",
+        badge_type: "quests_completed",
         quests: ["Become a Delegate", "Delegate Statement", "First Vote Milestone"]
       },
       rewards: [

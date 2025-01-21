@@ -1,6 +1,6 @@
 module Gamification
   module Strategies
-    class CertifiedDelegate < Base
+    class QuestsCompleted < Base
       def verify_completion?
         quest_titles = @badge_data[:quests]
         quests = Questing::QuestReadModel.where("display_data->>'title' IN (?)", quest_titles)

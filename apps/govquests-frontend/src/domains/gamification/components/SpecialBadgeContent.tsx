@@ -11,7 +11,7 @@ export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
   const { isConnected } = useAccount();
   const { isSignedIn } = useSIWE();
 
-  const isCompleted = data.specialBadge.earnedByCurrentUser;
+  const isCompleted = data?.specialBadge.earnedByCurrentUser;
 
   const { mutate } = useCollectBadge();
 
