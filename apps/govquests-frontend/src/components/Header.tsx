@@ -2,9 +2,7 @@
 
 import SignInButton from "@/domains/authentication/components/SignInButton";
 import { NotificationBell } from "@/domains/notifications/components/NotificationBell";
-import { cn } from "@/lib/utils";
-import { HomeIcon, MapIcon, StarIcon } from "lucide-react";
-import Image from "next/image";
+import { cn, kdamThmorPro } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type React from "react";
@@ -20,10 +18,16 @@ const Header: React.FC = () => {
   const currentPath = usePathname();
 
   return (
-    <header className="p-8 pr-16">
-      <div className="flex justify-between items-center">
-        <Link href="/" className="text-foreground py-1 rounded-md">
-          <Image src="/logo.svg" alt="logo" width={200} height={200} />
+    <header className="w-full max-w-[1200px] mx-auto py-4 px-4">
+      <div className="flex justify-between items-center align-middle w-full">
+        <Link
+          href="/"
+          className={cn(
+            "text-foreground rounded-md font-normal text-3xl [text-shadow:2px_4px_0_rgb(0,0,0)]",
+            kdamThmorPro.className,
+          )}
+        >
+          govquests
         </Link>
 
         <nav>
@@ -46,7 +50,7 @@ const Header: React.FC = () => {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 min-w-[300px] justify-end">
           <NotificationBell />
           <SignInButton />
         </div>
