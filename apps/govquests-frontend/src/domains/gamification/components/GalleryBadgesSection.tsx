@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useFetchBadges } from "../hooks/useFetchBadges";
 import { NormalBadgeCard } from "./BadgeCard";
 import { BadgeDialog } from "./BadgeDialog";
+import { SectionHeader } from "@/components/SectionHeader";
 
 export const SimpleBadgesSection: React.FC = () => {
   const params = useSearchParams();
@@ -14,11 +15,10 @@ export const SimpleBadgesSection: React.FC = () => {
   return (
     data && (
       <div className="flex flex-col items-center justify-center mx-8 w-[calc(100%-4rem)]">
-        <div className="flex flex-col gap-3 pb-4 border-b border-foreground/20 w-full">
-          <h1 className="text-2xl font-bold"># Gallery</h1>
-          <span className="text-xl">Discover all the badges you can earn.</span>
-        </div>
-
+        <SectionHeader
+          title="Gallery"
+          description="Discover all the badges you can earn."
+        />
         <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 w-full">
           {data.badges.map((badge, index) => (
             <BadgeDialog
