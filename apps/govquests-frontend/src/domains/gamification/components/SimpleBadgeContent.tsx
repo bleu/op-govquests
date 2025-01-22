@@ -39,7 +39,7 @@ export const SimpleBadgeContent = ({ badgeId }: { badgeId: string }) => {
             : `Complete the ${badgeableTitle} ${badgeableType} to unlock the ${data.badge.displayData.title} badge and add it to your collection.`}
         </span>
         <Link href={linkToBadgeable()} className="self-center" scroll={false}>
-          <DialogClose>
+          <DialogClose asChild>
             <Button className="px-5 w-fit">
               {isCompleted ? "See" : "Start"} {data.badge.badgeable.__typename}
             </Button>

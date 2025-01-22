@@ -1,10 +1,9 @@
 "use client";
 
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useSearchParams } from "next/navigation";
 import { useFetchBadges } from "../hooks/useFetchBadges";
 import { NormalBadgeCard } from "./BadgeCard";
-import { BadgeDetails } from "./BadgeDetails";
+import { BadgeDialog } from "./BadgeDialog";
 
 export const SimpleBadgesSection: React.FC = () => {
   const params = useSearchParams();
@@ -22,17 +21,18 @@ export const SimpleBadgesSection: React.FC = () => {
 
         <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 w-full">
           {data.badges.map((badge, index) => (
-            <Dialog defaultOpen={queryBadgeId == badge.id} key={index}>
-              <DialogTrigger>
-                <NormalBadgeCard
-                  badgeId={badge.id}
-                  withTitle
-                  header={`${badge.badgeable.__typename} BADGE #${badge.displayData.sequenceNumber}`}
-                  className="w-full"
-                />
-              </DialogTrigger>
-              <BadgeDetails badgeId={badge.id} />
-            </Dialog>
+            <BadgeDialog
+              defaultOpen={queryBadgeId == badge.id}
+              key={index}
+              badgeId={badge.id}
+            >
+              <NormalBadgeCard
+                badgeId={badge.id}
+                withTitle
+                header={`${badge.badgeable.__typename} BADGE #${badge.displayData.sequenceNumber}`}
+                className="w-full"
+              />
+            </BadgeDialog>
           ))}
         </div>
       </div>

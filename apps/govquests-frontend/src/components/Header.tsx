@@ -18,7 +18,7 @@ const Header: React.FC = () => {
   const currentPath = usePathname();
 
   return (
-    <header className="w-full max-w-[1200px] mx-auto py-4 px-4">
+    <header className="w-full max-w-[1200px] mx-auto py-4 px-4 z-50">
       <div className="flex justify-between items-center align-middle w-full">
         <Link
           href="/"
