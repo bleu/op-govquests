@@ -72,7 +72,7 @@ const Header: React.FC = () => {
         </Link>
 
         <nav>
-          <ul className="flex space-x-5 px-1 py-1">
+          <ul className="flex space-x-5 px-1 py-1 items-center">
             {headerPages.map(({ href, label }) => (
               <li key={href}>
                 <Link
@@ -92,7 +92,7 @@ const Header: React.FC = () => {
             <NavigationMenu className="group relative">
               <NavigationMenuList>
                 <NavigationMenuItem className="group hover:bg-background">
-                  <NavigationMenuTrigger className="flex items-center text-foreground/80 font-normal group-hover:font-extrabold px-3 py-1 text-md rounded-full transition-all duration-300 group-hover:scale-110">
+                  <NavigationMenuTrigger className="flex items-center text-foreground/80 font-normal group-hover:font-extrabold text-md rounded-full transition-all duration-300 group-hover:scale-110">
                     # Tools
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="hover:bg-background flex flex-col gap-4 p-4">
