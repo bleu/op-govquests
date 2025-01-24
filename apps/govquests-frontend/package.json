@@ -29,6 +29,7 @@
     "graphql-request": "^7.1.2",
     "lucide-react": "^0.473.0",
     "next": "15.1.5",
+    "pino-pretty": "*",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-intersection-observer": "^9.15.1",
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@0no-co/graphqlsp": "^1.12.16",
+    "@swc/jest": "^0.2.37",
     "@tailwindcss/typography": "^0.5.16",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
