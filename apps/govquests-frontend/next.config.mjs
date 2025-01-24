@@ -4,7 +4,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   experimental: {
-    serverComponentsExternalPackages: ["pino", "pino-pretty"],
+    serverExternalPackages: ["pino", "pino-pretty"],
   },
   async rewrites() {
     const destination =
