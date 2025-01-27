@@ -13,6 +13,7 @@ module Gamification
       event_store.subscribe(OnBadgeCreated, to: [Gamification::BadgeCreated])
       event_store.subscribe(OnSpecialBadgeCreated, to: [Gamification::SpecialBadgeCreated])
       event_store.subscribe(OnTierCreated, to: [Gamification::TierCreated])
+      event_store.subscribe(OnGameProfileCreated, to: [Gamification::GameProfileCreated])
     end
   end
 end

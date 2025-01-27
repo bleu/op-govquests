@@ -111,5 +111,9 @@ module Gamification
     handle "Gamification::CreateTier", aggregate: Tier do |tier, cmd|
       tier.create(cmd.display_data, cmd.min_delegation, cmd.max_delegation, cmd.multiplier, cmd.image_url)
     end
+
+    handle "Gamification::CreateGameProfile", aggregate: GameProfile do |profile, cmd|
+      profile.create(tier_id: cmd.tier_id)
+    end
   end
 end

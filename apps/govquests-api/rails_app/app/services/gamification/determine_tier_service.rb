@@ -1,17 +1,23 @@
 module Gamification
   class DetermineTierService
-    def initialize(address, agora_client: AgoraApi::Client.new)
-      @address = address
-      @agora_client = agora_client
-    end
+    class << self
+      def determine_tier(address:)
+        total_voting_power = if address.present?
+          delegate = agora_client.get_delegate(address)
+          delegate.dig("votingPower", "total").to_i
+        else
+          0
+        end
 
-    def call
-      delegate = @agora_client.get_delegate(@address)
-      total_voting_power = delegate["votingPower"]["total"].to_i
+        tiers = TierReadModel.order(min_delegation: :desc)
+        tiers.find { |tier| total_voting_power >= tier.min_delegation }
+      end
 
-      tiers = TierReadModel.order(min_delegation: :desc)
+      private
 
-      tiers.find { |tier| total_voting_power >= tier.min_delegation }
+      def agora_client
+        @agora_client ||= AgoraApi::Client.new
+      end
     end
   end
 end

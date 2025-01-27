@@ -88,4 +88,9 @@ module Gamification
     attribute :multiplier, Infra::Types::Float
     attribute :image_url, Infra::Types::String
   end
+
+  class GameProfileCreated < Infra::Event
+    attribute :profile_id, Infra::Types::UUID
+    attribute :tier_id, Infra::Types::UUID
+  end
 end

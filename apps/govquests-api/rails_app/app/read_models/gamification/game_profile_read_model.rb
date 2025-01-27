@@ -2,7 +2,6 @@ module Gamification
   class GameProfileReadModel < ApplicationRecord
     self.table_name = "user_game_profiles"
 
-    attribute :tier, :string
     attribute :unclaimed_tokens, :jsonb, default: {}
     attribute :active_claim, :jsonb
 
