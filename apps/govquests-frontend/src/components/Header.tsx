@@ -89,9 +89,9 @@ const Header: React.FC = () => {
               </li>
             ))}
 
-            <NavigationMenu className="group relative">
+            <NavigationMenu className=" relative">
               <NavigationMenuList>
-                <NavigationMenuItem className="group hover:bg-background">
+                <NavigationMenuItem className="group-hover:bg-background">
                   <NavigationMenuTrigger className="flex items-center text-foreground/80 font-normal group-hover:font-extrabold text-md rounded-full transition-all duration-300 group-hover:scale-110">
                     # Tools
                   </NavigationMenuTrigger>
@@ -99,10 +99,10 @@ const Header: React.FC = () => {
                     {tools.map(({ icon: Icon, title, description, href }) => (
                       <Link
                         key={title}
-                        className="flex flex-col items-start gap-1 whitespace-nowrap"
+                        className="flex flex-col items-start gap-1 whitespace-nowrap group"
                         href={href}
                       >
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 group-hover:bg-white/5 transition-all duration-300 px-1 group-hover:sadow-2xl rounded-md">
                           <Icon className="size-3" />
                           <h3 className="text-foreground text-sm">{title}</h3>
                         </div>
