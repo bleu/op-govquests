@@ -43,12 +43,12 @@ end
 #  rank             :integer
 #  score            :integer          default(0)
 #  streak           :integer          default(0)
-#  tier             :integer          default("0")
 #  track            :integer          default(0)
 #  unclaimed_tokens :jsonb
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  profile_id       :string           not null
+#  tier_id          :string
 #
 # Indexes
 #
