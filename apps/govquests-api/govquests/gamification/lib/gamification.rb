@@ -109,7 +109,7 @@ module Gamification
     end
 
     handle "Gamification::CreateTier", aggregate: Tier do |tier, cmd|
-      tier.create(cmd.display_data)
+      tier.create(cmd.display_data, cmd.min_delegation, cmd.max_delegation, cmd.multiplier, cmd.image_url)
     end
   end
 end

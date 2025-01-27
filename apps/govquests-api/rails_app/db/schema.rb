@@ -189,6 +189,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_27_222358) do
     t.jsonb "display_data", null: false
     t.bigint "min_delegation", null: false
     t.bigint "max_delegation"
+    t.float "multiplier", default: 1.0, null: false
+    t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tier_id"], name: "index_tiers_on_tier_id", unique: true

@@ -5,6 +5,8 @@ class CreateTiers < ActiveRecord::Migration[8.1]
       t.jsonb :display_data, null: false
       t.bigint :min_delegation, null: false
       t.bigint :max_delegation
+      t.float :multiplier, null: false, default: 1.0
+      t.string :image_url
       t.timestamps
     end
 

@@ -83,5 +83,9 @@ module Gamification
   class TierCreated < Infra::Event
     attribute :tier_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
+    attribute :min_delegation, Infra::Types::Integer
+    attribute :max_delegation, Infra::Types::Integer.optional
+    attribute :multiplier, Infra::Types::Float
+    attribute :image_url, Infra::Types::String
   end
 end
