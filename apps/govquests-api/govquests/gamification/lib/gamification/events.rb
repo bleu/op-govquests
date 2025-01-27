@@ -79,4 +79,9 @@ module Gamification
     attribute :pool_id, Infra::Types::String
     attribute :reward_definition, Infra::Types::Hash
   end
+
+  class TierCreated < Infra::Event
+    attribute :tier_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+  end
 end
