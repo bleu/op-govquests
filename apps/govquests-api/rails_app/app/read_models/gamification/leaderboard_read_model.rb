@@ -3,7 +3,7 @@ module Gamification
     self.table_name = "leaderboards"
     self.primary_key = "leaderboard_id"
 
-    has_many :leaderboard_entries,
+    has_many :game_profiles,
       foreign_key: "leaderboard_id",
       primary_key: "leaderboard_id",
       class_name: "Gamification::GameProfileReadModel",
