@@ -6,6 +6,18 @@ module Gamification
     attribute :unclaimed_tokens, :jsonb, default: {}
     attribute :active_claim, :jsonb
 
+    belongs_to :tier,
+      class_name: "Gamification::TierReadModel",
+      foreign_key: "tier_id",
+      primary_key: "tier_id"
+
+    belongs_to :leaderboard,
+      class_name: "Gamification::LeaderboardReadModel",
+      foreign_key: "leaderboard_id",
+      primary_key: "leaderboard_id"
+
+    validates :rank, presence: true
+
     def unclaimed_balance_for(token_address)
       unclaimed_tokens[token_address].to_i
     end
@@ -28,6 +40,7 @@ end
 #  id               :bigint           not null, primary key
 #  active_claim     :jsonb
 #  badges           :jsonb
+#  rank             :integer
 #  score            :integer          default(0)
 #  streak           :integer          default(0)
 #  tier             :integer          default("0")
@@ -35,9 +48,18 @@ end
 #  unclaimed_tokens :jsonb
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  leaderboard_id   :string
 #  profile_id       :string           not null
 #
 # Indexes
 #
-#  index_user_game_profiles_on_profile_id  (profile_id) UNIQUE
+#  index_user_game_profiles_on_leaderboard_id    (leaderboard_id)
+#  index_user_game_profiles_on_profile_id        (profile_id) UNIQUE
+#  index_user_game_profiles_on_tier_id           (tier_id)
+#  index_user_game_profiles_on_tier_id_and_rank  (tier_id,rank)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (leaderboard_id => leaderboards.leaderboard_id)
+#  fk_rails_...  (tier_id => tiers.tier_id)
 #
