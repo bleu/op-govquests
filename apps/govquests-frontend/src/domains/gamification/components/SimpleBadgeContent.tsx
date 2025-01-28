@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/Button";
+import { DialogClose } from "@radix-ui/react-dialog";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback } from "react";
 import { useFetchBadge } from "../hooks/useFetchBadge";
 
@@ -7,9 +9,10 @@ export const SimpleBadgeContent = ({ badgeId }: { badgeId: string }) => {
   const { data } = useFetchBadge(badgeId);
 
   const isCompleted = data?.badge.earnedByCurrentUser;
+  const path = usePathname();
 
   const linkToBadgeable = useCallback(() => {
-    if (!data?.badge) return "";
+    if (!data?.badge || path == "/quests") return "";
     switch (data.badge.badgeable.__typename) {
       case "Quest":
         return `/quests/${data.badge.badgeable.slug}`;
@@ -18,7 +21,7 @@ export const SimpleBadgeContent = ({ badgeId }: { badgeId: string }) => {
       default:
         return "";
     }
-  }, [data]);
+  }, [data, path]);
 
   const badgeableTitle = data?.badge.badgeable.displayData.title;
   const badgeableType = data?.badge.badgeable.__typename;
@@ -35,10 +38,12 @@ export const SimpleBadgeContent = ({ badgeId }: { badgeId: string }) => {
         ${badgeableTitle} ${badgeableType}.`
             : `Complete the ${badgeableTitle} ${badgeableType} to unlock the ${data.badge.displayData.title} badge and add it to your collection.`}
         </span>
-        <Link href={linkToBadgeable()} className="self-center">
-          <Button className="px-5 w-fit">
-            {isCompleted ? "See" : "Start"} {data.badge.badgeable.__typename}
-          </Button>
+        <Link href={linkToBadgeable()} className="self-center" scroll={false}>
+          <DialogClose asChild>
+            <Button className="px-5 w-fit">
+              {isCompleted ? "See" : "Start"} {data.badge.badgeable.__typename}
+            </Button>
+          </DialogClose>
         </Link>
       </div>
     )
