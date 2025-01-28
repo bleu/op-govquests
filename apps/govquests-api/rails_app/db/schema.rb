@@ -218,8 +218,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_27_222358) do
     t.datetime "updated_at", null: false
     t.string "tier_id"
     t.integer "rank"
-    t.string "leaderboard_id"
-    t.index ["leaderboard_id"], name: "index_user_game_profiles_on_leaderboard_id"
     t.index ["profile_id"], name: "index_user_game_profiles_on_profile_id", unique: true
     t.index ["tier_id", "rank"], name: "index_user_game_profiles_on_tier_id_and_rank"
     t.index ["tier_id"], name: "index_user_game_profiles_on_tier_id"
@@ -290,6 +288,5 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_27_222358) do
 
   add_foreign_key "event_store_events_in_streams", "event_store_events", column: "event_id", primary_key: "event_id"
   add_foreign_key "leaderboards", "tiers", primary_key: "tier_id"
-  add_foreign_key "user_game_profiles", "leaderboards", primary_key: "leaderboard_id"
   add_foreign_key "user_game_profiles", "tiers", primary_key: "tier_id"
 end

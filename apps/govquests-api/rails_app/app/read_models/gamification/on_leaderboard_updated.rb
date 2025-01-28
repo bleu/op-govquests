@@ -1,28 +1,24 @@
 module Gamification
   class OnLeaderboardUpdated
     def call(event)
-      leaderboard = LeaderboardReadModel.find_by(leaderboard_id: event.data[:leaderboard_id])
-      return unless leaderboard
+      profile_id = event.data[:profile_id]
 
-      entry = LeaderboardEntryReadModel.find_or_initialize_by(
-        leaderboard_id: event.data[:leaderboard_id],
-        profile_id: event.data[:profile_id]
-      )
+      game_profile = GameProfileReadModel.find_or_initialize_by(profile_id: profile_id)
 
-      entry.leaderboard = leaderboard
-      entry.score = event.data[:score]
-      entry.rank = calculate_rank(leaderboard.leaderboard_id, entry.score)
-
-      entry.save!
-    end
-
-    private
-
-    def calculate_rank(leaderboard_id, score)
-      higher_scores_count = LeaderboardEntryReadModel.where(leaderboard_id: leaderboard_id)
-        .where("score > ?", score)
-        .count
-      higher_scores_count + 1
+      ActiveRecord::Base.connection.execute(<<-SQL)
+        UPDATE user_game_profiles
+        SET rank = ranks.new_rank
+        FROM (
+          SELECT id, ROW_NUMBER() OVER (ORDER BY score DESC) as new_rank
+          FROM user_game_profiles
+          WHERE tier_id = '#{game_profile.tier_id}'
+            AND (
+              score >= #{game_profile.score} OR  -- Profiles with higher/equal scores
+              id = '#{game_profile.id}'          -- The updated profile itself
+            )
+        ) ranks
+        WHERE user_game_profiles.id = ranks.id
+      SQL
     end
   end
 end

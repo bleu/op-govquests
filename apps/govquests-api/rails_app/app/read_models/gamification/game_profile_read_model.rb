@@ -11,12 +11,7 @@ module Gamification
       foreign_key: "tier_id",
       primary_key: "tier_id"
 
-    belongs_to :leaderboard,
-      class_name: "Gamification::LeaderboardReadModel",
-      foreign_key: "leaderboard_id",
-      primary_key: "leaderboard_id"
-
-    validates :rank, presence: true
+    delegate :leaderboard, to: :tier
 
     def unclaimed_balance_for(token_address)
       unclaimed_tokens[token_address].to_i
@@ -48,18 +43,15 @@ end
 #  unclaimed_tokens :jsonb
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  leaderboard_id   :string
 #  profile_id       :string           not null
 #
 # Indexes
 #
-#  index_user_game_profiles_on_leaderboard_id    (leaderboard_id)
 #  index_user_game_profiles_on_profile_id        (profile_id) UNIQUE
 #  index_user_game_profiles_on_tier_id           (tier_id)
 #  index_user_game_profiles_on_tier_id_and_rank  (tier_id,rank)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (leaderboard_id => leaderboards.leaderboard_id)
 #  fk_rails_...  (tier_id => tiers.tier_id)
 #
