@@ -6,5 +6,9 @@ module Types
       argument :limit, Integer, required: false, default_value: 10
       argument :offset, Integer, required: false, default_value: 0
     end
+
+    def game_profiles(limit:, offset:)
+      object.game_profiles.order(:rank).limit(limit).offset(offset)
+    end
   end
 end

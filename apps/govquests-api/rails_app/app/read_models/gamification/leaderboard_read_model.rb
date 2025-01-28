@@ -3,17 +3,15 @@ module Gamification
     self.table_name = "leaderboards"
     self.primary_key = "leaderboard_id"
 
-    has_many :game_profiles,
-      foreign_key: "leaderboard_id",
-      primary_key: "leaderboard_id",
-      class_name: "Gamification::GameProfileReadModel",
-      inverse_of: :leaderboard
-
     belongs_to :tier,
       foreign_key: "tier_id",
       primary_key: "tier_id",
       class_name: "Gamification::TierReadModel",
       inverse_of: :leaderboard
+
+    def game_profiles
+      tier.game_profiles.order(:rank)
+    end
 
     scope :ordered_profiles, -> { game_profiles.order(:rank) }
   end
