@@ -11,6 +11,11 @@ module Gamification
       foreign_key: "tier_id",
       primary_key: "tier_id"
 
+    belongs_to :user,
+      class_name: "Authentication::UserReadModel",
+      foreign_key: "profile_id",
+      primary_key: "user_id"
+
     delegate :leaderboard, to: :tier
 
     def unclaimed_balance_for(token_address)

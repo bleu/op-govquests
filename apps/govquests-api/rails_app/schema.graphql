@@ -792,7 +792,11 @@ type User {
   address: String!
   chainId: Int!
   email: String
+  gameProfile: GameProfile
   id: ID!
+  userBadges: [UserBadge!]
+  userQuests: [UserQuest!]
+  userTrack: [UserTrack!]
   userType: String!
 }
 
@@ -805,5 +809,11 @@ type UserQuest {
   completedAt: ISO8601DateTime
   id: ID!
   startedAt: ISO8601DateTime
+  status: String!
+}
+
+type UserTrack {
+  completedAt: ISO8601DateTime
+  id: ID!
   status: String!
 }
