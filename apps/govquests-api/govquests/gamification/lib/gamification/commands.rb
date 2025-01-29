@@ -102,4 +102,22 @@ module Gamification
 
     alias :aggregate_id :badge_id
   end
+
+  class CreateTier < Infra::Command 
+    attribute :tier_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :min_delegation, Infra::Types::Integer
+    attribute :max_delegation, Infra::Types::Integer.optional
+    attribute :multiplier, Infra::Types::Float
+    attribute :image_url, Infra::Types::String
+
+    alias :aggregate_id :tier_id
+  end
+
+  class CreateGameProfile < Infra::Command
+    attribute :profile_id, Infra::Types::UUID
+    attribute :tier_id, Infra::Types::UUID
+
+    alias :aggregate_id :profile_id
+  end
 end

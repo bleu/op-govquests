@@ -14,12 +14,19 @@ module Gamification
     def initialize(id)
       @id = id
       @score = 0
-      @tier = nil
+      @tier_id = nil
       @track = nil
       @streak = 0
       @badges = []
       @unclaimed_tokens = {} # token_address => amount
       @active_claim = nil
+    end
+
+    def create(tier_id:)
+      apply GameProfileCreated.new(data: {
+        profile_id: @id,
+        tier_id: tier_id
+      })
     end
 
     def add_token_reward(token_address:, amount:, pool_id:)
@@ -155,6 +162,10 @@ module Gamification
 
     on BadgeEarned do |event|
       @badges << event.data[:badge]
+    end
+
+    on GameProfileCreated do |event|
+      @tier_id = event.data[:tier_id]
     end
   end
 end
