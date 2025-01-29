@@ -3,7 +3,7 @@ import { UserAchievementPanel } from "@/domains/gamification/components/UserAchi
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-9">
+    <div className="flex flex-col gap-9 p-8 mx-8">
       <UserAchievementPanel />
       <TierTabs />
     </div>

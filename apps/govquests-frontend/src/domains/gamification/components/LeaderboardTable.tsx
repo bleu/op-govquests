@@ -10,6 +10,7 @@ import { ResultOf } from "gql.tada";
 import { TIER_QUERY } from "../graphql/tierQuery";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { TrophyIcon } from "./PodiumCard";
+import { Button } from "@/components/ui/Button";
 
 export const LeaderboardTable = ({
   leaderboard,
@@ -33,10 +34,11 @@ export const LeaderboardTable = ({
             <TableHead>Address</TableHead>
             <TableHead>Points</TableHead>
             <TableHead>Voting Power</TableHead>
+            <TableHead />
           </TableRow>
         </TableHeader>
         <TableBody className="text-sm font-bold">
-          {leaderboard.gameProfiles.map((profile, index) => (
+          {leaderboard.gameProfiles.map((profile) => (
             <UserTableRow profile={profile} key={profile.profileId} />
           ))}
         </TableBody>
@@ -60,9 +62,14 @@ const UserTableRow = ({
       className="bg-background/50 hover:bg-background hover:shadow-[0_4px_6px_0_#00000040]"
     >
       <TableCell className="py-4 rounded-l-lg">{profile.rank}</TableCell>
-      {data && <TableCell className="py-4">{data.name}</TableCell>}
+      {data && <TableCell className="py-4 w-1/3">{data.name}</TableCell>}
       <TableCell className="py-4">{profile.score}</TableCell>
-      <TableCell className="py-4 rounded-r-lg">20,7K OP (3%)</TableCell>
+      <TableCell className="py-4">20,7K OP (3%)</TableCell>
+      <TableCell className="rounded-r-lg flex justify-end items-center">
+        <Button variant="outline" size="sm" className="px-2 py-1 mt-[2px] mr-2">
+          See profile
+        </Button>
+      </TableCell>
     </TableRow>
   );
 };

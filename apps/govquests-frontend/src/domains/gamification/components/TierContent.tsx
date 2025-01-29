@@ -7,7 +7,7 @@ export const TierContent = ({ tierId }: { tierId: string }) => {
 
   return (
     data && (
-      <div className="flex flex-col gap-9">
+      <div className="flex flex-col gap-4">
         <div className="flex flex-col items-start border border-foreground/10 gap-9 w-full bg-background/80 p-5 rounded-[20px]">
           <div className="flex flex-col gap-6 w-full">
             <div>
