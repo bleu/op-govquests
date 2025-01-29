@@ -9,6 +9,7 @@ import {
 import { ResultOf } from "gql.tada";
 import { TIER_QUERY } from "../graphql/tierQuery";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import { TrophyIcon } from "./PodiumCard";
 
 export const LeaderboardTable = ({
   leaderboard,
@@ -16,21 +17,31 @@ export const LeaderboardTable = ({
   leaderboard: ResultOf<typeof TIER_QUERY>["tier"]["leaderboard"];
 }) => {
   return (
-    <Table className="border-separate border-spacing-y-3">
-      <TableHeader className="text-sm font-bold">
-        <TableRow className="hover:bg-inherit">
-          <TableHead>#</TableHead>
-          <TableHead>Address</TableHead>
-          <TableHead>Points</TableHead>
-          <TableHead>Voting Power</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody className="text-sm font-bold">
-        {leaderboard.gameProfiles.map((profile, index) => (
-          <UserTableRow profile={profile} key={profile.profileId} />
-        ))}
-      </TableBody>
-    </Table>
+    <div className="flex gap-4">
+      <div className=" mt-16 flex flex-col gap-3">
+        {[1, 2, 3].map(
+          (value) =>
+            leaderboard.gameProfiles.length >= value && (
+              <TrophyIcon rank={value} size={22} className="my-4" />
+            ),
+        )}
+      </div>
+      <Table className="border-separate border-spacing-y-3">
+        <TableHeader className="text-sm font-bold">
+          <TableRow className="hover:bg-inherit">
+            <TableHead>#</TableHead>
+            <TableHead>Address</TableHead>
+            <TableHead>Points</TableHead>
+            <TableHead>Voting Power</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody className="text-sm font-bold">
+          {leaderboard.gameProfiles.map((profile, index) => (
+            <UserTableRow profile={profile} key={profile.profileId} />
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 
