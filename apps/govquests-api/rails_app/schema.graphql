@@ -69,6 +69,8 @@ type BadgeDisplayData {
   title: String
 }
 
+union BadgeUnion = Badge | SpecialBadge
+
 union BadgeableUnion = Quest | Track
 
 """
@@ -610,6 +612,7 @@ type Query {
   track(id: ID!): Track
   tracks: [Track!]
   unreadNotificationsCount: Int!
+  user(id: ID!): User
 }
 
 type Quest {
@@ -802,6 +805,7 @@ type User {
 }
 
 type UserBadge {
+  badge: BadgeUnion!
   earnedAt: ISO8601DateTime!
   userId: ID!
 }

@@ -11,6 +11,8 @@ import { TIER_QUERY } from "../graphql/tierQuery";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { TrophyIcon } from "./PodiumCard";
 import { Button } from "@/components/ui/Button";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { ProfileDialogContent } from "./ProfileDialogContent";
 
 export const LeaderboardTable = ({
   leaderboard,
@@ -66,9 +68,18 @@ const UserTableRow = ({
       <TableCell className="py-4">{profile.score}</TableCell>
       <TableCell className="py-4">20,7K OP (3%)</TableCell>
       <TableCell className="rounded-r-lg flex justify-end items-center">
-        <Button variant="outline" size="sm" className="px-2 py-1 mt-[2px] mr-2">
-          See profile
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              variant="outline"
+              size="sm"
+              className="px-2 py-1 mt-[2px] mr-2"
+            >
+              See profile
+            </Button>
+          </DialogTrigger>
+          <ProfileDialogContent userId={profile.user.id} />
+        </Dialog>
       </TableCell>
     </TableRow>
   );

@@ -1,6 +1,6 @@
 import { graphql } from "gql.tada";
 
-export const USER_QUERY = graphql(`
+export const CURRENT_USER_QUERY = graphql(`
   query CurrentUser {
     currentUser {
       address
@@ -31,10 +31,57 @@ export const USER_QUERY = graphql(`
         startedAt
         status
       }
-      userTrack {
+    }
+  }
+`);
+
+export const USER_QUERY = graphql(`
+  query User($id: ID!) {
+    user(id: $id) {
+      address
+      id
+      userBadges {
+        badge {
+          __typename
+          ... on Badge {
+            id
+            badgeable {
+              __typename
+            }
+            displayData {
+              sequenceNumber
+              title
+            }
+          }
+          ... on SpecialBadge {
+            id
+            displayData {
+              sequenceNumber
+              title
+            }
+          }
+        }
+        userId
+        earnedAt
+      }
+      userQuests {
         completedAt
         id
+        startedAt
         status
+      }
+      gameProfile {
+        profileId
+        rank
+        score
+        tier {
+          multiplier
+          imageUrl
+          displayData {
+            description
+            title
+          }
+        }
       }
     }
   }

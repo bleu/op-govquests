@@ -2,15 +2,33 @@
 
 import { IndicatorPill } from "@/components/IndicatorPill";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import { ResultOf } from "gql.tada";
 import Image from "next/image";
 import { ComponentProps } from "react";
-import { useCompleteUserInfo } from "../hooks/useCompleteUserInfo";
-import { useAccount } from "wagmi";
+import { CURRENT_USER_QUERY, USER_QUERY } from "../graphql/userQuery";
+import { useCurrentUserInfo, useUserInfo } from "../hooks/useUserInfo";
 
-export const UserAchievementPanel = () => {
-  const { address } = useAccount();
-  const { data: userProfile } = useUserProfile(address);
-  const { data: userData } = useCompleteUserInfo();
+export const CurrentUserAchievementPanel = () => {
+  const { data } = useCurrentUserInfo();
+
+  return <UserAchievementPanel user={data?.currentUser} />;
+};
+
+export const ThirdUserAchievementPanel = ({ userId }: { userId: string }) => {
+  const { data } = useUserInfo(userId);
+  console.log(userId);
+
+  return <UserAchievementPanel user={data?.user} />;
+};
+
+interface UserAchievementPanelProps {
+  user:
+    | ResultOf<typeof USER_QUERY>["user"]
+    | ResultOf<typeof CURRENT_USER_QUERY>["currentUser"];
+}
+
+export const UserAchievementPanel = ({ user }: UserAchievementPanelProps) => {
+  const { data: userProfile } = useUserProfile(user?.address as `0x${string}`);
 
   return (
     <div className="w-full h-80 overflow-hidden rounded-[20px] relative">
@@ -22,19 +40,13 @@ export const UserAchievementPanel = () => {
         className="object-cover size-full"
       />
       <div className="absolute bottom-0 bg-background/90 w-full rounded-[20px] h-20 text-white flex flex-row justify-around items-center border-foreground/10 border">
-        {userData && (
+        {user && (
           <>
-            <InfoLabel label="Quests">
-              {userData.currentUser.userQuests.length}/10
-            </InfoLabel>
-            <InfoLabel label="Ranking">
-              #{userData.currentUser.gameProfile.rank}
-            </InfoLabel>
-            <InfoLabel label="Points">
-              {userData.currentUser.gameProfile.score}
-            </InfoLabel>
+            <InfoLabel label="Quests">{user.userQuests.length}/10</InfoLabel>
+            <InfoLabel label="Ranking">#{user.gameProfile.rank}</InfoLabel>
+            <InfoLabel label="Points">{user.gameProfile.score}</InfoLabel>
             <InfoLabel label="Collection">
-              {userData.currentUser.userBadges.length} Badges
+              {user.userBadges.length} Badges
             </InfoLabel>
           </>
         )}
@@ -58,7 +70,7 @@ export const UserAchievementPanel = () => {
           </div>
         </div>
         <IndicatorPill className="px-8 min-w-48 h-[26px]">
-          {userData && userData.currentUser.gameProfile.tier.displayData.title}
+          {user && user.gameProfile.tier.displayData.title}
         </IndicatorPill>
       </div>
     </div>

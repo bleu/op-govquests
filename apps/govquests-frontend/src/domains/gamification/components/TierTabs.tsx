@@ -1,11 +1,11 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
-import { useCompleteUserInfo } from "../hooks/useCompleteUserInfo";
+import { useCurrentUserInfo } from "../hooks/useUserInfo";
 import { TierContent } from "./TierContent";
 
 export const TierTabs = () => {
-  const { data } = useCompleteUserInfo();
+  const { data } = useCurrentUserInfo();
 
   const triggerClassName =
     "text-foreground/80 hover:text-foreground data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:font-extrabold bg-transparent border-none font-normal flex items-center gap-2 transition duration-300";
