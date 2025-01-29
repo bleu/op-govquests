@@ -15,6 +15,9 @@ export const TIER_QUERY = graphql(`
           profileId
           rank
           score
+          user {
+            address
+          }
         }
       }
     }

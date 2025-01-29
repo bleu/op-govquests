@@ -24,7 +24,7 @@ export const TierContent = ({ tierId }: { tierId: string }) => {
                 (profile) =>
                   profile && (
                     <PodiumCard
-                      account={profile.profileId as `0x${string}`}
+                      account={profile.user.address as `0x${string}`}
                       score={profile.score}
                       rank={profile.rank}
                     />
