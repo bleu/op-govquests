@@ -5,9 +5,11 @@ import { useUserProfile } from "@/hooks/useUserProfile";
 import Image from "next/image";
 import { ComponentProps } from "react";
 import { useCompleteUserInfo } from "../hooks/useCompleteUserInfo";
+import { useAccount } from "wagmi";
 
 export const UserAchievementPanel = () => {
-  const { data: userProfile } = useUserProfile();
+  const { address } = useAccount();
+  const { data: userProfile } = useUserProfile(address);
   const { data: userData } = useCompleteUserInfo();
 
   return (

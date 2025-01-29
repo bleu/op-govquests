@@ -14,14 +14,12 @@ import Image from "next/image";
 import {
   useAccount,
   useBalance,
-  useDisconnect,
-  useEnsAvatar,
-  useEnsName,
+  useDisconnect
 } from "wagmi";
 
 export const WalletPopover = ({ className }: { className: string }) => {
   const { address } = useAccount();
-  const { data: userProfile } = useUserProfile();
+  const { data: userProfile } = useUserProfile(address);
   const { disconnect } = useDisconnect();
 
   const { data: balance } = useBalance({

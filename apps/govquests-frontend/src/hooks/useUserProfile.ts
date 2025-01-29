@@ -1,8 +1,6 @@
-import { useAccount, useEnsAvatar, useEnsName } from "wagmi";
+import { useEnsAvatar, useEnsName } from "wagmi";
 
-export const useUserProfile = () => {
-  const { address } = useAccount();
-
+export const useUserProfile = (address: `0x${string}`) => {
   const {
     data: ensName,
     isLoading: isNameLoading,

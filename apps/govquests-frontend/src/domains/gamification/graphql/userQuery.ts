@@ -13,6 +13,7 @@ export const USER_QUERY = graphql(`
         rank
         score
         tier {
+          tierId
           imageUrl
           displayData {
             description
