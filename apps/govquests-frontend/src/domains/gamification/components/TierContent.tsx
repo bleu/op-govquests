@@ -18,27 +18,37 @@ export const TierContent = ({ tierId }: { tierId: string }) => {
                 {data.tier.displayData.description}
               </span>
             </div>
-            <div># Top 3</div>
-            <div className="flex justify-around w-full">
-              {[1, 0, 2]
-                .map(
-                  (value) =>
-                    data.tier.leaderboard.gameProfiles?.[value] || null,
-                )
-                .map(
-                  (profile) =>
-                    profile && (
-                      <PodiumCard
-                        account={profile.user.address as `0x${string}`}
-                        score={profile.score}
-                        rank={profile.rank}
-                      />
-                    ),
-                )}
-            </div>
+            {data.tier.leaderboard.gameProfiles.length ? (
+              <>
+                <div># Top 3</div>
+                <div className="flex justify-around w-full">
+                  {[1, 0, 2]
+                    .map(
+                      (value) =>
+                        data.tier.leaderboard.gameProfiles?.[value] || null,
+                    )
+                    .map(
+                      (profile) =>
+                        profile && (
+                          <PodiumCard
+                            account={profile.user.address as `0x${string}`}
+                            score={profile.score}
+                            rank={profile.rank}
+                          />
+                        ),
+                    )}
+                </div>
+              </>
+            ) : (
+              <div className="text-foreground/60">
+                No one has reached this tier yet!
+              </div>
+            )}
           </div>
         </div>
-        <LeaderboardTable leaderboard={data.tier.leaderboard} />
+        {data.tier.leaderboard.gameProfiles.length ? (
+          <LeaderboardTable leaderboard={data.tier.leaderboard} />
+        ) : null}
       </div>
     )
   );

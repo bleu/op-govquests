@@ -16,7 +16,6 @@ export const CurrentUserAchievementPanel = () => {
 
 export const ThirdUserAchievementPanel = ({ userId }: { userId: string }) => {
   const { data } = useUserInfo(userId);
-  console.log(userId);
 
   return <UserAchievementPanel user={data?.user} />;
 };
@@ -66,7 +65,9 @@ export const UserAchievementPanel = ({ user }: UserAchievementPanelProps) => {
                 />
               )}
             </div>
-            <p className="font-bold text-sm">{userProfile.name}</p>
+            <p className="font-bold text-sm text-foreground">
+              {userProfile.name}
+            </p>
           </div>
         </div>
         <IndicatorPill className="px-8 min-w-48 h-[26px]">

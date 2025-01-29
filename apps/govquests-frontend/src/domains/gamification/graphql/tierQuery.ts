@@ -24,3 +24,11 @@ export const TIER_QUERY = graphql(`
     }
   }
 `);
+
+export const TIERS_QUERY = graphql(`
+  query Tier {
+    tiers {
+      tierId
+    }
+  }
+`);

@@ -3,9 +3,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { useCurrentUserInfo } from "../hooks/useUserInfo";
 import { TierContent } from "./TierContent";
+import { useFetchTiers } from "../hooks/useFetchTiers";
 
 export const TierTabs = () => {
-  const { data } = useCurrentUserInfo();
+  const { data: currentUserData } = useCurrentUserInfo();
+  const { data: tiersData } = useFetchTiers();
 
   const triggerClassName =
     "text-foreground/80 hover:text-foreground data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:font-extrabold bg-transparent border-none font-normal flex items-center gap-2 transition duration-300";
@@ -22,14 +24,17 @@ export const TierTabs = () => {
       </TabsList>
 
       <TabsContent value="my-tier" className="mt-0">
-        {/* Content for My Tier will go here */}
-        {data && (
-          <TierContent tierId={data.currentUser.gameProfile.tier.tierId} />
+        {currentUserData && (
+          <TierContent
+            tierId={currentUserData.currentUser.gameProfile.tier.tierId}
+          />
         )}
       </TabsContent>
 
-      <TabsContent value="all-tiers" className="mt-0">
-        {/* Content for All Tiers will go here */}
+      <TabsContent value="all-tiers" className="mt-0 flex flex-col gap-10">
+        {tiersData?.tiers.map((tier) => (
+          <TierContent key={tier.tierId} tierId={tier.tierId} />
+        ))}
       </TabsContent>
     </Tabs>
   );

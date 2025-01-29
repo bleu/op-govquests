@@ -10,29 +10,34 @@ export const UserBadgesCollection = ({ userId }: { userId: string }) => {
       <div className="flex flex-col p-7 text-foreground">
         <SectionHeader title="Badges Collection" />
         <div className="grid md:grid-cols-4 grid-cols-3">
-          {data.user.userBadges.map(({ badge }) => {
-            console.log(badge);
-            if (badge.__typename == "Badge")
-              return (
-                <NormalBadgeCard
-                  badgeId={badge.id}
-                  key={badge.id}
-                  withTitle={true}                
-                  header={`${badge.badgeable.__typename} BADGE #${badge.displayData.sequenceNumber}`}
-                  revealIncomplete
-                />
-              );
-            else
-              return (
-                <SpecialBadgeCard
-                  badgeId={badge.id}
-                  key={badge.id}
-                  withTitle={true}
-                  header={`SPECIAL BADGE #${badge.displayData.sequenceNumber}`}
-                  revealIncomplete
-                />
-              );
-          })}
+          {data.user.userBadges.length ? (
+            data.user.userBadges.map(({ badge }) => {
+              if (badge.__typename == "Badge")
+                return (
+                  <NormalBadgeCard
+                    badgeId={badge.id}
+                    key={badge.id}
+                    withTitle={true}
+                    header={`${badge.badgeable.__typename} BADGE #${badge.displayData.sequenceNumber}`}
+                    revealIncomplete
+                  />
+                );
+              else
+                return (
+                  <SpecialBadgeCard
+                    badgeId={badge.id}
+                    key={badge.id}
+                    withTitle={true}
+                    header={`SPECIAL BADGE #${badge.displayData.sequenceNumber}`}
+                    revealIncomplete
+                  />
+                );
+            })
+          ) : (
+            <div className="w-full col-span-4 mt-4 text-foreground/80">
+              This user hasn't collected any badges yet.
+            </div>
+          )}
         </div>
       </div>
     )

@@ -7,6 +7,5 @@ export const fetchUserInfo = async () => {
 };
 
 export const fetchUserById = async (id: string) => {
-  console.log(id);
   return await request(API_URL, USER_QUERY, { id });
 };
