@@ -20,12 +20,23 @@ import { TrophyIcon } from "./PodiumCard";
 import { ProfileDialogContent } from "./ProfileDialogContent";
 
 export const LeaderboardTable = ({ tierId }: { tierId: string }) => {
-  const { data, handleLoadMore, hasMore, isFetching, isLoading } =
-    usePaginatedTier(tierId);
+  const {
+    data,
+    handleLoadMore,
+    hasMore,
+    isFetching,
+    isLoading,
+    limit,
+    setLimit,
+  } = usePaginatedTier(tierId, 0);
 
   const searchParams = useSearchParams();
   const targetRank: number = useMemo(() => {
-    return Number(searchParams.get("rank"));
+    const rank = Number(searchParams.get("rank"));
+    if (rank > limit) {
+      setLimit(rank);
+    }
+    return rank;
   }, [searchParams]);
 
   return (

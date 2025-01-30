@@ -33,6 +33,8 @@ export const usePaginatedTier = (id: string, initialLimit: number = 4) => {
     isLoading,
     isFetching,
     hasMore,
+    limit,
+    setLimit,
     handleLoadMore,
   };
 };
