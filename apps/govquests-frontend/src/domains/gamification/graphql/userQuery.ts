@@ -15,6 +15,7 @@ export const CURRENT_USER_QUERY = graphql(`
         tier {
           tierId
           imageUrl
+          multiplier
           displayData {
             description
             title

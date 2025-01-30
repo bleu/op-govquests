@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ComponentProps, useEffect } from "react";
 import { CURRENT_USER_QUERY, USER_QUERY } from "../graphql/userQuery";
 import { useCurrentUserInfo, useUserInfo } from "../hooks/useUserInfo";
+import Link from "next/link";
 
 export const CurrentUserAchievementPanel = () => {
   const { data, isSuccess, isError, isLoading } = useCurrentUserInfo();
@@ -16,7 +17,7 @@ export const CurrentUserAchievementPanel = () => {
   }
 
   if (isSuccess) {
-    return <UserAchievementPanel user={data?.currentUser} />;
+    return <UserAchievementPanel user={data?.currentUser} isFromCurrentUser />;
   }
 };
 
@@ -30,9 +31,13 @@ interface UserAchievementPanelProps {
   user:
     | ResultOf<typeof USER_QUERY>["user"]
     | ResultOf<typeof CURRENT_USER_QUERY>["currentUser"];
+  isFromCurrentUser?: boolean;
 }
 
-export const UserAchievementPanel = ({ user }: UserAchievementPanelProps) => {
+export const UserAchievementPanel = ({
+  user,
+  isFromCurrentUser = false,
+}: UserAchievementPanelProps) => {
   const { data: userProfile } = useUserProfile(user?.address as `0x${string}`);
 
   return (
@@ -47,10 +52,34 @@ export const UserAchievementPanel = ({ user }: UserAchievementPanelProps) => {
       <div className="absolute bottom-0 bg-background/90 w-full rounded-[20px] h-20 text-white flex flex-row justify-around items-center border-foreground/10 border">
         {user && (
           <>
-            <InfoLabel label="Quests">{user.userQuests.length}/10</InfoLabel>
-            <InfoLabel label="Ranking">#{user.gameProfile.rank}</InfoLabel>
-            <InfoLabel label="Points">{user.gameProfile.score}</InfoLabel>
-            <InfoLabel label="Collection">
+            <InfoLabel label="Quests" href={isFromCurrentUser && "/quests"}>
+              {user.userQuests.length}/10
+            </InfoLabel>
+            <InfoLabel
+              label="Ranking"
+              href={
+                isFromCurrentUser &&
+                `/leaderboard?tab=myTier&rank=${user.gameProfile.rank}`
+              }
+            >
+              #{user.gameProfile.rank}
+            </InfoLabel>
+            <InfoLabel
+              label="Points"
+              href={
+                isFromCurrentUser &&
+                `/leaderboard?tab=myTier&rank=${user.gameProfile.rank}`
+              }
+            >
+              {user.gameProfile.score}
+            </InfoLabel>
+            <InfoLabel label="Multiplier">
+              {user.gameProfile.tier.multiplier}x
+            </InfoLabel>
+            <InfoLabel
+              label="Collection"
+              href={isFromCurrentUser && "/achievements"}
+            >
               {user.userBadges.length} Badges
             </InfoLabel>
           </>
@@ -86,13 +115,23 @@ export const UserAchievementPanel = ({ user }: UserAchievementPanelProps) => {
 
 interface InfoLabelProps extends ComponentProps<"p"> {
   label: string;
+  href?: string;
 }
 
-const InfoLabel = ({ label, ...props }: InfoLabelProps) => {
-  return (
+const InfoLabel = ({ label, href, ...props }: InfoLabelProps) => {
+  const infoLabelComponent = (
     <div className="flex flex-col gap-1">
       <p className="text-sm font-bold text-foreground/60">{label}</p>
       <p className="font-extrabold" {...props} />
     </div>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className="hover:scale-105 transition duration-300">
+        {infoLabelComponent}
+      </Link>
+    );
+  }
+  return infoLabelComponent;
 };

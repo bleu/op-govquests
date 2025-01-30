@@ -61,7 +61,7 @@ const UserTableRow = ({
   return (
     <TableRow
       key={profile.profileId}
-      className="bg-background/50 hover:bg-background transition-all hover:shadow-[0_4px_6px_0_#00000040]"
+      className="bg-background/50 hover:bg-background transition-all hover:shadow-[0_4px_6px_0_#00000040] duration-300"
     >
       <TableCell className="py-4 rounded-l-lg">{profile.rank}</TableCell>
       {data && <TableCell className="py-4 w-1/3">{data.name}</TableCell>}
@@ -73,7 +73,7 @@ const UserTableRow = ({
             <Button
               variant="outline"
               size="sm"
-              className="px-2 py-1 mt-[2px] mr-2"
+              className="px-2 py-1 mt-[2px] mr-2 hover:bg-inherit"
             >
               See profile
             </Button>
