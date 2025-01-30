@@ -3,15 +3,28 @@
 import { SectionHeader } from "@/components/SectionHeader";
 import { useUserInfo } from "../hooks/useUserInfo";
 import { NormalBadgeCard, SpecialBadgeCard } from "./BadgeCard";
+import { cn } from "@/lib/utils";
+import { ComponentProps } from "react";
 
-export const UserBadgesCollection = ({ userId }: { userId: string }) => {
+interface UserBadgesCollectionProps extends ComponentProps<"div"> {
+  userId: string;
+}
+
+export const UserBadgesCollection = ({
+  userId,
+  className,
+  ...props
+}: UserBadgesCollectionProps) => {
   const { data } = useUserInfo(userId);
 
   return (
     data && (
       <div className="flex flex-col p-7 text-foreground">
         <SectionHeader title="Badges Collection" />
-        <div className="grid md:grid-cols-4 grid-cols-3">
+        <div
+          className={cn("grid md:grid-cols-4 grid-cols-3", className)}
+          {...props}
+        >
           {data.user.userBadges.length ? (
             data.user.userBadges.map(({ badge }) => {
               if (badge.__typename == "Badge")

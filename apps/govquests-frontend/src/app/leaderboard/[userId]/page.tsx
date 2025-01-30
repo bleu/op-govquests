@@ -29,7 +29,10 @@ export default function Page(props: UserPageProps) {
         </Link>
         <ThirdUserAchievementPanel userId={params.userId} />
       </div>
-      <UserBadgesCollection userId={params.userId} />
+      <UserBadgesCollection
+        userId={params.userId}
+        className="gap-4 lg:grid-cols-5"
+      />
     </div>
   );
 }
