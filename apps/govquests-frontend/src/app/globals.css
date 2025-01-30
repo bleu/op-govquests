@@ -103,23 +103,6 @@
   }
 }
 
-@keyframes hover {
-  0% {
-    background-color: hsl(var(--background) / 0.5);
-  }
-  50% {
-    background-color: hsl(var(--background));
-    box-shadow: 0px 4px 6px 0px #00000040;
-  }
-  100% {
-    background-color: hsl(var(--background) / 0.5);
-  }
-}
-
 .animate-highlight {
   animation: highlight 2s ease-out forwards;
-}
-
-.animate-hover {
-  animation: hover 2s ease-out forwards;
 }
