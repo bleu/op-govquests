@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/Button";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import Spinner from "@/components/ui/Spinner";
 import {
   Table,
   TableBody,
@@ -6,57 +9,72 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ResultOf } from "gql.tada";
-import { TIER_QUERY } from "../graphql/tierQuery";
 import { useUserProfile } from "@/hooks/useUserProfile";
-import { TrophyIcon } from "./PodiumCard";
-import { Button } from "@/components/ui/Button";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { ProfileDialogContent } from "./ProfileDialogContent";
-import { useEffect, useMemo, useRef } from "react";
-import { useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { ResultOf } from "gql.tada";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useRef } from "react";
+import { TIER_QUERY } from "../graphql/tierQuery";
+import { usePaginatedTier } from "../hooks/useFetchTier";
+import { TrophyIcon } from "./PodiumCard";
+import { ProfileDialogContent } from "./ProfileDialogContent";
 
-export const LeaderboardTable = ({
-  leaderboard,
-}: {
-  leaderboard: ResultOf<typeof TIER_QUERY>["tier"]["leaderboard"];
-}) => {
+export const LeaderboardTable = ({ tierId }: { tierId: string }) => {
+  const { data, handleLoadMore, hasMore, isFetching, isLoading } =
+    usePaginatedTier(tierId);
+
   const searchParams = useSearchParams();
   const targetRank: number = useMemo(() => {
     return Number(searchParams.get("rank"));
   }, [searchParams]);
 
   return (
-    <div className="flex gap-4">
-      <div className=" mt-16 flex flex-col gap-3">
-        {[1, 2, 3].map(
-          (value) =>
-            leaderboard.gameProfiles.length >= value && (
-              <TrophyIcon rank={value} size={22} className="my-4" key={value} />
-            ),
-        )}
+    <div className="flex flex-col gap-0">
+      <div className="flex gap-4">
+        <div className=" mt-16 flex flex-col gap-3">
+          {[1, 2, 3].map(
+            (value) =>
+              data?.tier.leaderboard.gameProfiles.length >= value && (
+                <TrophyIcon
+                  rank={value}
+                  size={22}
+                  className="my-4"
+                  key={value}
+                />
+              ),
+          )}
+        </div>
+        <Table className="border-separate border-spacing-y-3">
+          <TableHeader className="text-sm font-bold">
+            <TableRow className="hover:bg-inherit">
+              <TableHead className="px-4 w-fit">#</TableHead>
+              <TableHead>Address</TableHead>
+              <TableHead>Points</TableHead>
+              <TableHead>Voting Power</TableHead>
+              <TableHead />
+            </TableRow>
+          </TableHeader>
+          <TableBody className="text-sm font-bold">
+            {data?.tier.leaderboard.gameProfiles.map((profile) => (
+              <UserTableRow
+                profile={profile}
+                key={profile.profileId}
+                isTarget={profile.rank === targetRank}
+              />
+            ))}
+          </TableBody>
+        </Table>
       </div>
-      <Table className="border-separate border-spacing-y-3">
-        <TableHeader className="text-sm font-bold">
-          <TableRow className="hover:bg-inherit">
-            <TableHead className="px-4 w-fit">#</TableHead>
-            <TableHead>Address</TableHead>
-            <TableHead>Points</TableHead>
-            <TableHead>Voting Power</TableHead>
-            <TableHead />
-          </TableRow>
-        </TableHeader>
-        <TableBody className="text-sm font-bold">
-          {leaderboard.gameProfiles.map((profile) => (
-            <UserTableRow
-              profile={profile}
-              key={profile.profileId}
-              isTarget={profile.rank === targetRank}
-            />
-          ))}
-        </TableBody>
-      </Table>
+      {hasMore && (
+        <Button
+          className="w-28 self-end mr-4 py-1 h-fit px-2 hover:bg-inherit transition-all duration-200"
+          variant="outline"
+          size="sm"
+          onClick={handleLoadMore}
+        >
+          {isLoading || isFetching ? <Spinner /> : "Load more"}
+        </Button>
+      )}
     </div>
   );
 };
@@ -103,7 +121,7 @@ const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
             <Button
               variant="outline"
               size="sm"
-              className="px-2 py-1 mt-[2px] mr-2 hover:bg-inherit"
+              className="px-2 py-1 mt-[2px] mr-2 hover:bg-inherit w-28 h-fit"
             >
               See profile
             </Button>

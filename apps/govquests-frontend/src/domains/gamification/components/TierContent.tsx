@@ -64,7 +64,7 @@ export const TierContent = ({ tierId, isTarget = false }: TierContentProps) => {
           </div>
         </div>
         {data.tier.leaderboard.gameProfiles.length ? (
-          <LeaderboardTable leaderboard={data.tier.leaderboard} />
+          <LeaderboardTable tierId={data.tier.tierId} />
         ) : null}
       </div>
     )
