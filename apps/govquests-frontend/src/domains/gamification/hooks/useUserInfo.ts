@@ -7,6 +7,7 @@ export const useCurrentUserInfo = () => {
   return useQuery({
     queryKey: ["current-user-info"],
     queryFn: () => fetchUserInfo(),
+    retry: false,
   });
 };
 

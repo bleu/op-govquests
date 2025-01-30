@@ -4,14 +4,20 @@ import { IndicatorPill } from "@/components/IndicatorPill";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { ResultOf } from "gql.tada";
 import Image from "next/image";
-import { ComponentProps } from "react";
+import { ComponentProps, useEffect } from "react";
 import { CURRENT_USER_QUERY, USER_QUERY } from "../graphql/userQuery";
 import { useCurrentUserInfo, useUserInfo } from "../hooks/useUserInfo";
 
 export const CurrentUserAchievementPanel = () => {
-  const { data } = useCurrentUserInfo();
+  const { data, isSuccess, isError, isLoading } = useCurrentUserInfo();
 
-  return <UserAchievementPanel user={data?.currentUser} />;
+  if (isError) {
+    return null;
+  }
+
+  if (isSuccess) {
+    return <UserAchievementPanel user={data?.currentUser} />;
+  }
 };
 
 export const ThirdUserAchievementPanel = ({ userId }: { userId: string }) => {

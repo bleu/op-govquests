@@ -25,7 +25,7 @@ export const LeaderboardTable = ({
         {[1, 2, 3].map(
           (value) =>
             leaderboard.gameProfiles.length >= value && (
-              <TrophyIcon rank={value} size={22} className="my-4" />
+              <TrophyIcon rank={value} size={22} className="my-4" key={value} />
             ),
         )}
       </div>

@@ -34,6 +34,7 @@ export const TierContent = ({ tierId }: { tierId: string }) => {
                             account={profile.user.address as `0x${string}`}
                             score={profile.score}
                             rank={profile.rank}
+                            key={profile.profileId}
                           />
                         ),
                     )}
