@@ -16,10 +16,6 @@ export const TierTabs = () => {
   const triggerClassName =
     "text-foreground/80 hover:text-foreground data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:font-extrabold bg-transparent border-none font-normal flex items-center gap-2 transition duration-300";
 
-  if (isError) {
-    return <AllTiersTab />;
-  }
-
   const initialTab = useMemo(() => {
     return searchParams.get("tab") || "my-tier";
   }, [searchParams]);
@@ -27,6 +23,10 @@ export const TierTabs = () => {
   const handleTabChange = (value: string) => {
     router.push(`?tab=${value}`, { scroll: false });
   };
+
+  if (isError) {
+    return <AllTiersTab />;
+  }
 
   if (isSuccess) {
     return (

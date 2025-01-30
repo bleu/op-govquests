@@ -11,9 +11,10 @@ import Link from "next/link";
 import { ComponentProps } from "react";
 import { CURRENT_USER_QUERY, USER_QUERY } from "../graphql/userQuery";
 import { useCurrentUserInfo, useUserInfo } from "../hooks/useUserInfo";
+import { useFetchQuests } from "@/domains/questing/hooks/useFetchQuests";
 
 export const CurrentUserAchievementPanel = () => {
-  const { data, isSuccess, isError, isLoading } = useCurrentUserInfo();
+  const { data, isSuccess, isError } = useCurrentUserInfo();
 
   if (isError) {
     return null;
@@ -42,6 +43,7 @@ export const UserAchievementPanel = ({
   isFromCurrentUser = false,
 }: UserAchievementPanelProps) => {
   const { data: userProfile } = useUserProfile(user?.address as `0x${string}`);
+  const { data: questsData } = useFetchQuests();
 
   const { toast } = useToast();
 
@@ -71,18 +73,22 @@ export const UserAchievementPanel = ({
           Share
         </Button>
       )}
-      <Image
-        src={user.gameProfile.tier.imageUrl}
-        alt="tier_background"
-        width={1000}
-        height={1000}
-        className="object-cover size-full"
-      />
+      {user && (
+        <Image
+          src={
+            user.gameProfile.tier.imageUrl || "/backgrounds/OP_BLEU_TIER_01.png"
+          }
+          alt="tier_background"
+          width={1000}
+          height={1000}
+          className="object-cover size-full"
+        />
+      )}
       <div className="absolute bottom-0 bg-background/90 w-full rounded-[20px] h-20 text-white flex flex-row justify-around items-center border-foreground/10 border">
         {user && (
           <>
             <InfoLabel label="Quests" href={isFromCurrentUser && "/quests"}>
-              {user.userQuests.length}/10
+              {user.userQuests.length}/{questsData?.quests.length}
             </InfoLabel>
             <InfoLabel
               label="Ranking"

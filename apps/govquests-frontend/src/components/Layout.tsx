@@ -58,12 +58,15 @@ export default function Layout({
 }
 
 const BackgroundTier = () => {
-  const { data } = useCurrentUserInfo();
+  const { data, isFetched } = useCurrentUserInfo();
 
   return (
-    data && (
+    isFetched && (
       <Image
-        src={data.currentUser.gameProfile.tier.imageUrl}
+        src={
+          data?.currentUser.gameProfile.tier.imageUrl ||
+          "/backgrounds/OP_BLEU_TIER_01.png"
+        }
         width={1000}
         height={1000}
         className="object-cover fixed size-full"

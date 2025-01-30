@@ -116,7 +116,7 @@ const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
       key={profile.profileId}
       className={cn(
         "bg-background/50 hover:bg-background transition-all hover:shadow-[0_4px_6px_0_#00000040] duration-300 overflow-hidden rounded-lg",
-        isTarget && "bg-background shadow-[0_4px_6px_0_#00000040]",
+        isTarget && "animate-hover",
       )}
       ref={rowRef}
     >

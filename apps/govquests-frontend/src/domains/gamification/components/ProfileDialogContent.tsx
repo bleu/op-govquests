@@ -12,9 +12,11 @@ export const ProfileDialogContent = ({ userId }: { userId: string }) => {
     <DialogContent className="p-0 sm:rounded-[20px] max-w-[800px] w-4/5">
       <DialogHeader>
         <DialogTitle hidden>User Information</DialogTitle>
-        <DialogDescription>
-          <ThirdUserAchievementPanel userId={userId} />
-          <UserBadgesCollection userId={userId} />
+        <DialogDescription asChild>
+          <div>
+            <ThirdUserAchievementPanel userId={userId} />
+            <UserBadgesCollection userId={userId} />
+          </div>
         </DialogDescription>
       </DialogHeader>
     </DialogContent>
