@@ -36,6 +36,7 @@ module Types
     field :tiers, resolver: Resolvers::FetchTiers
 
     field :current_user, resolver: Resolvers::CurrentUser, preauthorize: {with: AuthenticatedGraphqlPolicy}
+    field :user, resolver: Resolvers::FetchUser
 
     field :notifications,
       resolver: Resolvers::FetchNotifications,

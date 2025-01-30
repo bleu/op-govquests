@@ -90,3 +90,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes highlight {
+  0% {
+    border-color: hsl(var(--foreground) / 0.1);
+  }
+  50% {
+    border-color: hsl(var(--primary));
+  }
+  100% {
+    border-color: hsl(var(--foreground) / 0.1);
+  }
+}
+
+.animate-highlight {
+  animation: highlight 2s ease-out forwards;
+}
