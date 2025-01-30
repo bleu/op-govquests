@@ -59,7 +59,7 @@ export const UserAchievementPanel = ({
               label="Ranking"
               href={
                 isFromCurrentUser &&
-                `/leaderboard?tab=myTier&rank=${user.gameProfile.rank}`
+                `/leaderboard?tab=my-tier&rank=${user.gameProfile.rank}`
               }
             >
               #{user.gameProfile.rank}
@@ -68,7 +68,7 @@ export const UserAchievementPanel = ({
               label="Points"
               href={
                 isFromCurrentUser &&
-                `/leaderboard?tab=myTier&rank=${user.gameProfile.rank}`
+                `/leaderboard?tab=my-tier&rank=${user.gameProfile.rank}`
               }
             >
               {user.gameProfile.score}

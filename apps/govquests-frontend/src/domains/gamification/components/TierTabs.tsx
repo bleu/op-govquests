@@ -4,9 +4,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { useCurrentUserInfo } from "../hooks/useUserInfo";
 import { TierContent } from "./TierContent";
 import { useFetchTiers } from "../hooks/useFetchTiers";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 
 export const TierTabs = () => {
   const { data, isError, isSuccess } = useCurrentUserInfo();
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const triggerClassName =
     "text-foreground/80 hover:text-foreground data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:font-extrabold bg-transparent border-none font-normal flex items-center gap-2 transition duration-300";
@@ -15,9 +20,21 @@ export const TierTabs = () => {
     return <AllTiersTab />;
   }
 
+  const initialTab = useMemo(() => {
+    return searchParams.get("tab") || "my-tier";
+  }, [searchParams]);
+
+  const handleTabChange = (value: string) => {
+    router.push(`?tab=${value}`);
+  };
+
   if (isSuccess) {
     return (
-      <Tabs defaultValue="my-tier" className="w-full">
+      <Tabs
+        className="w-full"
+        value={initialTab}
+        onValueChange={handleTabChange}
+      >
         <TabsList className="grid grid-cols-2 w-fit bg-transparent border-b mb-4 gap-4">
           <TabsTrigger value="my-tier" className={triggerClassName}>
             # My tier
