@@ -72,10 +72,10 @@ export const UserAchievementPanel = ({
         </Button>
       )}
       <Image
-        src="/backgrounds/first_tier.svg"
+        src={user.gameProfile.tier.imageUrl}
         alt="tier_background"
-        width={100}
-        height={100}
+        width={1000}
+        height={1000}
         className="object-cover size-full"
       />
       <div className="absolute bottom-0 bg-background/90 w-full rounded-[20px] h-20 text-white flex flex-row justify-around items-center border-foreground/10 border">

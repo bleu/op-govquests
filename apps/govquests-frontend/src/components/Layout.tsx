@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { Toaster } from "./ui/toaster";
 import { useRouter } from "next/navigation";
+import { useCurrentUserInfo } from "@/domains/gamification/hooks/useUserInfo";
 
 export const queryClient = new QueryClient();
 
@@ -45,13 +46,7 @@ export default function Layout({
   return (
     <Providers>
       <div className="h-full relative">
-        <Image
-          src="/backgrounds/first_tier.svg"
-          width={1000}
-          height={1000}
-          className="object-cover fixed size-full"
-          alt="background_tier"
-        />
+        <BackgroundTier />
         <div className="fixed object-cover size-full z-[1] bg-gradient-to-b from-[#1A1B1F] to-[rgba(26,27,31,0.6)]" />
         <div className="relative z-10 h-full max-w-[1200px] mx-auto">
           {children}
@@ -61,3 +56,19 @@ export default function Layout({
     </Providers>
   );
 }
+
+const BackgroundTier = () => {
+  const { data } = useCurrentUserInfo();
+
+  return (
+    data && (
+      <Image
+        src={data.currentUser.gameProfile.tier.imageUrl}
+        width={1000}
+        height={1000}
+        className="object-cover fixed size-full"
+        alt="background_tier"
+      />
+    )
+  );
+};
