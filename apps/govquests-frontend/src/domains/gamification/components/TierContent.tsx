@@ -1,14 +1,38 @@
+import { useEffect, useRef } from "react";
 import { useFetchTier } from "../hooks/useFetchTier";
 import { LeaderboardTable } from "./LeaderboardTable";
 import { PodiumCard } from "./PodiumCard";
+import { cn } from "@/lib/utils";
 
-export const TierContent = ({ tierId }: { tierId: string }) => {
+interface TierContentProps {
+  tierId: string;
+  isTarget?: boolean;
+}
+
+export const TierContent = ({ tierId, isTarget = false }: TierContentProps) => {
   const { data } = useFetchTier(tierId);
+
+  const tierRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isTarget && tierRef.current) {
+      tierRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [isTarget]);
 
   return (
     data && (
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col items-start border border-foreground/10 gap-9 w-full bg-background/80 p-5 rounded-[20px]">
+        <div
+          className={cn(
+            "flex flex-col items-start border border-foreground/10 gap-9 w-full bg-background/80 p-5 rounded-[20px]",
+            isTarget && "animate-highlight",
+          )}
+          ref={tierRef}
+        >
           <div className="flex flex-col gap-6 w-full">
             <div>
               <h3 className="font-bold text-lg">

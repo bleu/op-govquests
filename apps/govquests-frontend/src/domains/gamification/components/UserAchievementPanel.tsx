@@ -4,10 +4,10 @@ import { IndicatorPill } from "@/components/IndicatorPill";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { ResultOf } from "gql.tada";
 import Image from "next/image";
-import { ComponentProps, useEffect } from "react";
+import Link from "next/link";
+import { ComponentProps } from "react";
 import { CURRENT_USER_QUERY, USER_QUERY } from "../graphql/userQuery";
 import { useCurrentUserInfo, useUserInfo } from "../hooks/useUserInfo";
-import Link from "next/link";
 
 export const CurrentUserAchievementPanel = () => {
   const { data, isSuccess, isError, isLoading } = useCurrentUserInfo();
@@ -61,6 +61,7 @@ export const UserAchievementPanel = ({
                 isFromCurrentUser &&
                 `/leaderboard?tab=my-tier&rank=${user.gameProfile.rank}`
               }
+              scroll={false}
             >
               #{user.gameProfile.rank}
             </InfoLabel>
@@ -70,10 +71,18 @@ export const UserAchievementPanel = ({
                 isFromCurrentUser &&
                 `/leaderboard?tab=my-tier&rank=${user.gameProfile.rank}`
               }
+              scroll={false}
             >
               {user.gameProfile.score}
             </InfoLabel>
-            <InfoLabel label="Multiplier">
+            <InfoLabel
+              label="Multiplier"
+              href={
+                isFromCurrentUser &&
+                `/leaderboard?tab=all-tiers&tier=${user.gameProfile.tier.tierId}`
+              }
+              scroll={false}
+            >
               {user.gameProfile.tier.multiplier}x
             </InfoLabel>
             <InfoLabel
@@ -116,9 +125,15 @@ export const UserAchievementPanel = ({
 interface InfoLabelProps extends ComponentProps<"p"> {
   label: string;
   href?: string;
+  scroll?: boolean;
 }
 
-const InfoLabel = ({ label, href, ...props }: InfoLabelProps) => {
+const InfoLabel = ({
+  label,
+  href,
+  scroll = true,
+  ...props
+}: InfoLabelProps) => {
   const infoLabelComponent = (
     <div className="flex flex-col gap-1">
       <p className="text-sm font-bold text-foreground/60">{label}</p>
@@ -128,7 +143,11 @@ const InfoLabel = ({ label, href, ...props }: InfoLabelProps) => {
 
   if (href) {
     return (
-      <Link href={href} className="hover:scale-105 transition duration-300">
+      <Link
+        href={href}
+        className="hover:scale-105 transition duration-300"
+        scroll={scroll}
+      >
         {infoLabelComponent}
       </Link>
     );

@@ -76,6 +76,7 @@ export const USER_QUERY = graphql(`
         rank
         score
         tier {
+          tierId
           multiplier
           imageUrl
           displayData {

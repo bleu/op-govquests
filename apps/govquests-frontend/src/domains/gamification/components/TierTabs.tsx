@@ -25,7 +25,7 @@ export const TierTabs = () => {
   }, [searchParams]);
 
   const handleTabChange = (value: string) => {
-    router.push(`?tab=${value}`);
+    router.push(`?tab=${value}`, { scroll: false });
   };
 
   if (isSuccess) {
@@ -60,8 +60,17 @@ export const TierTabs = () => {
 
 const AllTiersTab = () => {
   const { data: tiersData } = useFetchTiers();
+  const searchParams = useSearchParams();
+
+  const targetTierId = useMemo(() => {
+    return searchParams.get("tier");
+  }, [searchParams]);
 
   return tiersData?.tiers.map((tier) => (
-    <TierContent key={tier.tierId} tierId={tier.tierId} />
+    <TierContent
+      key={tier.tierId}
+      tierId={tier.tierId}
+      isTarget={targetTierId == tier.tierId}
+    />
   ));
 };
