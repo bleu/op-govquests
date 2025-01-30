@@ -1,8 +1,11 @@
 "use client";
 
 import { IndicatorPill } from "@/components/IndicatorPill";
+import { Button } from "@/components/ui/Button";
+import { useToast } from "@/hooks/use-toast";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { ResultOf } from "gql.tada";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ComponentProps } from "react";
@@ -40,10 +43,36 @@ export const UserAchievementPanel = ({
 }: UserAchievementPanelProps) => {
   const { data: userProfile } = useUserProfile(user?.address as `0x${string}`);
 
+  const { toast } = useToast();
+
+  const handleShareProfile = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        `${window.location.origin}/leaderboard/${user.id}`,
+      );
+      toast({
+        title: "Profile link copied to clipboard.",
+      });
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  };
+
   return (
     <div className="w-full h-80 overflow-hidden rounded-[20px] relative">
+      {isFromCurrentUser && (
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={handleShareProfile}
+          className="absolute top-4 right-7 bg-background/90 border-primary/10 h-fit py-1 hover:bg-background/90"
+        >
+          <ArrowUpRight />
+          Share
+        </Button>
+      )}
       <Image
-        src="backgrounds/first_tier.svg"
+        src="/backgrounds/first_tier.svg"
         alt="tier_background"
         width={100}
         height={100}

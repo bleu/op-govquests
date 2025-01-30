@@ -52,15 +52,7 @@ export const TierContent = ({ tierId, isTarget = false }: TierContentProps) => {
                         data.tier.leaderboard.gameProfiles?.[value] || null,
                     )
                     .map(
-                      (profile) =>
-                        profile && (
-                          <PodiumCard
-                            account={profile.user.address as `0x${string}`}
-                            score={profile.score}
-                            rank={profile.rank}
-                            key={profile.profileId}
-                          />
-                        ),
+                      (profile) => profile && <PodiumCard profile={profile} />,
                     )}
                 </div>
               </>

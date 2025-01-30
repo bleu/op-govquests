@@ -1,3 +1,5 @@
+"use client";
+
 import { SectionHeader } from "@/components/SectionHeader";
 import { useUserInfo } from "../hooks/useUserInfo";
 import { NormalBadgeCard, SpecialBadgeCard } from "./BadgeCard";
