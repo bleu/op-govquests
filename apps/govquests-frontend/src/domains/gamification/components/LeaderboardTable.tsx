@@ -28,7 +28,7 @@ export const LeaderboardTable = ({ tierId }: { tierId: string }) => {
     isLoading,
     limit,
     setLimit,
-  } = usePaginatedTier(tierId, 0);
+  } = usePaginatedTier(tierId);
 
   const searchParams = useSearchParams();
   const targetRank: number = useMemo(() => {
