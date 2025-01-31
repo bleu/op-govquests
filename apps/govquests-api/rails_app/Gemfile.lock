@@ -142,6 +142,7 @@ GEM
     byebug (11.1.3)
     childprocess (5.1.0)
       logger (~> 1.5)
+    chronic (0.10.2)
     coderay (1.1.3)
     concurrent-ruby (1.3.4)
     connection_pool (2.4.1)
@@ -540,6 +541,8 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     yard (0.9.37)
     yard-sorbet (0.9.0)
       sorbet-runtime
@@ -604,6 +607,7 @@ DEPENDENCIES
   tapioca
   thruster
   tzinfo-data
+  whenever
 
 BUNDLED WITH
    2.5.11
