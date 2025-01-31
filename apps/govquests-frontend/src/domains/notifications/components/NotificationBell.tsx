@@ -29,7 +29,7 @@ export const NotificationBell = () => {
         <Button
           variant="ghost"
           size="icon"
-          className="relative w-8 h-8 rounded-full"
+          className="relative w-8 h-8 rounded-full hover:bg-accent"
         >
           <Bell className="h-4 w-4" />
           {unreadCount !== undefined && unreadCount > 0 && (
@@ -115,7 +115,19 @@ const NotificationPanel = ({ onNotificationClick }) => {
   return (
     <>
       <div className="flex items-center justify-between p-2 border-b">
-        <h4 className="text-sm font-medium px-1">Notifications</h4>
+        <h4 className="text-sm font-medium">Notifications</h4>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-7 text-xs"
+          onClick={handleMarkAllAsRead}
+          disabled={isMarkingAllAsRead}
+        >
+          {isMarkingAllAsRead ? (
+            <Loader2 className="h-3 w-3 animate-spin mr-1" />
+          ) : null}
+          Mark all as read
+        </Button>
       </div>
       <ScrollArea className="h-[300px]">
         <div className="flex flex-col">
@@ -142,20 +154,6 @@ const NotificationPanel = ({ onNotificationClick }) => {
           )}
         </div>
       </ScrollArea>
-      <div className="p-1 flex flex-row-reverse border-t">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="h-7 text-xs hover:bg-background hover:text-foreground"
-          onClick={handleMarkAllAsRead}
-          disabled={isMarkingAllAsRead}
-        >
-          {isMarkingAllAsRead ? (
-            <Loader2 className="h-3 w-3 animate-spin mr-1" />
-          ) : null}
-          Mark all as read
-        </Button>
-      </div>
     </>
   );
 };
@@ -175,15 +173,25 @@ const NotificationItem = ({ notification, onClick }) => {
       className={cn(
         "flex flex-col gap-0.5 p-3 text-left hover:bg-muted transition-colors w-full",
         "border-b last:border-b-0",
-        notification.status === "read" && "text-foreground/60",
+        notification.status === "unread" && "bg-muted/50",
       )}
       onClick={handleClick}
     >
-      <div className="flex flex-col justify-between items-start gap-2">
+      <div className="flex justify-between items-start gap-2">
         <p className="text-sm flex-1">{notification.content}</p>
-        <time className="text-xs whitespace-nowrap">
+        <time className="text-xs text-muted-foreground whitespace-nowrap">
           {formatDate(notification.createdAt)}
         </time>
+      </div>
+      <div className="flex gap-1">
+        <Badge variant="outline" className="text-xs">
+          {notification.notificationType}
+        </Badge>
+        {notification.status === "unread" && (
+          <Badge variant="secondary" className="text-xs text-red-500">
+            New
+          </Badge>
+        )}
       </div>
     </button>
   );

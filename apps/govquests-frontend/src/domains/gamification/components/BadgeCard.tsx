@@ -2,7 +2,7 @@
 
 import { cn, koulen, redactedScript } from "@/lib/utils";
 import Image from "next/image";
-import { ComponentProps, useState } from "react";
+import { ComponentProps } from "react";
 import { useFetchBadge } from "../hooks/useFetchBadge";
 import { useFetchSpecialBadge } from "../hooks/useFetchSpecialBadge";
 
@@ -55,8 +55,6 @@ export const BadgeCard = ({
 }: BadgeCardProps) => {
   const revealCard = badge.earnedByCurrentUser || revealIncomplete;
 
-  const [imageLoaded, setImageLoaded] = useState(false);
-
   return (
     <div
       className={cn(
@@ -64,36 +62,31 @@ export const BadgeCard = ({
         className,
       )}
     >
-      <div className="relative w-full h-full aspect-[9/10]">
-        <Image
-          src={badge.displayData.imageUrl}
-          alt="badge_image"
-          width={100}
-          height={100}
+      <Image
+        src={badge.displayData.imageUrl}
+        alt="badge_image"
+        width={100}
+        height={100}
+        className={cn(
+          "object-cover w-full h-full grayscale",
+          revealCard && "grayscale-0",
+        )}
+        unoptimized
+      />
+      <div
+        className={cn(
+          "absolute w-full right-0 flex h-full top-0 pb-[19.5%] items-end whitespace-nowrap",
+          revealCard ? koulen.className : redactedScript.className,
+        )}
+      >
+        <span
           className={cn(
-            "object-cover w-full h-full grayscale",
-            revealCard && "grayscale-0",
-          )}
-          unoptimized
-          onLoadingComplete={() => setImageLoaded(true)}
-        />
-        <div
-          className={cn(
-            "absolute w-full right-0 flex h-full top-0 pb-[19.5%] items-end whitespace-nowrap",
-            revealCard ? koulen.className : redactedScript.className,
+            "text-primary-foreground w-full text-center translate-y-1/2 tracking-tighter text-lg",
+            !revealCard && "scale-x-75",
           )}
         >
-          {imageLoaded && (
-            <span
-              className={cn(
-                "text-primary-foreground w-full text-center translate-y-1/2 tracking-tighter text-lg",
-                !revealCard && "scale-x-75",
-              )}
-            >
-              {badge.displayData.title}
-            </span>
-          )}
-        </div>
+          {badge.displayData.title}
+        </span>
       </div>
     </div>
   );
