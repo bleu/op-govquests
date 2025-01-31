@@ -1,15 +1,12 @@
-import { createConfig, http } from "wagmi";
-import { mainnet, optimism } from "wagmi/chains";
-import { getDefaultConfig, SIWEConfig } from "connectkit";
-import { SiweMessage } from "siwe";
 import {
+  fetchCurrentUser,
   generateSiweMessage,
   signInWithEthereum,
   signOut,
-  fetchCurrentUser,
 } from "@/domains/authentication/services/authService";
-import { QueryClient, useMutation } from "@tanstack/react-query";
-import { useSignInWithEthereum } from "./domains/authentication/hooks";
+import { getDefaultConfig, SIWEConfig } from "connectkit";
+import { createConfig, http } from "wagmi";
+import { mainnet, optimism } from "wagmi/chains";
 import { queryClient } from "./components/Layout";
 
 // if (!process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID) {
@@ -19,9 +16,10 @@ import { queryClient } from "./components/Layout";
 export const config = createConfig(
   getDefaultConfig({
     appName: "GovQuests",
-    chains: [optimism],
+    chains: [optimism, mainnet],
     transports: {
       [optimism.id]: http(),
+      [mainnet.id]: http(),
     },
     walletConnectProjectId: "ABXC",
   }),

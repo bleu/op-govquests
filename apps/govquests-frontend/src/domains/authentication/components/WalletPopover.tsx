@@ -20,8 +20,8 @@ import {
 
 export const WalletPopover = ({ className }: { className: string }) => {
   const { address } = useAccount();
-  const { data: ensName } = useEnsName({ address });
-  const { data: ensAvatar } = useEnsAvatar({ name: ensName });
+  const { data: ensName } = useEnsName({ address, chainId: 1 });
+  const { data: ensAvatar } = useEnsAvatar({ name: ensName, chainId: 1 });
   const { disconnect } = useDisconnect();
 
   const { data: balance } = useBalance({
