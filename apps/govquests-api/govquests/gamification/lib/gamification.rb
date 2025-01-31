@@ -49,8 +49,12 @@ module Gamification
       profile.update_score(cmd.points)
     end
 
+    handle "Gamification::UpdateVotingPower", aggregate: GameProfile do |profile, cmd|
+      profile.update_voting_power(cmd.voting_power)
+    end
+
     handle "Gamification::AchieveTier", aggregate: GameProfile do |profile, cmd|
-      profile.achieve_tier(cmd.tier)
+      profile.achieve_tier(cmd.tier_id)
     end
 
     handle "Gamification::CompleteTrack", aggregate: GameProfile do |profile, cmd|
@@ -113,7 +117,7 @@ module Gamification
     end
 
     handle "Gamification::CreateGameProfile", aggregate: GameProfile do |profile, cmd|
-      profile.create(tier_id: cmd.tier_id)
+      profile.create
     end
   end
 end

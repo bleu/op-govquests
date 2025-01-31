@@ -14,12 +14,9 @@ module Processes
 
       return if ::Gamification::GameProfileReadModel.exists?(profile_id: user_id)
 
-      address = ::Authentication::UserReadModel.find_by(user_id: user_id)&.address
-      tier = ::Gamification::DetermineTierService.determine_tier(address: address)
-
+      
       command = ::Gamification::CreateGameProfile.new(
         profile_id: user_id,
-        tier_id: tier.tier_id
       )
 
       @command_bus.call(command)

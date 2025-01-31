@@ -1,7 +1,8 @@
 module Gamification
   class ReadModelConfiguration
     def call(event_store)
-      # event_store.subscribe(OnTierAchieved, to: [Gamification::TierAchieved])
+      event_store.subscribe(OnTierAchieved, to: [Gamification::TierAchieved])
+      event_store.subscribe(OnVotingPowerUpdated, to: [Gamification::VotingPowerUpdated])
       event_store.subscribe(OnTrackCompleted, to: [Gamification::TrackCompleted])
       event_store.subscribe(OnStreakMaintained, to: [Gamification::StreakMaintained])
       event_store.subscribe(OnBadgeEarned, to: [Gamification::BadgeEarned])

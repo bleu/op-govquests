@@ -8,7 +8,8 @@ module Gamification
     belongs_to :tier,
       class_name: "Gamification::TierReadModel",
       foreign_key: "tier_id",
-      primary_key: "tier_id"
+      primary_key: "tier_id",
+      optional: true
 
     belongs_to :user,
       class_name: "Authentication::UserReadModel",
@@ -44,6 +45,7 @@ end
 #  streak           :integer          default(0)
 #  track            :integer          default(0)
 #  unclaimed_tokens :jsonb
+#  voting_power     :integer          default(0)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  profile_id       :string           not null
