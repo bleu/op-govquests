@@ -32,9 +32,16 @@ module Gamification
     alias_method :aggregate_id, :profile_id
   end
 
+  class UpdateVotingPower < Infra::Command
+    attribute :profile_id, Infra::Types::UUID
+    attribute :voting_power, Infra::Types::Integer
+
+    alias_method :aggregate_id, :profile_id
+  end
+
   class AchieveTier < Infra::Command
     attribute :profile_id, Infra::Types::UUID
-    attribute :tier, Infra::Types::String
+    attribute :tier_id, Infra::Types::UUID
 
     alias_method :aggregate_id, :profile_id
   end
@@ -116,7 +123,6 @@ module Gamification
 
   class CreateGameProfile < Infra::Command
     attribute :profile_id, Infra::Types::UUID
-    attribute :tier_id, Infra::Types::UUID
 
     alias :aggregate_id :profile_id
   end
