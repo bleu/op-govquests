@@ -6,9 +6,11 @@ module Gamification
       badge_type = event.data[:badge_type]
       earned_at = event.data[:earned_at]
 
+      badge = badge_type.constantize.find_by(badge_id: badge_id)
+
       UserBadgeReadModel.create!(
         user_id:,
-        badge_id: badge_id,
+        badge_id: badge.id,
         badge_type: badge_type,
         earned_at: earned_at
       )

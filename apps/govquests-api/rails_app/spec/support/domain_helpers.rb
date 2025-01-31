@@ -52,10 +52,13 @@ module DomainHelpers
   def create_reward_pool(quest_id:, reward_definition:, pool_id: nil)
     pool_id = SecureRandom.uuid if pool_id.nil?
 
+    rewardable_type = "Questing::QuestReadModel"
+
     command_bus.call(
       Rewarding::CreateRewardPool.new(
         pool_id: pool_id,
-        quest_id: quest_id,
+        rewardable_id: quest_id,
+        rewardable_type: rewardable_type,
         reward_definition: reward_definition,
         initial_inventory: (reward_definition.type == "Token") ? 1000 : nil
       )

@@ -14,5 +14,8 @@ module Types
     # Notifications
     field :mark_notification_as_read, mutation: Mutations::MarkNotificationAsRead, preauthorize: {with: AuthenticatedGraphqlPolicy}
     field :mark_all_notifications_as_read, mutation: Mutations::MarkAllNotificationsAsRead, preauthorize: {with: AuthenticatedGraphqlPolicy}
+
+    # Special Badges
+    field :collect_badge, mutation: Mutations::CollectBadge, preauthorize: {with: AuthenticatedGraphqlPolicy}
   end
 end

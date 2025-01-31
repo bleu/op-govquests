@@ -1,15 +1,15 @@
-import { DividerHeader } from "@/components/ui/DividerHeader";
+import { IndicatorPill } from "@/components/IndicatorPill";
+import RewardIndicator from "@/components/RewardIndicator";
 import { Button } from "@/components/ui/Button";
+import { DividerHeader } from "@/components/ui/DividerHeader";
+import HtmlRender from "@/components/ui/HtmlRender";
 import ActionList from "@/domains/action_tracking/components/ActionList";
 import type { Quest } from "@/domains/questing/types/questTypes";
 import { ArrowLeft } from "lucide-react";
-import { redirect } from "next/navigation";
-import QuestContentSection from "./QuestContentSection";
-import { BadgeCard } from "../../gamification/components/BadgeCard";
-import HtmlRender from "@/components/ui/HtmlRender";
-import { IndicatorPill } from "@/components/IndicatorPill";
-import RewardIndicator from "@/components/RewardIndicator";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { NormalBadgeCard } from "../../gamification/components/BadgeCard";
+import QuestContentSection from "./QuestContentSection";
 
 interface QuestDetailsProps {
   quest: Quest;
@@ -59,7 +59,7 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
                 <div className="items-center justify-center flex gap-12 mx-20 pt-8">
                   {quest.badge.displayData.imageUrl && (
                     <Link href={`/achievements?badgeId=${quest.badge.id}`}>
-                      <BadgeCard
+                      <NormalBadgeCard
                         badgeId={quest.badge.id}
                         className="hover:scale-105 transition-all duration-300 min-w-52 h-60"
                       />

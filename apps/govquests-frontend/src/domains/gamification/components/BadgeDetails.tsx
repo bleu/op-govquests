@@ -3,7 +3,7 @@ import {
   DialogDescription,
   DialogHeader,
 } from "@/components/ui/dialog";
-import { BadgeCard } from "./BadgeCard";
+import { NormalBadgeCard, SpecialBadgeCard } from "./BadgeCard";
 import { SimpleBadgeContent } from "./SimpleBadgeContent";
 import { SpecialBadgeContent } from "./SpecialBadgeContent";
 
@@ -20,13 +20,20 @@ export const BadgeDetails = ({
     <DialogContent>
       <DialogHeader>
         <DialogDescription className="flex flex-col gap-8 items-center justify-center text-foreground">
-          <div className="w-[190px]">
-            <BadgeCard badgeId={badgeId} revealIncomplete />
-          </div>
           {special ? (
-            <SpecialBadgeContent badgeId={badgeId} />
+            <>
+              <div className="w-[190px]">
+                <SpecialBadgeCard badgeId={badgeId} revealIncomplete />
+              </div>
+              <SpecialBadgeContent badgeId={badgeId} />
+            </>
           ) : (
-            <SimpleBadgeContent badgeId={badgeId} />
+            <>
+              <div className="w-[190px]">
+                <NormalBadgeCard badgeId={badgeId} revealIncomplete />
+              </div>
+              <SimpleBadgeContent badgeId={badgeId} />
+            </>
           )}
         </DialogDescription>
       </DialogHeader>

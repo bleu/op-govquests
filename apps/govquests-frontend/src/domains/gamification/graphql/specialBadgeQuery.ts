@@ -4,7 +4,12 @@ export const SpecialBadgeQuery = graphql(`
   query GetSpecialBadge($id: ID!) {
     specialBadge(id: $id) {
       id
-      points
+      rewardPools {
+        rewardDefinition {
+          type
+          amount
+        }
+      }
       badgeType
       earnedByCurrentUser
       displayData {

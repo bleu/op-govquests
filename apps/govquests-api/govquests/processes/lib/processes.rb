@@ -4,6 +4,7 @@ require_relative "processes/start_track_and_quest_on_action_execution_started"
 require_relative "processes/update_profile_on_reward_issued"
 require_relative "processes/update_quest_progress_on_action_execution_completed"
 require_relative "processes/distribute_rewards_on_quest_completed"
+require_relative "processes/distribute_rewards_on_badge_earned"
 
 require_relative "processes/notify_on_quest_completed"
 require_relative "processes/notify_on_reward_issued"
@@ -24,6 +25,7 @@ module Processes
       CreateBadgeOnTrackOrQuestCreated.new(event_store, command_bus).subscribe
       RewardBadgeOnQuestOrTrackCompleted.new(event_store, command_bus).subscribe
       UpdateTrackOnQuestCompleted.new(event_store, command_bus).subscribe
+      DistributeRewardsOnBadgeEarned.new(event_store, command_bus).subscribe
 
       NotifyOnQuestCompleted.new(event_store, command_bus).subscribe
       NotifyOnRewardIssued.new(event_store, command_bus).subscribe
