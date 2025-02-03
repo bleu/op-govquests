@@ -359,7 +359,7 @@ module QuestData
     action_type: "governance_voter_participation",
     display_data: {
       title: "3 Consecutive Votes",
-      description: "<ul><li>Vote on 3 different proposals and justify your choices (minimum 50 characters per justification).</li><!-- <li>Pro tip: Enable notifications [link] to stay updated on new proposals</li> --></ul>"
+      description: "Vote on 3 different proposals and justify your choices (minimum 50 characters per justification)."
     },
     action_data: {
       action_type: "governance_voter_participation"
