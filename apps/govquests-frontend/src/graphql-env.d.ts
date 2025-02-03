@@ -27,7 +27,7 @@ export type introspection_types = {
     'EnsDomain': { kind: 'OBJECT'; name: 'EnsDomain'; fields: { 'name': { name: 'name'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'String'; ofType: null; }; } }; 'owner': { name: 'owner'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'String'; ofType: null; }; } }; 'resolvedAddress': { name: 'resolvedAddress'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'wrappedOwner': { name: 'wrappedOwner'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; }; };
     'EnsStartData': { kind: 'OBJECT'; name: 'EnsStartData'; fields: { 'actionType': { name: 'actionType'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'String'; ofType: null; }; } }; 'domains': { name: 'domains'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'LIST'; name: never; ofType: { kind: 'NON_NULL'; name: never; ofType: { kind: 'OBJECT'; name: 'EnsDomain'; ofType: null; }; }; }; } }; }; };
     'Float': unknown;
-    'GameProfile': { kind: 'OBJECT'; name: 'GameProfile'; fields: { 'profileId': { name: 'profileId'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'String'; ofType: null; }; } }; 'rank': { name: 'rank'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'Int'; ofType: null; }; } }; 'score': { name: 'score'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'Int'; ofType: null; }; } }; 'tier': { name: 'tier'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'OBJECT'; name: 'Tier'; ofType: null; }; } }; 'user': { name: 'user'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'OBJECT'; name: 'User'; ofType: null; }; } }; }; };
+    'GameProfile': { kind: 'OBJECT'; name: 'GameProfile'; fields: { 'profileId': { name: 'profileId'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'String'; ofType: null; }; } }; 'rank': { name: 'rank'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'Int'; ofType: null; }; } }; 'score': { name: 'score'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'Int'; ofType: null; }; } }; 'tier': { name: 'tier'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'OBJECT'; name: 'Tier'; ofType: null; }; } }; 'user': { name: 'user'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'OBJECT'; name: 'User'; ofType: null; }; } }; 'votingPower': { name: 'votingPower'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'Int'; ofType: null; }; } }; }; };
     'GenerateSiweMessageInput': { kind: 'INPUT_OBJECT'; name: 'GenerateSiweMessageInput'; isOneOf: false; inputFields: [{ name: 'address'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'String'; ofType: null; }; }; defaultValue: null }, { name: 'chainId'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'Int'; ofType: null; }; }; defaultValue: null }, { name: 'clientMutationId'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; }; defaultValue: null }]; };
     'GenerateSiweMessagePayload': { kind: 'OBJECT'; name: 'GenerateSiweMessagePayload'; fields: { 'clientMutationId': { name: 'clientMutationId'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'message': { name: 'message'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'String'; ofType: null; }; } }; 'nonce': { name: 'nonce'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'String'; ofType: null; }; } }; }; };
     'GitcoinScoreCompletionData': { kind: 'OBJECT'; name: 'GitcoinScoreCompletionData'; fields: { 'actionType': { name: 'actionType'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'String'; ofType: null; }; } }; 'minimumPassingScore': { name: 'minimumPassingScore'; type: { kind: 'SCALAR'; name: 'Float'; ofType: null; } }; 'score': { name: 'score'; type: { kind: 'SCALAR'; name: 'Float'; ofType: null; } }; }; };
@@ -87,16 +87,16 @@ export type introspection_types = {
  */
 export type introspection = {
   name: never;
-  query: 'Query';
-  mutation: 'Mutation';
+  query: "Query";
+  mutation: "Mutation";
   subscription: never;
   types: introspection_types;
 };
 
-import * as gqlTada from 'gql.tada';
+import * as gqlTada from "gql.tada";
 
-declare module 'gql.tada' {
+declare module "gql.tada" {
   interface setupSchema {
-    introspection: introspection
+    introspection: introspection;
   }
 }

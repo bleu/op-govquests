@@ -15,6 +15,7 @@ export const TIER_QUERY = graphql(`
           profileId
           rank
           score
+          votingPower
           user {
             address
             id

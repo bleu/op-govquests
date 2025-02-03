@@ -18,6 +18,7 @@ import { TIER_QUERY } from "../graphql/tierQuery";
 import { usePaginatedTier } from "../hooks/useFetchTier";
 import { TrophyIcon } from "./PodiumCard";
 import { ProfileDialogContent } from "./ProfileDialogContent";
+import { formatVotingPower } from "../lib/utils";
 
 export const LeaderboardTable = ({ tierId }: { tierId: string }) => {
   const {
@@ -125,7 +126,9 @@ const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
       </TableCell>
       {data && <TableCell className="py-4 w-1/3">{data.name}</TableCell>}
       <TableCell className="py-4 w-1/4">{profile.score}</TableCell>
-      <TableCell className="py-4 w-1/4">20,7K OP (3%)</TableCell>
+      <TableCell className="py-4 w-1/4">
+        {formatVotingPower(profile.votingPower)} OP
+      </TableCell>
       <TableCell className="rounded-r-lg w-fit self-end">
         <Dialog>
           <DialogTrigger asChild>

@@ -259,6 +259,7 @@ type GameProfile {
   score: Int!
   tier: Tier!
   user: User!
+  votingPower: Int!
 }
 
 """
