@@ -159,7 +159,8 @@ module TrackData
       image_url: "/badges/QUEST BADGE_05_06.png"
     },
     quests: [
-      "Claim Your Identity"
+      "Claim Your Identity",
+      "Proven Dedication: 3 Votes in a Row"
     ]
   }
 
@@ -354,6 +355,17 @@ module QuestData
     }
   }
 
+  GOVERNANCE_VOTER_PARTICIPATION = {
+    action_type: "governance_voter_participation",
+    display_data: {
+      title: "3 Consecutive Votes",
+      description: "<ul><li>Vote on 3 different proposals and justify your choices (minimum 50 characters per justification).</li><!-- <li>Pro tip: Enable notifications [link] to stay updated on new proposals</li> --></ul>"
+    },
+    action_data: {
+      action_type: "governance_voter_participation"
+    }
+  }
+
   QUESTS = [
     {
       display_data: {
@@ -506,6 +518,20 @@ module QuestData
       audience: "AllUsers",
       rewards: [{type: "Points", amount: 330}],
       actions: [BECOME_DELEGATOR]
+    },
+    {
+      display_data: {
+        title: "Proven Dedication: 3 Votes in a Row",
+        intro: "Show your commitment as an OP Delegate by voting on 3 consecutive proposals! Your consistent participation helps shape the future of the ecosystem.",
+        requirements: "To complete this quest you need to be a delegate. If you're not one yet, start with <a href='/quests/become-a-delegate'>this quest</a>."
+      },
+      badge_display_data: {
+        title: "3 Votes in a Row",
+        image_url: "/badges/QUEST BADGE_05_03.png"
+      },
+      audience: "Delegates",
+      rewards: [{type: "Points", amount: 330}],
+      actions: [GOVERNANCE_VOTER_PARTICIPATION]
     }
   ]
 end
