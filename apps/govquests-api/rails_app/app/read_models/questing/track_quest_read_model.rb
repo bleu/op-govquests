@@ -3,7 +3,7 @@ module Questing
     self.table_name = "track_quests"
 
     belongs_to :track,
-      class_name: "Tracking::TrackReadModel",
+      class_name: "Questing::TrackReadModel",
       foreign_key: "track_id",
       primary_key: "track_id"
 

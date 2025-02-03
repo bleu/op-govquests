@@ -55,9 +55,12 @@ module Questing
     handle "Questing::CreateTrack", aggregate: Track do |track, cmd|
       track.create(
         display_data: cmd.display_data,
-        quest_ids: cmd.quest_ids,
         badge_display_data: cmd.badge_display_data
       )
+    end
+
+    handle "Questing::AssociateQuestWithTrack", aggregate: Track do |track, cmd|
+      track.associate_quest(cmd.quest_id, cmd.position)
     end
   end
 end
