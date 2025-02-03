@@ -150,6 +150,7 @@ module TrackData
       image_url: "/badges/QUEST BADGE_03_06.png"
     },
     quests: [
+      "Quick Guide: Understand Delegation",
       "Become a Delegator"
     ]
   }
