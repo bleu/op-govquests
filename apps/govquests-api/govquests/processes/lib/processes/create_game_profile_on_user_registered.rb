@@ -14,12 +14,14 @@ module Processes
 
       return if ::Gamification::GameProfileReadModel.exists?(profile_id: user_id)
 
-      
       command = ::Gamification::CreateGameProfile.new(
         profile_id: user_id,
       )
 
       @command_bus.call(command)
+
+      update_voting_power_service = ::Gamification::UpdateVotingPowerService.new
+      update_voting_power_service.call(user_id: user_id)
     end
   end
 end
