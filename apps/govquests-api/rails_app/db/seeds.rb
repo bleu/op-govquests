@@ -293,6 +293,7 @@ module TrackData
       image_url: "/badges/QUEST BADGE_03_06.png"
     },
     quests: [
+      "Quick Guide: Understand Delegation",
       "Become a Delegator"
     ]
   }
@@ -508,6 +509,49 @@ module QuestData
     }
   }
 
+  UNDERSTAND_DELEGATION_ACTIONS = [
+    {
+      action_type: "read_content_inapp",
+      display_data: {
+        title: "Understanding OP Token Power",
+        description: "<ul><li>OP tokens give holders voting rights on crucial decisions for the Collective</li><li>While this empowers everyday users to shape the system's development, it's a significant responsibility. That's why you can delegate your voting power to community members who have volunteered to actively participate in Token House governance</li><li>If you are a delegate, you can also delegate part of your tokens tosupport and empower other delegates</li><li>A strong governance system benefits the entire Superchain, including you as a token holder</li></ul>"
+      },
+      action_data: {
+        action_type: "read_content_inapp"
+      }
+    },
+    {
+      action_type: "read_content_inapp",
+      display_data: {
+        title: "Key Points About Delegation",
+        description: "<ul><li>Delegates are community volunteers dedicated to active governance</li><li>They represent your interests in key decisions</li><li>You maintain 100% ownership of your tokens while delegating</li><li>You're free to undelegate or switch delegates anytime</li></ul>"
+      },
+      action_data: {
+        action_type: "read_content_inapp"
+      }
+    },
+    {
+      action_type: "read_content_inapp",
+      display_data: {
+        title: "How can you actually do it?",
+        description: "<ul><li>Watch this <a href='https://www.youtube.com/watch?v=pOjAOnUr3EU'>cool video</a> to understand how you can delegate your OP tokens.</li></ul>"
+      },
+      action_data: {
+        action_type: "read_content_inapp"
+      }
+    },
+    {
+      action_type: "read_content_inapp",
+      display_data: {
+        title: "Selecting Your Delegate",
+        description: "<ul><li>Review delegate statements carefully on <a href='https://vote.optimism.io/delegates'>Agora</a> - your choice impacts the ecosystem;</li><li>Evaluate delegates through their activity and contributions in the <a href='https://gov.optimism.io/c/delegates/41'>Optimism Governance Forum</a> ;</li><li>Use <a href='https://dune.com/optimismfnd/optimism-op-token-house'>this ranking system</a> to compare delegates by voting power, number of delegators, and other metrics.</li></ul>"
+      },
+      action_data: {
+        action_type: "read_content_inapp"
+      }
+    }
+  ]
+  
   GOVERNANCE_VOTER_PARTICIPATION = {
     action_type: "governance_voter_participation",
     display_data: {
@@ -671,6 +715,19 @@ module QuestData
       audience: "AllUsers",
       rewards: [{type: "Points", amount: 330}],
       actions: [BECOME_DELEGATOR]
+    },
+    {
+      display_data: {
+        title: "Quick Guide: Understand Delegation",
+        intro: "Whether you're a token holder looking to participate in governance or a delegate wanting to support other delegates, understanding delegation is your first step into active participation in the ecosystem."
+      },
+      badge_display_data: {
+        title: "Informed Delegator",
+        image_url: "/badges/QUEST BADGE_03_04.png"
+      },
+      audience: "AllUsers",
+      rewards: [{type: "Points", amount: 55}],
+      actions: UNDERSTAND_DELEGATION_ACTIONS
     },
     {
       display_data: {

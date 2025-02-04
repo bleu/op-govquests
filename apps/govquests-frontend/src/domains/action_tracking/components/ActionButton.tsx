@@ -67,6 +67,10 @@ const ACTIONS = {
     unstarted: { label: "Verify" },
     completed: { label: "Verified", icon: CheckSquareIcon },
   },
+  read_content_inapp: {
+    unstarted: { label: "Mark as read", icon: CheckIcon },
+    completed: { label: "Confirmed", icon: CheckSquareIcon },
+  },
 } as const;
 
 type ActionType = keyof typeof ACTIONS;
