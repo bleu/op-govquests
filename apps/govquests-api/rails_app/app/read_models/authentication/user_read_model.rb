@@ -12,6 +12,26 @@ module Authentication
       foreign_key: "user_id",
       primary_key: "user_id"
 
+    has_many :user_badges,
+      class_name: "Gamification::UserBadgeReadModel",
+      foreign_key: :user_id,
+      primary_key: :user_id
+
+    has_many :user_quests,
+      class_name: "Questing::UserQuestReadModel",
+      foreign_key: :user_id,
+      primary_key: :user_id
+
+    has_many :user_track,
+      class_name: "Questing::UserTrackReadModel",
+      foreign_key: :user_id,
+      primary_key: :user_id
+
+    has_one :game_profile,
+      class_name: "Gamification::GameProfileReadModel",
+      foreign_key: :profile_id,
+      primary_key: :user_id
+
     has_many :notifications, class_name: "Notifications::NotificationReadModel", foreign_key: :user_id, primary_key: :user_id
   end
 end

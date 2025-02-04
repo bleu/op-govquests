@@ -7,6 +7,8 @@ module Questing
       event_store.subscribe(OnQuestCompleted, to: [Questing::QuestCompleted])
       event_store.subscribe(OnTrackCreated, to: [Questing::TrackCreated])
       event_store.subscribe(OnQuestAssociatedWithTrack, to: [Questing::QuestAssociatedWithTrack])
+      event_store.subscribe(OnTrackStarted, to: [Questing::TrackStarted])
+      event_store.subscribe(OnTrackCompleted, to: [Questing::TrackCompleted])
     end
   end
 end

@@ -4,6 +4,11 @@ module Questing
 
     belongs_to :quest, class_name: "Questing::QuestReadModel", foreign_key: "quest_id", primary_key: "quest_id"
     belongs_to :user, class_name: "Authentication::UserReadModel", foreign_key: "user_id", primary_key: "user_id"
+
+    belongs_to :user_track,
+      class_name: "Questing::UserTrackReadModel",
+      primary_key: "user_id",
+      foreign_key: "user_id"
   end
 end
 
