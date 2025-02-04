@@ -4,8 +4,11 @@ import { Button } from "@/components/ui/Button";
 import Spinner from "@/components/ui/Spinner";
 import { ConnectKitButton, useSIWE } from "connectkit";
 import React from "react";
-import { useAccount } from "wagmi";
+import {
+  useAccount
+} from "wagmi";
 import { WalletPopover } from "./WalletPopover";
+
 
 interface SignInButtonProps {
   className?: string;
