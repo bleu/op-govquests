@@ -10,11 +10,9 @@ module Questing
       class_name: "Rewarding::RewardPoolReadModel",
       as: :rewardable
 
-    belongs_to :track,
-      class_name: "Questing::TrackReadModel",
-      foreign_key: "track_id",
-      primary_key: "track_id",
-      optional: true
+    has_one :track_quest, class_name: "Questing::TrackQuestReadModel", foreign_key: "quest_id", primary_key: "quest_id"
+    has_one :track,
+      through: :track_quest
 
     validates :quest_id, presence: true, uniqueness: true
     validates :slug, presence: true
@@ -25,8 +23,6 @@ module Questing
     has_one :badge,
       class_name: "Gamification::BadgeReadModel",
       as: :badgeable
-
-    has_one :track_quest, class_name: "Questing::TrackQuestReadModel", foreign_key: "quest_id", primary_key: "quest_id"
   end
 end
 
