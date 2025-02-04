@@ -5,6 +5,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { UseEmblaCarouselType } from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -12,8 +13,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useFetchSpecialBadges } from "../hooks/useFetchSpecialBadges";
 import { SpecialBadgeCard } from "./BadgeCard";
-import { BadgeDialog } from "./BadgeDialog";
-import { SectionHeader } from "@/components/SectionHeader";
+import { BadgeDetails } from "./BadgeDetails";
 
 export const SpecialBadgesSection: React.FC = () => {
   const [api, setApi] = useState<UseEmblaCarouselType[1] | null>(null);
@@ -40,11 +40,12 @@ export const SpecialBadgesSection: React.FC = () => {
   return (
     data && (
       <div className="flex flex-col items-center justify-center w-full">
-        <SectionHeader
-          title="Special Badges"
-          description="Big achievements with special acknowledgement."
-          className="w-[calc(100%-4rem)] mx-8"
-        />
+        <div className="flex flex-col gap-3 mx-8 pb-4 border-b border-foreground/20 w-[calc(100%-4rem)]">
+          <h1 className="text-2xl font-bold"># Special Badges</h1>
+          <span className="text-xl">
+            Big achievements with special acknowledgement.
+          </span>
+        </div>
 
         <div className="relative w-full mx-2">
           {hasNavigationButtons && (
@@ -65,18 +66,17 @@ export const SpecialBadgesSection: React.FC = () => {
                   key={badge.id}
                   className="xl:basis-1/5 lg:basis-1/4 md:basis-1/3 sm:basis-1/2"
                 >
-                  <BadgeDialog
-                    defaultOpen={queryBadgeId == badge.id}
-                    badgeId={badge.id}
-                    special
-                  >
-                    <SpecialBadgeCard
-                      badgeId={badge.id}
-                      withTitle
-                      header={`SPECIAL BADGE #${index + 1}`}
-                      className="w-full"
-                    />
-                  </BadgeDialog>
+                  <Dialog defaultOpen={queryBadgeId == badge.id}>
+                    <DialogTrigger>
+                      <SpecialBadgeCard
+                        badgeId={badge.id}
+                        withTitle
+                        header={`SPECIAL BADGE #${index + 1}`}
+                        className="w-full"
+                      />
+                    </DialogTrigger>
+                    <BadgeDetails badgeId={badge.id} special />
+                  </Dialog>
                 </CarouselItem>
               ))}
             </CarouselContent>
