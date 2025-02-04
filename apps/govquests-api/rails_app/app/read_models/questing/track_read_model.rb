@@ -2,14 +2,18 @@ module Questing
   class TrackReadModel < ApplicationRecord
     self.table_name = "tracks"
 
-    attribute :quest_ids, :jsonb, array: true
+    has_many :quests,
+      class_name: "Questing::QuestReadModel",
+      foreign_key: "track_id",
+      primary_key: "track_id"
+
+    has_many :user_tracks,
+      class_name: "Questing::UserTrackReadModel",
+      foreign_key: "track_id",
+      primary_key: "track_id"
 
     validates :track_id, presence: true, uniqueness: true
     validates :display_data, presence: true
-
-    def quests
-      QuestReadModel.where(quest_id: quest_ids)
-    end
 
     has_one :badge,
       class_name: "Gamification::BadgeReadModel",
