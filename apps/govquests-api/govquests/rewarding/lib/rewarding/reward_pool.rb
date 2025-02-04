@@ -12,18 +12,20 @@ module Rewarding
 
     def initialize(id)
       @id = id
-      @quest_id = nil
+      @rewardable_id = nil
+      @rewardable_type = nil
       @reward_definition = nil
       @remaining_inventory = 0
       @issued_rewards_receipients = Set.new
     end
 
-    def create(quest_id:, reward_definition:, initial_inventory: nil)
-      raise AlreadyCreated if @quest_id
-
+    def create(rewardable_id:, rewardable_type:, reward_definition:, initial_inventory: nil)
+      raise AlreadyCreated if @rewardable_id.present?
+    
       apply RewardPoolCreated.new(data: {
         pool_id: @id,
-        quest_id: quest_id,
+        rewardable_id: rewardable_id,
+        rewardable_type: rewardable_type,
         reward_definition: reward_definition,
         initial_inventory: initial_inventory
       })
@@ -52,7 +54,8 @@ module Rewarding
     end
 
     on RewardPoolCreated do |event|
-      @quest_id = event.data[:quest_id]
+      @rewardable_id = event.data[:rewardable_id]
+      @rewardable_type = event.data[:rewardable_type]
       @reward_definition = event.data[:reward_definition]
       @remaining_inventory = event.data[:initial_inventory] if event.data[:initial_inventory]
     end

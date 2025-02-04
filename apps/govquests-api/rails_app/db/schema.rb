@@ -47,10 +47,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
     t.jsonb "display_data", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "badgeable_type"
-    t.string "badgeable_id"
+    t.string "badgeable_type", null: false
+    t.string "badgeable_id", null: false
     t.index ["badge_id"], name: "index_badges_on_badge_id", unique: true
-    t.index ["badgeable_type", "badgeable_id"], name: "index_badges_on_badgeable_type_and_badgeable_id", unique: true, where: "((badgeable_type IS NOT NULL) AND (badgeable_id IS NOT NULL))"
+    t.index ["badgeable_type", "badgeable_id"], name: "index_badges_on_badgeable_type_and_badgeable_id", unique: true
   end
 
   create_table "event_store_events", force: :cascade do |t|
@@ -77,22 +77,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
     t.index ["stream", "position"], name: "index_event_store_events_in_streams_on_stream_and_position", unique: true
   end
 
-  create_table "leaderboard_entries", id: false, force: :cascade do |t|
-    t.string "leaderboard_id", null: false
-    t.string "profile_id", null: false
-    t.integer "rank", null: false
-    t.integer "score", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["leaderboard_id", "profile_id"], name: "index_leaderboard_entries_on_leaderboard_id_and_profile_id", unique: true
-  end
-
   create_table "leaderboards", id: false, force: :cascade do |t|
     t.string "leaderboard_id", null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "tier_id"
     t.index ["leaderboard_id"], name: "index_leaderboards_on_leaderboard_id", unique: true
+    t.index ["tier_id"], name: "index_leaderboards_on_tier_id", unique: true
   end
 
   create_table "notification_deliveries", force: :cascade do |t|
@@ -137,7 +129,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.string "track_id"
     t.index ["quest_id"], name: "index_quests_on_quest_id", unique: true
+    t.index ["track_id"], name: "index_quests_on_track_id"
   end
 
   create_table "reward_issuances", force: :cascade do |t|
@@ -155,13 +149,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
 
   create_table "reward_pools", force: :cascade do |t|
     t.uuid "pool_id", null: false
-    t.uuid "quest_id", null: false
+    t.string "rewardable_id", null: false
     t.jsonb "reward_definition", null: false
     t.integer "remaining_inventory"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "rewardable_type"
     t.index ["pool_id"], name: "index_reward_pools_on_pool_id", unique: true
-    t.index ["quest_id"], name: "index_reward_pools_on_quest_id"
+    t.index ["rewardable_id"], name: "index_reward_pools_on_rewardable_id"
+    t.index ["rewardable_type", "rewardable_id"], name: "index_reward_pools_on_rewardable_type_and_rewardable_id"
   end
 
   create_table "rewards", force: :cascade do |t|
@@ -176,6 +172,28 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_rewards_on_reward_id", unique: true
+  end
+
+  create_table "special_badges", force: :cascade do |t|
+    t.string "badge_id", null: false
+    t.jsonb "display_data", null: false
+    t.string "badge_type", null: false
+    t.jsonb "badge_data", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_id"], name: "index_special_badges_on_badge_id", unique: true
+  end
+
+  create_table "tiers", force: :cascade do |t|
+    t.string "tier_id", null: false
+    t.jsonb "display_data", null: false
+    t.bigint "min_delegation", null: false
+    t.bigint "max_delegation"
+    t.float "multiplier", default: 1.0, null: false
+    t.string "image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tier_id"], name: "index_tiers_on_tier_id", unique: true
   end
 
   create_table "track_quests", force: :cascade do |t|
@@ -197,9 +215,20 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
     t.index ["track_id"], name: "index_tracks_on_track_id", unique: true
   end
 
+  create_table "user_badges", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.string "badge_type", null: false
+    t.string "badge_id", null: false
+    t.datetime "earned_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_type", "badge_id"], name: "index_user_badges_on_badge_type_and_badge_id"
+    t.index ["earned_at"], name: "index_user_badges_on_earned_at"
+    t.index ["user_id", "badge_type", "badge_id"], name: "unique_normal_badges_index", unique: true, where: "((badge_type)::text = 'Gamification::BadgeReadModel'::text)"
+  end
+
   create_table "user_game_profiles", force: :cascade do |t|
     t.string "profile_id", null: false
-    t.integer "tier", default: 0
     t.integer "track", default: 0
     t.integer "streak", default: 0
     t.integer "score", default: 0
@@ -208,7 +237,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
     t.jsonb "active_claim"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "tier_id"
+    t.integer "rank"
     t.index ["profile_id"], name: "index_user_game_profiles_on_profile_id", unique: true
+    t.index ["tier_id", "rank"], name: "index_user_game_profiles_on_tier_id_and_rank"
+    t.index ["tier_id"], name: "index_user_game_profiles_on_tier_id"
   end
 
   create_table "user_quests", force: :cascade do |t|
@@ -244,6 +277,20 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
     t.index ["user_id"], name: "index_user_sessions_on_user_id"
   end
 
+  create_table "user_tracks", force: :cascade do |t|
+    t.string "track_id", null: false
+    t.string "user_id", null: false
+    t.string "status", default: "in_progress", null: false
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_track_id"
+    t.index ["status"], name: "index_user_tracks_on_status"
+    t.index ["track_id"], name: "index_user_tracks_on_track_id"
+    t.index ["user_id", "track_id"], name: "index_user_tracks_on_user_id_and_track_id", unique: true
+    t.index ["user_track_id"], name: "index_user_tracks_on_user_track_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "user_id", null: false
     t.string "email"
@@ -261,5 +308,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
   end
 
   add_foreign_key "event_store_events_in_streams", "event_store_events", column: "event_id", primary_key: "event_id"
-  add_foreign_key "leaderboard_entries", "leaderboards", primary_key: "leaderboard_id"
+  add_foreign_key "leaderboards", "tiers", primary_key: "tier_id"
+  add_foreign_key "user_game_profiles", "tiers", primary_key: "tier_id"
 end

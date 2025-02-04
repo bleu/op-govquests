@@ -5,7 +5,16 @@ module Questing
     has_many :quest_actions, -> { order(position: :asc) }, class_name: "Questing::QuestActionReadModel", foreign_key: "quest_id", primary_key: "quest_id"
     has_many :actions, through: :quest_actions, source: :action, class_name: "ActionTracking::ActionReadModel"
     has_many :user_quests, class_name: "Questing::UserQuestReadModel", foreign_key: "quest_id", primary_key: "quest_id"
-    has_many :reward_pools, class_name: "Rewarding::RewardPoolReadModel", foreign_key: "quest_id", primary_key: "quest_id"
+
+    has_many :reward_pools,
+      class_name: "Rewarding::RewardPoolReadModel",
+      as: :rewardable
+
+    belongs_to :track,
+      class_name: "Questing::TrackReadModel",
+      foreign_key: "track_id",
+      primary_key: "track_id",
+      optional: true
 
     validates :quest_id, presence: true, uniqueness: true
     validates :slug, presence: true
@@ -33,8 +42,10 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  quest_id     :string           not null
+#  track_id     :string
 #
 # Indexes
 #
 #  index_quests_on_quest_id  (quest_id) UNIQUE
+#  index_quests_on_track_id  (track_id)
 #

@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 export default function Page() {
   return (
-    <div className="flex flex-1 flex-col gap-8 h-full items-center justify-center mx-20">
+    <div className="flex flex-col gap-8 h-full p-8">
       <Suspense>
         <SpecialBadgesSection />
       </Suspense>

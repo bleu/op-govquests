@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { BadgeCard } from "../../../gamification/components/BadgeCard";
+import { BadgeDialog } from "@/domains/gamification/components/BadgeDialog";
+import { NormalBadgeCard } from "../../../gamification/components/BadgeCard";
 import { Tracks } from "../../types/trackTypes";
 
 interface TrackDescriptionProps {
@@ -18,13 +18,12 @@ export const TrackDescription = ({ track }: TrackDescriptionProps) => {
       </div>
       <div className="items-center justify-center flex gap-12 mx-20">
         {track.badge.displayData.imageUrl && (
-          <Link href={`/achievements?badgeId=${track.badge.id}`}>
-            <BadgeCard
+          <BadgeDialog badgeId={track.badge.id}>
+            <NormalBadgeCard
               badgeId={track.badge.id}
-              isCompleted={track.isCompleted}
               className="hover:scale-105 transition-all duration-300 min-w-52 h-60"
             />
-          </Link>
+          </BadgeDialog>
         )}
         <div className="flex flex-col gap-4 col-span-8 w-full font-bold">
           <span>{track.displayData.description}</span>

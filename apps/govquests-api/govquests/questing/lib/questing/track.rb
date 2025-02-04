@@ -5,10 +5,13 @@ module Questing
     AlreadyExists = Class.new(StandardError)
     QuestAlreadyAssociated = Class.new(StandardError)
 
+    attr_reader :quests
+
     def initialize(id)
       @id = id
       @quests = []
       @display_data = nil
+      @completed_by = []
     end
 
     def create(display_data:, badge_display_data:)

@@ -122,7 +122,7 @@ export const BaseStrategy = (props: BaseStrategyProps) => {
 export const ActionContent = (props: ComponentProps<"div">) => {
   return (
     <div
-      className="flex flex-col justify-between items-start gap-5"
+      className="flex flex-col justify-between items-start gap-5 px-5"
       {...props}
     />
   );
