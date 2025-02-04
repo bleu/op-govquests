@@ -25,6 +25,13 @@ module Mutations
         {
           email: send_email_verification_input&.email
         }
+      when "op_active_debater"
+        {
+          discourse_verification: ActionTracking::ActionExecutionReadModel.find_by(
+            user_id: context[:current_user]&.user_id,
+            action_id: ActionTracking::ActionReadModel.find_by(action_type: "discourse_verification")&.action_id
+          )
+        }
       else
         {}
       end
