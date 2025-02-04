@@ -15,6 +15,9 @@ module Questing
     validates :track_id, presence: true, uniqueness: true
     validates :display_data, presence: true
 
+    has_many :track_quests, -> { order(position: :asc) }, class_name: "Questing::TrackQuestReadModel", foreign_key: "track_id", primary_key: "track_id"
+    has_many :quests, through: :track_quests, source: :quest, class_name: "Questing::QuestReadModel"
+
     has_one :badge,
       class_name: "Gamification::BadgeReadModel",
       as: :badgeable

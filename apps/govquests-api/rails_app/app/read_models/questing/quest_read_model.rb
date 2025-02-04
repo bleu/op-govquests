@@ -25,6 +25,8 @@ module Questing
     has_one :badge,
       class_name: "Gamification::BadgeReadModel",
       as: :badgeable
+
+    has_one :track_quest, class_name: "Questing::TrackQuestReadModel", foreign_key: "quest_id", primary_key: "quest_id"
   end
 end
 
