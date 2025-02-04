@@ -79,4 +79,18 @@ module Gamification
     attribute :pool_id, Infra::Types::String
     attribute :reward_definition, Infra::Types::Hash
   end
+
+  class TierCreated < Infra::Event
+    attribute :tier_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :min_delegation, Infra::Types::Integer
+    attribute :max_delegation, Infra::Types::Integer.optional
+    attribute :multiplier, Infra::Types::Float
+    attribute :image_url, Infra::Types::String
+  end
+
+  class GameProfileCreated < Infra::Event
+    attribute :profile_id, Infra::Types::UUID
+    attribute :tier_id, Infra::Types::UUID
+  end
 end
