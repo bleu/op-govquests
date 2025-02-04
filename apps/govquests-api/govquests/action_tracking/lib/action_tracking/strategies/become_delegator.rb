@@ -24,8 +24,7 @@ module ActionTracking
       end
 
       def delegatees
-        response = agora.get_delegatees(start_data[:address])
-        @delegatees ||= response[:delegatees]
+        @delegatees ||= agora.get_delegatees(start_data[:address])
       end
     end
   end
