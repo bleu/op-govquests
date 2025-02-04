@@ -63,7 +63,7 @@ export const SpecialBadgesSection: React.FC = () => {
               {data.specialBadges.map((badge, index) => (
                 <CarouselItem
                   key={badge.id}
-                  className="xl:basis-1/5 lg:basis-1/4 md:basis-1/3 sm:basis-1/2"
+                  className="xl:basis-1/5 lg:basis-1/4 md:basis-1/3 sm:basis-1/ py-5"
                 >
                   <BadgeDialog
                     defaultOpen={queryBadgeId == badge.id}

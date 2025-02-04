@@ -110,13 +110,13 @@ const BadgeCardTitle = ({
   children,
 }: BadgeCardTitleProps) => {
   return (
-    <div className="my-5 p-2 rounded-lg bg-background/60 transition duration-300 hover:scale-105 flex flex-col">
+    <div className="p-2 rounded-lg bg-background/60 transition duration-300 hover:scale-105 flex flex-col">
       <div className="px-2 whitespace-nowrap w-full text-start">
         <h2 className="text-sm font-bold">{header.toUpperCase()}</h2>
         {badgeableTitle && (
-          <span className="text-xs font-thin">
+          <div className="text-xs font-thin truncate my-1">
             {badgeableTitle?.toUpperCase() || ""}
-          </span>
+          </div>
         )}
       </div>
       <div className="w-full">{children}</div>
