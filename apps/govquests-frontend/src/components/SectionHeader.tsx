@@ -3,7 +3,7 @@ import { ComponentProps } from "react";
 
 interface SectionHeaderProps extends ComponentProps<"div"> {
   title: string;
-  description: string;
+  description?: string;
 }
 
 export const SectionHeader = ({
@@ -21,7 +21,7 @@ export const SectionHeader = ({
       {...props}
     >
       <h1 className="text-2xl font-bold"># {title}</h1>
-      <span className="text-xl">{description}</span>
+      {description && <span className="text-xl">{description}</span>}
     </div>
   );
 };

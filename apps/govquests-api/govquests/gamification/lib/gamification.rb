@@ -6,6 +6,7 @@ require_relative "gamification/leaderboard"
 require_relative "gamification/badge"
 require_relative "gamification/user_badge"
 require_relative "gamification/special_badge"
+require_relative "gamification/tier"
 
 require_relative "gamification/strategies/base"
 require_relative "gamification/strategies/special_badge_strategy_factory"
@@ -105,6 +106,14 @@ module Gamification
     
     handle "Gamification::CollectSpecialBadge", aggregate: SpecialBadge do |special_badge, cmd|
       special_badge.collect_badge(cmd.user_id)
+    end
+
+    handle "Gamification::CreateTier", aggregate: Tier do |tier, cmd|
+      tier.create(cmd.display_data, cmd.min_delegation, cmd.max_delegation, cmd.multiplier, cmd.image_url)
+    end
+
+    handle "Gamification::CreateGameProfile", aggregate: GameProfile do |profile, cmd|
+      profile.create(tier_id: cmd.tier_id)
     end
   end
 end

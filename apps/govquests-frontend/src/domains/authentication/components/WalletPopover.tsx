@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/Button";
 import { Popover } from "@/components/ui/popover";
+import { useUserProfile } from "@/hooks/useUserProfile";
 import { cn } from "@/lib/utils";
 import {
   PopoverClose,
@@ -10,29 +11,16 @@ import {
 } from "@radix-ui/react-popover";
 import { ChevronDown, X } from "lucide-react";
 import Image from "next/image";
-import {
-  useAccount,
-  useBalance,
-  useDisconnect,
-  useEnsAvatar,
-  useEnsName,
-} from "wagmi";
+import { useAccount, useBalance, useDisconnect } from "wagmi";
 
 export const WalletPopover = ({ className }: { className: string }) => {
   const { address } = useAccount();
-  const { data: ensName } = useEnsName({ address, chainId: 1 });
-  const { data: ensAvatar } = useEnsAvatar({ name: ensName, chainId: 1 });
+  const { data: userProfile } = useUserProfile(address);
   const { disconnect } = useDisconnect();
 
   const { data: balance } = useBalance({
     address,
   });
-
-  const getDisplayAddress = () => {
-    if (!address) return "";
-    if (ensName) return ensName;
-    return `${address.slice(0, 6)}...${address.slice(-4)}`;
-  };
 
   return (
     <Popover>
@@ -40,16 +28,18 @@ export const WalletPopover = ({ className }: { className: string }) => {
         <Button variant="secondary" className={cn(className, "w-48")}>
           <div className="flex items-center gap-2">
             <div className="size-6 rounded-full overflow-hidden">
-              <Image
-                src={ensAvatar || `https://effigy.im/a/${address}`}
-                alt="wallet avatar"
-                width={100}
-                height={100}
-                className="size-full object-cover"
-                unoptimized
-              />
+              {userProfile.avatarUrl && (
+                <Image
+                  src={userProfile.avatarUrl}
+                  alt="wallet avatar"
+                  width={100}
+                  height={100}
+                  className="size-full object-cover"
+                  unoptimized
+                />
+              )}
             </div>
-            <span>{getDisplayAddress()}</span>
+            <span>{userProfile.name}</span>
             <ChevronDown className="size-4" />
           </div>
         </Button>
@@ -60,19 +50,19 @@ export const WalletPopover = ({ className }: { className: string }) => {
             <X width={16} />
           </PopoverClose>
           <div className="size-16 rounded-full overflow-hidden">
-            <Image
-              src={ensAvatar || `https://effigy.im/a/${address}`}
-              alt="wallet avatar"
-              width={100}
-              height={100}
-              className="size-full object-cover"
-              unoptimized
-            />
+            {userProfile.avatarUrl && (
+              <Image
+                src={userProfile.avatarUrl}
+                alt="wallet avatar"
+                width={100}
+                height={100}
+                className="size-full object-cover"
+                unoptimized
+              />
+            )}
           </div>
           <div className="flex flex-col">
-            <span className="font-extrabold text-lg">
-              {getDisplayAddress()}
-            </span>
+            <span className="font-extrabold text-lg">{userProfile.name}</span>
             <span className="font-medium text-sm opacity-60">
               {Number(balance?.formatted).toFixed(4)} {balance?.symbol}
             </span>
