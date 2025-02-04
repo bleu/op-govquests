@@ -17,14 +17,14 @@ export const TrackDescription = ({ track }: TrackDescriptionProps) => {
         <div className="border-b h-0 w-full" />
       </div>
       <div className="items-center justify-center flex gap-12 mx-20">
-        {track.badge.displayData.imageUrl && (
-          <BadgeDialog badgeId={track.badge.id}>
+        <BadgeDialog badgeId={track.badge.id}>
+          <div className="w-52">
             <NormalBadgeCard
               badgeId={track.badge.id}
-              className="hover:scale-105 transition-all duration-300 min-w-52 h-60"
+              className="hover:scale-105 transition-all duration-300 w-full h-60"
             />
-          </BadgeDialog>
-        )}
+          </div>
+        </BadgeDialog>
         <div className="flex flex-col gap-4 col-span-8 w-full font-bold">
           <span>{track.displayData.description}</span>
           <span>
