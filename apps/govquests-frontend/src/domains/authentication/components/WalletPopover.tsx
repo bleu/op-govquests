@@ -11,11 +11,7 @@ import {
 } from "@radix-ui/react-popover";
 import { ChevronDown, X } from "lucide-react";
 import Image from "next/image";
-import {
-  useAccount,
-  useBalance,
-  useDisconnect
-} from "wagmi";
+import { useAccount, useBalance, useDisconnect } from "wagmi";
 
 export const WalletPopover = ({ className }: { className: string }) => {
   const { address } = useAccount();

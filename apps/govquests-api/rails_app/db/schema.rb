@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_01_31_213849) do
+ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -194,6 +194,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_31_213849) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tier_id"], name: "index_tiers_on_tier_id", unique: true
+  end
+
+  create_table "track_quests", force: :cascade do |t|
+    t.string "track_id", null: false
+    t.string "quest_id", null: false
+    t.integer "position", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["track_id", "position"], name: "index_track_quests_on_track_id_and_position", unique: true
+    t.index ["track_id", "quest_id"], name: "index_track_quests_on_track_id_and_quest_id", unique: true
   end
 
   create_table "tracks", force: :cascade do |t|

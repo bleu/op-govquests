@@ -11,3 +11,10 @@ export const formatVotingPower = (votingPower: number) => {
   const millions = (votingPower / 1000000).toFixed(1);
   return millions.replace(/\.0$/, "") + "M";
 };
+
+export const sortBadges = (data) => {
+  data.badges.sort(
+    (a, b) => Number(b.earnedByCurrentUser) - Number(a.earnedByCurrentUser),
+  );
+  return data;
+};
