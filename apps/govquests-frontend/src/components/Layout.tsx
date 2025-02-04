@@ -48,7 +48,9 @@ export default function Layout({
       <div className="h-full relative">
         <BackgroundTier />
         <div className="fixed object-cover size-full z-[1] bg-gradient-to-b from-[#1A1B1F] to-[rgba(26,27,31,0.6)]" />
-        <div className="relative z-10 h-full">{children}</div>
+        <div className="relative z-10 h-full max-w-[1200px] mx-auto">
+          {children}
+        </div>
       </div>
       <Toaster />
     </Providers>
