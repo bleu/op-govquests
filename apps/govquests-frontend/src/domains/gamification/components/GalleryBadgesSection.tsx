@@ -3,7 +3,7 @@
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useSearchParams } from "next/navigation";
 import { useFetchBadges } from "../hooks/useFetchBadges";
-import { BadgeCard } from "./BadgeCard";
+import { NormalBadgeCard } from "./BadgeCard";
 import { BadgeDetails } from "./BadgeDetails";
 
 export const SimpleBadgesSection: React.FC = () => {
@@ -24,7 +24,7 @@ export const SimpleBadgesSection: React.FC = () => {
           {data.badges.map((badge, index) => (
             <Dialog defaultOpen={queryBadgeId == badge.id} key={index}>
               <DialogTrigger>
-                <BadgeCard
+                <NormalBadgeCard
                   badgeId={badge.id}
                   withTitle
                   header={`${badge.badgeable.__typename} BADGE #${badge.displayData.sequenceNumber}`}

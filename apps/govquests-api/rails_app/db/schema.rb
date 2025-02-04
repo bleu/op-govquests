@@ -157,13 +157,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
 
   create_table "reward_pools", force: :cascade do |t|
     t.uuid "pool_id", null: false
-    t.uuid "quest_id", null: false
+    t.string "rewardable_id", null: false
     t.jsonb "reward_definition", null: false
     t.integer "remaining_inventory"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "rewardable_type"
     t.index ["pool_id"], name: "index_reward_pools_on_pool_id", unique: true
-    t.index ["quest_id"], name: "index_reward_pools_on_quest_id"
+    t.index ["rewardable_id"], name: "index_reward_pools_on_rewardable_id"
+    t.index ["rewardable_type", "rewardable_id"], name: "index_reward_pools_on_rewardable_type_and_rewardable_id"
   end
 
   create_table "rewards", force: :cascade do |t|
@@ -185,7 +187,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
     t.jsonb "display_data", null: false
     t.string "badge_type", null: false
     t.jsonb "badge_data", null: false
-    t.integer "points", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["badge_id"], name: "index_special_badges_on_badge_id", unique: true

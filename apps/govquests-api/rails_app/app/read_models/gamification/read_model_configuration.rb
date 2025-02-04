@@ -11,6 +11,7 @@ module Gamification
       event_store.subscribe(OnTokenClaimStarted, to: [Gamification::TokenClaimStarted])
       event_store.subscribe(OnTokenClaimCompleted, to: [Gamification::TokenClaimCompleted])
       event_store.subscribe(OnBadgeCreated, to: [Gamification::BadgeCreated])
+      event_store.subscribe(OnSpecialBadgeCreated, to: [Gamification::SpecialBadgeCreated])
     end
   end
 end

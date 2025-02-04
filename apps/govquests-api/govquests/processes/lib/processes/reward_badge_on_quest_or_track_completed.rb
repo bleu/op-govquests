@@ -31,7 +31,7 @@ module Processes
       @command_bus.call(
         ::Gamification::EarnBadge.new(
           user_id:,
-          badge_id: badge.id.to_s,
+          badge_id: badge.badge_id,
           badge_type: badge.class.name,
         )
       )

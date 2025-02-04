@@ -5,6 +5,16 @@ require_relative "gamification/game_profile"
 require_relative "gamification/leaderboard"
 require_relative "gamification/badge"
 require_relative "gamification/user_badge"
+require_relative "gamification/special_badge"
+
+require_relative "gamification/strategies/base"
+require_relative "gamification/strategies/special_badge_strategy_factory"
+
+Dir[File.join(__dir__, "gamification/strategies/*.rb")].each do |f|
+  next if f.end_with?("base.rb")
+  next if f.end_with?("special_badge_strategy_factory.rb")
+  require_relative f
+end
 
 ACTION_BADGE_NAMESPACE_UUID = "5FA78373-03E0-4D0B-91D1-3F2C6CA3F088"
 
@@ -22,6 +32,8 @@ module Gamification
   class Configuration
     def call(event_store, command_bus)
       CommandHandler.register_commands(event_store, command_bus)
+
+      Gamification.command_bus = command_bus
     end
   end
 
@@ -81,6 +93,18 @@ module Gamification
 
     handle "Gamification::EarnBadge", aggregate: UserBadge do |user_badge, cmd|
       user_badge.earn_badge(cmd.user_id, cmd.badge_id, cmd.badge_type, cmd.earned_at)
+    end
+
+    handle "Gamification::CreateSpecialBadge", aggregate: SpecialBadge do |special_badge, cmd|
+      special_badge.create(cmd.display_data, cmd.badge_type, cmd.badge_data)
+    end
+
+    handle "Gamification::AssociateRewardPool", aggregate: SpecialBadge do |special_badge, cmd|
+      special_badge.associate_reward_pool(cmd.pool_id, cmd.reward_definition)
+    end
+    
+    handle "Gamification::CollectSpecialBadge", aggregate: SpecialBadge do |special_badge, cmd|
+      special_badge.collect_badge(cmd.user_id)
     end
   end
 end
