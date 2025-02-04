@@ -35,7 +35,8 @@ module QuestCreation
       Rails.configuration.command_bus.call(
         Rewarding::CreateRewardPool.new(
           pool_id: pool_id,
-          quest_id: quest_id,
+          rewardable_id: quest_id,
+          rewardable_type: "Questing::QuestReadModel",
           reward_definition: reward,
           initial_inventory: (reward[:type] == "Token") ? reward[:inventory] : nil
         )
@@ -62,6 +63,148 @@ module QuestCreation
       )
     )
   end
+end
+
+module SpecialBadgeCreation
+  def self.create_special_badge_with_rewards(badge_data)
+    badge_id = SecureRandom.uuid
+
+    Rails.configuration.command_bus.call(
+      Gamification::CreateSpecialBadge.new(
+        badge_id: badge_id,
+        display_data: badge_data[:display_data],
+        badge_type: badge_data[:badge_type],
+        badge_data: badge_data[:badge_data],
+        points: badge_data[:points]
+      )
+    )
+
+    badge_data[:rewards].each do |reward|
+      pool_id = SecureRandom.uuid
+
+      reward.delete("inventory")
+
+      Rails.configuration.command_bus.call(
+        Rewarding::CreateRewardPool.new(
+          pool_id: pool_id,
+          rewardable_id: badge_id,
+          rewardable_type: "Gamification::SpecialBadgeReadModel",
+          reward_definition: reward,
+          initial_inventory: (reward[:type] == "Token") ? reward[:inventory] : nil
+        )
+      )
+
+      # Associate the reward pool with the special badge
+      Rails.configuration.command_bus.call(
+        Gamification::AssociateRewardPool.new(
+          badge_id: badge_id,
+          pool_id: pool_id,
+          reward_definition: reward
+        )
+      )
+    end
+
+    badge_id
+  end
+end
+
+module TierCreation
+  def self.create_tiers(tier_data)
+    tier_id = SecureRandom.uuid
+
+    Rails.configuration.command_bus.call(
+      Gamification::CreateTier.new(
+        tier_id:,
+        display_data: tier_data[:display_data],
+        multiplier: tier_data[:multiplier],
+        image_url: tier_data[:image_url],
+        min_delegation: tier_data[:min_delegation],
+        max_delegation: tier_data[:max_delegation]
+      )
+    )
+  end
+end
+
+module TierData
+  TIERS = [
+    {
+      display_data: {
+        title: "Optimistic Supporter",
+        description: "This tier is for not delegates. To advance to the next tier, become a delegate and start building your governance influence!"
+      },
+      multiplier: 1.0,
+      image_url: "/backgrounds/OP_BLEU_TIER_01.png",
+      min_delegation: 0,
+      max_delegation: 0
+    },
+    {
+      display_data: {
+        title: "Delegation Initiate",
+        description: "This tier is for new delegates with up to 5K OP delegated. To advance to the next tier, work towards 30K OP delegated to you!"
+      },
+      multiplier: 1.0,
+      image_url: "/backgrounds/OP_BLEU_TIER_02.png",
+      min_delegation: 1,
+      max_delegation: 5000
+    },
+    {
+      display_data: {
+        title: "Emerging Leader",
+        description: "This tier is for delegates with 5K-30K OP delegated. To advance to the next tier, work towards 150K OP delegated to you! What waits you there: 1.5x multiplier."
+      },
+      multiplier: 1.5,
+      image_url: "/backgrounds/OP_BLEU_TIER_03.png",
+      min_delegation: 5001,
+      max_delegation: 30000
+    },
+    {
+      display_data: {
+        title: "Strategic Delegate",
+        description: "This tier is for delegates with 30K-150K OP delegated. To advance to the next tier, work towards over 150K OP delegated to you! What waits you there: 2x multiplier."
+      },
+      multiplier: 2.0,
+      image_url: "/backgrounds/OP_BLEU_TIER_04.png",
+      min_delegation: 30001,
+      max_delegation: 150000
+    },
+    {
+      display_data: {
+        title: "Ecosystem Guardian",
+        description: "This tier is for top delegates with 150K+ OP delegated. You've reached the pinnacle of governance participation! Keep maintaining your influence and inspiring the community."
+      },
+      multiplier: 2.5,
+      image_url: "/backgrounds/OP_BLEU_TIER_05.png",
+      min_delegation: 150001,
+      max_delegation: nil
+    }
+  ]
+end
+
+module SpecialBadgeData
+  SPECIAL_BADGES = [
+    {
+      display_data: {
+        title: "Certified New Delegate",
+        description: "Master the basics of delegation and voting. Complete the new delegate quest, submit your delegate statement, and cast your first vote!",
+        image_url: "/badges/SPECIAL BADGE_01_02.png"
+      },
+      badge_type: "quests_completed",
+      badge_data: {
+        badge_type: "quests_completed",
+        quests: ["Become a Delegate", "Delegate Statement", "First Vote Milestone"]
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 1000
+        },
+        {
+          type: "Token",
+          amount: 20
+        }
+      ]
+    }
+  ]
 end
 
 module TrackCreation
@@ -577,9 +720,34 @@ def create_tracks(quest_id_map)
   puts "All tracks created with their quests successfully!"
 end
 
+def create_special_badges
+  puts "Creating special badges..."
+
+  SpecialBadgeData::SPECIAL_BADGES.each do |badge_data|
+    badge_id = SpecialBadgeCreation.create_special_badge_with_rewards(badge_data)
+    puts "Created special badge: #{badge_data[:display_data][:title]} (#{badge_id})"
+    puts "With rewards: #{badge_data[:rewards].inspect}"
+    puts "---"
+  end
+
+  puts "All special badges created successfully!"
+end
+
+def create_tiers
+  puts "Creating tiers..."
+
+  TierData::TIERS.each do |tier_data|
+    TierCreation.create_tiers(tier_data)
+    puts "Created tier: #{tier_data[:display_data][:title]}"
+    puts "---"
+  end
+end
+
 def create_all
   quest_id_map = create_quests_and_actions
   create_tracks(quest_id_map)
+  create_special_badges
+  create_tiers
 end
 
 create_all

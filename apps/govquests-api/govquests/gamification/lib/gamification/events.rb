@@ -46,12 +46,7 @@ module Gamification
     attribute :profile_id, Infra::Types::UUID
     attribute :streak, Infra::Types::Integer
   end
-
-  class BadgeEarned < Infra::Event
-    attribute :profile_id, Infra::Types::UUID
-    attribute :badge, Infra::Types::String
-  end
-
+  
   class LeaderboardUpdated < Infra::Event
     attribute :leaderboard_id, Infra::Types::UUID
     attribute :profile_id, Infra::Types::UUID
@@ -63,5 +58,39 @@ module Gamification
     attribute :display_data, Infra::Types::Hash
     attribute :badgeable_id, Infra::Types::UUID
     attribute :badgeable_type, Infra::Types::String
+  end
+
+  class BadgeEarned < Infra::Event
+    attribute :user_id, Infra::Types::UUID
+    attribute :badge_id, Infra::Types::String
+    attribute :badge_type, Infra::Types::String
+    attribute :earned_at, Infra::Types::DateTime
+  end
+
+  class SpecialBadgeCreated < Infra::Event
+    attribute :badge_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :badge_type, Infra::Types::String
+    attribute :badge_data, Infra::Types::Hash
+  end
+
+  class RewardPoolAssociated < Infra::Event
+    attribute :badge_id, Infra::Types::UUID
+    attribute :pool_id, Infra::Types::String
+    attribute :reward_definition, Infra::Types::Hash
+  end
+
+  class TierCreated < Infra::Event
+    attribute :tier_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :min_delegation, Infra::Types::Integer
+    attribute :max_delegation, Infra::Types::Integer.optional
+    attribute :multiplier, Infra::Types::Float
+    attribute :image_url, Infra::Types::String
+  end
+
+  class GameProfileCreated < Infra::Event
+    attribute :profile_id, Infra::Types::UUID
+    attribute :tier_id, Infra::Types::UUID
   end
 end

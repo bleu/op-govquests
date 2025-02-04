@@ -2,77 +2,106 @@
 
 import { cn, koulen, redactedScript } from "@/lib/utils";
 import Image from "next/image";
-import { ComponentProps } from "react";
+import { ComponentProps, useState } from "react";
 import { useFetchBadge } from "../hooks/useFetchBadge";
+import { useFetchSpecialBadge } from "../hooks/useFetchSpecialBadge";
 
 interface BadgeCardProps {
   badgeId: string;
-  isCompleted: boolean;
+  badge:
+    | ReturnType<typeof useFetchBadge>["data"]["badge"]
+    | ReturnType<typeof useFetchSpecialBadge>["data"]["specialBadge"];
   className?: string;
   withTitle?: boolean;
   header?: string;
+  revealIncomplete?: boolean;
 }
 
-export const BadgeCard = ({
-  badgeId,
-  isCompleted,
-  className,
-  withTitle = false,
-  header,
-}: BadgeCardProps) => {
-  const { data } = useFetchBadge(badgeId);
+export const NormalBadgeCard = (props: Omit<BadgeCardProps, "badge">) => {
+  const { data } = useFetchBadge(props.badgeId);
 
-  const Card = data && (
+  if (props.withTitle)
+    return (
+      data && (
+        <BadgeCardTitle
+          header={props.header}
+          badgeableTitle={data?.badge.badgeable.displayData.title}
+        >
+          <BadgeCard badge={data.badge} {...props} />
+        </BadgeCardTitle>
+      )
+    );
+  else return data && <BadgeCard badge={data.badge} {...props} />;
+};
+
+export const SpecialBadgeCard = (props: Omit<BadgeCardProps, "badge">) => {
+  const { data } = useFetchSpecialBadge(props.badgeId);
+
+  if (props.withTitle)
+    return (
+      data && (
+        <BadgeCardTitle header={props.header}>
+          <BadgeCard badge={data.specialBadge} {...props} />
+        </BadgeCardTitle>
+      )
+    );
+  else return data && <BadgeCard badge={data.specialBadge} {...props} />;
+};
+
+export const BadgeCard = ({
+  className,
+  revealIncomplete = false,
+  badge,
+}: BadgeCardProps) => {
+  const revealCard = badge.earnedByCurrentUser || revealIncomplete;
+
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  return (
     <div
       className={cn(
         "relative items-center justify-center col-span-2",
         className,
       )}
     >
-      <Image
-        src={data.badge.displayData.imageUrl}
-        alt="badge_image"
-        width={100}
-        height={100}
-        className={cn(
-          "object-cover w-full h-full grayscale",
-          isCompleted && "grayscale-0",
-        )}
-        unoptimized
-      />
-      <div
-        className={cn(
-          "absolute w-full right-0 flex h-full top-0 pb-[19.5%] items-end whitespace-nowrap",
-          isCompleted ? koulen.className : redactedScript.className,
-        )}
-      >
-        <span
+      <div className="relative w-full h-full aspect-[9/10]">
+        <Image
+          src={badge.displayData.imageUrl}
+          alt="badge_image"
+          width={100}
+          height={100}
           className={cn(
-            "text-primary-foreground w-full text-center translate-y-1/2 tracking-tighter text-lg",
-            !isCompleted && "scale-x-75",
+            "object-cover w-full h-full grayscale",
+            revealCard && "grayscale-0",
+          )}
+          unoptimized
+          onLoadingComplete={() => setImageLoaded(true)}
+        />
+        <div
+          className={cn(
+            "absolute w-full right-0 flex h-full top-0 pb-[19.5%] items-end whitespace-nowrap",
+            revealCard ? koulen.className : redactedScript.className,
           )}
         >
-          {data.badge.displayData.title}
-        </span>
+          {imageLoaded && (
+            <span
+              className={cn(
+                "text-primary-foreground w-full text-center translate-y-1/2 tracking-tighter text-lg",
+                !revealCard && "scale-x-75",
+              )}
+            >
+              {badge.displayData.title}
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );
-
-  if (withTitle)
-    return (
-      <BadgeCardTitle
-        header={header}
-        badgeableTitle={data?.badge.badgeable.displayData.title}
-      >
-        {Card}
-      </BadgeCardTitle>
-    );
-  else return Card;
 };
 
 interface BadgeCardTitleProps extends ComponentProps<"div"> {
   header: string;
-  badgeableTitle: string;
+  badgeableTitle?: string;
 }
 
 const BadgeCardTitle = ({
@@ -84,9 +113,11 @@ const BadgeCardTitle = ({
     <div className="my-5 p-2 rounded-lg bg-background/60 transition duration-300 hover:scale-105 flex flex-col">
       <div className="px-2 whitespace-nowrap w-full text-start">
         <h2 className="text-sm font-bold">{header.toUpperCase()}</h2>
-        <span className="text-xs font-thin">
-          {badgeableTitle?.toUpperCase() || ""}
-        </span>
+        {badgeableTitle && (
+          <span className="text-xs font-thin">
+            {badgeableTitle?.toUpperCase() || ""}
+          </span>
+        )}
       </div>
       <div className="w-full">{children}</div>
     </div>

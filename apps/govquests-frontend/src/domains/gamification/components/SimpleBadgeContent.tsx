@@ -1,42 +1,51 @@
 import { Button } from "@/components/ui/Button";
+import { DialogClose } from "@radix-ui/react-dialog";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback } from "react";
-import { Badge } from "../types/badgeTypes";
+import { useFetchBadge } from "../hooks/useFetchBadge";
 
-export const SimpleBadgeContent = ({ badge }: { badge: Badge }) => {
-  // TODO - get user badge - OP-677
-  const isCompleted = true;
+export const SimpleBadgeContent = ({ badgeId }: { badgeId: string }) => {
+  const { data } = useFetchBadge(badgeId);
+
+  const isCompleted = data?.badge.earnedByCurrentUser;
+  const path = usePathname();
 
   const linkToBadgeable = useCallback(() => {
-    switch (badge.badgeable.__typename) {
+    if (!data?.badge || path == "/quests") return "";
+    switch (data.badge.badgeable.__typename) {
       case "Quest":
-        return `/quests/${badge.badgeable.slug}`;
+        return `/quests/${data.badge.badgeable.slug}`;
       case "Track":
-        return `/quests?trackId=${badge.badgeable.id}`;
+        return `/quests?trackId=${data.badge.badgeable.id}`;
       default:
         return "";
     }
-  }, [badge]);
+  }, [data, path]);
 
-  const badgeableTitle = badge.badgeable.displayData.title;
-  const badgeableType = badge.badgeable.__typename;
+  const badgeableTitle = data?.badge.badgeable.displayData.title;
+  const badgeableType = data?.badge.badgeable.__typename;
 
   return (
-    <div className="flex flex-col gap-4">
-      <h2 className="font-black text-lg w-full">
-        {isCompleted ? "Badge Unlocked!" : "This Badge is still a challenge."}
-      </h2>
-      <span>
-        {isCompleted
-          ? `You collected this badge by completing the
+    data && (
+      <div className="flex flex-col gap-4">
+        <h2 className="font-black text-lg w-full">
+          {isCompleted ? "Badge Unlocked!" : "This Badge is still a challenge."}
+        </h2>
+        <span>
+          {isCompleted
+            ? `You collected this badge by completing the
         ${badgeableTitle} ${badgeableType}.`
-          : `Complete the ${badgeableTitle} ${badgeableType} to unlock the ${badge.displayData.title} badge and add it to your collection.`}
-      </span>
-      <Link href={linkToBadgeable()} className="self-center">
-        <Button className="px-5 w-fit">
-          {isCompleted ? "See" : "Start"} {badge.badgeable.__typename}
-        </Button>
-      </Link>
-    </div>
+            : `Complete the ${badgeableTitle} ${badgeableType} to unlock the ${data.badge.displayData.title} badge and add it to your collection.`}
+        </span>
+        <Link href={linkToBadgeable()} className="self-center" scroll={false}>
+          <DialogClose asChild>
+            <Button className="px-5 w-fit">
+              {isCompleted ? "See" : "Start"} {data.badge.badgeable.__typename}
+            </Button>
+          </DialogClose>
+        </Link>
+      </div>
+    )
   );
 };

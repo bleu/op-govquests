@@ -5,22 +5,22 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { UseEmblaCarouselType } from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { useFetchBadges } from "../hooks/useFetchBadges";
-import { BadgeCard } from "./BadgeCard";
-import { BadgeDetails } from "./BadgeDetails";
+import { useFetchSpecialBadges } from "../hooks/useFetchSpecialBadges";
+import { SpecialBadgeCard } from "./BadgeCard";
+import { BadgeDialog } from "./BadgeDialog";
+import { SectionHeader } from "@/components/SectionHeader";
 
 export const SpecialBadgesSection: React.FC = () => {
   const [api, setApi] = useState<UseEmblaCarouselType[1] | null>(null);
   const params = useSearchParams();
   const queryBadgeId = params.get("badgeId");
 
-  const { data } = useFetchBadges(true);
+  const { data } = useFetchSpecialBadges();
 
   const hasNavigationButtons = useMemo<boolean>(
     () => api && (api.canScrollPrev() || api.canScrollNext()),
@@ -40,12 +40,11 @@ export const SpecialBadgesSection: React.FC = () => {
   return (
     data && (
       <div className="flex flex-col items-center justify-center w-full">
-        <div className="flex flex-col gap-3 mx-8 pb-4 border-b border-foreground/20 w-[calc(100%-4rem)]">
-          <h1 className="text-2xl font-bold"># Special Badges</h1>
-          <span className="text-xl">
-            Big achievements with special acknowledgement.
-          </span>
-        </div>
+        <SectionHeader
+          title="Special Badges"
+          description="Big achievements with special acknowledgement."
+          className="w-[calc(100%-4rem)] mx-8"
+        />
 
         <div className="relative w-full mx-2">
           {hasNavigationButtons && (
@@ -61,23 +60,23 @@ export const SpecialBadgesSection: React.FC = () => {
 
           <Carousel setApi={setApi} className="mx-4 overflow-visible">
             <CarouselContent className="px-4">
-              {data.badges.map((badge, index) => (
+              {data.specialBadges.map((badge, index) => (
                 <CarouselItem
                   key={badge.id}
                   className="xl:basis-1/5 lg:basis-1/4 md:basis-1/3 sm:basis-1/2"
                 >
-                  <Dialog defaultOpen={queryBadgeId == badge.id}>
-                    <DialogTrigger>
-                      <BadgeCard
-                        badgeId={badge.id}
-                        isCompleted={true}
-                        withTitle
-                        header={`SPECIAL BADGE #${index + 1}`}
-                        className="w-full"
-                      />
-                    </DialogTrigger>
-                    <BadgeDetails badgeId={badge.id} />
-                  </Dialog>
+                  <BadgeDialog
+                    defaultOpen={queryBadgeId == badge.id}
+                    badgeId={badge.id}
+                    special
+                  >
+                    <SpecialBadgeCard
+                      badgeId={badge.id}
+                      withTitle
+                      header={`SPECIAL BADGE #${index + 1}`}
+                      className="w-full"
+                    />
+                  </BadgeDialog>
                 </CarouselItem>
               ))}
             </CarouselContent>

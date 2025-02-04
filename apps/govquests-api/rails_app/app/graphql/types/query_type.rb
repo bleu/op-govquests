@@ -29,7 +29,14 @@ module Types
     field :badge, resolver: Resolvers::FetchBadge
     field :badges, resolver: Resolvers::FetchBadges
 
+    field :special_badge, resolver: Resolvers::FetchSpecialBadge
+    field :special_badges, resolver: Resolvers::FetchSpecialBadges
+
+    field :tier, resolver: Resolvers::FetchTier
+    field :tiers, resolver: Resolvers::FetchTiers
+
     field :current_user, resolver: Resolvers::CurrentUser, preauthorize: {with: AuthenticatedGraphqlPolicy}
+    field :user, resolver: Resolvers::FetchUser
 
     field :notifications,
       resolver: Resolvers::FetchNotifications,
