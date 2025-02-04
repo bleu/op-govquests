@@ -4,6 +4,7 @@ require_relative "gamification/events"
 require_relative "gamification/game_profile"
 require_relative "gamification/leaderboard"
 require_relative "gamification/badge"
+require_relative "gamification/user_badge"
 
 ACTION_BADGE_NAMESPACE_UUID = "5FA78373-03E0-4D0B-91D1-3F2C6CA3F088"
 
@@ -76,6 +77,10 @@ module Gamification
 
     handle "Gamification::CreateBadge", aggregate: Badge do |badge, cmd|
       badge.create(cmd.display_data, cmd.badgeable_id, cmd.badgeable_type)
+    end
+
+    handle "Gamification::EarnBadge", aggregate: UserBadge do |user_badge, cmd|
+      user_badge.earn_badge(cmd.user_id, cmd.badge_id, cmd.badge_type, cmd.earned_at)
     end
   end
 end

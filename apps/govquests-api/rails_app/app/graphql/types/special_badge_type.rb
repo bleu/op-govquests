@@ -1,8 +1,9 @@
 module Types
-  class BadgeType < Types::BaseObject
+  class SpecialBadgeType < Types::BaseObject
     field :id, ID, null: false, method: :badge_id
     field :display_data, Types::BadgeDisplayDataType, null: false
-    field :badgeable, Types::BadgeableUnion, null: true
+    field :points, Integer, null: false
+    field :badge_type, String, null: false
     field :user_badges, [Types::UserBadgeType], null: false
     field :earned_by_current_user, Boolean, null: false
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_01_15_203038) do
+ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,10 +47,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_15_203038) do
     t.jsonb "display_data", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "badgeable_type"
-    t.string "badgeable_id"
+    t.string "badgeable_type", null: false
+    t.string "badgeable_id", null: false
     t.index ["badge_id"], name: "index_badges_on_badge_id", unique: true
-    t.index ["badgeable_type", "badgeable_id"], name: "index_badges_on_badgeable_type_and_badgeable_id", unique: true, where: "((badgeable_type IS NOT NULL) AND (badgeable_id IS NOT NULL))"
+    t.index ["badgeable_type", "badgeable_id"], name: "index_badges_on_badgeable_type_and_badgeable_id", unique: true
   end
 
   create_table "event_store_events", force: :cascade do |t|
@@ -137,7 +137,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_15_203038) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.string "track_id"
     t.index ["quest_id"], name: "index_quests_on_quest_id", unique: true
+    t.index ["track_id"], name: "index_quests_on_track_id"
   end
 
   create_table "reward_issuances", force: :cascade do |t|
@@ -178,6 +180,27 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_15_203038) do
     t.index ["reward_id"], name: "index_rewards_on_reward_id", unique: true
   end
 
+  create_table "special_badges", force: :cascade do |t|
+    t.string "badge_id", null: false
+    t.jsonb "display_data", null: false
+    t.string "badge_type", null: false
+    t.jsonb "badge_data", null: false
+    t.integer "points", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_id"], name: "index_special_badges_on_badge_id", unique: true
+  end
+
+  create_table "track_quests", force: :cascade do |t|
+    t.string "track_id", null: false
+    t.string "quest_id", null: false
+    t.integer "position", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["track_id", "position"], name: "index_track_quests_on_track_id_and_position", unique: true
+    t.index ["track_id", "quest_id"], name: "index_track_quests_on_track_id_and_quest_id", unique: true
+  end
+
   create_table "tracks", force: :cascade do |t|
     t.string "track_id", null: false
     t.jsonb "display_data", default: {}, null: false
@@ -185,6 +208,18 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_15_203038) do
     t.datetime "updated_at", null: false
     t.jsonb "quest_ids", default: [], array: true
     t.index ["track_id"], name: "index_tracks_on_track_id", unique: true
+  end
+
+  create_table "user_badges", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.string "badge_type", null: false
+    t.string "badge_id", null: false
+    t.datetime "earned_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_type", "badge_id"], name: "index_user_badges_on_badge_type_and_badge_id"
+    t.index ["earned_at"], name: "index_user_badges_on_earned_at"
+    t.index ["user_id", "badge_type", "badge_id"], name: "unique_normal_badges_index", unique: true, where: "((badge_type)::text = 'Gamification::BadgeReadModel'::text)"
   end
 
   create_table "user_game_profiles", force: :cascade do |t|
@@ -232,6 +267,20 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_15_203038) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_sessions_on_user_id"
+  end
+
+  create_table "user_tracks", force: :cascade do |t|
+    t.string "track_id", null: false
+    t.string "user_id", null: false
+    t.string "status", default: "in_progress", null: false
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_track_id"
+    t.index ["status"], name: "index_user_tracks_on_status"
+    t.index ["track_id"], name: "index_user_tracks_on_track_id"
+    t.index ["user_id", "track_id"], name: "index_user_tracks_on_user_id_and_track_id", unique: true
+    t.index ["user_track_id"], name: "index_user_tracks_on_user_track_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

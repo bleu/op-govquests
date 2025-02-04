@@ -7,20 +7,21 @@ import { useFetchBadge } from "../hooks/useFetchBadge";
 
 interface BadgeCardProps {
   badgeId: string;
-  isCompleted: boolean;
   className?: string;
   withTitle?: boolean;
   header?: string;
+  revealIncomplete?: boolean;
 }
 
 export const BadgeCard = ({
   badgeId,
-  isCompleted,
   className,
   withTitle = false,
   header,
+  revealIncomplete = false,
 }: BadgeCardProps) => {
   const { data } = useFetchBadge(badgeId);
+  const revealCard = data?.badge.earnedByCurrentUser || revealIncomplete;
 
   const Card = data && (
     <div
@@ -36,20 +37,20 @@ export const BadgeCard = ({
         height={100}
         className={cn(
           "object-cover w-full h-full grayscale",
-          isCompleted && "grayscale-0",
+          revealCard && "grayscale-0",
         )}
         unoptimized
       />
       <div
         className={cn(
           "absolute w-full right-0 flex h-full top-0 pb-[19.5%] items-end whitespace-nowrap",
-          isCompleted ? koulen.className : redactedScript.className,
+          revealCard ? koulen.className : redactedScript.className,
         )}
       >
         <span
           className={cn(
             "text-primary-foreground w-full text-center translate-y-1/2 tracking-tighter text-lg",
-            !isCompleted && "scale-x-75",
+            !revealCard && "scale-x-75",
           )}
         >
           {data.badge.displayData.title}

@@ -1,5 +1,8 @@
 module Processes
-  class StartQuestOnActionExecutionStarted
+  class StartTrackAndQuestOnActionExecutionStarted
+    QuestNotFound = Class.new(StandardError)
+    TrackNotFound = Class.new(StandardError)
+
     def initialize(event_store, command_bus)
       @event_store = event_store
       @command_bus = command_bus
@@ -21,6 +24,21 @@ module Processes
       events = @event_store.read.stream(stream_name).to_a
 
       return if events.any? { |event| event.is_a?(Questing::QuestStarted) }
+
+      quest = Questing::QuestReadModel.find_by(quest_id: quest_id)
+
+      raise QuestNotFound, "Quest not found" unless quest
+      raise TrackNotFound, "Track not found for quest" unless quest.track
+
+      user_track_id = Questing.generate_user_track_id(quest.track.track_id, user_id)
+
+      @command_bus.call(
+        ::Questing::StartUserTrack.new(
+          user_track_id: ,
+          user_id: user_id, 
+          track_id: quest.track.track_id
+        )
+      )
 
       command = ::Questing::StartUserQuest.new(
         user_quest_id: user_quest_id,

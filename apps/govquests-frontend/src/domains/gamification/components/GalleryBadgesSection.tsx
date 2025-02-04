@@ -10,7 +10,7 @@ export const SimpleBadgesSection: React.FC = () => {
   const params = useSearchParams();
   const queryBadgeId = params.get("badgeId");
 
-  const { data } = useFetchBadges(false);
+  const { data } = useFetchBadges();
 
   return (
     data && (
@@ -22,13 +22,12 @@ export const SimpleBadgesSection: React.FC = () => {
 
         <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 w-full">
           {data.badges.map((badge, index) => (
-            <Dialog defaultOpen={queryBadgeId == badge.id}>
+            <Dialog defaultOpen={queryBadgeId == badge.id} key={index}>
               <DialogTrigger>
                 <BadgeCard
                   badgeId={badge.id}
-                  isCompleted={true}
                   withTitle
-                  header={`BADGE #${index + 1}`}
+                  header={`${badge.badgeable.__typename} BADGE #${badge.displayData.sequenceNumber}`}
                   className="w-full"
                 />
               </DialogTrigger>
