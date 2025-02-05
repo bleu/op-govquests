@@ -22,6 +22,7 @@ export const config = createConfig(
       [mainnet.id]: http(),
     },
     walletConnectProjectId: "ABXC",
+    appUrl: process.env.APP_URL,
   }),
 );
 
