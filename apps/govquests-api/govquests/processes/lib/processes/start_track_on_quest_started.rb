@@ -1,8 +1,5 @@
 module Processes
-  class StartTrackOnActionExecutionStarted
-    QuestNotFound = Class.new(StandardError)
-    TrackNotFound = Class.new(StandardError)
-
+  class StartTrackOnQuestStarted
     def initialize(event_store, command_bus)
       @event_store = event_store
       @command_bus = command_bus
@@ -10,7 +7,7 @@ module Processes
     end
 
     def subscribe
-      @event_store.subscribe(self, to: [::ActionTracking::ActionExecutionStarted])
+      @event_store.subscribe(self, to: [::Questing::QuestStarted])
     end
 
     def call(event)
@@ -44,7 +41,7 @@ module Processes
 
       return nil if events.empty?
 
-      quest = OpenStruct.new(reward_pools: [])
+      quest = OpenStruct.new(track_id: nil)
 
       events.each do |event|
         case event

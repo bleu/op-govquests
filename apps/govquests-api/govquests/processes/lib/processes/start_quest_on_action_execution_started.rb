@@ -1,8 +1,5 @@
 module Processes
   class StartQuestOnActionExecutionStarted
-    QuestNotFound = Class.new(StandardError)
-    TrackNotFound = Class.new(StandardError)
-
     def initialize(event_store, command_bus)
       @event_store = event_store
       @command_bus = command_bus
