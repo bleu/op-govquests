@@ -26,9 +26,19 @@ module Questing
       )
     end
 
+    def add_quest(quest_id)
+      raise QuestAlreadyAssociated if @quests.include?(quest_id)
+
+      apply QuestAddedToTrack.new(data: { track_id: @id, quest_id: quest_id })
+    end
+
     on TrackCreated do |event|
       @display_data = event.data[:display_data]
       @badge_display_data = event.data[:badge_display_data]
+    end
+
+    on QuestAddedToTrack do |event|
+      @quests << event.data[:quest_id]
     end
   end
 end

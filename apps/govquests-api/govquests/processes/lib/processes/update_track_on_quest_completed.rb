@@ -10,20 +10,40 @@ module Processes
     end
 
     def call(event)
-      quest = Questing::QuestReadModel.find_by(quest_id: event.data[:quest_id])
-      return unless quest&.track_id
+      quest_id = event.data[:quest_id]
+      quest = reconstruct_quest(quest_id)
 
-      track = quest.track
+      track_id = quest.track_id
       user_id = event.data[:user_id]
 
-      user_track_id = Questing.generate_user_track_id(track.track_id, user_id)
+      user_track_id = Questing.generate_user_track_id(track_id, user_id)
 
       @command_bus.call(
         Questing::UpdateUserTrackProgress.new(
-          user_track_id: ,
-          quest_id: event.data[:quest_id]
+          user_track_id:,
+          quest_id:
         )
       )
+    end
+
+    private
+
+    def reconstruct_quest(quest_id)
+      stream_name = "Questing::Quest$#{quest_id}"
+      events = @event_store.read.stream(stream_name).to_a
+
+      return nil if events.empty?
+
+      quest = OpenStruct.new(track_id: nil)
+
+      events.each do |event|
+        case event
+        when ::Questing::QuestAssociatedWithTrack
+          quest.track_id = event.data[:track_id]
+        end
+      end
+
+      quest
     end
   end
 end
