@@ -59,22 +59,24 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
     return "unstarted";
   }, [execution]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const status = getStatus();
+    if (!email || !isConnected || !isSignedIn || status !== "unstarted") return;
+    handleStart();
+  };
+
   const buttonProps = useMemo(
     () => ({
       actionType: action.actionType as ActionType,
       status: getStatus(),
-      onClick: handleStart,
       disabled:
-        getStatus() === "completed" ||
-        getStatus() === "started" ||
-        !isSignedIn ||
-        !isConnected ||
-        !email,
+        getStatus() !== "unstarted" || !isSignedIn || !isConnected || !email,
       loading: startMutation.isPending,
+      type: "submit",
     }),
     [
       getStatus,
-      handleStart,
       isSignedIn,
       isConnected,
       startMutation.isPending,
@@ -122,7 +124,7 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
 
   return (
     <ActionContent>
-      <form onSubmit={() => handleStart()}>
+      <form onSubmit={handleSubmit}>
         <div className="flex flex-col">
           <HtmlRender content={action.displayData.description} />
           <Input
