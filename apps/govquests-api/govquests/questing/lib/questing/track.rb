@@ -26,16 +26,10 @@ module Questing
       )
     end
 
-    def associate_quest(quest_id, position)
+    def add_quest(quest_id)
       raise QuestAlreadyAssociated if @quests.include?(quest_id)
 
-      apply QuestAssociatedWithTrack.new(
-        data: {
-          track_id: @id,
-          quest_id: quest_id,
-          position: position
-        }
-      )
+      apply QuestAddedToTrack.new(data: { track_id: @id, quest_id: quest_id })
     end
 
     on TrackCreated do |event|
@@ -43,7 +37,7 @@ module Questing
       @badge_display_data = event.data[:badge_display_data]
     end
 
-    on QuestAssociatedWithTrack do |event|
+    on QuestAddedToTrack do |event|
       @quests << event.data[:quest_id]
     end
   end

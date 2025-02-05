@@ -1,29 +1,36 @@
 module Processes
-  class UpdateTrackOnQuestCompleted
+  class StartTrackOnQuestStarted
     def initialize(event_store, command_bus)
       @event_store = event_store
       @command_bus = command_bus
+      @repository = Infra::AggregateRootRepository.new(event_store)
     end
 
     def subscribe
-      @event_store.subscribe(self, to: [Questing::QuestCompleted])
+      @event_store.subscribe(self, to: [::Questing::QuestStarted])
     end
 
     def call(event)
-      quest_id = event.data[:quest_id]
-      quest = reconstruct_quest(quest_id)
-
-      track_id = quest.track_id
       user_id = event.data[:user_id]
+      quest_id = event.data[:quest_id]
+      return unless quest_id
+
+      quest = reconstruct_quest(quest_id)
+      track_id = quest.track_id
 
       user_track_id = Questing.generate_user_track_id(track_id, user_id)
+      user_track_events = @event_store.read.stream("Questing::UserTrack$#{user_track_id}").to_a
 
-      @command_bus.call(
-        Questing::UpdateUserTrackProgress.new(
-          user_track_id:,
-          quest_id:
-        )
+      return if user_track_events.any? { |event| event.is_a?(Questing::TrackStarted) }
+
+      command = ::Questing::StartUserTrack.new(
+        user_track_id: user_track_id,
+        track_id: track_id,
+        user_id: user_id
       )
+
+      @command_bus.call(command)
+      Rails.logger.info "Dispatched StartUserTrack command: #{command.inspect}"
     end
 
     private

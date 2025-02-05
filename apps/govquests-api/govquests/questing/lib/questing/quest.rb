@@ -42,6 +42,14 @@ module Questing
       })
     end
 
+    def associate_track(track_id, position)
+      apply QuestAssociatedWithTrack.new(data: {
+        track_id: track_id,
+        quest_id: @id,
+        position: position
+      })
+    end
+
     private
 
     on RewardPoolAssociated do |event|
@@ -56,6 +64,11 @@ module Questing
 
     on ActionAssociatedWithQuest do |event|
       @actions << {id: event.data[:action_id], position: event.data[:position]}
+    end
+
+    on QuestAssociatedWithTrack do |event|
+      @track_id = event.data[:track_id]
+      @position = event.data[:position]
     end
   end
 end

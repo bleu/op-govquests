@@ -8,7 +8,8 @@ module Questing
     belongs_to :user_track,
       class_name: "Questing::UserTrackReadModel",
       primary_key: "user_id",
-      foreign_key: "user_id"
+      foreign_key: "user_id",
+      optional: true
   end
 end
 
