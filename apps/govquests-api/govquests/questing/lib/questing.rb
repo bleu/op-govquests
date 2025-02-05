@@ -66,8 +66,8 @@ module Questing
       )
     end
 
-    handle "Questing::AssociateQuestWithTrack", aggregate: Track do |track, cmd|
-      track.associate_quest(cmd.quest_id, cmd.position)
+    handle "Questing::AssociateQuestWithTrack", aggregate: Quest do |quest, cmd|
+      quest.associate_track(cmd.track_id, cmd.position)
     end
 
     handle "Questing::StartUserTrack", aggregate: UserTrack do |user_track, cmd, repository|
