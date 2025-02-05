@@ -17,10 +17,10 @@ const QuestCard: React.FC<QuestProps> = ({ quest, backgroundGradient }) => {
 
   return (
     <Link href={`/quests/${quest.slug}`}>
-      <div className="rounded-lg overflow-hidden group transition-all duration-300 hover:shadow-lg">
+      <div className="rounded-lg overflow-hidden group transition-all duration-300 hover:shadow-lg h-full flex flex-col">
         <div
           className={cn(
-            "relative bg-secondary flex justify-center items-center p-6 bg-gradient-to-b from-[var(--from-color)] to-[var(--to-color)]",
+            "relative bg-secondary flex justify-center h-full items-center p-6 bg-gradient-to-b from-[var(--from-color)] to-[var(--to-color)]",
             !isCompleted && "grayscale",
           )}
           style={
@@ -32,7 +32,7 @@ const QuestCard: React.FC<QuestProps> = ({ quest, backgroundGradient }) => {
         >
           <div
             className={cn(
-              "w-full text-center text-primary-foreground font-medium text-xl py-3 bg-primary border border-primary-foreground shadow-[1px_1px_0px_0px_#000000] rounded-lg transition-all duration-300 group-hover:shadow-[2px_2px_0px_0px_#000000] group-hover:scale-105",
+              "w-full text-center p-3 text-primary-foreground font-medium text-xl bg-primary border border-primary-foreground shadow-[1px_1px_0px_0px_#000000] rounded-lg transition-all duration-300 group-hover:shadow-[2px_2px_0px_0px_#000000] group-hover:scale-105",
               koulen.className,
             )}
           >
@@ -44,7 +44,7 @@ const QuestCard: React.FC<QuestProps> = ({ quest, backgroundGradient }) => {
               : quest.rewardPools[0].rewardDefinition.amount + " points"}
           </IndicatorPill>
         </div>
-        <div className="bg-background/60 h-full p-7">
+        <div className="bg-background/60 p-7">
           <p className="text-sm text-foreground line-clamp-4">
             <span
               dangerouslySetInnerHTML={{
