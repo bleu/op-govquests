@@ -22,7 +22,7 @@ export const config = createConfig(
       [mainnet.id]: http(),
     },
     walletConnectProjectId: "ABXC",
-    appUrl: "https://op-govquests.vercel.app",
+    appUrl: process.env.APP_URL,
   }),
 );
 

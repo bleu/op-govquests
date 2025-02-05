@@ -9,6 +9,14 @@ const jetBrains = JetBrains_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "GovQuests",
   description: "Your Odyssey Into the Future of Optimism Governance.",
+  openGraph: {
+    title: "GovQuests",
+    description: "Your Odyssey Into the Future of Optimism Governance.",
+    type: "website",
+    locale: "en_US",
+    url: "https://govquests.vercel.app/",
+    siteName: "GovQuests",
+  },
 };
 
 export default function RootLayout({
