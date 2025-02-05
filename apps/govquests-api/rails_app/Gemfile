@@ -96,5 +96,3 @@ gem "postmark-rails"
 
 gem "dry-container"
 gem "dry-auto_inject"
-
-gem "whenever", require: false
