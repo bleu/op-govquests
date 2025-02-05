@@ -9,14 +9,15 @@ module Mutations
     def resolve(address:, chain_id:)
       ensure_user_registered(address, chain_id)
 
+      domain_url = Rails.application.credentials.dig(Rails.env.to_sym, :siwe_domain)
       nonce = ::Siwe::Util.generate_nonce
       message = ::Siwe::Message.new(
-        "http://localhost:3000",
+        domain_url,
         address,
-        "http://localhost:3000",
+        domain_url,
         "1",
         {
-          statement: "SIWE Rails Example",
+          statement: "Sign in to GovQuests",
           nonce: nonce,
           chain_id: chain_id
         }
