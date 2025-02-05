@@ -122,22 +122,27 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
 
   return (
     <ActionContent>
-      <div className="flex flex-col">
-        <HtmlRender content={action.displayData.description} />
-        <Input
-          type="email"
-          className="my-2 max-w-[90%] ml-1 bg-primary text-primary-foreground"
-          value={
-            getStatus() === "completed" ? execution?.startData?.email : email
-          }
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={getStatus() === "completed"}
-        />
-      </div>
-      <ActionFooter>
-        <ActionButton {...buttonProps} />
-        {verificationStatus}
-      </ActionFooter>
+      <form onSubmit={() => handleStart()}>
+        <div className="flex flex-col">
+          <HtmlRender content={action.displayData.description} />
+          <Input
+            type="email"
+            placeholder="Type your email"
+            className="my-2 max-w-[90%] ml-1 bg-primary text-primary-foreground"
+            value={
+              getStatus() === "completed" ? execution?.startData?.email : email
+            }
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={
+              getStatus() === "completed" || !isConnected || !isSignedIn
+            }
+          />
+        </div>
+        <ActionFooter>
+          <ActionButton {...buttonProps} />
+          {verificationStatus}
+        </ActionFooter>
+      </form>
     </ActionContent>
   );
 };

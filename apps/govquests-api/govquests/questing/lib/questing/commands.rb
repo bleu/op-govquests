@@ -52,12 +52,18 @@ module Questing
   class CreateTrack < Infra::Command
     attribute :track_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
-    attribute :quest_ids, Infra::Types::Array
     attribute :badge_display_data, Infra::Types::Hash
 
     alias_method :aggregate_id, :track_id
   end
 
+  class AssociateQuestWithTrack < Infra::Command
+    attribute :track_id, Infra::Types::UUID
+    attribute :quest_id, Infra::Types::UUID
+    attribute :position, Infra::Types::Integer
+
+    alias_method :aggregate_id, :track_id
+  end
   class StartUserTrack < Infra::Command
     attribute :user_track_id, Infra::Types::UUID
     attribute :track_id, Infra::Types::UUID

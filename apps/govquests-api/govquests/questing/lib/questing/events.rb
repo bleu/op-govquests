@@ -40,10 +40,14 @@ module Questing
   class TrackCreated < Infra::Event
     attribute :track_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
-    attribute :quest_ids, Infra::Types::Array
     attribute :badge_display_data, Infra::Types::Hash
   end
 
+  class QuestAssociatedWithTrack < Infra::Event
+    attribute :track_id, Infra::Types::UUID
+    attribute :quest_id, Infra::Types::UUID
+    attribute :position, Infra::Types::Integer
+  end
   class TrackStarted < Infra::Event
     attribute :user_track_id, Infra::Types::UUID
     attribute :track_id, Infra::Types::UUID

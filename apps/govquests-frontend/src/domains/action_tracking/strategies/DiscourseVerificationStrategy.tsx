@@ -32,7 +32,7 @@ export const DiscourseVerificationStrategy: ActionStrategy = (props) => {
           {...props}
           {...context}
           encryptedKey={encryptedKey}
-          setEncryFptedKey={setEncryptedKey}
+          setEncryptedKey={setEncryptedKey}
         />
       )}
     </BaseStrategy>
@@ -138,7 +138,10 @@ const DiscourseVerificationContent: StrategyChildComponent<
               placeholder="Enter the encrypted key"
               className="w-full p-2 border rounded bg-primary text-primary-foreground"
               disabled={
-                completeMutation.isPending || getStatus() === "completed"
+                completeMutation.isPending ||
+                getStatus() === "completed" ||
+                !isConnected ||
+                !isSignedIn
               }
             />
           </div>

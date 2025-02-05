@@ -19,11 +19,10 @@ export const SimpleBadgesSection: React.FC = () => {
           title="Gallery"
           description="Discover all the badges you can earn."
         />
-        <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 w-full">
+        <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 w-full py-5">
           {data.badges.map((badge, index) => (
             <BadgeDialog
               defaultOpen={queryBadgeId == badge.id}
-              key={index}
               badgeId={badge.id}
             >
               <NormalBadgeCard
