@@ -5,7 +5,9 @@ class EmailVerificationMailer < ActionMailer::Base
     @email = params[:email]
     @token = params[:token]
 
-    @verification_link = "http://localhost:3001/email_verifications/verify?token=#{@token}"
+    domain_url = Rails.application.credentials.dig(Rails.env.to_sym, :backend_domain)
+
+    @verification_link = "#{domain_url}/email_verifications/verify?token=#{@token}"
 
     mail(
       from: "jose@bleu.studio",
