@@ -314,6 +314,7 @@ module TrackData
     },
     quests: [
       "Claim Your Identity",
+      "OP Active Debater",
       "Proven Dedication: 3 Votes in a Row"
     ]
   }
@@ -551,7 +552,7 @@ module QuestData
       }
     }
   ]
-  
+
   GOVERNANCE_VOTER_PARTICIPATION = {
     action_type: "governance_voter_participation",
     display_data: {
@@ -560,6 +561,17 @@ module QuestData
     },
     action_data: {
       action_type: "governance_voter_participation"
+    }
+  }
+
+  OP_ACTIVE_DEBATER = {
+    action_type: "op_active_debater",
+    display_data: {
+      title: "Active Debater",
+      description: "<ul><li>Visit <a href='https://op-chat.bleu.builders/forum/latest-topics'>GovSummarizer</a> to browse the latest OP Collective topics;</li><li>Select 2 different discussions and click to access the original posts on OP Collective;</li><li>Contribute with meaningful comments (minimum 50 words each) in both discussions</li></ul>"
+    },
+    action_data: {
+      action_type: "op_active_debater"
     }
   }
 
@@ -742,6 +754,20 @@ module QuestData
       audience: "Delegates",
       rewards: [{type: "Points", amount: 330}],
       actions: [GOVERNANCE_VOTER_PARTICIPATION]
+    },
+    {
+      display_data: {
+        title: "OP Active Debater",
+        intro: "This quest encourages you to engage meaningfully in forum discussions, sharing your thoughts and contributing to the community's growth. Let's foster valuable conversations together!",
+        requirements: "To complete this quest, you'll need to authorize GovQuest to access your Discourse Account. Haven't connected your account yet? Complete <a href='/quests/claim-your-identity'>this quest</a> first to get started."
+      },
+      badge_display_data: {
+        title: "OP Active Debater",
+        image_url: "/badges/QUEST BADGE_05_01.png"
+      },
+      audience: "Delegates",
+      rewards: [{type: "Points", amount: 165}],
+      actions: [OP_ACTIVE_DEBATER]
     }
   ]
 end

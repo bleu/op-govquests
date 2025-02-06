@@ -79,6 +79,22 @@ class DiscourseApiClient
     end
   end
 
+  def fetch_user_activity(username)
+    response = self.class.get(
+      "#{DISCOURSE_HOST}/u/#{username}/activity.json",
+      headers: {"Accept" => "application/json"}
+    )
+
+    case response.code
+    when 200
+      response.parsed_response
+    when 404
+      raise ResourceNotFound, "User not found"
+    else
+      raise ApiError, "Request failed with status #{response.code}: #{response.body}"
+    end
+  end
+
   private
 
   def auth_headers(api_key)

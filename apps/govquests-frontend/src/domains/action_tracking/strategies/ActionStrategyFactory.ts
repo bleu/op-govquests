@@ -36,6 +36,7 @@ export class ActionStrategyFactory {
       case "verify_delegate":
       case "verify_first_vote":
       case "wallet_verification":
+      case "op_active_debater":
         return DefaultStrategy;
       default:
         throw new Error(`Unsupported action type: ${actionType}`);
