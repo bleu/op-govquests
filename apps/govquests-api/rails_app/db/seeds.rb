@@ -315,6 +315,7 @@ module TrackData
     quests: [
       "Claim Your Identity",
       "OP Active Debater",
+      "OP Collective First Like",
       "Proven Dedication: 3 Votes in a Row"
     ]
   }
@@ -572,14 +573,14 @@ module QuestData
     },
     action_data: {
       action_type: "op_active_debater"
-    },
+    }
   }
-  
+
   OP_FORUM_CONTRIBUTOR = {
     action_type: "op_forum_contributor",
     display_data: {
-      title: "Created one post, post has one like, char count > 200",
-      description: "TBD"
+      title: "OP Forum contributor",
+      description: "<ul><li>Create a new post with meaningful content (minimum 200 characters);</li><li>Confirm community engagement (at least one like on your post).</li></ul>"
     },
     action_data: {
       action_type: "op_forum_contributor"
@@ -589,10 +590,13 @@ module QuestData
   QUESTS = [
     {
       display_data: {
-        title: "Op Collective First Like",
+        title: "OP Collective First Like",
         intro: "Create valuable content on OP Collective and get endorsed by at least one community member through a like or reinforcement on your post!",
-        image_url: "https://example.com/first-like.jpg",
-        requirements: "TBD"
+        requirements: "To complete this quest, you'll need to authorize GovQuest to access your Discourse Account. Haven't connected your account yet? Complete <a href='/quests/claim-your-identity'>this quest</a> first to get started."
+      },
+      badge_display_data: {
+        title: "OP Collective First Like",
+        image_url: "/badges/QUEST BADGE_05_02.png"
       },
       audience: "AllUsers",
       rewards: [{type: "Points", amount: 165}],
@@ -787,7 +791,7 @@ module QuestData
         title: "OP Active Debater",
         image_url: "/badges/QUEST BADGE_05_01.png"
       },
-      audience: "Delegates",
+      audience: "AllUsers",
       rewards: [{type: "Points", amount: 165}],
       actions: [OP_ACTIVE_DEBATER]
     }
