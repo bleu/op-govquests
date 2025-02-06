@@ -4,46 +4,41 @@
 module ActionTracking
   module Strategies
     class OpForumContributor < Base
-      include Import["services.discourse"]
+      include Import["services.discourse"]      
+      include ActionView::Helpers::SanitizeHelper
 
       MIN_POST_LENGTH = 200
       LIKE_ACTION_ID = 2
 
-      private
+      def start_data_valid?
+        discourse_verification = start_data[:discourse_verification]
 
-      def can_start?
-        # Only allow starting this action if the user has completed the "discourse_verification" action
-        return false unless start_data[:discourse_verification].present?
-        return false unless start_data[:discourse_verification][:verified]
+        return false unless discourse_verification.present?
+        return false unless discourse_verification.status == "completed"
+        return false unless discourse_verification.completion_data["discourse_username"].present?
 
         true
-      end
-
-      def start_data_valid?
-        start_data[:username].present?
       end
 
       def on_start_execution
-        start_data.merge({
-          qualifying_posts:
-        })
+        {
+          username: start_data[:discourse_verification].completion_data["discourse_username"]
+        }
       end
 
       def can_complete?
-        return false unless start_data_valid?
-        return false unless start_data[:qualifying_posts].any?
-
+        return false unless qualifying_posts.any?
         true
       end
 
-      protected
+      private
 
       def qualifying_posts
         @qualifying_posts ||= begin
           activity = discourse.fetch_user_activity(start_data[:username])
           activity.select do |post|
             next unless post["username"] == start_data[:username]
-            next unless post["cooked"]&.length&.>= MIN_POST_LENGTH
+            next unless strip_tags(post["cooked"])&.length&.>= MIN_POST_LENGTH
             next unless get_like_count(post) > 0
 
             true
