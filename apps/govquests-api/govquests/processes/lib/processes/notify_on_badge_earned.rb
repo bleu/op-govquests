@@ -14,8 +14,8 @@ module Processes
       badge_id = event.data[:badge_id]
       badge_type = event.data[:badge_type]
       
-      badge_record = badge_type.constantize.find_by(id: badge_id)
-      badge_title = badge_record&.display_data&.dig("title") if badge_record
+      badge = reconstruct_badge(badge_id, badge_type)
+      badge_title = badge&.display_data&.dig("title") if badge_record
 
       @command_bus.call(
         ::Notifications::CreateNotification.new(
@@ -25,6 +25,29 @@ module Processes
           notification_type: "badge_earned"
         )
       )
+    end
+
+    private 
+
+    def reconstruct_badge(badge_id, badge_type)
+      entity_name = badge_type.split("::").last.gsub("ReadModel", "")
+      stream_name = "Gamification::#{entity_name}$#{badge_id}"
+      events = @event_store.read.stream(stream_name).to_a
+
+      return nil if events.empty?
+
+      badge = OpenStruct.new(display_data: {})
+
+      badge_created_event_name = "Gamification::#{entity_name}Created"
+
+      events.each do |event|
+        case event
+        when badge_created_event_name.constantize
+          badge.display_data = event.data[:display_data]
+        end
+      end
+
+      badge
     end
   end
 end
