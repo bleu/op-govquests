@@ -22,14 +22,16 @@ module ActionTracking
         raise CompletionDataVerificationFailed, "Private key not found" if private_key.nil?
 
         begin
-          user_data = discourse.verify_user(completion_data[:encrypted_key], private_key)
+          data = discourse.decrypt_api_key(completion_data[:encrypted_key], private_key)
+          api_key = data["key"]
 
+          user_info = discourse.fetch_current_user(api_key)
           {
             action_type: "discourse_verification",
-            discourse_username: user_data[:username],
-            api_key: user_data[:api_key]
+            discourse_username: user_info["current_user"]["username"],
+            api_key: 
           }
-        rescue Services::Discourse::Error => e
+        rescue DiscourseApiClient::ApiError => e
           raise CompletionDataVerificationFailed, "Error verifying user: #{e.message}"
         end
       end

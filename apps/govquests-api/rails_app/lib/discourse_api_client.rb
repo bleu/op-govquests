@@ -84,7 +84,6 @@ class DiscourseApiClient
   def auth_headers(api_key)
     {
       "User-Api-Key" => api_key,
-      "User-Api-Client-Id" => "GovQuests",
       "Accept" => "application/json"
     }
   end
