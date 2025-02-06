@@ -127,7 +127,11 @@ const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
       {data && <TableCell className="py-4 w-1/3">{data.name}</TableCell>}
       <TableCell className="py-4 w-1/4">{profile.score}</TableCell>
       <TableCell className="py-4 w-1/4">
-        {formatVotingPower(profile.votingPower)} OP
+        {formatVotingPower(profile.votingPower?.totalVotingPower)} OP (
+        {(
+          profile.votingPower?.votingPowerRelativeToVotableSupply * 100
+        ).toPrecision(1)}
+        %)
       </TableCell>
       <TableCell className="rounded-r-lg w-fit self-end">
         <Dialog>

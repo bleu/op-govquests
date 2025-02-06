@@ -259,7 +259,7 @@ type GameProfile {
   score: Int!
   tier: Tier!
   user: User!
-  votingPower: Int!
+  votingPower: VotingPower!
 }
 
 """
@@ -822,4 +822,9 @@ type UserTrack {
   completedAt: ISO8601DateTime
   id: ID!
   status: String!
+}
+
+type VotingPower {
+  totalVotingPower: Float
+  votingPowerRelativeToVotableSupply: Float
 }
