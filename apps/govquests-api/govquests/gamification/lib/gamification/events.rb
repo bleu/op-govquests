@@ -34,7 +34,8 @@ module Gamification
 
   class VotingPowerUpdated < Infra::Event
     attribute :profile_id, Infra::Types::UUID
-    attribute :voting_power, Infra::Types::Integer
+    attribute :total_voting_power, Infra::Types::Float
+    attribute :voting_power_relative_to_votable_supply, Infra::Types::Float
   end
 
   class TierAchieved < Infra::Event

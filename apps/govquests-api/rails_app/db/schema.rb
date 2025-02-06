@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
+ActiveRecord::Schema[8.1].define(version: 2025_02_06_121903) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -239,7 +239,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_03_185729) do
     t.datetime "updated_at", null: false
     t.string "tier_id"
     t.integer "rank"
-    t.integer "voting_power", default: 0
+    t.jsonb "voting_power", default: {}
     t.index ["profile_id"], name: "index_user_game_profiles_on_profile_id", unique: true
     t.index ["tier_id", "rank"], name: "index_user_game_profiles_on_tier_id_and_rank"
     t.index ["tier_id"], name: "index_user_game_profiles_on_tier_id"

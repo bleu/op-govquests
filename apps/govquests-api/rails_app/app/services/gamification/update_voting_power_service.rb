@@ -12,7 +12,7 @@ module Gamification
       voting_power = calculate_voting_power(delegate)
 
       update_voting_power(user_id, voting_power)
-      update_tier(user_id, voting_power)
+      update_tier(user_id, voting_power[:total_voting_power])
     end
 
     private
@@ -24,14 +24,22 @@ module Gamification
     end
 
     def calculate_voting_power(delegate)
-      voting_power_raw = delegate.dig("data", "voting_power").to_i
-      (BigDecimal(voting_power_raw) / BigDecimal("1e18")).to_i
+      total_voting_power_raw = delegate.dig("votingPower", "total").to_i
+      voting_power_relative_to_votable_supply = delegate.dig("votingPowerRelativeToVotableSupply").to_f
+
+      total_voting_power = (BigDecimal(total_voting_power_raw) / BigDecimal("1e18")).to_f
+
+      {
+        total_voting_power:,
+        voting_power_relative_to_votable_supply:
+      }
     end
 
     def update_voting_power(profile_id, voting_power)
       @command_bus.call(Gamification::UpdateVotingPower.new(
-        profile_id: profile_id,
-        voting_power: voting_power
+        profile_id:,
+        total_voting_power: voting_power[:total_voting_power],
+        voting_power_relative_to_votable_supply: voting_power[:voting_power_relative_to_votable_supply]
       ))
     end
 

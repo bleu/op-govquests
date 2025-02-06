@@ -21,6 +21,7 @@ module Gamification
       @unclaimed_tokens = {} # token_address => amount
       @active_claim = nil
       @voting_power = 0
+      @voting_power_relative_to_votable_supply = 0
     end
 
     def create
@@ -87,10 +88,11 @@ module Gamification
       })
     end
 
-    def update_voting_power(voting_power)
+    def update_voting_power(total_voting_power, voting_power_relative_to_votable_supply)
       apply VotingPowerUpdated.new(data: {
         profile_id: @id,
-        voting_power: voting_power
+        total_voting_power: total_voting_power,
+        voting_power_relative_to_votable_supply: voting_power_relative_to_votable_supply
       })
     end
 
@@ -157,7 +159,8 @@ module Gamification
     end
 
     on VotingPowerUpdated do |event|
-      @voting_power = event.data[:voting_power]
+      @total_voting_power = event.data[:total_voting_power],
+      @voting_power_relative_to_votable_supply = event.data[:voting_power_relative_to_votable_supply]
     end
 
     on TierAchieved do |event|

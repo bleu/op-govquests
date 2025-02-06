@@ -50,7 +50,7 @@ module Gamification
     end
 
     handle "Gamification::UpdateVotingPower", aggregate: GameProfile do |profile, cmd|
-      profile.update_voting_power(cmd.voting_power)
+      profile.update_voting_power(cmd.total_voting_power, cmd.voting_power_relative_to_votable_supply)
     end
 
     handle "Gamification::AchieveTier", aggregate: GameProfile do |profile, cmd|

@@ -45,7 +45,7 @@ end
 #  streak           :integer          default(0)
 #  track            :integer          default(0)
 #  unclaimed_tokens :jsonb
-#  voting_power     :integer          default(0)
+#  voting_power     :jsonb
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  profile_id       :string           not null
