@@ -18,9 +18,11 @@ module ActionTracking
         return false if dry_run
 
         raise CompletionDataVerificationFailed, "No encrypted key provided" if completion_data[:encrypted_key].blank?
+        private_key = start_data["private_key"]
+        raise CompletionDataVerificationFailed, "Private key not found" if private_key.nil?
 
         begin
-          data = discourse.decrypt_api_key(completion_data[:encrypted_key], start_data[:private_key])
+          data = discourse.decrypt_api_key(completion_data[:encrypted_key], private_key)
           api_key = data["key"]
 
           user_info = discourse.fetch_current_user(api_key)
