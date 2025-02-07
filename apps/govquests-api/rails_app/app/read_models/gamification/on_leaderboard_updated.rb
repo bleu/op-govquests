@@ -11,7 +11,7 @@ module Gamification
 
       ActiveRecord::Base.transaction do
         ActiveRecord::Base.connection.execute(
-          sanitize_sql_array([<<-SQL, tier_id])
+          ActiveRecord::Base.sanitize_sql_array([<<-SQL, tier_id])
             UPDATE user_game_profiles
             SET rank = ranks.new_rank
             FROM (
