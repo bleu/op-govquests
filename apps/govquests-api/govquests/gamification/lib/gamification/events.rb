@@ -55,8 +55,6 @@ module Gamification
   
   class LeaderboardUpdated < Infra::Event
     attribute :leaderboard_id, Infra::Types::UUID
-    attribute :profile_id, Infra::Types::UUID
-    attribute :score, Infra::Types::Integer
   end
 
   class BadgeCreated < Infra::Event

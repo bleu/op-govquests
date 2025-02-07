@@ -1,24 +1,35 @@
 module Gamification
   class OnLeaderboardUpdated
+    class LeaderboardUpdateError < StandardError; end
+
     def call(event)
-      profile_id = event.data[:profile_id]
+      leaderboard_id = event.data[:leaderboard_id]
 
-      game_profile = GameProfileReadModel.find_or_initialize_by(profile_id: profile_id)
+      tier_id = LeaderboardReadModel.find_by(leaderboard_id: leaderboard_id)&.tier_id
 
-      ActiveRecord::Base.connection.execute(<<-SQL)
-        UPDATE user_game_profiles
-        SET rank = ranks.new_rank
-        FROM (
-          SELECT id, ROW_NUMBER() OVER (ORDER BY score DESC) as new_rank
-          FROM user_game_profiles
-          WHERE tier_id = '#{game_profile.tier_id}'
-            AND (
-              score >= #{game_profile.score} OR  -- Profiles with higher/equal scores
-              id = '#{game_profile.id}'          -- The updated profile itself
-            )
-        ) ranks
-        WHERE user_game_profiles.id = ranks.id
-      SQL
+      return unless tier_id.present?
+
+      ActiveRecord::Base.transaction do
+        ActiveRecord::Base.connection.execute(
+          sanitize_sql_array([<<-SQL, tier_id])
+            UPDATE user_game_profiles
+            SET rank = ranks.new_rank
+            FROM (
+              SELECT 
+                id,
+                ROW_NUMBER() OVER (
+                  ORDER BY score DESC, updated_at ASC
+                ) as new_rank
+              FROM user_game_profiles
+              WHERE tier_id = ?
+            ) ranks
+            WHERE user_game_profiles.id = ranks.id
+          SQL
+        )
+      end
+    rescue => e
+      Rails.logger.error("Failed to update ranks for leaderboard #{leaderboard_id}: #{e.message}")
+      raise LeaderboardUpdateError, "Failed to update rankings"
     end
   end
 end

@@ -7,11 +7,9 @@ module Gamification
       @entries = {}
     end
 
-    def update_score(profile_id, score)
+    def update_ranking
       apply LeaderboardUpdated.new(data: {
         leaderboard_id: @id,
-        profile_id: profile_id,
-        score: score
       })
     end
 

@@ -41,7 +41,7 @@ module Gamification
   class CommandHandler < Infra::CommandHandlerRegistry
     # Leaderboard commands
     handle "Gamification::UpdateLeaderboard", aggregate: Leaderboard do |leaderboard, cmd|
-      leaderboard.update_score(cmd.profile_id, cmd.score)
+      leaderboard.update_ranking
     end
 
     # Game Profile commands - metrics
