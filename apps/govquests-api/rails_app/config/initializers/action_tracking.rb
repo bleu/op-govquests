@@ -5,5 +5,6 @@ Rails.application.config.after_initialize do
     container.register("services.ens") { EnsSubgraphClient.new }
     container.register("services.email") { ActionTracking::VerifyEmailClient }
     container.register("services.balance") { ActionTracking::OpTokenBalance }
+    container.register("services.discourse") { DiscourseApiClient.new }
   end
 end

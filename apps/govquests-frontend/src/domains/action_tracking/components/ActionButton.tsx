@@ -71,6 +71,10 @@ const ACTIONS = {
     unstarted: { label: "Mark as read", icon: CheckIcon },
     completed: { label: "Confirmed", icon: CheckSquareIcon },
   },
+  op_active_debater: {
+    unstarted: { label: "Verify" },
+    completed: { label: "Verified", icon: CheckSquareIcon },
+  },
 } as const;
 
 type ActionType = keyof typeof ACTIONS;
