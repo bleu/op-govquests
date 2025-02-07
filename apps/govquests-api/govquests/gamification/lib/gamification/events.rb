@@ -32,9 +32,15 @@ module Gamification
     attribute :points, Infra::Types::Integer
   end
 
+  class VotingPowerUpdated < Infra::Event
+    attribute :profile_id, Infra::Types::UUID
+    attribute :total_voting_power, Infra::Types::Float
+    attribute :voting_power_relative_to_votable_supply, Infra::Types::Float
+  end
+
   class TierAchieved < Infra::Event
     attribute :profile_id, Infra::Types::UUID
-    attribute :tier, Infra::Types::String
+    attribute :tier_id, Infra::Types::UUID
   end
 
   class TrackCompleted < Infra::Event
@@ -91,6 +97,5 @@ module Gamification
 
   class GameProfileCreated < Infra::Event
     attribute :profile_id, Infra::Types::UUID
-    attribute :tier_id, Infra::Types::UUID
   end
 end

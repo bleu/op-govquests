@@ -20,12 +20,13 @@ module Gamification
       @badges = []
       @unclaimed_tokens = {} # token_address => amount
       @active_claim = nil
+      @voting_power = 0
+      @voting_power_relative_to_votable_supply = 0
     end
 
-    def create(tier_id:)
+    def create
       apply GameProfileCreated.new(data: {
         profile_id: @id,
-        tier_id: tier_id
       })
     end
 
@@ -87,10 +88,19 @@ module Gamification
       })
     end
 
-    def achieve_tier(tier)
+    def update_voting_power(total_voting_power, voting_power_relative_to_votable_supply)
+      apply VotingPowerUpdated.new(data: {
+        profile_id: @id,
+        total_voting_power: total_voting_power,
+        voting_power_relative_to_votable_supply: voting_power_relative_to_votable_supply
+      })
+    end
+
+    def achieve_tier(tier_id)
+      return if @tier_id == tier_id
       apply TierAchieved.new(data: {
         profile_id: @id,
-        tier: tier
+        tier_id: tier_id
       })
     end
 
@@ -148,8 +158,13 @@ module Gamification
       @score += event.data[:points]
     end
 
+    on VotingPowerUpdated do |event|
+      @total_voting_power = event.data[:total_voting_power],
+      @voting_power_relative_to_votable_supply = event.data[:voting_power_relative_to_votable_supply]
+    end
+
     on TierAchieved do |event|
-      @tier = event.data[:tier]
+      @tier_id = event.data[:tier_id]
     end
 
     on TrackCompleted do |event|

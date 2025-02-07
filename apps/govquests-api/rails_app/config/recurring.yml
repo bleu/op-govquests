@@ -8,3 +8,9 @@
 #     command: "SoftDeletedRecord.due.delete_all"
 #     priority: 2
 #     schedule: at 5am every day
+
+production:
+  update_voting_power:
+    class: UpdateAllUsersVotingPowerJob
+    schedule: "0 0 * * *" # Runs at midnight every day
+    queue: default

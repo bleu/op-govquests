@@ -5,5 +5,6 @@ module Types
     field :rank, Integer, null: false
     field :tier, Types::TierType, null: false
     field :user, Types::UserType, null: false
+    field :voting_power, Types::VotingPowerType, null: false
   end
 end

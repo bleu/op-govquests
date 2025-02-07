@@ -15,6 +15,8 @@ require "action_view/railtie"
 require "rails/test_unit/railtie"
 require "sprockets/railtie"
 
+require "solid_queue"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -57,5 +59,7 @@ module GovquestsApi
 
     config.action_mailer.delivery_method = :postmark
     config.action_mailer.postmark_settings = {api_token: Rails.application.credentials.postmark[:api_token]}
+
+    config.active_job.queue_adapter = :solid_queue
   end
 end
