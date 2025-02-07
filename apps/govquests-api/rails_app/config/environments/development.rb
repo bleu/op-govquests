@@ -67,4 +67,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
+
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.connects_to = {database: {writing: :queue}}
 end
