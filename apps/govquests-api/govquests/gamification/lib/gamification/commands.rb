@@ -63,8 +63,6 @@ module Gamification
 
   class UpdateLeaderboard < Infra::Command
     attribute :leaderboard_id, Infra::Types::UUID
-    attribute :profile_id, Infra::Types::UUID
-    attribute :score, Infra::Types::Integer
 
     alias_method :aggregate_id, :leaderboard_id
   end

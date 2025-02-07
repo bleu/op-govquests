@@ -10,7 +10,7 @@ module Gamification
 
       leaderboard_id = game_profile.leaderboard.leaderboard_id
       Rails.configuration.command_bus.call(
-        Gamification::UpdateLeaderboard.new(leaderboard_id:, profile_id:, score: game_profile.score)
+        Gamification::UpdateLeaderboard.new(leaderboard_id:)
       )
     end
   end

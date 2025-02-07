@@ -13,9 +13,7 @@ module Gamification
 
       Rails.configuration.command_bus.call(
         Gamification::UpdateLeaderboard.new(
-          leaderboard_id: game_profile.leaderboard.leaderboard_id,
-          profile_id: profile_id,
-          score: game_profile.score
+          leaderboard_id: game_profile.leaderboard.leaderboard_id
         )
       )
     rescue => e
