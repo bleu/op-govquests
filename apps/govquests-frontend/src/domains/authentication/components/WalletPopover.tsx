@@ -25,27 +25,29 @@ export const WalletPopover = ({ className }: { className: string }) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="secondary" className={cn(className, "w-48")}>
-          <div className="flex items-center gap-2">
-            <div className="size-6 rounded-full overflow-hidden">
-              {userProfile.avatarUrl && (
-                <Image
-                  src={userProfile.avatarUrl}
-                  alt="wallet avatar"
-                  width={100}
-                  height={100}
-                  className="size-full object-cover"
-                  unoptimized
-                />
-              )}
+        <div className="h-11">
+          <Button variant="secondary" className={cn(className, "w-48")}>
+            <div className="flex items-center gap-2">
+              <div className="size-6 rounded-full overflow-hidden">
+                {userProfile.avatarUrl && (
+                  <Image
+                    src={userProfile.avatarUrl}
+                    alt="wallet avatar"
+                    width={100}
+                    height={100}
+                    className="size-full object-cover"
+                    unoptimized
+                  />
+                )}
+              </div>
+              <span>{userProfile.name}</span>
+              <ChevronDown className="size-4" />
             </div>
-            <span>{userProfile.name}</span>
-            <ChevronDown className="size-4" />
-          </div>
-        </Button>
+          </Button>
+        </div>
       </PopoverTrigger>
-      <PopoverContent className="z-50 absolute -top-10 translate-x-1/2 right-10">
-        <div className="relative w-80 items-center text-center p-6 bg-background shadow-2xl rounded-xl min-h-fit flex flex-col gap-4">
+      <PopoverContent className="z-50 absolute translate-x-1/2 right-10">
+        <div className="relative w-80 items-center text-center p-6 bg-background shadow-[0_8px_32px_0_#00000052] rounded-xl min-h-fit flex flex-col gap-4">
           <PopoverClose className="absolute top-2 right-4 size-4">
             <X width={16} />
           </PopoverClose>
