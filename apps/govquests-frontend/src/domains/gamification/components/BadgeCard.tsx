@@ -2,7 +2,7 @@
 
 import { cn, koulen, redactedScript } from "@/lib/utils";
 import Image from "next/image";
-import { ComponentProps, useState } from "react";
+import { type ComponentProps, useState } from "react";
 import { useFetchBadge } from "../hooks/useFetchBadge";
 import { useFetchSpecialBadge } from "../hooks/useFetchSpecialBadge";
 
@@ -12,6 +12,7 @@ interface BadgeCardProps {
     | ReturnType<typeof useFetchBadge>["data"]["badge"]
     | ReturnType<typeof useFetchSpecialBadge>["data"]["specialBadge"];
   className?: string;
+  scaleDisabled?: boolean;
   withTitle?: boolean;
   header?: string;
   revealIncomplete?: boolean;
@@ -47,6 +48,7 @@ export const BadgeCard = ({
   withTitle,
   badgeableTitle,
   header,
+  scaleDisabled = false,
 }: BadgeCardProps) => {
   const revealCard = badge?.earnedByCurrentUser || revealIncomplete;
 
@@ -98,29 +100,37 @@ export const BadgeCard = ({
 
   if (withTitle) {
     return (
-      <BadgeCardTitle header={header} badgeableTitle={badgeableTitle}>
+      <BadgeCardTitle
+        header={header}
+        badgeableTitle={badgeableTitle}
+        scaleDisabled={scaleDisabled}
+      >
         {Card}
       </BadgeCardTitle>
     );
-  } else {
-    return Card;
   }
+  return Card;
 };
 
 interface BadgeCardTitleProps extends ComponentProps<"div"> {
   header: string;
   badgeableTitle?: string;
+  scaleDisabled?: boolean;
 }
 
 const BadgeCardTitle = ({
   header,
   badgeableTitle,
   children,
+  scaleDisabled,
   ...props
 }: BadgeCardTitleProps) => {
   return (
     <div
-      className="p-2 rounded-lg bg-background/60 transition duration-300 hover:scale-105 flex flex-col"
+      className={cn(
+        "p-2 rounded-lg bg-background/60 flex flex-col",
+        !scaleDisabled && "transition duration-300 hover:scale-105",
+      )}
       {...props}
     >
       <div className="px-2 whitespace-nowrap w-full text-start">

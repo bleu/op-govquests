@@ -4,12 +4,12 @@ import { IndicatorPill } from "@/components/IndicatorPill";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/hooks/use-toast";
 import { useUserProfile } from "@/hooks/useUserProfile";
-import { ResultOf } from "gql.tada";
+import type { ResultOf } from "gql.tada";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ComponentProps } from "react";
-import { CURRENT_USER_QUERY, USER_QUERY } from "../graphql/userQuery";
+import type { ComponentProps } from "react";
+import type { CURRENT_USER_QUERY, USER_QUERY } from "../graphql/userQuery";
 import { useCurrentUserInfo, useUserInfo } from "../hooks/useUserInfo";
 import { useFetchQuests } from "@/domains/questing/hooks/useFetchQuests";
 
@@ -150,7 +150,7 @@ export const UserAchievementPanel = ({
           </div>
         </div>
         <IndicatorPill className="px-8 min-w-48 h-[26px]">
-          {user && user.gameProfile.tier.displayData.title}
+          {user?.gameProfile.tier.displayData.title}
         </IndicatorPill>
       </div>
     </div>

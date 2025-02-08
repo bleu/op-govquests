@@ -39,19 +39,19 @@ const tools = [
     icon: Book,
     title: "Gov Summarizer",
     description: "View summaries",
-    href: "",
+    href: "https://op-chat.bleu.builders/forum",
   },
   {
     icon: MessageCircle,
     title: "GovGPT",
     description: "Ask questions",
-    href: "",
+    href: "https://op-chat.bleu.builders/chat",
   },
   {
     icon: Calendar,
     title: "Governance Calendar",
     description: "Check events",
-    href: "",
+    href: "https://calendar.google.com/calendar/embed?src=c_fnmtguh6noo6qgbni2gperid4k%40group.calendar.google.com&ctz=Europe%2FBerlin",
   },
 ];
 
@@ -92,7 +92,7 @@ const Header: React.FC = () => {
             <NavigationMenu className=" relative">
               <NavigationMenuList>
                 <NavigationMenuItem className="group-hover:bg-background">
-                  <NavigationMenuTrigger className="flex items-center text-foreground/80 font-normal group-hover:font-extrabold text-md rounded-full transition-all duration-300 group-hover:scale-110">
+                  <NavigationMenuTrigger className="flex items-center text-foreground/80 font-normal group-hover:font-extrabold focus:outline-none active:outline-none text-md rounded-full transition-transform duration-300 group-hover:scale-110">
                     # Tools
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="hover:bg-background flex flex-col gap-4 p-4">
