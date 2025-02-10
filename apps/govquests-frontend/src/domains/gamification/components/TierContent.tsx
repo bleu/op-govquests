@@ -45,7 +45,7 @@ export const TierContent = ({ tierId, isTarget = false }: TierContentProps) => {
             {data.tier.leaderboard.gameProfiles.length ? (
               <>
                 <div># Top 3</div>
-                <div className="flex justify-around w-full">
+                <div className="grid justify-around w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-y-4">
                   {[1, 0, 2]
                     .map(
                       (value) =>
