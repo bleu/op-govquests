@@ -80,7 +80,7 @@ export const QuestCarousel = ({
             <button
               type="button"
               onClick={() => api.scrollNext()}
-              className={cn("p2", isLast && "opacity-30 cursor-default")}
+              className={cn(isLast && "opacity-30 cursor-default")}
             >
               <ChevronRight className="w-5 h-5" />
             </button>
