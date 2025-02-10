@@ -18,7 +18,7 @@ export const BadgeDetails = ({
   special = false,
 }: BadgeDetailsProps) => {
   return (
-    <DialogContent>
+    <DialogContent className="max-w-[500px] w-[85%] rounded-xl">
       <DialogTitle className="hidden">Badge Details</DialogTitle>
       <DialogHeader>
         <DialogDescription
