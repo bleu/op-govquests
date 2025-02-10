@@ -72,7 +72,7 @@ const Header: React.FC = () => {
   const { isSmallerThan, isLargerThan, isMedium } = useBreakpoints();
 
   return (
-    <header className="w-full max-w-[1200px] mx-auto py-4 px-4 z-50">
+    <header className="w-full max-w-[1200px] mx-auto py-4 px-4 z-50 bg-background/70">
       <div className="flex justify-between items-center align-middle w-full">
         {isSmallerThan.lg && <SideMenu />}
 
