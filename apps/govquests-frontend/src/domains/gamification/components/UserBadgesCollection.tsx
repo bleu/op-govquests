@@ -8,18 +8,20 @@ import type { ComponentProps } from "react";
 
 interface UserBadgesCollectionProps extends ComponentProps<"div"> {
   userId: string;
+  headerClassName?: string;
 }
 
 export const UserBadgesCollection = ({
   userId,
   className,
+  headerClassName,
   ...props
 }: UserBadgesCollectionProps) => {
   const { data } = useUserInfo(userId);
 
   return (
     <div className="flex flex-col py-7 overflow-visible text-foreground">
-      <div className="px-7">
+      <div className={headerClassName}>
         <SectionHeader title="Badges Collection" />
       </div>
       <div

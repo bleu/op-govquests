@@ -61,7 +61,7 @@ export const UserAchievementPanel = ({
   };
 
   return (
-    <div className="w-full h-80 overflow-hidden rounded-[20px] relative">
+    <div className="w-full overflow-hidden rounded-[20px] relative flex flex-col">
       {isFromCurrentUser && (
         <Button
           size="sm"
@@ -81,10 +81,10 @@ export const UserAchievementPanel = ({
           alt="tier_background"
           width={1000}
           height={1000}
-          className="object-cover size-full"
+          className="absolute object-cover size-full -z-10"
         />
       )}
-      <div className="absolute bottom-0 bg-background/90 w-full rounded-[20px] h-20 text-white flex flex-row justify-around items-center border-foreground/10 border">
+      <div className="mt-52 bg-background/90 rounded-[20px] py-4 text-white grid grid-cols-2 gap-y-2 place-items-center sm:grid-cols-3 md:grid-cols-5 border-foreground/10 border">
         {user && (
           <>
             <InfoLabel label="Quests" href={isFromCurrentUser && "/quests"}>
@@ -129,7 +129,7 @@ export const UserAchievementPanel = ({
           </>
         )}
       </div>
-      <div className="flex flex-col gap-0 absolute bottom-[70px] left-1/2 -translate-x-1/2 items-center">
+      <div className="flex flex-col gap-0 absolute top-16 left-1/2 -translate-x-1/2 items-center">
         <div className="w-full px-5">
           <div className="max-w-fit mx-auto px-5 bg-background/80 pb-1 pt-3 flex flex-col gap-2 border-foreground/10 border rounded-t-2xl overflow-hidden items-center">
             <div className="size-20 border flex flex-col justify-center rounded-full">
@@ -170,7 +170,7 @@ const InfoLabel = ({
   ...props
 }: InfoLabelProps) => {
   const infoLabelComponent = (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 text-center">
       <p className="text-sm font-bold text-foreground/60">{label}</p>
       <p className="font-extrabold" {...props} />
     </div>
