@@ -6,6 +6,7 @@ import { cn, kdamThmorPro } from "@/lib/utils";
 import {
   Book,
   Calendar,
+  ChevronDown,
   Home,
   List,
   MessageCircle,
@@ -24,6 +25,7 @@ import {
 import { useBreakpoints } from "@/hooks/useBreakpoints";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
+import { Button } from "./ui/Button";
 
 const headerPages = [
   { href: "/", label: "Home" },
@@ -148,6 +150,7 @@ const Header: React.FC = () => {
 
 const SideMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const currentPath = usePathname();
 
   const toggleSideBar = () => setIsOpen((state) => !state);
@@ -189,6 +192,53 @@ const SideMenu = () => {
               </Link>
             </li>
           ))}
+          <div className="w-full">
+            {/* Tools Header/Trigger */}
+            <button
+              type="button"
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="flex items-center justify-between w-full px-3 py-1 text-foreground/80"
+            >
+              <span># Tools</span>
+              <ChevronDown
+                className={cn(
+                  "size-4 transition-transform duration-200",
+                  isExpanded && "transform rotate-180",
+                )}
+              />
+            </button>
+
+            {/* Tools Content */}
+            <div
+              className={cn(
+                "overflow-hidden transition-all duration-300 ease-in-out",
+                isExpanded ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0",
+              )}
+            >
+              <div className="px-3 py-2 space-y-1">
+                {tools.map(({ icon: Icon, title, description, href }) => (
+                  <Link
+                    key={title}
+                    href={href}
+                    onClick={() => {
+                      setTimeout(toggleSideBar, 150);
+                    }}
+                    className="block group"
+                  >
+                    <div className="flex items-center gap-2 p-2 rounded-md transition-colors hover:bg-white/5">
+                      <Icon className="size-3 text-foreground/70" />
+                      <div>
+                        <h3 className="text-sm text-foreground">{title}</h3>
+                        <p className="text-xs text-foreground/60 mt-0.5">
+                          {description}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
         </ul>
       </div>
       <div
