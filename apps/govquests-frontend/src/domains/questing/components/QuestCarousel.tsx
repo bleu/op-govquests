@@ -3,13 +3,14 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { Quests } from "../types/questTypes";
+import type { Quests } from "../types/questTypes";
 import QuestCard from "./QuestCard";
 import { useEffect, useState } from "react";
-import { UseEmblaCarouselType } from "embla-carousel-react";
+import type { UseEmblaCarouselType } from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Tracks } from "../types/trackTypes";
+import type { Tracks } from "../types/trackTypes";
+import { useBreakpoints } from "@/hooks/useBreakpoints";
 
 interface QuestCarouselProps {
   quests: Quests;
@@ -21,16 +22,18 @@ export const QuestCarousel = ({
   backgroundGradient,
 }: QuestCarouselProps) => {
   const [api, setApi] = useState<UseEmblaCarouselType[1] | null>(null);
-  const hasNavigationButtons = quests.length > 3;
+  const { isSmallerThan } = useBreakpoints();
+  const hasNavigationButtons = isSmallerThan.md
+    ? quests.length > 1
+    : quests.length > 3;
   const [isLast, setIsLast] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
 
   useEffect(() => {
-    api &&
-      api.on("scroll", () => {
-        setIsLast(!api.canScrollNext());
-        setIsFirst(!api.canScrollPrev());
-      });
+    api?.on("scroll", () => {
+      setIsLast(!api.canScrollNext());
+      setIsFirst(!api.canScrollPrev());
+    });
   }, [api]);
 
   return (
@@ -40,12 +43,13 @@ export const QuestCarousel = ({
         <div className="text-xl font-bold whitespace-nowrap">Quests</div>
         <div className="border-b h-0 w-full" />
       </div>
-      <div className="relative mx-10">
+      <div className="relative md:mx-10 mx-4">
         {hasNavigationButtons && (
           <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
             <button
+              type="button"
               onClick={() => api.scrollPrev()}
-              className={cn("p2", isFirst && "opacity-30 cursor-default")}
+              className={cn(isFirst && "opacity-30 cursor-default")}
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -54,11 +58,14 @@ export const QuestCarousel = ({
 
         <Carousel
           setApi={setApi}
-          className={cn(hasNavigationButtons && "mx-10")}
+          className={cn(hasNavigationButtons && "md:mx-10 mx-6")}
         >
           <CarouselContent>
             {quests.map((quest) => (
-              <CarouselItem key={quest.id} className="basis-1/3">
+              <CarouselItem
+                key={quest.id}
+                className="md:basis-1/3 sm:basis-full"
+              >
                 <QuestCard
                   quest={quest}
                   backgroundGradient={backgroundGradient}
@@ -71,6 +78,7 @@ export const QuestCarousel = ({
         {hasNavigationButtons && (
           <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
             <button
+              type="button"
               onClick={() => api.scrollNext()}
               className={cn("p2", isLast && "opacity-30 cursor-default")}
             >

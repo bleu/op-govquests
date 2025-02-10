@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default async function Home() {
   return (
-    <main className="flex flex-1 flex-col gap-8 h-full items-center justify-center text-center max-w-[600px] mx-auto">
+    <main className="flex flex-1 px-6 flex-col gap-8 h-full items-center justify-center text-center max-w-[600px] mx-auto">
       <Image
         width={500}
         height={500}

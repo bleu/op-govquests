@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 
 import LoadingIndicator from "@/components/ui/LoadingIndicator";
 import { TrackList } from "@/domains/questing/components/track/TrackList";
@@ -18,7 +18,7 @@ const QuestsPage: React.FC = () => {
   }
 
   return (
-    <div className="p-8">
+    <div className="py-8">
       <TrackList />
     </div>
   );
