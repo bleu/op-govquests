@@ -85,68 +85,78 @@ export const UserAchievementPanel = ({
         />
       )}
       <div className="mt-52 bg-background/90 rounded-[20px] py-4 text-white grid grid-cols-2 gap-y-2 place-items-center sm:grid-cols-3 md:grid-cols-5 border-foreground/10 border">
-        {user && (
-          <>
-            <InfoLabel label="Quests" href={isFromCurrentUser && "/quests"}>
-              {user.userQuests.length}/{questsData?.quests.length}
-            </InfoLabel>
-            <InfoLabel
-              label="Ranking"
-              href={
-                isFromCurrentUser &&
-                `/leaderboard?tab=my-tier&rank=${user.gameProfile.rank}`
-              }
-              scroll={false}
-            >
-              #{user.gameProfile.rank}
-            </InfoLabel>
-            <InfoLabel
-              label="Points"
-              href={
-                isFromCurrentUser &&
-                `/leaderboard?tab=my-tier&rank=${user.gameProfile.rank}`
-              }
-              scroll={false}
-            >
-              {user.gameProfile.score}
-            </InfoLabel>
-            <InfoLabel
-              label="Multiplier"
-              href={
-                isFromCurrentUser &&
-                `/leaderboard?tab=all-tiers&tier=${user.gameProfile.tier.tierId}`
-              }
-              scroll={false}
-            >
-              {user.gameProfile.tier.multiplier}x
-            </InfoLabel>
-            <InfoLabel
-              label="Collection"
-              href={isFromCurrentUser && "/achievements"}
-            >
-              {user.userBadges.length} Badges
-            </InfoLabel>
-          </>
-        )}
+        <>
+          <InfoLabel
+            label="Quests"
+            href={isFromCurrentUser && "/quests"}
+            isLoading={!user || !questsData}
+          >
+            {user?.userQuests.length}/{questsData?.quests.length}
+          </InfoLabel>
+          <InfoLabel
+            label="Ranking"
+            href={
+              isFromCurrentUser &&
+              `/leaderboard?tab=my-tier&rank=${user?.gameProfile.rank}`
+            }
+            scroll={false}
+            isLoading={!user}
+          >
+            #{user?.gameProfile.rank}
+          </InfoLabel>
+          <InfoLabel
+            label="Points"
+            href={
+              isFromCurrentUser &&
+              `/leaderboard?tab=my-tier&rank=${user?.gameProfile.rank}`
+            }
+            scroll={false}
+            isLoading={!user}
+          >
+            {user?.gameProfile.score}
+          </InfoLabel>
+          <InfoLabel
+            label="Multiplier"
+            href={
+              isFromCurrentUser &&
+              `/leaderboard?tab=all-tiers&tier=${user?.gameProfile.tier.tierId}`
+            }
+            scroll={false}
+            isLoading={!user}
+          >
+            {user?.gameProfile.tier.multiplier}x
+          </InfoLabel>
+          <InfoLabel
+            label="Collection"
+            href={isFromCurrentUser && "/achievements"}
+            isLoading={!user}
+          >
+            {user?.userBadges.length} Badges
+          </InfoLabel>
+        </>
       </div>
       <div className="flex flex-col gap-0 absolute top-16 left-1/2 -translate-x-1/2 items-center">
         <div className="w-full px-5">
           <div className="max-w-fit mx-auto px-5 bg-background/80 pb-1 pt-3 flex flex-col gap-2 border-foreground/10 border rounded-t-2xl overflow-hidden items-center">
             <div className="size-20 border flex flex-col justify-center rounded-full">
-              {userProfile.avatarUrl && (
+              {userProfile?.avatarUrl && (
                 <Image
                   width={200}
                   height={200}
-                  src={userProfile.avatarUrl}
+                  src={userProfile?.avatarUrl}
                   alt="opSun"
                   className="size-full object-contain rounded-full"
                   unoptimized
                 />
               )}
             </div>
-            <p className="font-bold text-sm text-foreground">
-              {userProfile.name}
-            </p>
+            {userProfile?.name ? (
+              <p className="font-bold text-sm text-foreground">
+                {userProfile?.name}
+              </p>
+            ) : (
+              <div className="h-4 my-1 animate-pulse bg-foreground/20 w-24 rounded-full" />
+            )}
           </div>
         </div>
         <IndicatorPill className="px-8 min-w-48 h-[26px]">
@@ -161,18 +171,24 @@ interface InfoLabelProps extends ComponentProps<"p"> {
   label: string;
   href?: string;
   scroll?: boolean;
+  isLoading?: boolean;
 }
 
 const InfoLabel = ({
   label,
   href,
   scroll = true,
+  isLoading = false,
   ...props
 }: InfoLabelProps) => {
   const infoLabelComponent = (
-    <div className="flex flex-col gap-1 text-center">
+    <div className="flex flex-col gap-1 items-center">
       <p className="text-sm font-bold text-foreground/60">{label}</p>
-      <p className="font-extrabold" {...props} />
+      {isLoading ? (
+        <div className="bg-foreground/20 animate-pulse w-10 h-4 my-1 rounded-full" />
+      ) : (
+        <p className="font-extrabold" {...props} />
+      )}
     </div>
   );
 
