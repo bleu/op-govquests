@@ -64,7 +64,7 @@ export const QuestCarousel = ({
             {quests.map((quest) => (
               <CarouselItem
                 key={quest.id}
-                className="md:basis-1/3 sm:basis-full"
+                className="md:basis-1/3 sm:basis-1/2"
               >
                 <QuestCard
                   quest={quest}

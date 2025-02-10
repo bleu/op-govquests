@@ -13,9 +13,8 @@ export const TrackAccordionHeader = ({ track }: TrackAccordionHeader) => {
 
   return (
     <div className="flex justify-between items-center w-full pr-10">
-      <h1 className="md:text-2xl font-bold flex gap-2 text-xl">
-        <p className="text-foreground/60"># {isLargerThan.md && "TRACK"}</p>{" "}
-        {track.displayData.title}
+      <h1 className="md:text-2xl font-bold flex gap-x-2 text-xl md:flex-row flex-col">
+        <p className="text-foreground/60">#TRACK</p> {track.displayData.title}
       </h1>
       {isLargerThan.md && <TrackIndicatorPills track={track} />}
     </div>

@@ -10,6 +10,7 @@ import { ArrowLeft } from "lucide-react";
 import { redirect } from "next/navigation";
 import { NormalBadgeCard } from "../../gamification/components/BadgeCard";
 import QuestContentSection from "./QuestContentSection";
+import { useBreakpoints } from "@/hooks/useBreakpoints";
 
 interface QuestDetailsProps {
   quest: Quest;
@@ -18,15 +19,17 @@ interface QuestDetailsProps {
 const QuestDetails = ({ quest }: QuestDetailsProps) => {
   if (!quest) return null;
 
-  const isCompleted = quest.userQuests?.[0]?.status == "completed";
+  const { isLargerThan, isSmallerThan } = useBreakpoints();
+
+  const isCompleted = quest.userQuests?.[0]?.status === "completed";
 
   return (
     <main className="flex justify-center min-h-full">
-      <div className="flex flex-col w-[70%] max-w-5xl py-8 gap-6">
+      <div className="flex flex-col max-w-5xl py-8 gap-6 w-full mx-6">
         {/* Main content area */}
-        <div className="border-primary/20 border shadow-sm py-6 md:py-8 rounded-lg bg-background/60">
+        <div className="border-primary/20 w-full border shadow-sm py-6 md:py-8 rounded-lg bg-background/60">
           <div className="flex-col">
-            <div className="space-y-4 px-10">
+            <div className="space-y-4 md:px-10 px-6">
               <Button
                 variant="outline"
                 size="sm"
@@ -37,16 +40,14 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
                 Back to Tracks
               </Button>
               <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold tracking-tight flex gap-3">
+                <h1 className="text-2xl font-bold tracking-tight flex gap-x-3 gap-y-1 flex-col md:flex-row">
                   <span className="text-foreground/60">#QUEST</span>
                   {quest.displayData.title}
                 </h1>
-                {isCompleted ? (
-                  <IndicatorPill className="text-xs">Completed</IndicatorPill>
-                ) : (
-                  <RewardIndicator
-                    reward={quest.rewardPools[0].rewardDefinition}
-                    className="text-xs"
+                {isLargerThan.md && (
+                  <QuestIndicatorPills
+                    isCompleted={isCompleted}
+                    quest={quest}
                   />
                 )}
               </div>
@@ -56,7 +57,7 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
               <div className="flex flex-col mt-8">
                 <DividerHeader>About this quest</DividerHeader>
 
-                <div className="items-center justify-center flex gap-12 mx-20 pt-8">
+                <div className="items-center justify-center flex gap-x-12 gap-y-4 md:mx-20 mx-6 pt-8 md:flex-row flex-col">
                   {quest.badge.displayData.imageUrl && (
                     <BadgeDialog badgeId={quest.badge.id}>
                       <NormalBadgeCard
@@ -65,7 +66,13 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
                       />
                     </BadgeDialog>
                   )}
-                  <div className="font-thin flex flex-col gap-4">
+                  {isSmallerThan.md && (
+                    <QuestIndicatorPills
+                      isCompleted={isCompleted}
+                      quest={quest}
+                    />
+                  )}
+                  <div className="font-thin flex flex-col gap-4 text-center md:text-left">
                     <HtmlRender content={quest.displayData.intro} />
                     <span className="font-black">
                       {isCompleted
@@ -100,6 +107,23 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
         </div>
       </div>
     </main>
+  );
+};
+
+const QuestIndicatorPills = ({
+  isCompleted,
+  quest,
+}: {
+  isCompleted: boolean;
+  quest: Quest;
+}) => {
+  return isCompleted ? (
+    <IndicatorPill className="text-xs">Completed</IndicatorPill>
+  ) : (
+    <RewardIndicator
+      reward={quest.rewardPools[0].rewardDefinition}
+      className="text-xs"
+    />
   );
 };
 

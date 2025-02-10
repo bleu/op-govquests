@@ -15,7 +15,7 @@ const QuestContentSection: React.FC<QuestContentSectionProps> = ({
   content,
 }) => {
   return (
-    <div className={cn(`mt-8`, className)}>
+    <div className={cn("mt-8", className)}>
       <h1 className="flex items-center gap-3 justify-center">
         <DividerHeader>{title}</DividerHeader>
       </h1>
