@@ -275,6 +275,23 @@ module SpecialBadgeData
           amount: 330
         }
       ]
+    },
+    {
+      display_data: {
+        title: "From Zero to Hero"S,
+        description: "Empower new voices by delegating to someone with less than 1 OP. <a href='https://dune.com/optimismfnd/optimism-op-token-house'>Check them here</a>. Click on # OP Delegated to sort the column from the smallest to the largest value.",
+        image_url: "/badges/SPECIAL BADGE_02_02.png"
+      },
+      badge_type: "delegation_empowerment",
+      badge_data: {
+        badge_type: "delegation_empowerment"
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        }
+      ]
     }
   ]
 end
