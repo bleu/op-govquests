@@ -29,13 +29,18 @@ module Gamification
       })
     end
 
-    def verify_completion?(user_id:)
+    def verify_completion?(user_id:, dry_run: false)
       strategy = Gamification::SpecialBadgeStrategyFactory.for(@badge_type, badge_data: @badge_data, user_id: user_id)
       strategy.verify_completion?
+
+      apply BadgeUnlocked.new(data: {
+        badge_id: @id,
+        user_id: user_id
+      }) unless dry_run
     end
 
     def collect_badge(user_id)
-      raise VerificationFailedError unless verify_completion?(user_id: user_id)
+      raise VerificationFailedError unless verify_completion?(user_id: user_id, dry_run: true)
 
       Gamification.command_bus.call(
         EarnBadge.new(

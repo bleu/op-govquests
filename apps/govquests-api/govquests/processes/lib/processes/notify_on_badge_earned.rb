@@ -15,13 +15,13 @@ module Processes
       badge_type = event.data[:badge_type]
       
       badge = reconstruct_badge(badge_id, badge_type)
-      badge_title = badge&.display_data&.dig("title") if badge_record
+      badge_title = badge&.display_data&.dig("title") if badge
 
       @command_bus.call(
         ::Notifications::CreateNotification.new(
           notification_id: SecureRandom.uuid,
           user_id: ,
-          content: "Congratulations! You've earned the #{badge_title} badge!",
+          content: "Congratulations! You've earned the <a href='/achievements?badgeId=#{badge_id}'>#{badge_title}</a> badge!",
           notification_type: "badge_earned"
         )
       )
