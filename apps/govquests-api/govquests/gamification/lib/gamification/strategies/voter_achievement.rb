@@ -1,6 +1,8 @@
 module Gamification
   module Strategies
     class VoterAchievement < Base
+      include Import['services.agora']
+
       def verify_completion?
         required_votes = @badge_data[:required_votes]
 
@@ -14,11 +16,7 @@ module Gamification
       private
 
       def fetch_delegate_data(address)
-        agora_api.get_delegate(address)
-      end
-
-      def agora_api
-        @agora_api ||= AgoraApi::Client.new
+        agora.get_delegate(address)
       end
     end
   end
