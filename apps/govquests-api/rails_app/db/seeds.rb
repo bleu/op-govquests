@@ -203,6 +203,78 @@ module SpecialBadgeData
           amount: 20
         }
       ]
+    },
+    {
+      display_data: {
+        title: "Apprentice Voter",
+        description: "Cast your first 5 votes and start shaping the ecosystem!",
+        image_url: "/badges/SPECIAL BADGE_03_02.png"
+      },
+      badge_type: "voter_achievement",
+      badge_data: {
+        badge_type: "voter_achievement",
+        required_votes: 5
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        }
+      ]
+    },
+    {
+      display_data: {
+        title: "Active Voter",
+        description: "Cast 10 votes and showcase your dedication to governance!",
+        image_url: "/badges/SPECIAL BADGE_03_02.png"
+      },
+      badge_type: "voter_achievement",
+      badge_data: {
+        badge_type: "voter_achievement",
+        required_votes: 10
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        }
+      ]
+    },
+    {
+      display_data: {
+        title: "Engaged Voter",
+        description: "Cast 20 votes and prove your strong commitment to the community!",
+        image_url: "/badges/SPECIAL BADGE_03_02.png"
+      },
+      badge_type: "voter_achievement",
+      badge_data: {
+        badge_type: "voter_achievement",
+        required_votes: 20
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        }
+      ]
+    },
+    {
+      display_data: {
+        title: "Master Voter",
+        description: "Cast 50 votes and establish yourself as a governance master!",
+        image_url: "/badges/SPECIAL BADGE_03_02.png"
+      },
+      badge_type: "voter_achievement",
+      badge_data: {
+        badge_type: "voter_achievement",
+        required_votes: 50
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        }
+      ]
     }
   ]
 end
