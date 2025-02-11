@@ -5,6 +5,8 @@ module Gamification
 
       DELEGATEE_MAXIMUM_VOTING_POWER = 1
 
+      DELEGATEE_MAXIMUM_VOTING_POWER = 1
+
       def verify_completion?
         address = Authentication::UserReadModel.find_by(user_id: @user_id).address
 
