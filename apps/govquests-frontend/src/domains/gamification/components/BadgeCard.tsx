@@ -84,7 +84,7 @@ export const BadgeCard = ({
           {imageLoaded && (
             <span
               className={cn(
-                "text-primary-foreground w-full text-center translate-y-1/2 tracking-tighter text-lg",
+                "text-primary-foreground w-4/5 mx-auto text-center translate-y-1/2 tracking-tighter text-lg truncate",
                 !revealCard && "scale-x-75",
               )}
             >

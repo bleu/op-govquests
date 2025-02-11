@@ -1,11 +1,10 @@
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { cn, koulen } from "@/lib/utils";
-import { Trophy } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
-import { TIER_QUERY } from "../graphql/tierQuery";
-import { ResultOf } from "gql.tada";
+import type { FC } from "react";
+import type { TIER_QUERY } from "../graphql/tierQuery";
+import type { ResultOf } from "gql.tada";
 
 interface PodiumCardProps {
   profile: ResultOf<
@@ -18,7 +17,7 @@ export const PodiumCard = ({ profile }: PodiumCardProps) => {
 
   return (
     <Link href={`/leaderboard/${profile.user.id}`}>
-      <div className="rounded-[20px] p-5 border border-foreground/10 bg-gradient-to-b from-black/5 to-black/25 px-4 py-6 flex gap-2 items-center hover:shadow-[0px_4px_6px_0px_#00000040] transition-all duration-300 hover:scale-105">
+      <div className="rounded-[20px] w-fit p-5 border border-foreground/10 bg-gradient-to-b from-black/5 to-black/25 px-4 py-6 flex gap-2 items-center hover:shadow-[0px_4px_6px_0px_#00000040] transition-all duration-300 hover:scale-105">
         {data && (
           <Image
             src={data.avatarUrl}

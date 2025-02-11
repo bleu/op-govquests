@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/table";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { cn } from "@/lib/utils";
-import { ResultOf } from "gql.tada";
+import type { ResultOf } from "gql.tada";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef } from "react";
-import { TIER_QUERY } from "../graphql/tierQuery";
+import type { TIER_QUERY } from "../graphql/tierQuery";
 import { usePaginatedTier } from "../hooks/useFetchTier";
 import { TrophyIcon } from "./PodiumCard";
 import { ProfileDialogContent } from "./ProfileDialogContent";
@@ -38,7 +38,7 @@ export const LeaderboardTable = ({ tierId }: { tierId: string }) => {
       setLimit(rank);
     }
     return rank;
-  }, [searchParams]);
+  }, [searchParams, limit, setLimit]);
 
   return (
     <div className="flex flex-col gap-0">
@@ -62,7 +62,7 @@ export const LeaderboardTable = ({ tierId }: { tierId: string }) => {
               <TableHead className="px-4 w-fit">#</TableHead>
               <TableHead>Address</TableHead>
               <TableHead>Points</TableHead>
-              <TableHead>Voting Power</TableHead>
+              <TableHead className="whitespace-nowrap">Voting Power</TableHead>
               <TableHead />
             </TableRow>
           </TableHeader>

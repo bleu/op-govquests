@@ -15,7 +15,7 @@ export default function Page(props: UserPageProps) {
   const params = use(props.params);
 
   return (
-    <div className="flex flex-col gap-9 p-8 mx-8">
+    <div className="flex flex-col gap-9 py-8 px-6">
       <div className="space-y-3">
         <Link href="/leaderboard">
           <Button
@@ -31,7 +31,7 @@ export default function Page(props: UserPageProps) {
       </div>
       <UserBadgesCollection
         userId={params.userId}
-        className="gap-4 lg:grid-cols-5"
+        className="gap-4 lg:grid-cols-5 px-0 mx-0 h-full"
       />
     </div>
   );

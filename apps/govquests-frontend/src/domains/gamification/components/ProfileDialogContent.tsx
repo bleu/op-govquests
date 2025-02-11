@@ -18,7 +18,10 @@ export const ProfileDialogContent = ({ userId }: { userId: string }) => {
         <DialogDescription asChild>
           <div>
             <ThirdUserAchievementPanel userId={userId} />
-            <UserBadgesCollection userId={userId} />
+            <UserBadgesCollection
+              userId={userId}
+              headerClassName="px-7 text-left"
+            />
           </div>
         </DialogDescription>
       </DialogHeader>

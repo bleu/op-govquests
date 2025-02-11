@@ -1,6 +1,6 @@
 import { useFetchQuest } from "@/domains/questing/hooks/useFetchQuest";
-import { Action } from "@/domains/questing/types/questTypes";
-import React from "react";
+import type { Action } from "@/domains/questing/types/questTypes";
+import type React from "react";
 import { ActionStrategyFactory } from "../strategies/ActionStrategyFactory";
 import {
   Accordion,
@@ -43,7 +43,7 @@ const ActionHandler: React.FC<ActionHandlerProps> = ({
       collapsible
       className="border rounded-lg py-0 bg-background/60"
     >
-      <AccordionItem value="item-1" className="px-5">
+      <AccordionItem value="item-1" className="md:px-5">
         <AccordionTrigger className="py-4 px-5">
           <span className="text-lg font-semibold mb-1 py-0 flex gap-2">
             <span className="opacity-60">#{actionIndex + 1}</span>

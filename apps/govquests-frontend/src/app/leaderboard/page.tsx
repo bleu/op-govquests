@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-9 p-8 mx-8">
+    <div className="flex flex-col gap-9 p-6">
       <CurrentUserAchievementPanel />
       <Suspense fallback={<div>Loading...</div>}>
         <TierTabs />

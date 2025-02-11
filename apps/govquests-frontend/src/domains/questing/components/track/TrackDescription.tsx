@@ -1,12 +1,18 @@
+"use client";
+
 import { BadgeDialog } from "@/domains/gamification/components/BadgeDialog";
 import { NormalBadgeCard } from "../../../gamification/components/BadgeCard";
-import { Tracks } from "../../types/trackTypes";
+import type { Tracks } from "../../types/trackTypes";
+import { TrackIndicatorPills } from "./TrackIndicatorPills";
+import { useBreakpoints } from "@/hooks/useBreakpoints";
 
 interface TrackDescriptionProps {
   track: Tracks[number];
 }
 
 export const TrackDescription = ({ track }: TrackDescriptionProps) => {
+  const { isSmallerThan } = useBreakpoints();
+
   return (
     <div className="flex flex-col gap-8 mt-7">
       <div className="flex items-center justify-center w-full gap-9">
@@ -16,7 +22,7 @@ export const TrackDescription = ({ track }: TrackDescriptionProps) => {
         </div>
         <div className="border-b h-0 w-full" />
       </div>
-      <div className="items-center justify-center flex gap-12 mx-20">
+      <div className="items-center justify-center flex md:gap-12 gap-4 md:mx-20 mx-4 flex-col md:flex-row">
         <BadgeDialog badgeId={track.badge.id}>
           <div className="w-52">
             <NormalBadgeCard
@@ -25,7 +31,13 @@ export const TrackDescription = ({ track }: TrackDescriptionProps) => {
             />
           </div>
         </BadgeDialog>
-        <div className="flex flex-col gap-4 col-span-8 w-full font-bold">
+        {isSmallerThan.md && (
+          <TrackIndicatorPills
+            track={track}
+            className="flex gap-2 w-full px-2 items-center justify-center"
+          />
+        )}
+        <div className="flex flex-col gap-4 col-span-8 w-full font-bold text-center md:text-left">
           <span>{track.displayData.description}</span>
           <span>
             {track.isCompleted

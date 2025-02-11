@@ -70,7 +70,7 @@ const AllTiersTab = () => {
     <TierContent
       key={tier.tierId}
       tierId={tier.tierId}
-      isTarget={targetTierId == tier.tierId}
+      isTarget={targetTierId === tier.tierId}
     />
   ));
 };
