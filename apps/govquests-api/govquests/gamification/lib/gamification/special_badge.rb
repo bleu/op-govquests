@@ -4,6 +4,8 @@ module Gamification
 
     class VerificationFailedError < StandardError; end
 
+    attr_reader :unlocked_by
+
     def initialize(id)
       @id = id
       @display_data = nil
@@ -31,13 +33,14 @@ module Gamification
     end
 
     def verify_completion?(user_id:, dry_run: false)
-      strategy = Gamification::SpecialBadgeStrategyFactory.for(@badge_type, badge_data: @badge_data, user_id: user_id)
+      strategy = Gamification::SpecialBadgeStrategyFactory.for(@badge_type, badge_data: @badge_data, user_id: user_id, badge_id: @id)
       can_complete = strategy.verify_completion?
 
       apply BadgeUnlocked.new(data: {
         badge_id: @id,
-        user_id: user_id
-      }) unless dry_run or !can_complete
+        user_id: user_id,
+        notify: !dry_run
+      }) if can_complete
       
       can_complete
     end
