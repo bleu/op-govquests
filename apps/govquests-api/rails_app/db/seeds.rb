@@ -292,6 +292,71 @@ module SpecialBadgeData
           amount: 330
         }
       ]
+    },
+    {
+      display_data: {
+        title: "Season 7 Champion",
+        description: "Claim your spot as the top performer in the Optimistic Supporter by being at the top of the Optimistic Supporter leaderboard by the end of the season (June 11th, 2025)!",
+        image_url: "/badges/SPECIAL BADGE_06_02.png"
+      },
+      badge_type: "season_champion",
+      badge_data: {
+        badge_type: "season_champion",
+        end_date: "2025-06-11",
+        tier: "Optimistic Supporter"
+      }
+    },
+    {
+      display_data: {
+        title: "Season 7 Champion",
+        description: "Claim your spot as the top performer in the Delegation Initiate by being at the top of the Delegation Initiate leaderboard by the end of the season (June 11th, 2025)!",
+        image_url: "/badges/SPECIAL BADGE_06_02.png"
+      },
+      badge_type: "season_champion",
+      badge_data: {
+        badge_type: "season_champion",
+        end_date: "2025-06-11",
+        tier: "Delegation Initiate"
+      }
+    },
+    {
+      display_data: {
+        title: "Season 7 Champion",
+        description: "Claim your spot as the top performer in the Emerging Leader by being at the top of the Emerging Leader leaderboard by the end of the season (June 11th, 2025)!",
+        image_url: "/badges/SPECIAL BADGE_06_02.png"
+      },
+      badge_type: "season_champion",
+      badge_data: {
+        badge_type: "season_champion",
+        end_date: "2025-06-11",
+        tier: "Emerging Leader"
+      }
+    },
+    {
+      display_data: {
+        title: "Season 7 Champion",
+        description: "Claim your spot as the top performer in the Strategic Delegate by being at the top of the Strategic Delegate leaderboard by the end of the season (June 11th, 2025)!",
+        image_url: "/badges/SPECIAL BADGE_06_02.png"
+      },
+      badge_type: "season_champion",
+      badge_data: {
+        badge_type: "season_champion",
+        end_date: "2025-06-11",
+        tier: "Strategic Delegate"
+      }
+    },
+    {
+      display_data: {
+        title: "Season 7 Champion",
+        description: "Claim your spot as the top performer in the Ecosystem Guardian by being at the top of the Ecosystem Guardian leaderboard by the end of the season (June 11th, 2025)!",
+        image_url: "/badges/SPECIAL BADGE_06_02.png"
+      },
+      badge_type: "season_champion",
+      badge_data: {
+        badge_type: "season_champion",
+        end_date: "2025-06-11",
+        tier: "Ecosystem Guardian"
+      }
     }
   ]
 end
