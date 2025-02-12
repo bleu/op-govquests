@@ -8,7 +8,6 @@ Appsignal.configure do |config|
   # We recommend removing this line and setting this option with the
   # APPSIGNAL_PUSH_API_KEY environment variable instead.
   # https://docs.appsignal.com/ruby/configuration/options.html#option-push_api_key
-  config.push_api_key = "c0c9e32a-722b-4e38-8399-5a7f175269b6"
 
   # Configure actions that should not be monitored by AppSignal.
   # For more information see our docs:

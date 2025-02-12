@@ -39,6 +39,7 @@ env:
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_PASSWORD
+    - APP_SIGNAL_PUSH_API_KEY
     - POSTGRES_USER
     - POSTGRES_DB
     - DB_HOST
