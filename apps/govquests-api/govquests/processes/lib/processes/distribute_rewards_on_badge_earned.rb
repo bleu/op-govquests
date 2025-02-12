@@ -16,17 +16,37 @@ module Processes
 
       return unless badge_type == "Gamification::SpecialBadgeReadModel"
 
-      badge = badge_type.constantize.find_by(badge_id: badge_id)
+      badge = reconstruct_badge(badge_id)
       return unless badge
 
       badge.reward_pools.each do |reward_pool|
         command = ::Rewarding::IssueReward.new(
-          pool_id: reward_pool.pool_id,
+          pool_id: reward_pool,
           user_id: user_id
         )
 
         @command_bus.call(command)
       end
+    end
+
+    private 
+
+    def reconstruct_badge(badge_id)
+      stream_name = "Gamification::SpecialBadge$#{badge_id}"
+      events = @event_store.read.stream(stream_name).to_a
+
+      return nil if events.empty?
+
+      badge = OpenStruct.new(reward_pools: [])
+
+      events.each do |event|
+        case event
+        when ::Gamification::RewardPoolAssociated
+          badge.reward_pools << event.data[:pool_id]
+        end
+      end
+
+      badge
     end
   end
 end

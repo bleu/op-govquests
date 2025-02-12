@@ -78,7 +78,7 @@ module Gamification
 
   class EarnBadge < Infra::Command
     attribute :user_id, Infra::Types::UUID
-    attribute :badge_id, Infra::Types::String
+    attribute :badge_id, Infra::Types::UUID
     attribute :badge_type, Infra::Types::String
     attribute :earned_at, Infra::Types::DateTime.default { Time.current.to_datetime }
 
@@ -98,6 +98,13 @@ module Gamification
     attribute :badge_id, Infra::Types::UUID
     attribute :pool_id, Infra::Types::UUID
     attribute :reward_definition, Infra::Types::Hash
+
+    alias :aggregate_id :badge_id
+  end
+
+  class UnlockSpecialBadge < Infra::Command
+    attribute :badge_id, Infra::Types::UUID
+    attribute :user_id, Infra::Types::UUID
 
     alias :aggregate_id :badge_id
   end

@@ -10,6 +10,7 @@ module Gamification
       @badge_type = nil
       @badge_data = nil
       @reward_pools = []
+      @unlocked_by = []
     end
 
     def create(display_data, badge_type, badge_data)
@@ -29,13 +30,20 @@ module Gamification
       })
     end
 
-    def verify_completion?(user_id:)
+    def verify_completion?(user_id:, dry_run: false)
       strategy = Gamification::SpecialBadgeStrategyFactory.for(@badge_type, badge_data: @badge_data, user_id: user_id)
-      strategy.verify_completion?
+      can_complete = strategy.verify_completion?
+
+      apply BadgeUnlocked.new(data: {
+        badge_id: @id,
+        user_id: user_id
+      }) unless dry_run or !can_complete
+      
+      can_complete
     end
 
     def collect_badge(user_id)
-      raise VerificationFailedError unless verify_completion?(user_id: user_id)
+      raise VerificationFailedError unless verify_completion?(user_id: user_id, dry_run: true)
 
       Gamification.command_bus.call(
         EarnBadge.new(
@@ -59,6 +67,10 @@ module Gamification
         pool_id: event.data[:pool_id],
         reward_definition: event.data[:reward_definition]
       }
+    end
+
+    on BadgeUnlocked do |event|
+      @unlocked_by << event.data[:user_id]
     end
   end
 end

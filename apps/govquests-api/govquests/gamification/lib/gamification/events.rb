@@ -58,15 +58,20 @@ module Gamification
   end
 
   class BadgeCreated < Infra::Event
-    attribute :badge_id, Infra::Types::String
+    attribute :badge_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
     attribute :badgeable_id, Infra::Types::UUID
     attribute :badgeable_type, Infra::Types::String
   end
 
+  class BadgeUnlocked < Infra::Event
+    attribute :badge_id, Infra::Types::UUID
+    attribute :user_id, Infra::Types::UUID
+  end
+
   class BadgeEarned < Infra::Event
     attribute :user_id, Infra::Types::UUID
-    attribute :badge_id, Infra::Types::String
+    attribute :badge_id, Infra::Types::UUID
     attribute :badge_type, Infra::Types::String
     attribute :earned_at, Infra::Types::DateTime
   end

@@ -14,3 +14,7 @@ production:
     class: UpdateAllUsersVotingPowerJob
     schedule: "0 0 * * *" # Runs at midnight every day
     queue: default
+  verify_special_badges_requirements:
+    class: VerifySpecialBadgesRequirementsJob
+    schedule: "0 0 * * *" # Runs at midnight every day
+    queue: default

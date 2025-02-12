@@ -107,6 +107,10 @@ module Gamification
     handle "Gamification::AssociateRewardPool", aggregate: SpecialBadge do |special_badge, cmd|
       special_badge.associate_reward_pool(cmd.pool_id, cmd.reward_definition)
     end
+
+    handle "Gamification::UnlockSpecialBadge", aggregate: SpecialBadge do |special_badge, cmd|
+      special_badge.verify_completion?(user_id: cmd.user_id)
+    end
     
     handle "Gamification::CollectSpecialBadge", aggregate: SpecialBadge do |special_badge, cmd|
       special_badge.collect_badge(cmd.user_id)
