@@ -295,7 +295,7 @@ module SpecialBadgeData
     },
     {
       display_data: {
-        title: "Season 7 Champion",
+        title: "Season 7 Champion - Optimistic Supporter",
         description: "Claim your spot as the top performer in the Optimistic Supporter by being at the top of the Optimistic Supporter leaderboard by the end of the season (June 11th, 2025)!",
         image_url: "/badges/SPECIAL BADGE_06_02.png"
       },
@@ -308,7 +308,7 @@ module SpecialBadgeData
     },
     {
       display_data: {
-        title: "Season 7 Champion",
+        title: "Season 7 Champion - Delegation Initiate",
         description: "Claim your spot as the top performer in the Delegation Initiate by being at the top of the Delegation Initiate leaderboard by the end of the season (June 11th, 2025)!",
         image_url: "/badges/SPECIAL BADGE_06_02.png"
       },
@@ -321,7 +321,7 @@ module SpecialBadgeData
     },
     {
       display_data: {
-        title: "Season 7 Champion",
+        title: "Season 7 Champion - Emerging Leader",
         description: "Claim your spot as the top performer in the Emerging Leader by being at the top of the Emerging Leader leaderboard by the end of the season (June 11th, 2025)!",
         image_url: "/badges/SPECIAL BADGE_06_02.png"
       },
@@ -334,7 +334,7 @@ module SpecialBadgeData
     },
     {
       display_data: {
-        title: "Season 7 Champion",
+        title: "Season 7 Champion - Strategic Delegate",
         description: "Claim your spot as the top performer in the Strategic Delegate by being at the top of the Strategic Delegate leaderboard by the end of the season (June 11th, 2025)!",
         image_url: "/badges/SPECIAL BADGE_06_02.png"
       },
@@ -347,7 +347,7 @@ module SpecialBadgeData
     },
     {
       display_data: {
-        title: "Season 7 Champion",
+        title: "Season 7 Champion - Ecosystem Guardian",
         description: "Claim your spot as the top performer in the Ecosystem Guardian by being at the top of the Ecosystem Guardian leaderboard by the end of the season (June 11th, 2025)!",
         image_url: "/badges/SPECIAL BADGE_06_02.png"
       },
