@@ -3,7 +3,7 @@ require_relative "base"
 module ActionTracking
   module Strategies
     class VerifyDelegateStatement < Base
-      include Import["services.agora"]
+      include Infra::Import["services.agora"]
 
       def on_start_execution
         {

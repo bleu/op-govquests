@@ -1,5 +1,3 @@
-require_relative "../container"
-
 module ActionTracking
   module Strategies
     # Implement a mix of the Strategy and Template Method patterns

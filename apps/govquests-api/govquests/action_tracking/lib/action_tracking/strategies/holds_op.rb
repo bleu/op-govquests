@@ -1,7 +1,7 @@
 module ActionTracking
   module Strategies
     class HoldsOp < Base
-      include Import['services.balance']
+      include Infra::Import['services.balance']
 
       def on_start_execution
         {

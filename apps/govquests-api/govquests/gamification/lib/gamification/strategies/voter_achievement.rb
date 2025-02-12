@@ -1,7 +1,7 @@
 module Gamification
   module Strategies
     class VoterAchievement < Base
-      include Import['services.agora']
+      include Infra::Import['services.agora']
 
       def verify_completion?
         required_votes = @badge_data[:required_votes]

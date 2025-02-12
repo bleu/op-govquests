@@ -1,7 +1,7 @@
 require "dry/container"
 require "dry/auto_inject"
 
-module ActionTracking
+module Infra
   class Container
     extend Dry::Container::Mixin
   end

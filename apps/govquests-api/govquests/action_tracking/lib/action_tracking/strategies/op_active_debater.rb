@@ -1,7 +1,7 @@
 module ActionTracking
   module Strategies
     class OpActiveDebater < Base
-      include Import["services.discourse"]
+      include Infra::Import["services.discourse"]
       include ActionView::Helpers::SanitizeHelper
 
       MIN_WORD_COUNT = 50

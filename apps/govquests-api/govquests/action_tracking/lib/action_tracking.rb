@@ -16,7 +16,6 @@ end
 
 ACTION_EXECUTION_NAMESPACE_UUID = "061d2578-e3b3-41c0-b51d-b75b70876e71".freeze
 
-require_relative "action_tracking/container"
 require_relative "action_tracking/commands"
 require_relative "action_tracking/events"
 

@@ -3,7 +3,7 @@ require_relative "base"
 module ActionTracking
   module Strategies
     class Ens < Base
-      include Import["services.ens"]
+      include Infra::Import["services.ens"]
 
       private
 

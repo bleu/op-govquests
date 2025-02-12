@@ -1,5 +1,3 @@
-require_relative "../container"
-
 module Gamification
   module Strategies 
     class Base
