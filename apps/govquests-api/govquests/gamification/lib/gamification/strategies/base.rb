@@ -1,10 +1,10 @@
 module Gamification
   module Strategies 
     class Base
-      def initialize(badge_data: nil, user_id: nil, badge_id: nil)
+      def initialize(badge_data: nil, user_id: nil, unlocked_by: nil)
         @badge_data = badge_data&.with_indifferent_access
         @user_id = user_id
-        @badge_id = badge_id
+        @unlocked_by = unlocked_by
       end
 
       def verify_completion?
