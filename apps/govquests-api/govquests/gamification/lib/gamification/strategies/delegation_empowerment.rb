@@ -18,7 +18,7 @@ module Gamification
           delegatee_voting_power_raw = delegatee_data.dig("votingPower", "total").to_i
           delegatee_voting_power = BigDecimal(delegatee_voting_power_raw) / BigDecimal("1e18")
 
-          delegatee_voting_power - total_delegated <= DELEGATE_MAXIMUM_VOTING_POWER
+          delegatee_voting_power - total_delegated <= DELEGATEE_MAXIMUM_VOTING_POWER
         end
       end
 
