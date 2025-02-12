@@ -278,7 +278,7 @@ module SpecialBadgeData
     },
     {
       display_data: {
-        title: "From Zero to Hero"S,
+        title: "From Zero to Hero",
         description: "Empower new voices by delegating to someone with less than 1 OP. <a href='https://dune.com/optimismfnd/optimism-op-token-house'>Check them here</a>. Click on # OP Delegated to sort the column from the smallest to the largest value.",
         image_url: "/badges/SPECIAL BADGE_02_02.png"
       },
