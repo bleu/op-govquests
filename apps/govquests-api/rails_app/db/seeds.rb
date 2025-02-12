@@ -304,7 +304,13 @@ module SpecialBadgeData
         badge_type: "season_champion",
         end_date: "2025-06-11",
         tier: "Optimistic Supporter"
-      }
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        }
+      ]
     },
     {
       display_data: {
@@ -317,7 +323,13 @@ module SpecialBadgeData
         badge_type: "season_champion",
         end_date: "2025-06-11",
         tier: "Delegation Initiate"
-      }
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        }
+      ]
     },
     {
       display_data: {
@@ -330,7 +342,13 @@ module SpecialBadgeData
         badge_type: "season_champion",
         end_date: "2025-06-11",
         tier: "Emerging Leader"
-      }
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        }
+      ]
     },
     {
       display_data: {
@@ -343,7 +361,13 @@ module SpecialBadgeData
         badge_type: "season_champion",
         end_date: "2025-06-11",
         tier: "Strategic Delegate"
-      }
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        }
+      ]
     },
     {
       display_data: {
@@ -356,7 +380,13 @@ module SpecialBadgeData
         badge_type: "season_champion",
         end_date: "2025-06-11",
         tier: "Ecosystem Guardian"
-      }
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        }
+      ]
     }
   ]
 end
