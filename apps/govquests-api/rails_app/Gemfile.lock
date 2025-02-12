@@ -124,6 +124,9 @@ GEM
     aggregate_root (2.15.0)
       ruby_event_store (= 2.15.0)
     annotaterb (4.13.0)
+    appsignal (4.4.0)
+      logger
+      rack
     arkency-command_bus (0.4.1)
       concurrent-ruby
     ast (2.4.2)
@@ -561,6 +564,7 @@ DEPENDENCIES
   action_policy
   action_policy-graphql
   annotaterb
+  appsignal (~> 4.4.0)
   bootsnap
   brakeman
   debug
