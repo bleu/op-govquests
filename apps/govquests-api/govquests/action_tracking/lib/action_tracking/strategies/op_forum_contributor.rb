@@ -4,7 +4,7 @@
 module ActionTracking
   module Strategies
     class OpForumContributor < Base
-      include Import["services.discourse"]      
+      include Infra::Import["services.discourse"]      
       include ActionView::Helpers::SanitizeHelper
 
       MIN_POST_LENGTH = 200

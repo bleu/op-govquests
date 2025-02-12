@@ -1,7 +1,7 @@
 module ActionTracking
   module Strategies
     class DiscourseVerification < Base
-      include Import["services.discourse"]
+      include Infra::Import["services.discourse"]
 
       def start_execution
         credentials = discourse.generate_auth_credentials

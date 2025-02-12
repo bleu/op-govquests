@@ -3,7 +3,7 @@ require_relative "base"
 module ActionTracking
   module Strategies
     class SendEmail < Base
-      include Import["services.email"]
+      include Infra::Import["services.email"]
 
       def start_data_valid?
         start_data[:email].present?

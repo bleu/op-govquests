@@ -1,7 +1,7 @@
 module ActionTracking
   module Strategies
     class BecomeDelegator < Base
-      include Import['services.agora']
+      include Infra::Import['services.agora']
 
       def on_start_execution
         {

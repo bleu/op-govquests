@@ -4,7 +4,7 @@ require "logger"
 module ActionTracking
   module Strategies
     class GitcoinScore < Base
-      include Import["services.gitcoin"]
+      include Infra::Import["services.gitcoin"]
 
       module Types
         include Dry.Types()
