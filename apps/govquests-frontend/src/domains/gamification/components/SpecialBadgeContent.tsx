@@ -4,6 +4,7 @@ import { useFetchSpecialBadge } from "../hooks/useFetchSpecialBadge";
 import { useCollectBadge } from "../hooks/useCollectBadge";
 import { useAccount } from "wagmi";
 import { useSIWE } from "connectkit";
+import HtmlRender from "@/components/ui/HtmlRender";
 
 export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
   const { data } = useFetchSpecialBadge(badgeId);
@@ -49,7 +50,7 @@ export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
         <span>
           <span className="font-bold">How to win</span>
           <br />
-          {data.specialBadge.displayData.description}
+          <HtmlRender content={data.specialBadge.displayData.description} />
         </span>
         <span>
           If you’ve already reached this milestone, click to collect this badge
