@@ -1,8 +1,10 @@
-require "securerandom"
-
 module ActionCreation
+  ACTION_CREATION_NAMESPACE_UUID = "eccead2c-ac0b-45ae-9e0b-9c6847fbf47f"
+
   def self.create_action(action_data)
-    action_id = SecureRandom.uuid
+    unique_name = "#{action_data[:display_data][:title]}-#{action_data[:action_type]}"
+    action_id = Digest::UUID.uuid_v5(ACTION_CREATION_NAMESPACE_UUID, unique_name)
+
     command = ActionTracking::CreateAction.new(
       action_id: action_id,
       action_type: action_data[:action_type],
@@ -15,8 +17,11 @@ module ActionCreation
 end
 
 module QuestCreation
+  QUEST_CREATION_NAMESPACE_UUID = "da70de27-5711-441c-a0a2-9832171492e3"
+
   def self.create_quest_with_rewards(quest_data)
-    quest_id = SecureRandom.uuid
+    unique_name = quest_data[:display_data][:title]
+    quest_id = Digest::UUID.uuid_v5(QUEST_CREATION_NAMESPACE_UUID, unique_name)
 
     Rails.configuration.command_bus.call(
       Questing::CreateQuest.new(
@@ -28,7 +33,8 @@ module QuestCreation
     )
 
     quest_data[:rewards].each do |reward|
-      pool_id = SecureRandom.uuid
+      pool_unique_name = "Quest$#{quest_id}-#{reward[:type]}"
+      pool_id = Digest::UUID.uuid_v5(QUEST_CREATION_NAMESPACE_UUID, pool_unique_name)
 
       reward.delete("inventory")
 
@@ -66,8 +72,11 @@ module QuestCreation
 end
 
 module SpecialBadgeCreation
+  SPECIALBADGE_CREATION_NAMESPACE_UUID = "101cb511-2dbd-4920-938a-13a56d07a0b8"
+
   def self.create_special_badge_with_rewards(badge_data)
-    badge_id = SecureRandom.uuid
+    unique_name = "#{badge_data[:display_data][:title]}-#{badge_data[:badge_type]}"
+    badge_id = Digest::UUID.uuid_v5(SPECIALBADGE_CREATION_NAMESPACE_UUID, unique_name)
 
     Rails.configuration.command_bus.call(
       Gamification::CreateSpecialBadge.new(
@@ -80,7 +89,8 @@ module SpecialBadgeCreation
     )
 
     badge_data[:rewards].each do |reward|
-      pool_id = SecureRandom.uuid
+      pool_unique_name = "SpecialBadge$#{badge_id}-#{reward[:type]}"
+      pool_id = Digest::UUID.uuid_v5(SPECIALBADGE_CREATION_NAMESPACE_UUID, pool_unique_name)
 
       reward.delete("inventory")
 
@@ -109,8 +119,11 @@ module SpecialBadgeCreation
 end
 
 module TierCreation
+  TIER_CREATION_NAMESPACE_UUID = "9b130c84-5bb0-4b13-9cba-a96428fe2783"
+
   def self.create_tiers(tier_data)
-    tier_id = SecureRandom.uuid
+    unique_name = "#{tier_data[:display_data][:title]}-#{tier_data[:multiplier]}"
+    tier_id = Digest::UUID.uuid_v5(TIER_CREATION_NAMESPACE_UUID, unique_name)
 
     Rails.configuration.command_bus.call(
       Gamification::CreateTier.new(
@@ -297,8 +310,10 @@ module SpecialBadgeData
 end
 
 module TrackCreation
+  TRACK_CREATION_NAMESPACE_UUID = "86e60d5e-767b-4dcc-b7d3-5048e1db5b04"
+
   def self.create_track_with_quests(track_data, quest_id_map)
-    track_id = SecureRandom.uuid
+    track_id = Digest::UUID.uuid_v5(TRACK_CREATION_NAMESPACE_UUID, track_data[:display_data][:title])
 
     Rails.configuration.command_bus.call(
       Questing::CreateTrack.new(

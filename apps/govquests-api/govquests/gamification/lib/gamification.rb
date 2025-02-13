@@ -17,13 +17,13 @@ Dir[File.join(__dir__, "gamification/strategies/*.rb")].each do |f|
   require_relative f
 end
 
-ACTION_BADGE_NAMESPACE_UUID = "5FA78373-03E0-4D0B-91D1-3F2C6CA3F088"
+BADGE_NAMESPACE_UUID = "5FA78373-03E0-4D0B-91D1-3F2C6CA3F088"
 
 module Gamification
   class << self
     def generate_badge_id(entity_name, entity_id)
       name = "#{entity_name}$#{entity_id}"
-      namespace_uuid = ACTION_BADGE_NAMESPACE_UUID
+      namespace_uuid = BADGE_NAMESPACE_UUID
       Digest::UUID.uuid_v5(namespace_uuid, name)
     end
 
