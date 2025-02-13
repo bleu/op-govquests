@@ -308,7 +308,11 @@ module SpecialBadgeData
       rewards: [
         {
           type: "Points",
-          amount: 330
+          amount: 1000
+        },
+        {
+          type: "Token",
+          amount: 30
         }
       ]
     },
@@ -327,7 +331,11 @@ module SpecialBadgeData
       rewards: [
         {
           type: "Points",
-          amount: 330
+          amount: 1000
+        },
+        {
+          type: "Token",
+          amount: 30
         }
       ]
     },
@@ -346,8 +354,13 @@ module SpecialBadgeData
       rewards: [
         {
           type: "Points",
-          amount: 330
+          amount: 1000
+        },
+        {
+          type: "Token",
+          amount: 20
         }
+
       ]
     },
     {
@@ -365,7 +378,11 @@ module SpecialBadgeData
       rewards: [
         {
           type: "Points",
-          amount: 330
+          amount: 1000
+        },
+        {
+          type: "Token",
+          amount: 20
         }
       ]
     },
@@ -384,7 +401,11 @@ module SpecialBadgeData
       rewards: [
         {
           type: "Points",
-          amount: 330
+          amount: 1000
+        },
+        {
+          type: "Token",
+          amount: 15
         }
       ]
     }
