@@ -75,6 +75,13 @@ module Gamification
 
     alias_method :aggregate_id, :badge_id
   end
+  
+  class UpdateBadge < Infra::Command
+    attribute :badge_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+
+    alias_method :aggregate_id, :badge_id
+  end
 
   class EarnBadge < Infra::Command
     attribute :user_id, Infra::Types::UUID
@@ -89,6 +96,14 @@ module Gamification
     attribute :badge_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
     attribute :badge_type, Infra::Types::String
+    attribute :badge_data, Infra::Types::Hash
+
+    alias_method :aggregate_id, :badge_id
+  end
+
+  class UpdateSpecialBadge < Infra::Command
+    attribute :badge_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
     attribute :badge_data, Infra::Types::Hash
 
     alias_method :aggregate_id, :badge_id
@@ -117,6 +132,17 @@ module Gamification
   end
 
   class CreateTier < Infra::Command 
+    attribute :tier_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :min_delegation, Infra::Types::Integer
+    attribute :max_delegation, Infra::Types::Integer.optional
+    attribute :multiplier, Infra::Types::Float
+    attribute :image_url, Infra::Types::String
+
+    alias :aggregate_id :tier_id
+  end
+
+  class UpdateTier < Infra::Command
     attribute :tier_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
     attribute :min_delegation, Infra::Types::Integer

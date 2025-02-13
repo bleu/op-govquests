@@ -4,6 +4,8 @@ module Gamification
 
     class VerificationFailedError < StandardError; end
 
+    class AlreadyCreated < StandardError; end
+
     def initialize(id)
       @id = id
       @display_data = nil
@@ -14,10 +16,19 @@ module Gamification
     end
 
     def create(display_data, badge_type, badge_data)
+      raise AlreadyCreated if @display_data.present?
       apply SpecialBadgeCreated.new(data: {
         badge_id: @id,
         display_data:,
         badge_type:,
+        badge_data:
+      })
+    end
+
+    def update(display_data, badge_data)
+      apply SpecialBadgeUpdated.new(data: {
+        badge_id: @id,
+        display_data:,
         badge_data:
       })
     end
@@ -59,6 +70,11 @@ module Gamification
     on SpecialBadgeCreated do |event|
       @display_data = event.data[:display_data]
       @badge_type = event.data[:badge_type]
+      @badge_data = event.data[:badge_data]
+    end
+
+    on SpecialBadgeUpdated do |event|
+      @display_data = event.data[:display_data]
       @badge_data = event.data[:badge_data]
     end
 

@@ -4,6 +4,8 @@ module Questing
 
     QuestNotCreatedError = Class.new(StandardError)
 
+    AlreadyCreatedError = Class.new(StandardError)
+
     attr_reader :actions, :state, :display_data, :audience
 
     def initialize(id)
@@ -13,14 +15,22 @@ module Questing
       @reward_pools = {}
     end
 
-    def create(display_data, audience, badge_display_data)
+    def create(display_data, audience)
+      raise AlreadyCreatedError if @state != :draft
       display_data ||= {}
 
       apply QuestCreated.new(data: {
         quest_id: @id,
         display_data: display_data,
-        audience: audience,
-        badge_display_data: badge_display_data
+        audience: audience
+      })
+    end
+
+    def update(display_data, audience)
+      apply QuestUpdated.new(data: {
+        quest_id: @id,
+        display_data: display_data,
+        audience: audience
       })
     end
 
@@ -69,6 +79,11 @@ module Questing
     on QuestAssociatedWithTrack do |event|
       @track_id = event.data[:track_id]
       @position = event.data[:position]
+    end
+
+    on QuestUpdated do |event|
+      @display_data = event.data[:display_data]
+      @audience = event.data[:audience]
     end
   end
 end

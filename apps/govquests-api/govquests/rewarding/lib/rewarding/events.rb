@@ -13,4 +13,9 @@ module Rewarding
     attribute :reward_definition, SharedKernel::Types::RewardDefinition
     attribute :issued_at, Infra::Types::Time
   end
+
+  class RewardPoolUpdated < Infra::Event
+    attribute :pool_id, Infra::Types::UUID
+    attribute :reward_definition, SharedKernel::Types::RewardDefinition
+  end
 end

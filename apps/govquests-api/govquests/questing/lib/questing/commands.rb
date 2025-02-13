@@ -5,7 +5,14 @@ module Questing
     attribute :quest_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
     attribute :audience, Infra::Types::String
-    attribute :badge_display_data, Infra::Types::Hash
+
+    alias_method :aggregate_id, :quest_id
+  end
+
+  class UpdateQuest < Infra::Command 
+    attribute :quest_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :audience, Infra::Types::String
 
     alias_method :aggregate_id, :quest_id
   end
@@ -52,7 +59,13 @@ module Questing
   class CreateTrack < Infra::Command
     attribute :track_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
-    attribute :badge_display_data, Infra::Types::Hash
+
+    alias_method :aggregate_id, :track_id
+  end
+
+  class UpdateTrack < Infra::Command
+    attribute :track_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
 
     alias_method :aggregate_id, :track_id
   end

@@ -1,54 +1,96 @@
-require "securerandom"
-
 module ActionCreation
+  ACTION_CREATION_NAMESPACE_UUID = "eccead2c-ac0b-45ae-9e0b-9c6847fbf47f"
+
   def self.create_action(action_data)
-    action_id = SecureRandom.uuid
-    command = ActionTracking::CreateAction.new(
-      action_id: action_id,
-      action_type: action_data[:action_type],
-      action_data: action_data[:action_data],
-      display_data: action_data[:display_data]
-    )
-    Rails.configuration.command_bus.call(command)
+    unique_name = "#{action_data[:display_data][:title]}-#{action_data[:action_type]}"
+    action_id = Digest::UUID.uuid_v5(ACTION_CREATION_NAMESPACE_UUID, unique_name)
+
+    begin
+      command = ActionTracking::CreateAction.new(
+        action_id: action_id,
+        action_type: action_data[:action_type],
+        action_data: action_data[:action_data],
+        display_data: action_data[:display_data]
+      )
+      Rails.configuration.command_bus.call(command)
+    rescue ActionTracking::Action::AlreadyCreatedError
+      Rails.configuration.command_bus.call(
+        ActionTracking::UpdateAction.new(
+          action_id: action_id,
+          action_data: action_data[:action_data],
+          display_data: action_data[:display_data]
+        )
+      )
+    end
     action_id
   end
 end
 
-module QuestCreation
-  def self.create_quest_with_rewards(quest_data)
-    quest_id = SecureRandom.uuid
+module RewardPoolCreation
+  POOL_CREATION_NAMESPACE_UUID = "85b7f3c9-a3bc-4c16-bb5d-2c0bed8a6da7"
 
-    Rails.configuration.command_bus.call(
-      Questing::CreateQuest.new(
-        quest_id: quest_id,
-        display_data: quest_data[:display_data],
-        audience: quest_data[:audience],
-        badge_display_data: quest_data[:badge_display_data]
-      )
-    )
+  def self.create_pool_and_associate(rewardable_id, rewardable_type, reward)
+    pool_unique_name = "#{rewardable_type}$#{rewardable_id}-#{reward[:type]}"
+    pool_id = Digest::UUID.uuid_v5(POOL_CREATION_NAMESPACE_UUID, pool_unique_name)
 
-    quest_data[:rewards].each do |reward|
-      pool_id = SecureRandom.uuid
+    reward.delete("inventory")
 
-      reward.delete("inventory")
-
+    begin
       Rails.configuration.command_bus.call(
         Rewarding::CreateRewardPool.new(
           pool_id: pool_id,
-          rewardable_id: quest_id,
-          rewardable_type: "Questing::QuestReadModel",
+          rewardable_id: rewardable_id,
+          rewardable_type: rewardable_type,
           reward_definition: reward,
           initial_inventory: (reward[:type] == "Token") ? reward[:inventory] : nil
         )
       )
-
+    rescue Rewarding::RewardPool::AlreadyCreated
       Rails.configuration.command_bus.call(
-        Questing::AssociateRewardPool.new(
-          quest_id: quest_id,
+        Rewarding::UpdateRewardPool.new(
           pool_id: pool_id,
           reward_definition: reward
         )
       )
+    end
+
+    Rails.configuration.command_bus.call(
+      Questing::AssociateRewardPool.new(
+        quest_id: rewardable_id,
+        pool_id: pool_id,
+        reward_definition: reward
+      )
+    )
+  end
+end
+
+module QuestCreation
+  QUEST_CREATION_NAMESPACE_UUID = "da70de27-5711-441c-a0a2-9832171492e3"
+
+  def self.create_quest_with_rewards(quest_data)
+    unique_name = quest_data[:display_data][:title]
+    quest_id = Digest::UUID.uuid_v5(QUEST_CREATION_NAMESPACE_UUID, unique_name)
+
+    begin
+      Rails.configuration.command_bus.call(
+        Questing::CreateQuest.new(
+          quest_id: quest_id,
+          display_data: quest_data[:display_data],
+          audience: quest_data[:audience]
+        )
+      )
+    rescue Questing::Quest::AlreadyCreatedError
+      Rails.configuration.command_bus.call(
+        Questing::UpdateQuest.new(
+          quest_id: quest_id,
+          display_data: quest_data[:display_data],
+          audience: quest_data[:audience]
+        )
+      )
+    end
+
+    quest_data[:rewards].each do |reward|
+      RewardPoolCreation.create_pool_and_associate(quest_id, "Questing::QuestReadModel", reward)
     end
 
     quest_id
@@ -65,41 +107,66 @@ module QuestCreation
   end
 end
 
-module SpecialBadgeCreation
-  def self.create_special_badge_with_rewards(badge_data)
-    badge_id = SecureRandom.uuid
+module TrackCreation
+  TRACK_CREATION_NAMESPACE_UUID = "86e60d5e-767b-4dcc-b7d3-5048e1db5b04"
 
-    Rails.configuration.command_bus.call(
-      Gamification::CreateSpecialBadge.new(
-        badge_id: badge_id,
-        display_data: badge_data[:display_data],
-        badge_type: badge_data[:badge_type],
-        badge_data: badge_data[:badge_data],
-        points: badge_data[:points]
-      )
-    )
+  def self.create_track_with_quests(track_data, quest_id_map)
+    track_id = Digest::UUID.uuid_v5(TRACK_CREATION_NAMESPACE_UUID, track_data[:display_data][:title])
 
-    badge_data[:rewards].each do |reward|
-      pool_id = SecureRandom.uuid
-
-      reward.delete("inventory")
-
+    begin
       Rails.configuration.command_bus.call(
-        Rewarding::CreateRewardPool.new(
-          pool_id: pool_id,
-          rewardable_id: badge_id,
-          rewardable_type: "Gamification::SpecialBadgeReadModel",
-          reward_definition: reward,
-          initial_inventory: (reward[:type] == "Token") ? reward[:inventory] : nil
+        Questing::CreateTrack.new(
+          track_id: track_id,
+          display_data: track_data[:display_data]
         )
       )
-
-      # Associate the reward pool with the special badge
+    rescue Questing::Track::AlreadyExists
       Rails.configuration.command_bus.call(
-        Gamification::AssociateRewardPool.new(
+        Questing::UpdateTrack.new(
+          track_id: track_id,
+          display_data: track_data[:display_data]
+        )
+      )
+    end
+
+    track_data[:quests].each_with_index do |quest_title, index|
+      quest_id = quest_id_map[quest_title]
+      Rails.configuration.command_bus.call(
+        Questing::AssociateQuestWithTrack.new(
+          track_id: track_id,
+          quest_id: quest_id,
+          position: index + 1
+        )
+      )
+    rescue Questing::Track::QuestAlreadyAssociated
+      # Silently ignore
+    end
+
+    track_id
+  end
+end
+
+module BadgeCreation
+  BADGE_CREATION_NAMESPACE_UUID = "04afddb4-b215-4862-a2e6-2222058e45de"
+
+  def self.create_badge(badge_data, badgeable_id, badgeable_type)
+    unique_name = "#{badgeable_type}$#{badgeable_id}"
+    badge_id = Digest::UUID.uuid_v5(BADGE_CREATION_NAMESPACE_UUID, unique_name)
+
+    begin
+      Rails.configuration.command_bus.call(
+        Gamification::CreateBadge.new(
           badge_id: badge_id,
-          pool_id: pool_id,
-          reward_definition: reward
+          display_data: badge_data,
+          badgeable_id: badgeable_id,
+          badgeable_type: badgeable_type
+        )
+      )
+    rescue Gamification::Badge::AlreadyCreated
+      Rails.configuration.command_bus.call(
+        Gamification::UpdateBadge.new(
+          badge_id: badge_id,
+          display_data: badge_data
         )
       )
     end
@@ -108,20 +175,71 @@ module SpecialBadgeCreation
   end
 end
 
-module TierCreation
-  def self.create_tiers(tier_data)
-    tier_id = SecureRandom.uuid
+module SpecialBadgeCreation
+  SPECIALBADGE_CREATION_NAMESPACE_UUID = "101cb511-2dbd-4920-938a-13a56d07a0b8"
 
-    Rails.configuration.command_bus.call(
-      Gamification::CreateTier.new(
-        tier_id:,
-        display_data: tier_data[:display_data],
-        multiplier: tier_data[:multiplier],
-        image_url: tier_data[:image_url],
-        min_delegation: tier_data[:min_delegation],
-        max_delegation: tier_data[:max_delegation]
+  def self.create_special_badge_with_rewards(badge_data)
+    unique_name = "#{badge_data[:display_data][:title]}-#{badge_data[:badge_type]}"
+    badge_id = Digest::UUID.uuid_v5(SPECIALBADGE_CREATION_NAMESPACE_UUID, unique_name)
+
+    begin
+      Rails.configuration.command_bus.call(
+        Gamification::CreateSpecialBadge.new(
+          badge_id: badge_id,
+          display_data: badge_data[:display_data],
+          badge_type: badge_data[:badge_type],
+          badge_data: badge_data[:badge_data],
+          points: badge_data[:points]
+        )
       )
-    )
+    rescue Gamification::SpecialBadge::AlreadyCreated
+      Rails.configuration.command_bus.call(
+        Gamification::UpdateSpecialBadge.new(
+          badge_id: badge_id,
+          display_data: badge_data[:display_data],
+          badge_data: badge_data[:badge_data]
+        )
+      )
+    end
+
+    badge_data[:rewards].each do |reward|
+      RewardPoolCreation.create_pool_and_associate(badge_id, "Gamification::SpecialBadgeReadModel", reward)
+    end
+
+    badge_id
+  end
+end
+
+module TierCreation
+  TIER_CREATION_NAMESPACE_UUID = "9b130c84-5bb0-4b13-9cba-a96428fe2783"
+
+  def self.create_tiers(tier_data)
+    unique_name = tier_data[:display_data][:title]
+    tier_id = Digest::UUID.uuid_v5(TIER_CREATION_NAMESPACE_UUID, unique_name)
+
+    begin
+      Rails.configuration.command_bus.call(
+        Gamification::CreateTier.new(
+          tier_id:,
+          display_data: tier_data[:display_data],
+          multiplier: tier_data[:multiplier],
+          image_url: tier_data[:image_url],
+          min_delegation: tier_data[:min_delegation],
+          max_delegation: tier_data[:max_delegation]
+        )
+      )
+    rescue Gamification::Tier::AlreadyCreated
+      Rails.configuration.command_bus.call(
+        Gamification::UpdateTier.new(
+          tier_id:,
+          display_data: tier_data[:display_data],
+          multiplier: tier_data[:multiplier],
+          image_url: tier_data[:image_url],
+          min_delegation: tier_data[:min_delegation],
+          max_delegation: tier_data[:max_delegation]
+        )
+      )
+    end
   end
 end
 
@@ -144,7 +262,7 @@ module TierData
       },
       multiplier: 1.0,
       image_url: "/backgrounds/OP_BLEU_TIER_02.png",
-      min_delegation: 1,
+      min_delegation: 0,
       max_delegation: 5000
     },
     {
@@ -154,7 +272,7 @@ module TierData
       },
       multiplier: 1.5,
       image_url: "/backgrounds/OP_BLEU_TIER_03.png",
-      min_delegation: 5001,
+      min_delegation: 5000,
       max_delegation: 30000
     },
     {
@@ -164,7 +282,7 @@ module TierData
       },
       multiplier: 2.0,
       image_url: "/backgrounds/OP_BLEU_TIER_04.png",
-      min_delegation: 30001,
+      min_delegation: 30000,
       max_delegation: 150000
     },
     {
@@ -174,7 +292,7 @@ module TierData
       },
       multiplier: 2.5,
       image_url: "/backgrounds/OP_BLEU_TIER_05.png",
-      min_delegation: 150001,
+      min_delegation: 150000,
       max_delegation: nil
     }
   ]
@@ -294,33 +412,6 @@ module SpecialBadgeData
       ]
     }
   ]
-end
-
-module TrackCreation
-  def self.create_track_with_quests(track_data, quest_id_map)
-    track_id = SecureRandom.uuid
-
-    Rails.configuration.command_bus.call(
-      Questing::CreateTrack.new(
-        track_id: track_id,
-        display_data: track_data[:display_data],
-        badge_display_data: track_data[:badge_display_data]
-      )
-    )
-
-    track_data[:quests].each_with_index do |quest_title, index|
-      quest_id = quest_id_map[quest_title]
-      Rails.configuration.command_bus.call(
-        Questing::AssociateQuestWithTrack.new(
-          track_id: track_id,
-          quest_id: quest_id,
-          position: index + 1
-        )
-      )
-    end
-
-    track_id
-  end
 end
 
 module TrackData
@@ -892,7 +983,7 @@ def create_quests_and_actions
 
   quest_id_map = {}
 
-  QuestData::QUESTS.each do |quest_data|
+  QuestData::QUESTS.each_with_index do |quest_data, index|
     # Create quest and its reward pools
     quest_id = QuestCreation.create_quest_with_rewards(quest_data)
     quest_id_map[quest_data[:display_data][:title]] = quest_id
@@ -907,7 +998,13 @@ def create_quests_and_actions
       puts "Created and associated action: #{action_data[:display_data][:title]} (#{action_id}) with quest #{quest_id} at position #{index + 1}"
     end
 
-    puts "Completed quest: #{quest_data[:display_data][:title]} (#{quest_id}) with #{quest_data[:actions].size} actions"
+    badge_display_data = quest_data[:badge_display_data].merge({
+      sequence_number: index + 1
+    })
+
+    badge_id = BadgeCreation.create_badge(badge_display_data, quest_id, "Quest")
+
+    puts "Completed quest: #{quest_data[:display_data][:title]} (#{quest_id}) with #{quest_data[:actions].size} actions and badge #{badge_id}"
     puts "---"
   end
 
@@ -918,10 +1015,18 @@ end
 def create_tracks(quest_id_map)
   puts "Creating tracks..."
 
-  TrackData::TRACKS.each do |track_data|
+  TrackData::TRACKS.each_with_index do |track_data, index|
     track_id = TrackCreation.create_track_with_quests(track_data, quest_id_map)
+
+    badge_display_data = track_data[:badge_display_data].merge({
+      sequence_number: index + 1
+    })
+
+    badge_id = BadgeCreation.create_badge(badge_display_data, track_id, "Track")
+
     puts "Created track: #{track_data[:display_data][:title]} (#{track_id})"
     puts "Associated quests: #{track_data[:quests].join(", ")}"
+    puts "With badge: #{badge_id}"
     puts "---"
   end
 

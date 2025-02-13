@@ -31,6 +31,13 @@ module Rewarding
       })
     end
 
+    def update(reward_definition)
+      apply RewardPoolUpdated.new(data: {
+        pool_id: @id,
+        reward_definition: reward_definition
+      })
+    end
+
     def issue_reward(user_id)
       raise NotIssued unless @reward_definition
 
@@ -58,6 +65,10 @@ module Rewarding
       @rewardable_type = event.data[:rewardable_type]
       @reward_definition = event.data[:reward_definition]
       @remaining_inventory = event.data[:initial_inventory] if event.data[:initial_inventory]
+    end
+
+    on RewardPoolUpdated do |event|
+      @reward_definition = event.data[:reward_definition]
     end
 
     on RewardIssued do |event|
