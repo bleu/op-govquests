@@ -16,6 +16,10 @@ module Gamification
       foreign_key: "tier_id",
       primary_key: "tier_id",
       inverse_of: :tier
+
+    def self.find_by_title(title)
+      where("display_data->>'title' = ?", title).first
+    end
   end
 end
 
