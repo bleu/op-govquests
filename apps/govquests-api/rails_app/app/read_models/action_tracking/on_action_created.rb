@@ -1,11 +1,8 @@
 module ActionTracking
   class OnActionCreated
     def call(event)
-      action = ActionReadModel.find_or_initialize_by(
-        action_id: event.data[:action_id]
-      )
-
-      action.update!(
+      ActionReadModel.create!(
+        action_id: event.data[:action_id],
         action_type: event.data[:action_type],
         action_data: event.data[:action_data],
         display_data: event.data[:display_data]

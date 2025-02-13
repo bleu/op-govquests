@@ -22,4 +22,11 @@ module Rewarding
 
     alias_method :aggregate_id, :pool_id
   end
+
+  class UpdateRewardPool < Infra::Command
+    attribute :pool_id, Infra::Types::UUID
+    attribute :reward_definition, SharedKernel::Types::RewardDefinition
+
+    alias_method :aggregate_id, :pool_id
+  end
 end

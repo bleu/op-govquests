@@ -14,8 +14,13 @@ module ActionCreation
       )
       Rails.configuration.command_bus.call(command)
     rescue ActionTracking::Action::AlreadyCreatedError
-      # Silently ignore
-      # TODO: add event for updating Action (if needed)
+      Rails.configuration.command_bus.call(
+        ActionTracking::UpdateAction.new(
+          action_id: action_id,
+          action_data: action_data[:action_data],
+          display_data: action_data[:display_data]
+        )
+      )
     end
     action_id
   end
@@ -41,8 +46,12 @@ module RewardPoolCreation
         )
       )
     rescue Rewarding::RewardPool::AlreadyCreated
-      # Silently ignore
-      # TODO: add event for updating RewardPool (if needed)
+      Rails.configuration.command_bus.call(
+        Rewarding::UpdateRewardPool.new(
+          pool_id: pool_id,
+          reward_definition: reward
+        )
+      )
     end
 
     Rails.configuration.command_bus.call(

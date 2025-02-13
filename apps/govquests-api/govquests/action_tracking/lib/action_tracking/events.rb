@@ -23,4 +23,10 @@ module ActionTracking
     attribute :action_id, Infra::Types::UUID.optional
     attribute :user_id, Infra::Types::UUID.optional
   end
+
+  class ActionUpdated < Infra::Event
+    attribute :action_id, Infra::Types::UUID
+    attribute :action_data, Infra::Types::Hash
+    attribute :display_data, Infra::Types::Hash
+  end
 end
