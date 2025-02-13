@@ -262,7 +262,7 @@ module TierData
       },
       multiplier: 1.0,
       image_url: "/backgrounds/OP_BLEU_TIER_02.png",
-      min_delegation: 1,
+      min_delegation: 0,
       max_delegation: 5000
     },
     {
@@ -272,7 +272,7 @@ module TierData
       },
       multiplier: 1.5,
       image_url: "/backgrounds/OP_BLEU_TIER_03.png",
-      min_delegation: 5001,
+      min_delegation: 5000,
       max_delegation: 30000
     },
     {
@@ -282,7 +282,7 @@ module TierData
       },
       multiplier: 2.0,
       image_url: "/backgrounds/OP_BLEU_TIER_04.png",
-      min_delegation: 30001,
+      min_delegation: 30000,
       max_delegation: 150000
     },
     {
@@ -292,7 +292,7 @@ module TierData
       },
       multiplier: 2.5,
       image_url: "/backgrounds/OP_BLEU_TIER_05.png",
-      min_delegation: 150001,
+      min_delegation: 150000,
       max_delegation: nil
     }
   ]
