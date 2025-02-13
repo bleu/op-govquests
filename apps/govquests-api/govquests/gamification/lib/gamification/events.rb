@@ -88,6 +88,12 @@ module Gamification
     attribute :badge_data, Infra::Types::Hash
   end
 
+  class SpecialBadgeUpdated < Infra::Command
+    attribute :badge_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :badge_data, Infra::Types::Hash
+  end
+
   class RewardPoolAssociated < Infra::Event
     attribute :badge_id, Infra::Types::UUID
     attribute :pool_id, Infra::Types::String
@@ -95,6 +101,15 @@ module Gamification
   end
 
   class TierCreated < Infra::Event
+    attribute :tier_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :min_delegation, Infra::Types::Integer
+    attribute :max_delegation, Infra::Types::Integer.optional
+    attribute :multiplier, Infra::Types::Float
+    attribute :image_url, Infra::Types::String
+  end
+
+  class TierUpdated < Infra::Command
     attribute :tier_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
     attribute :min_delegation, Infra::Types::Integer

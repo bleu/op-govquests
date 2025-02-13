@@ -10,6 +10,7 @@ module Questing
       event_store.subscribe(OnTrackStarted, to: [Questing::TrackStarted])
       event_store.subscribe(OnTrackCompleted, to: [Questing::TrackCompleted])
       event_store.subscribe(OnQuestUpdated, to: [Questing::QuestUpdated])
+      event_store.subscribe(OnTrackUpdated, to: [Questing::TrackUpdated])
     end
   end
 end

@@ -25,6 +25,14 @@ module Gamification
       })
     end
 
+    def update(display_data, badge_data)
+      apply SpecialBadgeUpdated.new(data: {
+        badge_id: @id,
+        display_data:,
+        badge_data:
+      })
+    end
+
     def associate_reward_pool(pool_id, reward_definition)
       apply RewardPoolAssociated.new(data: {
         badge_id: @id,
@@ -62,6 +70,11 @@ module Gamification
     on SpecialBadgeCreated do |event|
       @display_data = event.data[:display_data]
       @badge_type = event.data[:badge_type]
+      @badge_data = event.data[:badge_data]
+    end
+
+    on SpecialBadgeUpdated do |event|
+      @display_data = event.data[:display_data]
       @badge_data = event.data[:badge_data]
     end
 

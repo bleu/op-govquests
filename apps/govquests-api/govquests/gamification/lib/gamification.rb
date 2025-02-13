@@ -108,6 +108,10 @@ module Gamification
       special_badge.create(cmd.display_data, cmd.badge_type, cmd.badge_data)
     end
 
+    handle "Gamification::UpdateSpecialBadge", aggregate: SpecialBadge do |special_badge, cmd|
+      special_badge.update(cmd.display_data, cmd.badge_data)
+    end
+
     handle "Gamification::AssociateRewardPool", aggregate: SpecialBadge do |special_badge, cmd|
       special_badge.associate_reward_pool(cmd.pool_id, cmd.reward_definition)
     end
@@ -122,6 +126,10 @@ module Gamification
 
     handle "Gamification::CreateTier", aggregate: Tier do |tier, cmd|
       tier.create(cmd.display_data, cmd.min_delegation, cmd.max_delegation, cmd.multiplier, cmd.image_url)
+    end
+
+    handle "Gamification::UpdateTier", aggregate: Tier do |tier, cmd|
+      tier.update(cmd.display_data, cmd.min_delegation, cmd.max_delegation, cmd.multiplier, cmd.image_url)
     end
 
     handle "Gamification::CreateGameProfile", aggregate: GameProfile do |profile, cmd|

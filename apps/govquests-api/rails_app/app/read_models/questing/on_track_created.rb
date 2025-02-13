@@ -1,11 +1,8 @@
 module Questing
   class OnTrackCreated
     def call(event)
-      track = TrackReadModel.find_or_initialize_by(
-        track_id: event.data[:track_id]
-      )
-
-      track.update!(
+      track = TrackReadModel.create(
+        track_id: event.data[:track_id],
         display_data: event.data[:display_data]
       )
 

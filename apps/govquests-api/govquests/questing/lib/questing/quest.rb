@@ -15,24 +15,22 @@ module Questing
       @reward_pools = {}
     end
 
-    def create(display_data, audience, badge_display_data)
+    def create(display_data, audience)
       raise AlreadyCreatedError if @state != :draft
       display_data ||= {}
 
       apply QuestCreated.new(data: {
         quest_id: @id,
         display_data: display_data,
-        audience: audience,
-        badge_display_data: badge_display_data
+        audience: audience
       })
     end
 
-    def update(display_data, audience, badge_display_data)
+    def update(display_data, audience)
       apply QuestUpdated.new(data: {
         quest_id: @id,
         display_data: display_data,
-        audience: audience,
-        badge_display_data: badge_display_data
+        audience: audience
       })
     end
 

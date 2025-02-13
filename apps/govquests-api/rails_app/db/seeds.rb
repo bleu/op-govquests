@@ -76,8 +76,7 @@ module QuestCreation
         Questing::CreateQuest.new(
           quest_id: quest_id,
           display_data: quest_data[:display_data],
-          audience: quest_data[:audience],
-          badge_display_data: quest_data[:badge_display_data]
+          audience: quest_data[:audience]
         )
       )
     rescue Questing::Quest::AlreadyCreatedError
@@ -85,8 +84,7 @@ module QuestCreation
         Questing::UpdateQuest.new(
           quest_id: quest_id,
           display_data: quest_data[:display_data],
-          audience: quest_data[:audience],
-          badge_display_data: quest_data[:badge_display_data]
+          audience: quest_data[:audience]
         )
       )
     end
@@ -119,26 +117,27 @@ module TrackCreation
       Rails.configuration.command_bus.call(
         Questing::CreateTrack.new(
           track_id: track_id,
-          display_data: track_data[:display_data],
-          badge_display_data: track_data[:badge_display_data]
+          display_data: track_data[:display_data]
         )
       )
     rescue Questing::Track::AlreadyExists
-      # Silently ignore
-      # TODO: add event for updating Track (if needed)
+      Rails.configuration.command_bus.call(
+        Questing::UpdateTrack.new(
+          track_id: track_id,
+          display_data: track_data[:display_data]
+        )
+      )
     end
 
-    begin
-      track_data[:quests].each_with_index do |quest_title, index|
-        quest_id = quest_id_map[quest_title]
-        Rails.configuration.command_bus.call(
-          Questing::AssociateQuestWithTrack.new(
-            track_id: track_id,
-            quest_id: quest_id,
-            position: index + 1
-          )
+    track_data[:quests].each_with_index do |quest_title, index|
+      quest_id = quest_id_map[quest_title]
+      Rails.configuration.command_bus.call(
+        Questing::AssociateQuestWithTrack.new(
+          track_id: track_id,
+          quest_id: quest_id,
+          position: index + 1
         )
-      end
+      )
     rescue Questing::Track::QuestAlreadyAssociated
       # Silently ignore
     end
@@ -192,8 +191,13 @@ module SpecialBadgeCreation
         )
       )
     rescue Gamification::SpecialBadge::AlreadyCreated
-      # Silently ignore
-      # TODO: add event for updating SpecialBadge (if needed)
+      Rails.configuration.command_bus.call(
+        Gamification::UpdateSpecialBadge.new(
+          badge_id: badge_id,
+          display_data: badge_data[:display_data],
+          badge_data: badge_data[:badge_data]
+        )
+      )
     end
 
     badge_data[:rewards].each do |reward|
@@ -208,7 +212,7 @@ module TierCreation
   TIER_CREATION_NAMESPACE_UUID = "9b130c84-5bb0-4b13-9cba-a96428fe2783"
 
   def self.create_tiers(tier_data)
-    unique_name = "#{tier_data[:display_data][:title]}-#{tier_data[:multiplier]}"
+    unique_name = tier_data[:display_data][:title]
     tier_id = Digest::UUID.uuid_v5(TIER_CREATION_NAMESPACE_UUID, unique_name)
 
     begin
@@ -223,8 +227,16 @@ module TierCreation
         )
       )
     rescue Gamification::Tier::AlreadyCreated
-      # Silently ignore
-      # TODO: add event for updating Tier (if needed)
+      Rails.configuration.command_bus.call(
+        Gamification::UpdateTier.new(
+          tier_id:,
+          display_data: tier_data[:display_data],
+          multiplier: tier_data[:multiplier],
+          image_url: tier_data[:image_url],
+          min_delegation: tier_data[:min_delegation],
+          max_delegation: tier_data[:max_delegation]
+        )
+      )
     end
   end
 end
