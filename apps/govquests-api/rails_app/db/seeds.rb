@@ -170,6 +170,8 @@ module BadgeCreation
         )
       )
     end
+
+    badge_id
   end
 end
 

@@ -6,8 +6,7 @@ module Gamification
       )
 
       special_badge.update!(
-        display_data: display_data,
-        badge_type: event.data[:badge_type],
+        display_data: event.data[:display_data],
         badge_data: event.data[:badge_data]
       )
     end

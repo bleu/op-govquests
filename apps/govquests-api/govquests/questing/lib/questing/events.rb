@@ -48,7 +48,7 @@ module Questing
     attribute :display_data, Infra::Types::Hash
   end
 
-  class TrackUpdated < Infra::Command
+  class TrackUpdated < Infra::Event
     attribute :track_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
   end

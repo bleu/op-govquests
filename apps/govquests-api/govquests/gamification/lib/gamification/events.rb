@@ -88,7 +88,7 @@ module Gamification
     attribute :badge_data, Infra::Types::Hash
   end
 
-  class SpecialBadgeUpdated < Infra::Command
+  class SpecialBadgeUpdated < Infra::Event
     attribute :badge_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
     attribute :badge_data, Infra::Types::Hash
@@ -109,7 +109,7 @@ module Gamification
     attribute :image_url, Infra::Types::String
   end
 
-  class TierUpdated < Infra::Command
+  class TierUpdated < Infra::Event
     attribute :tier_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
     attribute :min_delegation, Infra::Types::Integer
