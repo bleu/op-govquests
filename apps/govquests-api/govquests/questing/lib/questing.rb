@@ -35,6 +35,10 @@ module Questing
       quest.create(cmd.display_data, cmd.audience, cmd.badge_display_data)
     end
 
+    handle "Questing::UpdateQuest", aggregate: Quest do |quest, cmd|
+      quest.update(cmd.display_data, cmd.audience, cmd.badge_display_data)
+    end
+
     handle "Questing::AssociateActionWithQuest", aggregate: Quest do |quest, cmd|
       quest.associate_action(cmd.action_id, cmd.position)
     end

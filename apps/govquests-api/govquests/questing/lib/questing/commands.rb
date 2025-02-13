@@ -10,6 +10,15 @@ module Questing
     alias_method :aggregate_id, :quest_id
   end
 
+  class UpdateQuest < Infra::Command 
+    attribute :quest_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :audience, Infra::Types::String
+    attribute :badge_display_data, Infra::Types::Hash
+
+    alias_method :aggregate_id, :quest_id
+  end
+
   class AssociateRewardPool < Infra::Command
     attribute :quest_id, Infra::Types::UUID
     attribute :pool_id, Infra::Types::UUID

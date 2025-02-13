@@ -27,6 +27,15 @@ module Questing
       })
     end
 
+    def update(display_data, audience, badge_display_data)
+      apply QuestUpdated.new(data: {
+        quest_id: @id,
+        display_data: display_data,
+        audience: audience,
+        badge_display_data: badge_display_data
+      })
+    end
+
     def associate_reward_pool(pool_id, reward_definition)
       apply RewardPoolAssociated.new(data: {
         quest_id: @id,
@@ -72,6 +81,11 @@ module Questing
     on QuestAssociatedWithTrack do |event|
       @track_id = event.data[:track_id]
       @position = event.data[:position]
+    end
+
+    on QuestUpdated do |event|
+      @display_data = event.data[:display_data]
+      @audience = event.data[:audience]
     end
   end
 end

@@ -96,6 +96,10 @@ module Gamification
       badge.create(cmd.display_data, cmd.badgeable_id, cmd.badgeable_type)
     end
 
+    handle "Gamification::UpdateBadge", aggregate: Badge do |badge, cmd|
+      badge.update(cmd.display_data)
+    end
+
     handle "Gamification::EarnBadge", aggregate: UserBadge do |user_badge, cmd|
       user_badge.earn_badge(cmd.user_id, cmd.badge_id, cmd.badge_type, cmd.earned_at)
     end

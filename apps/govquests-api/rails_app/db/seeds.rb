@@ -81,8 +81,14 @@ module QuestCreation
         )
       )
     rescue Questing::Quest::AlreadyCreatedError
-      # Silently ignore
-      # TODO: add event for updating Quest (if needed)
+      Rails.configuration.command_bus.call(
+        Questing::UpdateQuest.new(
+          quest_id: quest_id,
+          display_data: quest_data[:display_data],
+          audience: quest_data[:audience],
+          badge_display_data: quest_data[:badge_display_data]
+        )
+      )
     end
 
     quest_data[:rewards].each do |reward|
@@ -100,6 +106,71 @@ module QuestCreation
         position: position
       )
     )
+  end
+end
+
+module TrackCreation
+  TRACK_CREATION_NAMESPACE_UUID = "86e60d5e-767b-4dcc-b7d3-5048e1db5b04"
+
+  def self.create_track_with_quests(track_data, quest_id_map)
+    track_id = Digest::UUID.uuid_v5(TRACK_CREATION_NAMESPACE_UUID, track_data[:display_data][:title])
+
+    begin
+      Rails.configuration.command_bus.call(
+        Questing::CreateTrack.new(
+          track_id: track_id,
+          display_data: track_data[:display_data],
+          badge_display_data: track_data[:badge_display_data]
+        )
+      )
+    rescue Questing::Track::AlreadyExists
+      # Silently ignore
+      # TODO: add event for updating Track (if needed)
+    end
+
+    begin
+      track_data[:quests].each_with_index do |quest_title, index|
+        quest_id = quest_id_map[quest_title]
+        Rails.configuration.command_bus.call(
+          Questing::AssociateQuestWithTrack.new(
+            track_id: track_id,
+            quest_id: quest_id,
+            position: index + 1
+          )
+        )
+      end
+    rescue Questing::Track::QuestAlreadyAssociated
+      # Silently ignore
+    end
+
+    track_id
+  end
+end
+
+module BadgeCreation
+  BADGE_CREATION_NAMESPACE_UUID = "04afddb4-b215-4862-a2e6-2222058e45de"
+
+  def self.create_badge(badge_data, badgeable_id, badgeable_type)
+    unique_name = "#{badgeable_type}$#{badgeable_id}"
+    badge_id = Digest::UUID.uuid_v5(BADGE_CREATION_NAMESPACE_UUID, unique_name)
+
+    begin
+      Rails.configuration.command_bus.call(
+        Gamification::CreateBadge.new(
+          badge_id: badge_id,
+          display_data: badge_data,
+          badgeable_id: badgeable_id,
+          badgeable_type: badgeable_type
+        )
+      )
+    rescue Gamification::Badge::AlreadyCreated
+      Rails.configuration.command_bus.call(
+        Gamification::UpdateBadge.new(
+          badge_id: badge_id,
+          display_data: badge_data
+        )
+      )
+    end
   end
 end
 
@@ -327,44 +398,6 @@ module SpecialBadgeData
       ]
     }
   ]
-end
-
-module TrackCreation
-  TRACK_CREATION_NAMESPACE_UUID = "86e60d5e-767b-4dcc-b7d3-5048e1db5b04"
-
-  def self.create_track_with_quests(track_data, quest_id_map)
-    track_id = Digest::UUID.uuid_v5(TRACK_CREATION_NAMESPACE_UUID, track_data[:display_data][:title])
-
-    begin
-      Rails.configuration.command_bus.call(
-        Questing::CreateTrack.new(
-          track_id: track_id,
-          display_data: track_data[:display_data],
-          badge_display_data: track_data[:badge_display_data]
-        )
-      )
-    rescue Questing::Track::AlreadyExists
-      # Silently ignore
-      # TODO: add event for updating Track (if needed)
-    end
-
-    begin
-      track_data[:quests].each_with_index do |quest_title, index|
-        quest_id = quest_id_map[quest_title]
-        Rails.configuration.command_bus.call(
-          Questing::AssociateQuestWithTrack.new(
-            track_id: track_id,
-            quest_id: quest_id,
-            position: index + 1
-          )
-        )
-      end
-    rescue Questing::Track::QuestAlreadyAssociated
-      # Silently ignore
-    end
-
-    track_id
-  end
 end
 
 module TrackData
@@ -936,7 +969,7 @@ def create_quests_and_actions
 
   quest_id_map = {}
 
-  QuestData::QUESTS.each do |quest_data|
+  QuestData::QUESTS.each_with_index do |quest_data, index|
     # Create quest and its reward pools
     quest_id = QuestCreation.create_quest_with_rewards(quest_data)
     quest_id_map[quest_data[:display_data][:title]] = quest_id
@@ -951,7 +984,13 @@ def create_quests_and_actions
       puts "Created and associated action: #{action_data[:display_data][:title]} (#{action_id}) with quest #{quest_id} at position #{index + 1}"
     end
 
-    puts "Completed quest: #{quest_data[:display_data][:title]} (#{quest_id}) with #{quest_data[:actions].size} actions"
+    badge_display_data = quest_data[:badge_display_data].merge({
+      sequence_number: index + 1
+    })
+
+    badge_id = BadgeCreation.create_badge(badge_display_data, quest_id, "Quest")
+
+    puts "Completed quest: #{quest_data[:display_data][:title]} (#{quest_id}) with #{quest_data[:actions].size} actions and badge #{badge_id}"
     puts "---"
   end
 
@@ -962,10 +1001,18 @@ end
 def create_tracks(quest_id_map)
   puts "Creating tracks..."
 
-  TrackData::TRACKS.each do |track_data|
+  TrackData::TRACKS.each_with_index do |track_data, index|
     track_id = TrackCreation.create_track_with_quests(track_data, quest_id_map)
+
+    badge_display_data = track_data[:badge_display_data].merge({
+      sequence_number: index + 1
+    })
+
+    badge_id = BadgeCreation.create_badge(badge_display_data, track_id, "Track")
+
     puts "Created track: #{track_data[:display_data][:title]} (#{track_id})"
     puts "Associated quests: #{track_data[:quests].join(", ")}"
+    puts "With badge: #{badge_id}"
     puts "---"
   end
 

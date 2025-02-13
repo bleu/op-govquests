@@ -6,6 +6,14 @@ module Questing
     attribute :badge_display_data, Infra::Types::Hash
   end
 
+  class QuestUpdated < Infra::Event 
+    attribute :quest_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :audience, Infra::Types::String
+    attribute :badge_display_data, Infra::Types::Hash
+  end
+
+
   class RewardPoolAssociated < Infra::Event
     attribute :quest_id, Infra::Types::UUID
     attribute :pool_id, Infra::Types::UUID

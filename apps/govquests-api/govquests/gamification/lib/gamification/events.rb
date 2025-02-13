@@ -64,6 +64,11 @@ module Gamification
     attribute :badgeable_type, Infra::Types::String
   end
 
+  class BadgeUpdated < Infra::Event
+    attribute :badge_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+  end
+
   class BadgeUnlocked < Infra::Event
     attribute :badge_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID

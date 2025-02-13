@@ -3,12 +3,9 @@ module Questing
     def call(event)
       slug = event.data[:display_data][:title].parameterize
 
-      quest = QuestReadModel.find_or_initialize_by(
+      quest = QuestReadModel.create!(
         quest_id: event.data[:quest_id],
-        slug: slug
-      )
-
-      quest.update!(
+        slug: slug,
         audience: event.data[:audience],
         status: "created",
         display_data: event.data[:display_data]
