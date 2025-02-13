@@ -4,7 +4,7 @@ module Questing
       track_id = event.data[:track_id]
       quest_id = event.data[:quest_id]
 
-      track_quest = TrackQuestReadModel.find_or_initialize_by!(
+      track_quest = TrackQuestReadModel.find_or_initialize_by(
         track_id:,
         quest_id:
       )

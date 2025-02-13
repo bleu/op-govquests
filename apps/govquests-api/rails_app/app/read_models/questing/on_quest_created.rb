@@ -3,7 +3,7 @@ module Questing
     def call(event)
       slug = event.data[:display_data][:title].parameterize
 
-      quest = QuestReadModel.find_or_initialize_by!(
+      quest = QuestReadModel.find_or_initialize_by(
         quest_id: event.data[:quest_id],
         slug: slug
       )

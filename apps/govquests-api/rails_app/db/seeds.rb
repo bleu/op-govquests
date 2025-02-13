@@ -5,14 +5,53 @@ module ActionCreation
     unique_name = "#{action_data[:display_data][:title]}-#{action_data[:action_type]}"
     action_id = Digest::UUID.uuid_v5(ACTION_CREATION_NAMESPACE_UUID, unique_name)
 
-    command = ActionTracking::CreateAction.new(
-      action_id: action_id,
-      action_type: action_data[:action_type],
-      action_data: action_data[:action_data],
-      display_data: action_data[:display_data]
-    )
-    Rails.configuration.command_bus.call(command)
+    begin
+      command = ActionTracking::CreateAction.new(
+        action_id: action_id,
+        action_type: action_data[:action_type],
+        action_data: action_data[:action_data],
+        display_data: action_data[:display_data]
+      )
+      Rails.configuration.command_bus.call(command)
+    rescue ActionTracking::Action::AlreadyCreatedError
+      # Silently ignore
+      # TODO: add event for updating Action (if needed)
+    end
     action_id
+  end
+end
+
+module RewardPoolCreation
+  POOL_CREATION_NAMESPACE_UUID = "85b7f3c9-a3bc-4c16-bb5d-2c0bed8a6da7"
+
+  def self.create_pool_and_associate(rewardable_id, rewardable_type, reward)
+    pool_unique_name = "#{rewardable_type}$#{rewardable_id}-#{reward[:type]}"
+    pool_id = Digest::UUID.uuid_v5(POOL_CREATION_NAMESPACE_UUID, pool_unique_name)
+
+    reward.delete("inventory")
+
+    begin
+      Rails.configuration.command_bus.call(
+        Rewarding::CreateRewardPool.new(
+          pool_id: pool_id,
+          rewardable_id: rewardable_id,
+          rewardable_type: rewardable_type,
+          reward_definition: reward,
+          initial_inventory: (reward[:type] == "Token") ? reward[:inventory] : nil
+        )
+      )
+    rescue Rewarding::RewardPool::AlreadyCreated
+      # Silently ignore
+      # TODO: add event for updating RewardPool (if needed)
+    end
+
+    Rails.configuration.command_bus.call(
+      Questing::AssociateRewardPool.new(
+        quest_id: rewardable_id,
+        pool_id: pool_id,
+        reward_definition: reward
+      )
+    )
   end
 end
 
@@ -23,38 +62,22 @@ module QuestCreation
     unique_name = quest_data[:display_data][:title]
     quest_id = Digest::UUID.uuid_v5(QUEST_CREATION_NAMESPACE_UUID, unique_name)
 
-    Rails.configuration.command_bus.call(
-      Questing::CreateQuest.new(
-        quest_id: quest_id,
-        display_data: quest_data[:display_data],
-        audience: quest_data[:audience],
-        badge_display_data: quest_data[:badge_display_data]
+    begin
+      Rails.configuration.command_bus.call(
+        Questing::CreateQuest.new(
+          quest_id: quest_id,
+          display_data: quest_data[:display_data],
+          audience: quest_data[:audience],
+          badge_display_data: quest_data[:badge_display_data]
+        )
       )
-    )
+    rescue Questing::Quest::AlreadyCreatedError
+      # Silently ignore
+      # TODO: add event for updating Quest (if needed)
+    end
 
     quest_data[:rewards].each do |reward|
-      pool_unique_name = "Quest$#{quest_id}-#{reward[:type]}"
-      pool_id = Digest::UUID.uuid_v5(QUEST_CREATION_NAMESPACE_UUID, pool_unique_name)
-
-      reward.delete("inventory")
-
-      Rails.configuration.command_bus.call(
-        Rewarding::CreateRewardPool.new(
-          pool_id: pool_id,
-          rewardable_id: quest_id,
-          rewardable_type: "Questing::QuestReadModel",
-          reward_definition: reward,
-          initial_inventory: (reward[:type] == "Token") ? reward[:inventory] : nil
-        )
-      )
-
-      Rails.configuration.command_bus.call(
-        Questing::AssociateRewardPool.new(
-          quest_id: quest_id,
-          pool_id: pool_id,
-          reward_definition: reward
-        )
-      )
+      RewardPoolCreation.create_pool_and_associate(quest_id, "Questing::QuestReadModel", reward)
     end
 
     quest_id
@@ -78,40 +101,23 @@ module SpecialBadgeCreation
     unique_name = "#{badge_data[:display_data][:title]}-#{badge_data[:badge_type]}"
     badge_id = Digest::UUID.uuid_v5(SPECIALBADGE_CREATION_NAMESPACE_UUID, unique_name)
 
-    Rails.configuration.command_bus.call(
-      Gamification::CreateSpecialBadge.new(
-        badge_id: badge_id,
-        display_data: badge_data[:display_data],
-        badge_type: badge_data[:badge_type],
-        badge_data: badge_data[:badge_data],
-        points: badge_data[:points]
+    begin
+      Rails.configuration.command_bus.call(
+        Gamification::CreateSpecialBadge.new(
+          badge_id: badge_id,
+          display_data: badge_data[:display_data],
+          badge_type: badge_data[:badge_type],
+          badge_data: badge_data[:badge_data],
+          points: badge_data[:points]
+        )
       )
-    )
+    rescue Gamification::SpecialBadge::AlreadyCreated
+      # Silently ignore
+      # TODO: add event for updating SpecialBadge (if needed)
+    end
 
     badge_data[:rewards].each do |reward|
-      pool_unique_name = "SpecialBadge$#{badge_id}-#{reward[:type]}"
-      pool_id = Digest::UUID.uuid_v5(SPECIALBADGE_CREATION_NAMESPACE_UUID, pool_unique_name)
-
-      reward.delete("inventory")
-
-      Rails.configuration.command_bus.call(
-        Rewarding::CreateRewardPool.new(
-          pool_id: pool_id,
-          rewardable_id: badge_id,
-          rewardable_type: "Gamification::SpecialBadgeReadModel",
-          reward_definition: reward,
-          initial_inventory: (reward[:type] == "Token") ? reward[:inventory] : nil
-        )
-      )
-
-      # Associate the reward pool with the special badge
-      Rails.configuration.command_bus.call(
-        Gamification::AssociateRewardPool.new(
-          badge_id: badge_id,
-          pool_id: pool_id,
-          reward_definition: reward
-        )
-      )
+      RewardPoolCreation.create_pool_and_associate(badge_id, "Gamification::SpecialBadgeReadModel", reward)
     end
 
     badge_id
@@ -125,16 +131,21 @@ module TierCreation
     unique_name = "#{tier_data[:display_data][:title]}-#{tier_data[:multiplier]}"
     tier_id = Digest::UUID.uuid_v5(TIER_CREATION_NAMESPACE_UUID, unique_name)
 
-    Rails.configuration.command_bus.call(
-      Gamification::CreateTier.new(
-        tier_id:,
-        display_data: tier_data[:display_data],
-        multiplier: tier_data[:multiplier],
-        image_url: tier_data[:image_url],
-        min_delegation: tier_data[:min_delegation],
-        max_delegation: tier_data[:max_delegation]
+    begin
+      Rails.configuration.command_bus.call(
+        Gamification::CreateTier.new(
+          tier_id:,
+          display_data: tier_data[:display_data],
+          multiplier: tier_data[:multiplier],
+          image_url: tier_data[:image_url],
+          min_delegation: tier_data[:min_delegation],
+          max_delegation: tier_data[:max_delegation]
+        )
       )
-    )
+    rescue Gamification::Tier::AlreadyCreated
+      # Silently ignore
+      # TODO: add event for updating Tier (if needed)
+    end
   end
 end
 
@@ -315,23 +326,32 @@ module TrackCreation
   def self.create_track_with_quests(track_data, quest_id_map)
     track_id = Digest::UUID.uuid_v5(TRACK_CREATION_NAMESPACE_UUID, track_data[:display_data][:title])
 
-    Rails.configuration.command_bus.call(
-      Questing::CreateTrack.new(
-        track_id: track_id,
-        display_data: track_data[:display_data],
-        badge_display_data: track_data[:badge_display_data]
-      )
-    )
-
-    track_data[:quests].each_with_index do |quest_title, index|
-      quest_id = quest_id_map[quest_title]
+    begin
       Rails.configuration.command_bus.call(
-        Questing::AssociateQuestWithTrack.new(
+        Questing::CreateTrack.new(
           track_id: track_id,
-          quest_id: quest_id,
-          position: index + 1
+          display_data: track_data[:display_data],
+          badge_display_data: track_data[:badge_display_data]
         )
       )
+    rescue Questing::Track::AlreadyExists
+      # Silently ignore
+      # TODO: add event for updating Track (if needed)
+    end
+
+    begin
+      track_data[:quests].each_with_index do |quest_title, index|
+        quest_id = quest_id_map[quest_title]
+        Rails.configuration.command_bus.call(
+          Questing::AssociateQuestWithTrack.new(
+            track_id: track_id,
+            quest_id: quest_id,
+            position: index + 1
+          )
+        )
+      end
+    rescue Questing::Track::QuestAlreadyAssociated
+      # Silently ignore
     end
 
     track_id

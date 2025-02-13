@@ -4,6 +4,8 @@ module Questing
 
     QuestNotCreatedError = Class.new(StandardError)
 
+    AlreadyCreatedError = Class.new(StandardError)
+
     attr_reader :actions, :state, :display_data, :audience
 
     def initialize(id)
@@ -14,6 +16,7 @@ module Questing
     end
 
     def create(display_data, audience, badge_display_data)
+      raise AlreadyCreatedError if @state != :draft
       display_data ||= {}
 
       apply QuestCreated.new(data: {

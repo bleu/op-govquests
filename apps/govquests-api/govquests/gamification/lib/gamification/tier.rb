@@ -2,6 +2,8 @@ module Gamification
   class Tier
     include AggregateRoot
 
+    class AlreadyCreated < StandardError; end
+
     def initialize(id)
       @id = id
       @display_data = nil
@@ -12,6 +14,7 @@ module Gamification
     end
 
     def create(display_data, min_delegation, max_delegation, multiplier, image_url)
+      raise AlreadyCreated if @display_data.present?
       apply TierCreated.new(data: {
         tier_id: @id,
         display_data:,
