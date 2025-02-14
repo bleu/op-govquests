@@ -17,13 +17,13 @@ Dir[File.join(__dir__, "gamification/strategies/*.rb")].each do |f|
   require_relative f
 end
 
-ACTION_BADGE_NAMESPACE_UUID = "5FA78373-03E0-4D0B-91D1-3F2C6CA3F088"
+BADGE_NAMESPACE_UUID = "5FA78373-03E0-4D0B-91D1-3F2C6CA3F088"
 
 module Gamification
   class << self
     def generate_badge_id(entity_name, entity_id)
       name = "#{entity_name}$#{entity_id}"
-      namespace_uuid = ACTION_BADGE_NAMESPACE_UUID
+      namespace_uuid = BADGE_NAMESPACE_UUID
       Digest::UUID.uuid_v5(namespace_uuid, name)
     end
 
@@ -96,12 +96,20 @@ module Gamification
       badge.create(cmd.display_data, cmd.badgeable_id, cmd.badgeable_type)
     end
 
+    handle "Gamification::UpdateBadge", aggregate: Badge do |badge, cmd|
+      badge.update(cmd.display_data)
+    end
+
     handle "Gamification::EarnBadge", aggregate: UserBadge do |user_badge, cmd|
       user_badge.earn_badge(cmd.user_id, cmd.badge_id, cmd.badge_type, cmd.earned_at)
     end
 
     handle "Gamification::CreateSpecialBadge", aggregate: SpecialBadge do |special_badge, cmd|
       special_badge.create(cmd.display_data, cmd.badge_type, cmd.badge_data)
+    end
+
+    handle "Gamification::UpdateSpecialBadge", aggregate: SpecialBadge do |special_badge, cmd|
+      special_badge.update(cmd.display_data, cmd.badge_data)
     end
 
     handle "Gamification::AssociateRewardPool", aggregate: SpecialBadge do |special_badge, cmd|
@@ -118,6 +126,10 @@ module Gamification
 
     handle "Gamification::CreateTier", aggregate: Tier do |tier, cmd|
       tier.create(cmd.display_data, cmd.min_delegation, cmd.max_delegation, cmd.multiplier, cmd.image_url)
+    end
+
+    handle "Gamification::UpdateTier", aggregate: Tier do |tier, cmd|
+      tier.update(cmd.display_data, cmd.min_delegation, cmd.max_delegation, cmd.multiplier, cmd.image_url)
     end
 
     handle "Gamification::CreateGameProfile", aggregate: GameProfile do |profile, cmd|

@@ -55,6 +55,10 @@ module ActionTracking
     handle "ActionTracking::CompleteActionExecution", aggregate: ActionExecution do |execution, cmd|
       execution.complete(cmd.nonce, cmd.completion_data)
     end
+
+    handle "ActionTracking::UpdateAction", aggregate: Action do |action, cmd|
+      action.update(cmd.action_data, cmd.display_data)
+    end
   end
 
   class Configuration

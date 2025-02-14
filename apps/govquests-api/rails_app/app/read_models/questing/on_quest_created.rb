@@ -1,7 +1,7 @@
 module Questing
   class OnQuestCreated
     def call(event)
-      slug = event.data[:display_data][:title].downcase.tr(" ", "-").delete(":")
+      slug = event.data[:display_data][:title].parameterize
 
       quest = QuestReadModel.create!(
         quest_id: event.data[:quest_id],
