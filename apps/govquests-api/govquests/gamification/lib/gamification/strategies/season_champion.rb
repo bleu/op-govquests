@@ -22,7 +22,6 @@ module Gamification
         end_of_season = @badge_data[:end_date].to_date
 
         end_of_season.past? or end_of_season.today?
-        true
       end
 
       def unlocked_by_other?
