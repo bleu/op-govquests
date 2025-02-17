@@ -36,11 +36,14 @@ module Gamification
       strategy = Gamification::SpecialBadgeStrategyFactory.for(@badge_type, badge_data: @badge_data, user_id: user_id, unlocked_by: @unlocked_by)
       can_complete = strategy.verify_completion?
 
-      apply BadgeUnlocked.new(data: {
-        badge_id: @id,
-        user_id: user_id,
-        notify: !dry_run
-      }) if can_complete
+      if can_complete
+        apply BadgeUnlocked.new(data: {
+          badge_id: @id,
+          user_id: user_id,
+        }) unless dry_run
+
+        @unlocked_by << user_id if dry_run
+      end  
       
       can_complete
     end

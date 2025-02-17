@@ -67,7 +67,6 @@ module Gamification
   class BadgeUnlocked < Infra::Event
     attribute :badge_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
-    attribute :notify, Infra::Types::Bool
   end
 
   class BadgeEarned < Infra::Event

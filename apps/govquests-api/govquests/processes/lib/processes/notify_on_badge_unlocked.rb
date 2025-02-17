@@ -20,7 +20,7 @@ module Processes
           content: "New <a href='/achievements?badgeId=#{badge_id}'>badge</a> unlocked!",
           notification_type: "badge_unlocked"
         )
-      ) if event.data[:notify]
+      )
     end
   end
 end
