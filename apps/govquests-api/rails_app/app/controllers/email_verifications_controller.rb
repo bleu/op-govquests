@@ -21,6 +21,9 @@ class EmailVerificationsController < ApplicationController
     result_str = result[:error] ? "error" : "success"
     # TODO: return errors when they happen
 
-    redirect_to "http://localhost:3000/quests/#{action_execution.quest_id}?result=#{result_str}"
+    quest_slug = Questing::QuestReadModel.find_by(quest_id: action_execution.quest_id)&.slug
+
+    frontend_domain = Rails.application.credentials.dig(Rails.env.to_sym, :frontend_domain)
+    redirect_to "#{frontend_domain}/quests/#{quest_slug}?result=#{result_str}"
   end
 end
