@@ -29,7 +29,7 @@ end
 module RewardPoolCreation
   POOL_CREATION_NAMESPACE_UUID = "85b7f3c9-a3bc-4c16-bb5d-2c0bed8a6da7"
 
-  def self.create_pool_and_associate(rewardable_id, rewardable_type, reward)
+  def self.create_pool(rewardable_id, rewardable_type, reward)
     pool_unique_name = "#{rewardable_type}$#{rewardable_id}-#{reward[:type]}"
     pool_id = Digest::UUID.uuid_v5(POOL_CREATION_NAMESPACE_UUID, pool_unique_name)
 
@@ -54,13 +54,7 @@ module RewardPoolCreation
       )
     end
 
-    Rails.configuration.command_bus.call(
-      Questing::AssociateRewardPool.new(
-        quest_id: rewardable_id,
-        pool_id: pool_id,
-        reward_definition: reward
-      )
-    )
+    pool_id
   end
 end
 
@@ -90,7 +84,15 @@ module QuestCreation
     end
 
     quest_data[:rewards].each do |reward|
-      RewardPoolCreation.create_pool_and_associate(quest_id, "Questing::QuestReadModel", reward)
+      pool_id = RewardPoolCreation.create_pool(quest_id, "Questing::QuestReadModel", reward)
+
+      Rails.configuration.command_bus.call(
+        Questing::AssociateRewardPool.new(
+          quest_id: quest_id,
+          pool_id: pool_id,
+          reward_definition: reward
+        )
+      )
     end
 
     quest_id
@@ -203,7 +205,15 @@ module SpecialBadgeCreation
     end
 
     badge_data[:rewards].each do |reward|
-      RewardPoolCreation.create_pool_and_associate(badge_id, "Gamification::SpecialBadgeReadModel", reward)
+      pool_id = RewardPoolCreation.create_pool(badge_id, "Gamification::SpecialBadgeReadModel", reward)
+
+      Rails.configuration.command_bus.call(
+        Gamification::AssociateRewardPool.new(
+          badge_id: badge_id,
+          pool_id: pool_id,
+          reward_definition: reward
+        )
+      )
     end
 
     badge_id
