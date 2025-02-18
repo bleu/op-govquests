@@ -25,7 +25,7 @@ module Gamification
 
     def calculate_voting_power(delegate)
       total_voting_power_raw = delegate.dig("votingPower", "total").to_i
-      voting_power_relative_to_votable_supply = delegate.dig("votingPowerRelativeToVotableSupply").to_f
+      voting_power_relative_to_votable_supply = delegate.dig("relativeVotingPowerToVotableSupply").to_f
 
       total_voting_power = (BigDecimal(total_voting_power_raw) / BigDecimal("1e18")).to_f
 
