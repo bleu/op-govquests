@@ -1,5 +1,7 @@
 module Gamification
   class UpdateVotingPowerService
+    class TierNotFound < StandardError; end
+
     def initialize
       @command_bus = Rails.configuration.command_bus
     end
@@ -44,14 +46,29 @@ module Gamification
     end
 
     def update_tier(profile_id, voting_power)
-      tiers = TierReadModel.order(min_delegation: :desc)
-      new_tier = tiers.find { |tier| voting_power >= tier.min_delegation }
+      tiers = TierReadModel.ordered_by_progression
+      new_tier = find_appropriate_tier(tiers, voting_power)
       raise TierNotFound unless new_tier
 
       @command_bus.call(Gamification::AchieveTier.new(
         profile_id: profile_id,
         tier_id: new_tier.tier_id
       ))
+    end
+
+    def find_appropriate_tier(tiers, voting_power)
+      tiers.reverse.find do |tier|
+        min = tier.min_delegation
+        max = tier.max_delegation
+
+        if max.nil?
+          voting_power >= min
+        elsif max == 0
+          voting_power == 0
+        else
+          voting_power > 0 && voting_power >= min && voting_power <= max
+        end
+      end
     end
 
     def agora_api

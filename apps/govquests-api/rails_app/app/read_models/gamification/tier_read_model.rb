@@ -16,6 +16,8 @@ module Gamification
       foreign_key: "tier_id",
       primary_key: "tier_id",
       inverse_of: :tier
+
+    scope :ordered_by_progression, -> { order(:min_delegation, :max_delegation) }
   end
 end
 
