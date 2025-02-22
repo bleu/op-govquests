@@ -65,10 +65,6 @@ module Gamification
       profile.maintain_streak(cmd.streak)
     end
 
-    handle "Gamification::EarnBadge", aggregate: GameProfile do |profile, cmd|
-      profile.earn_badge(cmd.badge)
-    end
-
     # Game Profile commands - tokens
     handle "Gamification::AddTokenReward", aggregate: GameProfile do |profile, cmd|
       profile.add_token_reward(
