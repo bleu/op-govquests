@@ -123,12 +123,12 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
   }, [getStatus, errorMessage, isConnected, isSignedIn, email]);
 
   return (
-    <ActionContent className="w-full">
+    <ActionContent className="w-full px-5">
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col mb-2">
           <HtmlRender content={action.displayData.description} />
         </div>
-        <ActionFooter className="flex flex-row align-top justify-between mr-4">
+        <ActionFooter className="flex flex-col md:flex-row align-top justify-between">
           <Input
             type="email"
             placeholder="Type your email"
