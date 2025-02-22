@@ -8,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useSearchParams } from "next/navigation";
 
 interface ActionHandlerProps {
   questSlug: string;
@@ -27,6 +28,9 @@ const ActionHandler: React.FC<ActionHandlerProps> = ({
     (a) => a.id === action.id,
   )?.actionExecutions;
 
+  const searchParams = useSearchParams();
+  const actionId = searchParams.get("actionId");
+
   const execution = actionExecutions?.[0] || null;
 
   const StrategyComponent = ActionStrategyFactory.createStrategy(
@@ -42,6 +46,7 @@ const ActionHandler: React.FC<ActionHandlerProps> = ({
       type="single"
       collapsible
       className="border rounded-lg py-0 bg-background/60"
+      defaultValue={actionId == action.id ? "item-1" : undefined}
     >
       <AccordionItem value="item-1" className="md:px-5">
         <AccordionTrigger className="py-4 px-5">

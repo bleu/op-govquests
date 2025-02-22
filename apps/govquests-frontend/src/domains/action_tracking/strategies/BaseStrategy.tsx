@@ -8,6 +8,7 @@ import {
   StartActionExecutionResult,
 } from "../types/actionTypes";
 import type { ActionStrategyProps, StrategyContext } from "./ActionStrategy";
+import { cn } from "@/lib/utils";
 
 interface BaseStrategyProps extends ActionStrategyProps {
   children: (contextValue: StrategyContext) => React.ReactNode;
@@ -122,7 +123,10 @@ export const BaseStrategy = (props: BaseStrategyProps) => {
 export const ActionContent = (props: ComponentProps<"div">) => {
   return (
     <div
-      className="flex flex-col justify-between items-start gap-5 px-5"
+      className={cn(
+        "flex flex-col justify-between items-start gap-5 px-5",
+        props.className,
+      )}
       {...props}
     />
   );
@@ -131,7 +135,10 @@ export const ActionContent = (props: ComponentProps<"div">) => {
 export const ActionFooter = (props: ComponentProps<"div">) => {
   return (
     <div
-      className="self-end mb-2 flex flex-col gap-1 items-end [&>button]:w-52 [&>span]:text-xs"
+      className={cn(
+        "self-end mb-2 flex flex-col gap-1 items-end [&>button]:w-52 [&>span]:text-xs text-end",
+        props.className,
+      )}
       {...props}
     />
   );

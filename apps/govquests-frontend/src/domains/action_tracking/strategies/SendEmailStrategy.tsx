@@ -94,7 +94,7 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
       );
     }
     if (errorMessage) {
-      return <span className="font-bold">{errorMessage}</span>;
+      return <span className="font-bold text-destructive">{errorMessage}</span>;
     }
 
     if (getStatus() === "unstarted") {
@@ -123,14 +123,16 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
   }, [getStatus, errorMessage, isConnected, isSignedIn, email]);
 
   return (
-    <ActionContent>
+    <ActionContent className="w-full px-5">
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col">
+        <div className="flex flex-col mb-2">
           <HtmlRender content={action.displayData.description} />
+        </div>
+        <ActionFooter className="flex flex-col md:flex-row gap-x-2 align-top justify-between">
           <Input
             type="email"
             placeholder="Type your email"
-            className="my-2 max-w-[90%] ml-1 bg-primary text-primary-foreground"
+            className="max-w-96 ml-1 bg-primary text-primary-foreground"
             value={
               getStatus() === "completed" ? execution?.startData?.email : email
             }
@@ -139,10 +141,10 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
               getStatus() === "completed" || !isConnected || !isSignedIn
             }
           />
-        </div>
-        <ActionFooter>
-          <ActionButton {...buttonProps} />
-          {verificationStatus}
+          <div className="flex flex-col gap-1 mt-1 text-end">
+            <ActionButton {...buttonProps} className="w-52 self-end" />
+            {verificationStatus}
+          </div>
         </ActionFooter>
       </form>
     </ActionContent>

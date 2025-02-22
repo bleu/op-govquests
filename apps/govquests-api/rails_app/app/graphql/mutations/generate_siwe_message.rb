@@ -9,7 +9,7 @@ module Mutations
     def resolve(address:, chain_id:)
       ensure_user_registered(address, chain_id)
 
-      domain_url = Rails.application.credentials.dig(Rails.env.to_sym, :siwe_domain)
+      domain_url = Rails.application.credentials.dig(Rails.env.to_sym, :frontend_domain)
       nonce = ::Siwe::Util.generate_nonce
       message = ::Siwe::Message.new(
         domain_url,
