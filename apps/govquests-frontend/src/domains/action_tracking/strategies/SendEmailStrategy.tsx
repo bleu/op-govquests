@@ -128,7 +128,7 @@ const SendEmailContent: StrategyChildComponent<SendEmailContentProps> = ({
         <div className="flex flex-col mb-2">
           <HtmlRender content={action.displayData.description} />
         </div>
-        <ActionFooter className="flex flex-col md:flex-row align-top justify-between">
+        <ActionFooter className="flex flex-col md:flex-row gap-x-2 align-top justify-between">
           <Input
             type="email"
             placeholder="Type your email"
