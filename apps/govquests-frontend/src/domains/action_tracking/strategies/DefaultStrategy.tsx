@@ -60,7 +60,9 @@ const DefaultContent: StrategyChildComponent = ({
       <ActionFooter>
         <ActionButton {...buttonProps} />
         {errorMessage && (
-          <span className="text-xs font-bold self-end">{errorMessage}</span>
+          <span className="text-xs font-bold self-end text-destructive">
+            {errorMessage}
+          </span>
         )}
       </ActionFooter>
     </ActionContent>

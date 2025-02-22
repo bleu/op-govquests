@@ -101,6 +101,7 @@ function ActionButton<T extends ActionType>({
   disabled = false,
   loading = false,
   customLabel,
+  className,
   ...props
 }: ActionButtonProps<T>) {
   const config = ACTIONS[actionType][status];
@@ -109,7 +110,7 @@ function ActionButton<T extends ActionType>({
   return (
     <Button
       size="sm"
-      className={cn(status === "completed" && "opacity-50")}
+      className={cn(status === "completed" && "opacity-50", className)}
       onClick={onClick}
       disabled={disabled || status === "completed" || loading}
       {...props}
