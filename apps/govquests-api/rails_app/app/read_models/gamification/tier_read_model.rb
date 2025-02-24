@@ -17,6 +17,10 @@ module Gamification
       primary_key: "tier_id",
       inverse_of: :tier
 
+    def self.find_by_title(title)
+      where("display_data->>'title' = ?", title).first
+    end
+    
     scope :ordered_by_progression, -> { order(:min_delegation, :max_delegation) }
   end
 end
