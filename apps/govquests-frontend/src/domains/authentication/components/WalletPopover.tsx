@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/Button";
 import { Popover } from "@/components/ui/popover";
+import Spinner from "@/components/ui/Spinner";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { cn } from "@/lib/utils";
 import {
@@ -16,11 +17,15 @@ import { useAccount, useBalance, useDisconnect } from "wagmi";
 export const WalletPopover = ({ className }: { className: string }) => {
   const { address } = useAccount();
   const { data: userProfile } = useUserProfile(address);
-  const { disconnect } = useDisconnect();
+  const { disconnect, isPending } = useDisconnect();
 
   const { data: balance } = useBalance({
     address,
   });
+
+  const handleDisconnect = () => {
+    disconnect();
+  };
 
   return (
     <Popover>
@@ -69,7 +74,9 @@ export const WalletPopover = ({ className }: { className: string }) => {
               {Number(balance?.formatted).toFixed(4)} {balance?.symbol}
             </span>
           </div>
-          <Button onClick={() => disconnect()}>Disconnect</Button>
+          <Button onClick={handleDisconnect} disabled={isPending}>
+            {isPending ? <Spinner /> : "Disconnect"}
+          </Button>
         </div>
       </PopoverContent>
     </Popover>
