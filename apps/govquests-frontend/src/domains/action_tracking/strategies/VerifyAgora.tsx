@@ -65,7 +65,7 @@ const VerifyAgoraChild: StrategyChildComponent = ({
       );
     }
     if (errorMessage) {
-      return <span className="font-bold ">{errorMessage}</span>;
+      return <span className="font-bold text-destructive">{errorMessage}</span>;
     }
   }, [errorMessage, isConnected, isSignedIn]);
 

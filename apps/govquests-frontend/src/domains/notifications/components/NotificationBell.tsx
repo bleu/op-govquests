@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useInView } from "react-intersection-observer";
 import { useNotificationProcessor } from "../hooks/useNotificationProcessor";
+import HtmlRender from "@/components/ui/HtmlRender";
 
 export const NotificationBell = () => {
   const { data: unreadCount } = useUnreadCount();
@@ -178,9 +179,12 @@ const NotificationItem = ({ notification, onClick }) => {
         notification.status === "read" && "text-foreground/60",
       )}
       onClick={handleClick}
+      type="button"
     >
       <div className="flex flex-col justify-between items-start gap-2">
-        <p className="text-sm flex-1">{notification.content}</p>
+        <p className="text-sm flex-1">
+          <HtmlRender content={notification.content} />
+        </p>
         <time className="text-xs whitespace-nowrap">
           {formatDate(notification.createdAt)}
         </time>

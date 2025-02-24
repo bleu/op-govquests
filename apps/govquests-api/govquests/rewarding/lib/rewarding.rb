@@ -24,5 +24,9 @@ module Rewarding
     handle "Rewarding::IssueReward", aggregate: RewardPool do |pool, cmd|
       pool.issue_reward(cmd.user_id)
     end
+
+    handle "Rewarding::UpdateRewardPool", aggregate: RewardPool do |pool, cmd|
+      pool.update(cmd.reward_definition)
+    end
   end
 end

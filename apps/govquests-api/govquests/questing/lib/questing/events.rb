@@ -3,8 +3,14 @@ module Questing
     attribute :quest_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
     attribute :audience, Infra::Types::String
-    attribute :badge_display_data, Infra::Types::Hash
   end
+
+  class QuestUpdated < Infra::Event 
+    attribute :quest_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
+    attribute :audience, Infra::Types::String
+  end
+
 
   class RewardPoolAssociated < Infra::Event
     attribute :quest_id, Infra::Types::UUID
@@ -40,7 +46,11 @@ module Questing
   class TrackCreated < Infra::Event
     attribute :track_id, Infra::Types::UUID
     attribute :display_data, Infra::Types::Hash
-    attribute :badge_display_data, Infra::Types::Hash
+  end
+
+  class TrackUpdated < Infra::Event
+    attribute :track_id, Infra::Types::UUID
+    attribute :display_data, Infra::Types::Hash
   end
 
   class QuestAssociatedWithTrack < Infra::Event

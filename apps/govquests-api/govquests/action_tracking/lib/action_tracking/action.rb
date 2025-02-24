@@ -23,6 +23,14 @@ module ActionTracking
       })
     end
 
+    def update(action_data, display_data)
+      apply ActionUpdated.new(data: {
+        action_id: @id,
+        action_data: action_data,
+        display_data: display_data
+      })
+    end
+
     attr_reader :action_type
 
     private
@@ -31,6 +39,11 @@ module ActionTracking
       @state = "created"
       @action_data = event.data[:action_data]
       @action_type = event.data[:action_type]
+      @display_data = event.data[:display_data]
+    end
+
+    on ActionUpdated do |event|
+      @action_data = event.data[:action_data]
       @display_data = event.data[:display_data]
     end
   end

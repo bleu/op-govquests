@@ -76,7 +76,11 @@ const VerifyPositionContent: StrategyChildComponent<
 
   const renderedContent = useMemo(() => {
     if (errorMessage) {
-      return <span className="text-sm font-bold">{errorMessage}</span>;
+      return (
+        <span className="text-sm font-bold text-destructive">
+          {errorMessage}
+        </span>
+      );
     }
 
     if (getStatus() === "completed") {

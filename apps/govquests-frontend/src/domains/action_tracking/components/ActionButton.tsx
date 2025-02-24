@@ -7,9 +7,9 @@ import { ComponentProps } from "react";
 const ACTIONS = {
   gitcoin_score: {
     unstarted: { label: "Connect Passport" },
-    started: { label: "Sign Message" },
+    started: { label: "Authorize Connection" },
     verify: { label: "Verify Score" },
-    completed: { label: "Connected" },
+    completed: { label: "Completed" },
   },
   read_document: {
     unstarted: { label: "Read Content", icon: ExternalLinkIcon },
@@ -101,6 +101,7 @@ function ActionButton<T extends ActionType>({
   disabled = false,
   loading = false,
   customLabel,
+  className,
   ...props
 }: ActionButtonProps<T>) {
   const config = ACTIONS[actionType][status];
@@ -109,7 +110,7 @@ function ActionButton<T extends ActionType>({
   return (
     <Button
       size="sm"
-      className={cn(status === "completed" && "opacity-50")}
+      className={cn(status === "completed" && "opacity-50", className)}
       onClick={onClick}
       disabled={disabled || status === "completed" || loading}
       {...props}

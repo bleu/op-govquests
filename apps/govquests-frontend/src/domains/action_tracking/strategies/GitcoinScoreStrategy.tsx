@@ -44,7 +44,7 @@ export const GitcoinScoreStrategy: ActionStrategy = (props) => {
 
   const onCompleteMutationSuccess = (result: CompleteActionExecutionResult) => {
     if (result?.completeActionExecution?.errors?.length) {
-      setErrorMessage(result?.completeActionExecution?.errors[0]);
+      setErrorMessage("Verification failed. You're score is under 20.");
     } else {
       setErrorMessage(null);
       refetch();
@@ -140,29 +140,24 @@ const GitcoinScoreContent: StrategyChildComponent<GitcoinScoreContentProps> = ({
       );
     }
     if (errorMessage) {
-      return (
-        <span className="text-destructive">
-          Verification failed. Sorry, you look like a bot. 🤖
-        </span>
-      );
+      return <span className="text-destructive">{errorMessage}</span>;
     }
     const status = getStatus();
-    if (status === "completed") {
-      // invariant(
-      //   execution?.completionData?.__typename === "GitcoinScoreCompletionData",
-      // );
-
-      return (
-        <span className="text-foreground/70">
-          Verification succeeded! Seems like you're human. ✅
-        </span>
-      );
-    } else if (status === "unstarted") {
-      return (
-        <span className="text-foreground/70">
-          Connect your passport to start.
-        </span>
-      );
+    switch (status) {
+      case "unstarted":
+        return (
+          <span className="text-foreground/70">
+            Connect your passport to start.
+          </span>
+        );
+      case "completed":
+        return (
+          <span className="text-foreground/70">
+            Verification succeeded! Seems like you're human. ✅
+          </span>
+        );
+      case "verify":
+        return <span className="text-foreground/70">Gitcoin connected! </span>;
     }
   }, [
     errorMessage,

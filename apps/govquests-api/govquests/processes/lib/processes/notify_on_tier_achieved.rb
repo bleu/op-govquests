@@ -14,13 +14,13 @@ module Processes
       tier_id = event.data[:tier_id]
 
       tier_record = reconstruct_tier(tier_id)
-      tier_name = tier_record&.display_data&.dig("name") unless tier_record
+      tier_title = tier_record&.display_data&.dig("title") unless tier_record
 
       @command_bus.call(
         ::Notifications::CreateNotification.new(
           notification_id: SecureRandom.uuid,
           user_id: profile_id,
-          content: "Level up! You've climbed to #{tier_name} tier!",
+          content: "Level up! You've climbed to #{tier_title} tier!",
           notification_type: "tier_achieved"
         )
       )
