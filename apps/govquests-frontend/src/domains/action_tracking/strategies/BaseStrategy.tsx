@@ -136,7 +136,7 @@ export const ActionFooter = (props: ComponentProps<"div">) => {
   return (
     <div
       className={cn(
-        "self-end mb-2 flex flex-col gap-1 items-end [&>button]:w-52 [&>span]:text-xs text-end",
+        "self-end mb-2 flex flex-col gap-2 items-end [&>button]:w-52 [&>span]:text-xs [&>span]:font-semibold text-end",
         props.className,
       )}
       {...props}

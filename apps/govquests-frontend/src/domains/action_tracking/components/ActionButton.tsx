@@ -7,9 +7,9 @@ import { ComponentProps } from "react";
 const ACTIONS = {
   gitcoin_score: {
     unstarted: { label: "Connect Passport" },
-    started: { label: "Sign Message" },
+    started: { label: "Authorize Connection" },
     verify: { label: "Verify Score" },
-    completed: { label: "Connected" },
+    completed: { label: "Completed" },
   },
   read_document: {
     unstarted: { label: "Read Content", icon: ExternalLinkIcon },
