@@ -24,6 +24,6 @@ class EmailVerificationsController < ApplicationController
     quest_slug = Questing::QuestReadModel.find_by(quest_id: action_execution.quest_id)&.slug
 
     frontend_domain = Rails.application.credentials.dig(Rails.env.to_sym, :frontend_domain)
-    redirect_to "#{frontend_domain}/quests/#{quest_slug}?actionId=#{action_execution.action_id}&result=#{result_str}"
+    redirect_to "#{frontend_domain}/quests/#{quest_slug}?actionId=#{action_execution.action_id}&result=#{result_str}", allow_other_host: true
   end
 end
