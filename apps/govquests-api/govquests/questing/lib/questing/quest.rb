@@ -6,6 +6,8 @@ module Questing
 
     AlreadyCreatedError = Class.new(StandardError)
 
+    RewardPoolAlreadyAssociatedError = Class.new(StandardError)
+
     attr_reader :actions, :state, :display_data, :audience
 
     def initialize(id)
@@ -35,6 +37,8 @@ module Questing
     end
 
     def associate_reward_pool(pool_id, reward_definition)
+      raise RewardPoolAlreadyAssociatedError if @reward_pools.values.include?(pool_id)
+
       apply RewardPoolAssociated.new(data: {
         quest_id: @id,
         pool_id: pool_id,
@@ -73,7 +77,7 @@ module Questing
     end
 
     on ActionAssociatedWithQuest do |event|
-      @actions << {id: event.data[:action_id], position: event.data[:position]}
+      @actions[event.data[:position]] = event.data[:action_id]
     end
 
     on QuestAssociatedWithTrack do |event|

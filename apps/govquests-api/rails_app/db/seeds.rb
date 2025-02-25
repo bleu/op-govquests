@@ -86,13 +86,18 @@ module QuestCreation
     quest_data[:rewards].each do |reward|
       pool_id = RewardPoolCreation.create_pool(quest_id, "Questing::QuestReadModel", reward)
 
-      Rails.configuration.command_bus.call(
-        Questing::AssociateRewardPool.new(
-          quest_id: quest_id,
-          pool_id: pool_id,
-          reward_definition: reward
+      begin
+        Rails.configuration.command_bus.call(
+          Questing::AssociateRewardPool.new(
+            quest_id: quest_id,
+            pool_id: pool_id,
+            reward_definition: reward
+          )
         )
-      )
+      rescue Questing::Quest::RewardPoolAlreadyAssociatedError
+        # Silently ignore
+        puts "Reward pool already associated: #{pool_id}"
+      end
     end
 
     quest_id
@@ -133,15 +138,17 @@ module TrackCreation
 
     track_data[:quests].each_with_index do |quest_title, index|
       quest_id = quest_id_map[quest_title]
-      Rails.configuration.command_bus.call(
-        Questing::AssociateQuestWithTrack.new(
-          track_id: track_id,
-          quest_id: quest_id,
-          position: index + 1
+      begin
+        Rails.configuration.command_bus.call(
+          Questing::AssociateQuestWithTrack.new(
+            track_id: track_id,
+            quest_id: quest_id,
+            position: index + 1
+          )
         )
-      )
-    rescue Questing::Track::QuestAlreadyAssociated
-      # Silently ignore
+      rescue Questing::Track::QuestAlreadyAssociated
+        # Silently ignore
+      end
     end
 
     track_id
@@ -207,13 +214,18 @@ module SpecialBadgeCreation
     badge_data[:rewards].each do |reward|
       pool_id = RewardPoolCreation.create_pool(badge_id, "Gamification::SpecialBadgeReadModel", reward)
 
-      Rails.configuration.command_bus.call(
-        Gamification::AssociateRewardPool.new(
-          badge_id: badge_id,
-          pool_id: pool_id,
-          reward_definition: reward
+      begin
+        Rails.configuration.command_bus.call(
+          Gamification::AssociateRewardPool.new(
+            badge_id: badge_id,
+            pool_id: pool_id,
+            reward_definition: reward
+          )
         )
-      )
+      rescue Gamification::SpecialBadge::RewardPoolAlreadyAssociatedError
+        # Silently ignore
+        puts "Reward pool already associated: #{pool_id}"
+      end
     end
 
     badge_id
