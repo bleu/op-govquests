@@ -183,7 +183,13 @@ const NotificationItem = ({ notification, onClick }) => {
     >
       <div className="flex flex-col justify-between items-start gap-2">
         <p className="text-sm flex-1">
-          <HtmlRender content={notification.content} />
+          <HtmlRender
+            content={notification.content}
+            className={cn(
+              "text-foreground font-normal",
+              notification.status === "read" && "opacity-60",
+            )}
+          />
         </p>
         <time className="text-xs whitespace-nowrap">
           {formatDate(notification.createdAt)}

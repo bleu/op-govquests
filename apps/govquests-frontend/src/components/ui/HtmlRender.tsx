@@ -3,9 +3,10 @@ import type React from "react";
 
 interface HtmlRenderProps {
   content: string;
+  className?: string;
 }
 
-const HtmlRender: React.FC<HtmlRenderProps> = ({ content }) => {
+const HtmlRender: React.FC<HtmlRenderProps> = ({ content, className }) => {
   return (
     <div
       className={cn(
@@ -14,6 +15,7 @@ const HtmlRender: React.FC<HtmlRenderProps> = ({ content }) => {
         "prose-strong:font-bold prose-strong:text-inherit",
         "prose-ul:list-disc prose-ul:pl-5 prose-ul:mt-0",
         "prose-li:pl-0 prose-li:my-0",
+        className,
       )}
       // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
       dangerouslySetInnerHTML={{
