@@ -55,14 +55,20 @@ export const siweConfig: SIWEConfig = {
     return !result?.errors.length;
   },
   getSession: async () => {
-    const { currentUser } = await fetchCurrentUser();
+    try {
+      const { currentUser } = await fetchCurrentUser();
 
-    if (!currentUser) return null;
+      if (!currentUser) {
+        return null;
+      }
 
-    return {
-      address: currentUser.address as `0x${string}`,
-      chainId: currentUser.chainId as number,
-    };
+      return {
+        address: currentUser.address as `0x${string}`,
+        chainId: currentUser.chainId as number,
+      };
+    } catch (error) {
+      return null;
+    }
   },
   signOut: async () => {
     const { signOut: result } = await signOut();
