@@ -86,13 +86,17 @@ module QuestCreation
     quest_data[:rewards].each do |reward|
       pool_id = RewardPoolCreation.create_pool(quest_id, "Questing::QuestReadModel", reward)
 
-      Rails.configuration.command_bus.call(
-        Questing::AssociateRewardPool.new(
-          quest_id: quest_id,
-          pool_id: pool_id,
-          reward_definition: reward
+      begin
+        Rails.configuration.command_bus.call(
+          Questing::AssociateRewardPool.new(
+            quest_id: quest_id,
+            pool_id: pool_id,
+            reward_definition: reward
+          )
         )
-      )
+      rescue Questing::Quest::RewardPoolAlreadyAssociatedError
+        # Silently ignore
+      end
     end
 
     quest_id
@@ -207,13 +211,17 @@ module SpecialBadgeCreation
     badge_data[:rewards].each do |reward|
       pool_id = RewardPoolCreation.create_pool(badge_id, "Gamification::SpecialBadgeReadModel", reward)
 
-      Rails.configuration.command_bus.call(
-        Gamification::AssociateRewardPool.new(
-          badge_id: badge_id,
-          pool_id: pool_id,
-          reward_definition: reward
+      begin
+        Rails.configuration.command_bus.call(
+          Gamification::AssociateRewardPool.new(
+            badge_id: badge_id,
+            pool_id: pool_id,
+            reward_definition: reward
+          )
         )
-      )
+      rescue Gamification::SpecialBadge::RewardPoolAlreadyAssociatedError
+        # Silently ignore
+      end
     end
 
     badge_id

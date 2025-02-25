@@ -5,7 +5,9 @@ module Gamification
     class VerificationFailedError < StandardError; end
 
     class AlreadyCreated < StandardError; end
-    
+
+    class RewardPoolAlreadyAssociatedError < StandardError; end
+
     attr_reader :unlocked_by
 
     def initialize(id)
@@ -36,6 +38,8 @@ module Gamification
     end
 
     def associate_reward_pool(pool_id, reward_definition)
+      raise RewardPoolAlreadyAssociatedError if @reward_pools[reward_definition[:type]]
+      
       apply RewardPoolAssociated.new(data: {
         badge_id: @id,
         pool_id:,
@@ -85,10 +89,7 @@ module Gamification
     end
 
     on RewardPoolAssociated do |event|
-      @reward_pools << {
-        pool_id: event.data[:pool_id],
-        reward_definition: event.data[:reward_definition]
-      }
+      @reward_pools[event.data[:reward_definition][:type]] = event.data[:pool_id]
     end
 
     on BadgeUnlocked do |event|

@@ -6,6 +6,8 @@ module Questing
 
     AlreadyCreatedError = Class.new(StandardError)
 
+    RewardPoolAlreadyAssociatedError = Class.new(StandardError)
+
     attr_reader :actions, :state, :display_data, :audience
 
     def initialize(id)
@@ -35,6 +37,8 @@ module Questing
     end
 
     def associate_reward_pool(pool_id, reward_definition)
+      raise RewardPoolAlreadyAssociatedError if @reward_pools[reward_definition[:type]]
+
       apply RewardPoolAssociated.new(data: {
         quest_id: @id,
         pool_id: pool_id,
@@ -44,6 +48,7 @@ module Questing
 
     def associate_action(action_id, position)
       raise QuestNotCreatedError, "Cannot associate actions before quest creation" unless @state == :created
+      raise ActionAlreadyAssociatedError if @actions.any? { |action| action[:id] == action_id }
 
       apply ActionAssociatedWithQuest.new(data: {
         quest_id: @id,
