@@ -77,7 +77,7 @@ module Questing
     end
 
     on ActionAssociatedWithQuest do |event|
-      @actions[event.data[:position]] = event.data[:action_id]
+      @actions[event.data[:position] - 1] = event.data[:action_id]
     end
 
     on QuestAssociatedWithTrack do |event|

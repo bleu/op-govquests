@@ -49,7 +49,7 @@ module Questing
 
     handle "Questing::StartUserQuest", aggregate: UserQuest do |user_quest, cmd, repository|
       repository.with_aggregate(Quest, cmd.quest_id) do |quest|
-        actions = quest.actions.map { |action| action[:id] }
+        actions = quest.actions
 
         user_quest.start(cmd.quest_id, cmd.user_id, actions)
       end
