@@ -37,7 +37,7 @@ module Questing
     end
 
     def associate_reward_pool(pool_id, reward_definition)
-      raise RewardPoolAlreadyAssociatedError if @reward_pools[reward_definition[:type]]
+      raise RewardPoolAlreadyAssociatedError if @reward_pools.values.include?(pool_id)
 
       apply RewardPoolAssociated.new(data: {
         quest_id: @id,

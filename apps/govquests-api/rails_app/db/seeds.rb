@@ -96,6 +96,7 @@ module QuestCreation
         )
       rescue Questing::Quest::RewardPoolAlreadyAssociatedError
         # Silently ignore
+        puts "Reward pool already associated: #{pool_id}"
       end
     end
 
@@ -223,6 +224,7 @@ module SpecialBadgeCreation
         )
       rescue Gamification::SpecialBadge::RewardPoolAlreadyAssociatedError
         # Silently ignore
+        puts "Reward pool already associated: #{pool_id}"
       end
     end
 
