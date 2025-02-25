@@ -11,7 +11,7 @@ export class OnNotificationHandlerFactory {
       case "quest_completed":
         return new QuestCompletedHandler(this.toast);
       default:
-        return new DefaultHandler();
+        return new DefaultHandler(this.toast);
     }
   }
 }
