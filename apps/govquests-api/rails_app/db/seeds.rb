@@ -137,15 +137,17 @@ module TrackCreation
 
     track_data[:quests].each_with_index do |quest_title, index|
       quest_id = quest_id_map[quest_title]
-      Rails.configuration.command_bus.call(
-        Questing::AssociateQuestWithTrack.new(
-          track_id: track_id,
-          quest_id: quest_id,
-          position: index + 1
+      begin
+        Rails.configuration.command_bus.call(
+          Questing::AssociateQuestWithTrack.new(
+            track_id: track_id,
+            quest_id: quest_id,
+            position: index + 1
+          )
         )
-      )
-    rescue Questing::Track::QuestAlreadyAssociated
-      # Silently ignore
+      rescue Questing::Track::QuestAlreadyAssociated
+        # Silently ignore
+      end
     end
 
     track_id

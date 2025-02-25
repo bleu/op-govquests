@@ -48,7 +48,6 @@ module Questing
 
     def associate_action(action_id, position)
       raise QuestNotCreatedError, "Cannot associate actions before quest creation" unless @state == :created
-      raise ActionAlreadyAssociatedError if @actions.any? { |action| action[:id] == action_id }
 
       apply ActionAssociatedWithQuest.new(data: {
         quest_id: @id,
@@ -78,7 +77,7 @@ module Questing
     end
 
     on ActionAssociatedWithQuest do |event|
-      @actions << {id: event.data[:action_id], position: event.data[:position]}
+      @actions[event.data[:position]] = event.data[:action_id]
     end
 
     on QuestAssociatedWithTrack do |event|
