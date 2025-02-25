@@ -15,7 +15,7 @@ module Gamification
       @display_data = nil
       @badge_type = nil
       @badge_data = nil
-      @reward_pools = []
+      @reward_pools = {}
       @unlocked_by = []
     end
 
@@ -39,7 +39,7 @@ module Gamification
 
     def associate_reward_pool(pool_id, reward_definition)
       raise RewardPoolAlreadyAssociatedError if @reward_pools[reward_definition[:type]]
-      
+
       apply RewardPoolAssociated.new(data: {
         badge_id: @id,
         pool_id:,
