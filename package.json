@@ -20,7 +20,7 @@
     "@types/node": "^22",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
-    "prettier": "^3.5.0",
+    "prettier": "^3.5.3",
     "shell-quote": "^1.8.2",
     "turbo": "^2.4.0",
     "typescript": "^5.7"
