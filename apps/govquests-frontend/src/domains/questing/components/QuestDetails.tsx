@@ -34,10 +34,10 @@ const QuestDetails = ({ quest }: QuestDetailsProps) => {
                 variant="outline"
                 size="sm"
                 className="p-2 h-6 hover:bg-primary/10"
-                onClick={() => redirect("/quests")}
+                onClick={() => redirect(`/quests?trackId=${quest.track.id}`)}
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Tracks
+                Back to Track
               </Button>
               <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold tracking-tight flex gap-x-3 gap-y-1 flex-col md:flex-row">

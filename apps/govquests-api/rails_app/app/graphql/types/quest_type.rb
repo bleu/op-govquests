@@ -9,6 +9,7 @@ module Types
     field :user_quests, [Types::UserQuestType], null: false
     field :reward_pools, [Types::RewardPoolType], null: false
     field :badge, Types::BadgeType, null: true
+    field :track, Types::TrackType, null: true
 
     def actions
       object.quest_actions.order(:position).map(&:action)
