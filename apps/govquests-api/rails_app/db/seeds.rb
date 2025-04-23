@@ -419,7 +419,7 @@ module SpecialBadgeData
     {
       display_data: {
         title: "From Zero to Hero",
-        description: "Empower new voices by delegating to someone with less than 1 OP. <a href='https://dune.com/optimismfnd/optimism-op-token-house'>Check them here</a>. Click on # OP Delegated to sort the column from the smallest to the largest value.",
+        description: "Empower new voices by delegating to someone with less than 1 OP. <a href='https://dune.com/optimismfnd/optimism-op-token-house' target='_blank' rel='noopener noreferrer'>Check them here</a>. Click on # OP Delegated to sort the column from the smallest to the largest value.",
         image_url: "/badges/SPECIAL BADGE_02_02.png"
       },
       badge_type: "delegation_empowerment",
@@ -822,7 +822,7 @@ module QuestData
     action_type: "become_delegator",
     display_data: {
       title: "Become a Delegator",
-      description: "<ul><li>Connect your wallet at <a href='https://vote.optimism.io/'>Agora</a></li><li>Delegate OP to a chosen delegate or a community member.</li><li>Submit for completion.</li></ul>"
+      description: "<ul><li>Connect your wallet at <a href='https://vote.optimism.io/' target='_blank' rel='noopener noreferrer'>Agora</a></li><li>Delegate OP to a chosen delegate or a community member.</li><li>Submit for completion.</li></ul>"
     },
     action_data: {
       action_type: "become_delegator"
@@ -854,7 +854,7 @@ module QuestData
       action_type: "read_content_inapp",
       display_data: {
         title: "How can you actually do it?",
-        description: "<ul><li>Watch this <a href='https://www.youtube.com/watch?v=pOjAOnUr3EU'>cool video</a> to understand how you can delegate your OP tokens.</li></ul>"
+        description: "<ul><li>Watch this <a href='https://www.youtube.com/watch?v=pOjAOnUr3EU' target='_blank' rel='noopener noreferrer'>cool video</a> to understand how you can delegate your OP tokens.</li></ul>"
       },
       action_data: {
         action_type: "read_content_inapp"
@@ -864,7 +864,7 @@ module QuestData
       action_type: "read_content_inapp",
       display_data: {
         title: "Selecting Your Delegate",
-        description: "<ul><li>Review delegate statements carefully on <a href='https://vote.optimism.io/delegates'>Agora</a> - your choice impacts the ecosystem;</li><li>Evaluate delegates through their activity and contributions in the <a href='https://gov.optimism.io/c/delegates/41'>Optimism Governance Forum</a> ;</li><li>Use <a href='https://dune.com/optimismfnd/optimism-op-token-house'>this ranking system</a> to compare delegates by voting power, number of delegators, and other metrics.</li></ul>"
+        description: "<ul><li>Review delegate statements carefully on <a href='https://vote.optimism.io/delegates' target='_blank' rel='noopener noreferrer'>Agora</a> - your choice impacts the ecosystem;</li><li>Evaluate delegates through their activity and contributions in the <a href='https://gov.optimism.io/c/delegates/41' target='_blank' rel='noopener noreferrer'>Optimism Governance Forum</a> ;</li><li>Use <a href='https://dune.com/optimismfnd/optimism-op-token-house' target='_blank' rel='noopener noreferrer'>this ranking system</a> to compare delegates by voting power, number of delegators, and other metrics.</li></ul>"
       },
       action_data: {
         action_type: "read_content_inapp"
@@ -887,7 +887,7 @@ module QuestData
     action_type: "op_active_debater",
     display_data: {
       title: "Active Debater",
-      description: "<ul><li>Visit <a href='https://op-chat.bleu.builders/forum/latest-topics'>GovSummarizer</a> to browse the latest OP Collective topics;</li><li>Select 2 different discussions and click to access the original posts on OP Collective;</li><li>Contribute with meaningful comments (minimum 50 words each) in both discussions</li></ul>"
+      description: "<ul><li>Visit <a href='https://op-chat.bleu.builders/forum/latest-topics' target='_blank' rel='noopener noreferrer'>GovSummarizer</a> to browse the latest OP Collective topics;</li><li>Select 2 different discussions and click to access the original posts on OP Collective;</li><li>Contribute with meaningful comments (minimum 50 words each) in both discussions</li></ul>"
     },
     action_data: {
       action_type: "op_active_debater"
