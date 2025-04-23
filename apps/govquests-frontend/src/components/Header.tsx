@@ -109,9 +109,9 @@ const Header: React.FC = () => {
                 </li>
               ))}
 
-              <NavigationMenu className=" relative">
+              <NavigationMenu className="relative">
                 <NavigationMenuList>
-                  <NavigationMenuItem className="group-hover:bg-background">
+                  <NavigationMenuItem>
                     <NavigationMenuTrigger className="flex items-center text-foreground/80 font-normal group-hover:font-extrabold focus:outline-none active:outline-none text-md rounded-full transition-transform duration-300 group-hover:scale-110">
                       # Tools
                     </NavigationMenuTrigger>
@@ -121,6 +121,7 @@ const Header: React.FC = () => {
                           key={title}
                           className="flex flex-col items-start gap-1 whitespace-nowrap group"
                           href={href}
+                          target="_blank"
                         >
                           <div className="flex items-center gap-2 group-hover:bg-white/5 transition-all duration-300 px-1 group-hover:sadow-2xl rounded-md">
                             <Icon className="size-3" />
@@ -224,6 +225,7 @@ const SideMenu = () => {
                       setTimeout(toggleSideBar, 150);
                     }}
                     className="block group"
+                    target="_blank"
                   >
                     <div className="flex items-center gap-2 p-2 rounded-md transition-colors hover:bg-white/5">
                       <Icon className="size-3 text-foreground/70" />
