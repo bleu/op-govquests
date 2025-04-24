@@ -27,7 +27,7 @@ export function CursorHighlight() {
 
   return (
     <div
-      className={`fixed pointer-events-none z-0 rounded-full bg-white/30 blur-xl transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}
+      className={`fixed pointer-events-none z-0 rounded-full bg-white/10 blur-xl transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}
       style={{
         width: "200px",
         height: "200px",
