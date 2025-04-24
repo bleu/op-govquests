@@ -13,7 +13,7 @@ import { useUserProfile } from "@/hooks/useUserProfile";
 import { cn } from "@/lib/utils";
 import type { ResultOf } from "gql.tada";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { TIER_QUERY } from "../graphql/tierQuery";
 import { usePaginatedTier } from "../hooks/useFetchTier";
 import { TrophyIcon } from "./PodiumCard";
@@ -59,7 +59,7 @@ export const LeaderboardTable = ({ tierId }: { tierId: string }) => {
               ),
           )}
         </div>
-        <Table className="border-separate border-spacing-y-3">
+        <Table className="border-separate border-spacing-y-3 px-4">
           <TableHeader className="text-sm font-bold">
             <TableRow className="hover:bg-inherit">
               <TableHead className="px-4 w-fit">#</TableHead>
@@ -127,7 +127,8 @@ const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
       key={profile.profileId}
       className={cn(
         "bg-background/50 hover:bg-background transition-all hover:shadow-[0_4px_6px_0_#00000040] duration-300 overflow-hidden rounded-lg",
-        isTarget && "bg-background shadow-[0_4px_6px_0_#00000040]",
+        isTarget &&
+          "bg-background shadow-[0_4px_6px_0_#00000040] [animation:pulse-scale_2s_ease-in-out]",
       )}
       ref={rowRef}
     >
