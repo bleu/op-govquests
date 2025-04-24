@@ -6,7 +6,7 @@ export default async function Home() {
   return (
     <>
       <CursorHighlight />
-      <main className="flex flex-1 px-6 flex-col gap-8 h-full items-center justify-center text-center max-w-[600px] mx-auto">
+      <main className="absolute inset-0 flex-1 flex px-6 flex-col items-center justify-center text-center max-w-[600px] mx-auto">
         <div className="relative w-48 h-48 overflow-hidden group">
           <div className="absolute translate-x-1/2 translate-y-1/2 w-24 h-24 overflow-hidden z-20">
             <Image
@@ -31,7 +31,7 @@ export default async function Home() {
             }}
           />
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 my-8">
           <h1 className="font-bold text-3xl [text-shadow:2px_4px_0_rgb(0,0,0)]">
             Your Odyssey Into the Future of Optimism Governance.
           </h1>
