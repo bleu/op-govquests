@@ -1,10 +1,10 @@
 module Gamification
   module Strategies
-    class DelegationEmpowerment < Base
+    class DelegateScout < Base
       include Infra::Import['services.agora']
       include Shared
-
-      DELEGATEE_MAXIMUM_VOTING_POWER = 1
+      
+      DELEGATEE_MAXIMUM_VOTING_POWER = 5000
 
       def verify_completion?
         address = Authentication::UserReadModel.find_by(user_id: @user_id).address
@@ -19,7 +19,7 @@ module Gamification
             amount_delegated: total_delegated_raw,
             delegatee_data: delegatee_data,
             maximum_voting_power: DELEGATEE_MAXIMUM_VOTING_POWER
-          )
+          ) && verify_delegate_active(delegatee_data)
         end
       end
 
