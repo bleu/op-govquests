@@ -4,7 +4,7 @@ import type React from "react";
 import { IndicatorPill } from "./IndicatorPill";
 
 interface RewardIndicator {
-  reward: Pick<Rewards[number], "amount" | "type">;
+  reward: Pick<Rewards[number]["rewardDefinition"], "amount" | "type">;
   className?: string;
 }
 
