@@ -13,12 +13,15 @@ import { useUserProfile } from "@/hooks/useUserProfile";
 import { cn } from "@/lib/utils";
 import type { ResultOf } from "gql.tada";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { TIER_QUERY } from "../graphql/tierQuery";
 import { usePaginatedTier } from "../hooks/useFetchTier";
 import { TrophyIcon } from "./PodiumCard";
 import { ProfileDialogContent } from "./ProfileDialogContent";
 import { formatVotingPower } from "../lib/utils";
+import { RefreshCcw } from "lucide-react";
+import { useAccount } from "wagmi";
+import { useRefreshVotingPower } from "../hooks/useRefreshVotingPower";
 
 export const LeaderboardTable = ({ tierId }: { tierId: string }) => {
   const {
@@ -56,7 +59,7 @@ export const LeaderboardTable = ({ tierId }: { tierId: string }) => {
               ),
           )}
         </div>
-        <Table className="border-separate border-spacing-y-3">
+        <Table className="border-separate border-spacing-y-3 px-4">
           <TableHeader className="text-sm font-bold">
             <TableRow className="hover:bg-inherit">
               <TableHead className="px-4 w-fit">#</TableHead>
@@ -101,7 +104,14 @@ interface UserTableRowProps {
 const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
   const { data } = useUserProfile(profile.user.address as `0x${string}`);
 
+  const { address } = useAccount();
+
+  const isCurrentUser = address === profile.user.address;
+
   const rowRef = useRef<HTMLTableRowElement>(null);
+
+  const { mutate: refreshVotingPower, isPending: isRefreshing } =
+    useRefreshVotingPower();
 
   useEffect(() => {
     if (isTarget && rowRef.current) {
@@ -117,7 +127,8 @@ const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
       key={profile.profileId}
       className={cn(
         "bg-background/50 hover:bg-background transition-all hover:shadow-[0_4px_6px_0_#00000040] duration-300 overflow-hidden rounded-lg",
-        isTarget && "bg-background shadow-[0_4px_6px_0_#00000040]",
+        isTarget &&
+          "bg-background shadow-[0_4px_6px_0_#00000040] [animation:pulse-scale_2s_ease-in-out]",
       )}
       ref={rowRef}
     >
@@ -126,12 +137,28 @@ const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
       </TableCell>
       {data && <TableCell className="py-4 w-1/3">{data.name}</TableCell>}
       <TableCell className="py-4 w-1/4">{profile.score}</TableCell>
-      <TableCell className="py-4 w-1/4">
+      <TableCell className="py-4 w-1/4 items-center flex whitespace-nowrap gap-2">
         {formatVotingPower(profile.votingPower?.totalVotingPower)} OP (
         {(
           profile.votingPower?.votingPowerRelativeToVotableSupply * 100
         ).toPrecision(1)}
         %)
+        {isCurrentUser && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-fit px-1 py-1"
+            onClick={() => refreshVotingPower()}
+            disabled={isRefreshing}
+          >
+            <RefreshCcw
+              className={cn(
+                isRefreshing &&
+                  "animate-[spin_3s_linear_infinite] [animation-direction:reverse]",
+              )}
+            />
+          </Button>
+        )}
       </TableCell>
       <TableCell className="rounded-r-lg w-fit self-end">
         <Dialog>

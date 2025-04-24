@@ -15,6 +15,8 @@ module Gamification
 
       update_voting_power(user_id, voting_power)
       update_tier(user_id, voting_power[:total_voting_power])
+
+      voting_power
     end
 
     private

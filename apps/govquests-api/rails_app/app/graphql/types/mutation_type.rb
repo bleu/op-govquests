@@ -17,5 +17,8 @@ module Types
 
     # Special Badges
     field :collect_badge, mutation: Mutations::CollectBadge, preauthorize: {with: AuthenticatedGraphqlPolicy}
+
+    # Voting Power
+    field :refresh_voting_power, mutation: Mutations::RefreshVotingPower, preauthorize: {with: AuthenticatedGraphqlPolicy}
   end
 end
