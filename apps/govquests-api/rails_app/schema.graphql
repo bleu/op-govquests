@@ -625,6 +625,7 @@ type Quest {
   rewardPools: [RewardPool!]!
   slug: String!
   status: String!
+  track: Track
   userQuests: [UserQuest!]!
 }
 

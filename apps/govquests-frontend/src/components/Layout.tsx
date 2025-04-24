@@ -26,13 +26,7 @@ const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <QueryClientProvider client={queryClient}>
         <SIWEProvider {...siweConfig}>
           <ConnectKitProvider onConnect={handleHomeToQuestsRedirect}>
-            <div className="min-h-screen flex flex-col">
-              <BackgroundTier />
-              <div className="fixed object-cover size-full z-[1] bg-gradient-to-b from-[#1A1B1F] to-[rgba(26,27,31,0.6)]" />
-              <Header />
-              <div className="flex-1">{children}</div>
-              <Footer />
-            </div>
+            {children}
           </ConnectKitProvider>
         </SIWEProvider>
       </QueryClientProvider>
@@ -47,11 +41,14 @@ export default function Layout({
 }>) {
   return (
     <Providers>
-      <div className="h-full relative">
+      <Header />
+      <BackgroundTier />
+      <div className="flex-1 relative">
         <div className="relative z-10 h-full max-w-[1200px] mx-auto">
           {children}
         </div>
       </div>
+      <Footer />
       <Toaster />
     </Providers>
   );
@@ -62,16 +59,19 @@ const BackgroundTier = () => {
 
   return (
     isFetched && (
-      <Image
-        src={
-          data?.currentUser.gameProfile.tier.imageUrl ||
-          "/backgrounds/OP_BLEU_TIER_01.png"
-        }
-        width={1000}
-        height={1000}
-        className="object-cover fixed size-full"
-        alt="background_tier"
-      />
+      <>
+        <Image
+          src={
+            data?.currentUser.gameProfile.tier.imageUrl ||
+            "/backgrounds/OP_BLEU_TIER_01.png"
+          }
+          width={1000}
+          height={1000}
+          className="object-cover fixed size-full"
+          alt="background_tier"
+        />
+        <div className="fixed object-cover size-full z-[1] bg-gradient-to-b from-[#1A1B1F] to-[rgba(26,27,31,0.6)]" />
+      </>
     )
   );
 };

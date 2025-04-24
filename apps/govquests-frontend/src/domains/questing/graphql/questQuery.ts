@@ -20,6 +20,13 @@ export const QuestQuery = graphql(`
         }
         remainingInventory
       }
+      track {
+        id
+        displayData {
+          title
+          description
+        }
+      }
       displayData {
         title
         intro

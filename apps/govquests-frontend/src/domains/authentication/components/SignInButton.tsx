@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/Button";
 import Spinner from "@/components/ui/Spinner";
 import { ConnectKitButton, useSIWE } from "connectkit";
-import React from "react";
+import type React from "react";
 import { useAccount } from "wagmi";
 import { WalletPopover } from "./WalletPopover";
 
@@ -29,23 +29,22 @@ const SignInButton: React.FC<SignInButtonProps> = ({ className }) => {
       {({ isConnecting, show }) => {
         if (isConnected && isSignedIn)
           return <WalletPopover className={className} />;
-        else
-          return (
-            <Button
-              variant="default"
-              onClick={isConnected ? handleAuth : show}
-              disabled={isConnecting}
-              className={className}
-            >
-              {isConnecting ? (
-                <Spinner />
-              ) : !isConnected ? (
-                "Connect Wallet"
-              ) : (
-                !isSignedIn && "Sign-In with Ethereum"
-              )}
-            </Button>
-          );
+        return (
+          <Button
+            variant="default"
+            onClick={isConnected ? handleAuth : show}
+            disabled={isConnecting}
+            className={className}
+          >
+            {isConnecting ? (
+              <Spinner />
+            ) : !isConnected ? (
+              "Connect Wallet"
+            ) : (
+              !isSignedIn && "Sign-In with Ethereum"
+            )}
+          </Button>
+        );
       }}
     </ConnectKitButton.Custom>
   );
