@@ -12,6 +12,7 @@ import type { ComponentProps } from "react";
 import type { CURRENT_USER_QUERY, USER_QUERY } from "../graphql/userQuery";
 import { useCurrentUserInfo, useUserInfo } from "../hooks/useUserInfo";
 import { useFetchQuests } from "@/domains/questing/hooks/useFetchQuests";
+import { ConditionalWrapper } from "@/components/ui/ConditionalWrapper";
 
 export const CurrentUserAchievementPanel = () => {
   const { data, isSuccess, isError } = useCurrentUserInfo();
@@ -159,9 +160,21 @@ export const UserAchievementPanel = ({
             )}
           </div>
         </div>
-        <IndicatorPill className="px-8 min-w-48 h-[26px]">
-          {user?.gameProfile.tier.displayData.title}
-        </IndicatorPill>
+        <ConditionalWrapper
+          condition={isFromCurrentUser}
+          wrapper={(children) => (
+            <Link
+              href={`/leaderboard?tab=my-tier&rank=${user?.gameProfile.rank}`}
+              className="hover:scale-105 transition duration-300"
+            >
+              {children}
+            </Link>
+          )}
+        >
+          <IndicatorPill className="px-8 min-w-48 h-[26px]">
+            {user?.gameProfile.tier.displayData.title}
+          </IndicatorPill>
+        </ConditionalWrapper>
       </div>
     </div>
   );
