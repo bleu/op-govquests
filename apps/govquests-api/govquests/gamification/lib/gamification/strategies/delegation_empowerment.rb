@@ -1,3 +1,5 @@
+require_relative "shared"
+
 module Gamification
   module Strategies
     class DelegationEmpowerment < Base

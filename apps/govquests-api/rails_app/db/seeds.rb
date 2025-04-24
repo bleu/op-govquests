@@ -548,6 +548,23 @@ module SpecialBadgeData
           amount: 15
         }
       ]
+    },
+    {
+      display_data: {
+        title: "Delegate Scout",
+        description: "Support growing delegates! Delegate OP to an active delegate managing less than 5k OP.",
+        image_url: "/badges/SPECIAL BADGE_04_02.png"
+      },
+      badge_type: "delegate_scout",
+      badge_data: {
+        badge_type: "delegate_scout"
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        }
+      ]
     }
   ]
 end

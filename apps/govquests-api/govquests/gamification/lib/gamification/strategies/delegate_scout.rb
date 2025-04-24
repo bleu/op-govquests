@@ -1,9 +1,11 @@
+require_relative "shared"
+
 module Gamification
   module Strategies
     class DelegateScout < Base
       include Infra::Import['services.agora']
       include Shared
-      
+
       DELEGATEE_MAXIMUM_VOTING_POWER = 5000
 
       def verify_completion?
@@ -15,11 +17,14 @@ module Gamification
           total_delegated_raw = delegatee.dig("allowance").to_i
           delegatee_data = fetch_delegate_data(delegatee.dig("to"))
 
+          is_active = verify_delegate_active(delegatee_data)
+          next unless is_active
+
           verify_delegatee_voting_power(
             amount_delegated: total_delegated_raw,
             delegatee_data: delegatee_data,
             maximum_voting_power: DELEGATEE_MAXIMUM_VOTING_POWER
-          ) && verify_delegate_active(delegatee_data)
+          )
         end
       end
 
