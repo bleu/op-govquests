@@ -18,7 +18,7 @@ const QuestsPage: React.FC = () => {
   }
 
   return (
-    <div className="py-8">
+    <div className="py-8 px-6">
       <TrackList />
     </div>
   );

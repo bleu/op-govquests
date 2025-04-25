@@ -7,7 +7,7 @@ export const TrackList = () => {
 
   return (
     data && (
-      <div className="max-w-[1200px] mx-auto px-6 space-y-6">
+      <div className="space-y-6">
         <SectionHeader
           title="Tracks"
           description="Complete quests to earn points and unlock rewards."
