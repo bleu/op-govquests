@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/Button";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import Spinner from "@/components/ui/Spinner";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -12,16 +12,16 @@ import {
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { cn } from "@/lib/utils";
 import type { ResultOf } from "gql.tada";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { RefreshCcw } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useRef } from "react";
+import { useAccount } from "wagmi";
 import type { TIER_QUERY } from "../graphql/tierQuery";
 import { usePaginatedTier } from "../hooks/useFetchTier";
+import { useRefreshVotingPower } from "../hooks/useRefreshVotingPower";
+import { formatVotingPower } from "../lib/utils";
 import { TrophyIcon } from "./PodiumCard";
 import { ProfileDialogContent } from "./ProfileDialogContent";
-import { formatVotingPower } from "../lib/utils";
-import { RefreshCcw } from "lucide-react";
-import { useAccount } from "wagmi";
-import { useRefreshVotingPower } from "../hooks/useRefreshVotingPower";
 
 export const LeaderboardTable = ({ tierId }: { tierId: string }) => {
   const {
@@ -108,6 +108,8 @@ const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
 
   const isCurrentUser = address === profile.user.address;
 
+  const router = useRouter();
+
   const rowRef = useRef<HTMLTableRowElement>(null);
 
   const { mutate: refreshVotingPower, isPending: isRefreshing } =
@@ -126,11 +128,12 @@ const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
     <TableRow
       key={profile.profileId}
       className={cn(
-        "bg-background/50 hover:bg-background transition-all hover:shadow-[0_4px_6px_0_#00000040] duration-300 overflow-hidden rounded-lg",
+        "bg-background/50 hover:bg-background hover:cursor-pointer transition-all hover:shadow-[0_4px_6px_0_#00000040] duration-300 overflow-hidden rounded-lg",
         isTarget &&
           "bg-background shadow-[0_4px_6px_0_#00000040] [animation:pulse-scale_2s_ease-in-out]",
       )}
       ref={rowRef}
+      onClick={() => router.push(`/leaderboard/${profile.user.id}`)}
     >
       <TableCell className="py-4 rounded-l-lg w-fit px-4">
         {profile.rank}
@@ -167,11 +170,18 @@ const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
               variant="outline"
               size="sm"
               className="px-2 py-1 mt-[2px] mr-2 hover:bg-inherit w-28 h-fit"
+              onClick={(e) => e.stopPropagation()}
             >
               See profile
             </Button>
           </DialogTrigger>
-          <ProfileDialogContent userId={profile.user.id} />
+          <div
+            onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => e.stopPropagation()}
+            onMouseDown={(e) => e.stopPropagation()}
+          >
+            <ProfileDialogContent userId={profile.user.id} />
+          </div>
         </Dialog>
       </TableCell>
     </TableRow>
