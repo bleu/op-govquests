@@ -5,6 +5,7 @@ import { useUserInfo } from "../hooks/useUserInfo";
 import { NormalBadgeCard, SpecialBadgeCard } from "./BadgeCard";
 import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
+import Link from "next/link";
 
 interface UserBadgesCollectionProps extends ComponentProps<"div"> {
   userId: string;
@@ -32,9 +33,13 @@ export const UserBadgesCollection = ({
         {...props}
       >
         {data?.user.userBadges.length ? (
-          data?.user.userBadges.map(({ badge }) => {
-            if (badge.__typename === "Badge")
-              return (
+          data?.user.userBadges.map(({ badge }) => (
+            <Link
+              href={`/achievements?badgeId=${badge.id}`}
+              key={badge.id}
+              className="hover:scale-105 transition duration-300"
+            >
+              {badge.__typename === "Badge" ? (
                 <NormalBadgeCard
                   badgeId={badge.id}
                   key={badge.id}
@@ -43,18 +48,18 @@ export const UserBadgesCollection = ({
                   revealIncomplete
                   scaleDisabled
                 />
-              );
-            return (
-              <SpecialBadgeCard
-                badgeId={badge.id}
-                key={badge.id}
-                withTitle={true}
-                header={`SPECIAL BADGE #${badge.displayData.sequenceNumber}`}
-                revealIncomplete
-                scaleDisabled
-              />
-            );
-          })
+              ) : (
+                <SpecialBadgeCard
+                  badgeId={badge.id}
+                  key={badge.id}
+                  withTitle={true}
+                  header={`SPECIAL BADGE #${badge.displayData.sequenceNumber}`}
+                  revealIncomplete
+                  scaleDisabled
+                />
+              )}
+            </Link>
+          ))
         ) : (
           <div className="w-full col-span-4 mt-4 text-foreground/80">
             This user hasn't collected any badges yet.
