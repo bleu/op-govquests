@@ -130,7 +130,7 @@ const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
       className={cn(
         "bg-background/50 hover:bg-background hover:cursor-pointer transition-all hover:shadow-[0_4px_6px_0_#00000040] duration-300 overflow-hidden rounded-lg",
         isTarget &&
-          "bg-background shadow-[0_4px_6px_0_#00000040] [animation:pulse-scale_2s_ease-in-out]",
+          "bg-background shadow-[0_4px_6px_0_#00000040] animate-leaderboard-pulse",
       )}
       ref={rowRef}
       onClick={() => router.push(`/leaderboard/${profile.user.id}`)}
@@ -151,7 +151,10 @@ const UserTableRow = ({ profile, isTarget }: UserTableRowProps) => {
             variant="ghost"
             size="icon"
             className="h-fit px-1 py-1"
-            onClick={() => refreshVotingPower()}
+            onClick={(e) => {
+              e.stopPropagation();
+              refreshVotingPower();
+            }}
             disabled={isRefreshing}
           >
             <RefreshCcw

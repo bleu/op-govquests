@@ -103,9 +103,27 @@
   }
 }
 
+@keyframes leaderboard-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-leaderboard-pulse {
+  animation: leaderboard-pulse 2s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
 .animate-highlight {
   animation: highlight 2s ease-out forwards;
 }
+
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
