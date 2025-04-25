@@ -43,7 +43,7 @@ export default function Layout({
     <Providers>
       <Header />
       <BackgroundTier />
-      <div className="flex-1 relative z-10 max-w-[1200px] mx-auto w-full md:px-6">{children}</div>
+      <div className="flex-1 relative z-10 mx-auto w-full">{children}</div>
       <Footer />
       <Toaster />
     </Providers>

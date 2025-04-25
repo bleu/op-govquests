@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use } from "react";
+import { use } from "react";
 
 import LoadingIndicator from "@/components/ui/LoadingIndicator";
 import { useFetchQuest } from "@/domains/questing/hooks/useFetchQuest";
