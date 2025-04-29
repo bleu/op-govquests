@@ -41,6 +41,7 @@ module Gamification
   class TierAchieved < Infra::Event
     attribute :profile_id, Infra::Types::UUID
     attribute :tier_id, Infra::Types::UUID
+    attribute :old_tier_id, Infra::Types::UUID
   end
 
   class TrackCompleted < Infra::Event
