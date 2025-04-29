@@ -16,6 +16,8 @@ module Processes
       tier_record = reconstruct_tier(tier_id)
       tier_title = tier_record&.display_data&.dig("title") unless tier_record
 
+      return if event.data[:old_tier_id].nil?
+
       old_tier_record = reconstruct_tier(event.data[:old_tier_id])
       
       min_delegation = tier_record&.min_delegation
