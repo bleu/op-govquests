@@ -1,6 +1,7 @@
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import type { DialogProps } from "@radix-ui/react-dialog";
 import { BadgeDetails } from "./BadgeDetails";
+import { useState } from "react";
 
 interface BadgeDialogInterface extends DialogProps {
   badgeId: string;
@@ -16,10 +17,12 @@ export const BadgeDialog = ({
   className,
   ...props
 }: BadgeDialogInterface) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Dialog {...props}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen} {...props}>
       <DialogTrigger className={className}>{children}</DialogTrigger>
-      <BadgeDetails badgeId={badgeId} special={special} />
+      <BadgeDetails badgeId={badgeId} special={special} setIsOpen={setIsOpen} />
     </Dialog>
   );
 };

@@ -5,8 +5,12 @@ import { useCollectBadge } from "../hooks/useCollectBadge";
 import { useAccount } from "wagmi";
 import { useSIWE } from "connectkit";
 import HtmlRender from "@/components/ui/HtmlRender";
+import { useConfetti } from "@/components/ConfettiProvider";
 
-export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
+export const SpecialBadgeContent = ({
+  badgeId,
+  setIsOpen,
+}: { badgeId: string; setIsOpen: (isOpen: boolean) => void }) => {
   const { data } = useFetchSpecialBadge(badgeId);
 
   const { isConnected } = useAccount();
@@ -17,6 +21,8 @@ export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
   const { mutate } = useCollectBadge();
 
   const [error, setError] = useState(null);
+
+  const { triggerConfetti } = useConfetti();
 
   const handleCollectBadge = () => {
     mutate(
@@ -30,6 +36,8 @@ export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
             setError(result.collectBadge.errors?.[0]);
           } else {
             setError(null);
+            triggerConfetti();
+            setIsOpen(false);
           }
         },
         onError: (error) => {
@@ -53,7 +61,7 @@ export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
           <HtmlRender content={data.specialBadge.displayData.description} />
         </span>
         <span>
-          If you’ve already reached this milestone, click to collect this badge
+          If you've already reached this milestone, click to collect this badge
           now.
         </span>
         <div className="flex flex-col gap-2 justify-center items-center">
@@ -65,7 +73,7 @@ export const SpecialBadgeContent = ({ badgeId }: { badgeId: string }) => {
             Collect Badge
           </Button>
           {error && (
-            <p className="text-destructive font-bold text-xs text-centerπ">
+            <p className="text-destructive font-bold text-xs text-center">
               {error}
             </p>
           )}

@@ -11,11 +11,13 @@ import { SpecialBadgeContent } from "./SpecialBadgeContent";
 interface BadgeDetailsProps {
   badgeId: string;
   special?: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
 export const BadgeDetails = ({
   badgeId,
   special = false,
+  setIsOpen,
 }: BadgeDetailsProps) => {
   return (
     <DialogContent className="max-w-[500px] w-[85%] rounded-xl">
@@ -30,7 +32,7 @@ export const BadgeDetails = ({
               <div className="w-[190px]">
                 <SpecialBadgeCard badgeId={badgeId} revealIncomplete />
               </div>
-              <SpecialBadgeContent badgeId={badgeId} />
+              <SpecialBadgeContent badgeId={badgeId} setIsOpen={setIsOpen} />
             </div>
           ) : (
             <div>
