@@ -1,4 +1,4 @@
-import type { NotificationNode } from "../types/notificationTypes";
+import type { NotificationNode } from "../lib/types";
 import type { useToast } from "@/hooks/use-toast";
 
 export interface OnNotificationHandlerProps {

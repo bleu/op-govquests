@@ -1,17 +1,13 @@
-import HtmlRender from "@/components/ui/HtmlRender";
-import { NotificationNode } from "../types/notificationTypes";
-import { OnNotificationHandler } from "./OnNotificationHandler";
-import React from "react";
-
+import type { NotificationNode } from "../lib/types";
+import type { OnNotificationHandler } from "./OnNotificationHandler";
+import { NOTIFICATION_TITLES_MAP } from "../lib/constants";
 export class DefaultHandler implements OnNotificationHandler {
   constructor(private toast) {}
 
   handle(notification: NotificationNode) {
-    const titleElement = React.createElement(HtmlRender, {
-      content: notification.content,
-      className: "font-bold text-foreground",
+    this.toast({
+      title: NOTIFICATION_TITLES_MAP[notification.notificationType],
+      description: notification.content,
     });
-
-    this.toast({ title: titleElement });
   }
 }
