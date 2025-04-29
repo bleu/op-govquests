@@ -5,7 +5,6 @@ import { useCollectBadge } from "../hooks/useCollectBadge";
 import { useAccount } from "wagmi";
 import { useSIWE } from "connectkit";
 import HtmlRender from "@/components/ui/HtmlRender";
-import { useConfetti } from "@/components/ConfettiProvider";
 
 export const SpecialBadgeContent = ({
   badgeId,
@@ -22,8 +21,6 @@ export const SpecialBadgeContent = ({
 
   const [error, setError] = useState(null);
 
-  const { triggerConfetti } = useConfetti();
-
   const handleCollectBadge = () => {
     mutate(
       {
@@ -36,7 +33,6 @@ export const SpecialBadgeContent = ({
             setError(result.collectBadge.errors?.[0]);
           } else {
             setError(null);
-            triggerConfetti();
             setIsOpen(false);
           }
         },

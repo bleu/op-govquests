@@ -9,7 +9,6 @@ export class BadgeEarnedHandler implements OnNotificationHandler {
 
   handle(notification: NotificationNode) {
     this.triggerConfetti();
-
     this.toast({ title: notification.content });
   }
 }
