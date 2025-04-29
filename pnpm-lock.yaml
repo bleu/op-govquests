@@ -96,6 +96,9 @@ importers:
       react:
         specifier: 19.0.0
         version: 19.0.0
+      react-confetti:
+        specifier: ^6.4.0
+        version: 6.4.0(react@19.0.0)
       react-dom:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
@@ -1288,6 +1291,7 @@ packages:
       {
         integrity: sha512-IHnV6A+zxU7XwmKFinmYjUcwlyK9+xkG3/s9KcQhI9BjQKycrJ1JRO+FbNYPwZiPKW3je/DR0k7w8/gLa5eaxQ==,
       }
+    deprecated: 'The package is now available as "qr": npm install qr'
 
   "@pkgjs/parseargs@0.11.0":
     resolution:
@@ -2214,6 +2218,7 @@ packages:
       {
         integrity: sha512-sErYwvSSHQolNXni47L3Bm10ptJc1s1YoJvJd34s5E9h9+d3rj7PrhbiW9X82deN+Dm5oA8X9tC4xty1yIBrVg==,
       }
+    deprecated: "Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases"
 
   "@walletconnect/time@1.0.2":
     resolution:
@@ -4363,6 +4368,7 @@ packages:
       {
         integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==,
       }
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.isplainobject@4.0.6:
     resolution:
@@ -5385,6 +5391,15 @@ packages:
         integrity: sha512-b484I/7b8rDEdSDKckSSBA8knMpcdsXudlE/LNL639wFoHKwLbEkQFZHWEYwDC0wa0FKUcCY+GAF73Z7wxNVFA==,
       }
 
+  react-confetti@6.4.0:
+    resolution:
+      {
+        integrity: sha512-5MdGUcqxrTU26I2EU7ltkWPwxvucQTuqMm8dUz72z2YMqTD6s9vMcDUysk7n9jnC+lXuCPeJJ7Knf98VEYE9Rg==,
+      }
+    engines: { node: ">=16" }
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+
   react-dom@19.0.0:
     resolution:
       {
@@ -6236,6 +6251,12 @@ packages:
         integrity: sha512-ah/yQp2oMif1X0u7fBJ4MLMygnkbKnW5O8SG6pJvloPCpHfFoZctkSVQiJ3VnvNTq71V2JJIdwmOeu1i34OQyg==,
       }
     hasBin: true
+
+  tween-functions@1.2.0:
+    resolution:
+      {
+        integrity: sha512-PZBtLYcCLtEcjL14Fzb1gSxPBeL7nWvGhO5ZFPGqziCcr8uvHp0NDmdjBchp6KHL+tExcg0m3NISmKxhU394dA==,
+      }
 
   tweetnacl@0.14.5:
     resolution:
@@ -10394,6 +10415,11 @@ snapshots:
 
   radix3@1.1.2: {}
 
+  react-confetti@6.4.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      tween-functions: 1.2.0
+
   react-dom@19.0.0(react@19.0.0):
     dependencies:
       react: 19.0.0
@@ -10953,6 +10979,8 @@ snapshots:
       turbo-linux-arm64: 2.4.0
       turbo-windows-64: 2.4.0
       turbo-windows-arm64: 2.4.0
+
+  tween-functions@1.2.0: {}
 
   tweetnacl@0.14.5: {}
 
