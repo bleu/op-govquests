@@ -35,6 +35,7 @@ module Gamification
       CommandHandler.register_commands(event_store, command_bus)
 
       Gamification.command_bus = command_bus
+      Gamification.event_store = event_store
     end
   end
 

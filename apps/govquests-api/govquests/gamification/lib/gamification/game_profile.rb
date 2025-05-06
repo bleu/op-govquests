@@ -23,6 +23,7 @@ module Gamification
       @active_claim = nil
       @voting_power = 0
       @voting_power_relative_to_votable_supply = 0
+      @delegatee_address = nil
     end
 
     def create
@@ -134,6 +135,13 @@ module Gamification
       })
     end
 
+    def update_delegatee(delegatee_address)
+      apply DelegateeUpdated.new(data: {
+        profile_id: @id,
+        delegatee_address: delegatee_address
+      })
+    end
+
     private
 
     def can_claim?(token_address)
@@ -194,6 +202,10 @@ module Gamification
 
     on GameProfileRankUpdated do |event|
       @rank = event.data[:rank]
+    end
+
+    on GameProfileDelegateeUpdated do |event|
+      @delegatee_address = event.data[:delegatee_address]
     end
   end
 end

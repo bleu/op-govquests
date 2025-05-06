@@ -10,10 +10,10 @@ module Gamification
         delegatee_voting_power - total_delegated <= maximum_voting_power
       end
 
-      def verify_delegate_active(delegatee_data)
+      def verify_delegate_active(delegate_data)
         # TODO: update this when curiahub governance API is available
         # https://linear.app/bleu-builders/issue/OPGOV-749
-        delegatee_data.dig("lastTenProps").to_i >= 7
+        delegate_data.dig("lastTenProps").to_i >= 7
       end
     end
   end
