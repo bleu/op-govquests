@@ -12,7 +12,7 @@ module Processes
     def call(event)
       leaderboard_id = event.data[:leaderboard_id]
 
-      tier_id = LeaderboardReadModel.find_by(leaderboard_id: leaderboard_id)&.tier_id
+      tier_id = Gamification::LeaderboardReadModel.find_by(leaderboard_id: leaderboard_id)&.tier_id
 
       return unless tier_id.present?
 

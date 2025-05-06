@@ -18,7 +18,7 @@ module Gamification
       @track = nil
       @streak = 0
       @badges = []
-      @rank = 0
+      @rank = nil
       @unclaimed_tokens = {} # token_address => amount
       @active_claim = nil
       @voting_power = 0

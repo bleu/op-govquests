@@ -16,8 +16,10 @@ require_relative "processes/notify_on_tier_achieved"
 require_relative "processes/notify_on_badge_unlocked"
 require_relative "processes/reward_badge_on_quest_or_track_completed"
 require_relative "processes/update_track_on_quest_completed"
+require_relative "processes/update_game_profile_on_leaderboard_updated"
 
 require_relative "processes/deliver_notification_on_created"
+
 module Processes
   class Configuration
     def call(event_store, command_bus)
@@ -32,6 +34,7 @@ module Processes
       UpdateTrackOnQuestCompleted.new(event_store, command_bus).subscribe
       DistributeRewardsOnBadgeEarned.new(event_store, command_bus).subscribe
       CreateGameProfileOnUserRegistered.new(event_store, command_bus).subscribe
+      UpdateGameProfileOnLeaderboardUpdated.new(event_store, command_bus).subscribe
 
       NotifyOnQuestCompleted.new(event_store, command_bus).subscribe
       NotifyOnBadgeEarned.new(event_store, command_bus).subscribe
