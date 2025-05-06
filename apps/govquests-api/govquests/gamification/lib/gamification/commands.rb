@@ -165,4 +165,11 @@ module Gamification
 
     alias :aggregate_id :profile_id
   end
+
+  class UpdateGameProfileDelegatee < Infra::Command
+    attribute :profile_id, Infra::Types::UUID
+    attribute :delegatee_address, Infra::Types::String
+
+    alias :aggregate_id :profile_id
+  end
 end

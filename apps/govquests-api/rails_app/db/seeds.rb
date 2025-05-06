@@ -565,6 +565,23 @@ module SpecialBadgeData
           amount: 330
         }
       ]
+    },
+    {
+      display_data: {
+        title: "Vigilant Redelegator",
+        description: "Your chosen delegate might currently be inactive. If that's the case, strengthen governance by reallocating your delegation to active delegates!",
+        image_url: "/badges/SPECIAL BADGE_05_02.png"
+      },
+      badge_type: "vigilant_redelegator",
+      badge_data: {
+        badge_type: "vigilant_redelegator"
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        }
+      ]
     }
   ]
 end

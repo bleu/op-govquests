@@ -40,6 +40,7 @@ end
 #  id               :bigint           not null, primary key
 #  active_claim     :jsonb
 #  badges           :jsonb
+#  delegatee        :string
 #  rank             :integer
 #  score            :integer          default(0)
 #  streak           :integer          default(0)
