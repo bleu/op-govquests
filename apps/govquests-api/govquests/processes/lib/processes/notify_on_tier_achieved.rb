@@ -18,7 +18,8 @@ module Processes
 
       return if event.data[:old_tier_id].nil?
 
-      old_tier_record = reconstruct_tier(event.data[:old_tier_id])
+      previous_tier_id = game_profile_previous_tier(profile_id)
+      old_tier_record = reconstruct_tier(previous_tier_id)
       
       min_delegation = tier_record&.min_delegation
       old_min_delegation = old_tier_record&.min_delegation
@@ -46,6 +47,22 @@ module Processes
     end
 
     private
+
+    def game_profile_previous_tier(profile_id)
+      stream_name = "Gamification::GameProfile$#{profile_id}"
+      events = Rails.configuration.event_store.read.stream(stream_name).to_a
+
+      return nil if events.empty?
+      
+      previous_tiers = events.find_all { |event| event.is_a?(Gamification::TierAchieved) }
+
+      sorted_tiers = previous_tiers.sort_by { |event| event.metadata[:timestamp] }
+      if sorted_tiers.length <= 1
+        return nil
+      end
+
+      sorted_tiers[-2].data[:tier_id]
+    end
 
     def reconstruct_tier(tier_id)
       return nil if tier_id.nil?

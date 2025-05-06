@@ -101,7 +101,6 @@ module Gamification
       apply TierAchieved.new(data: {
         profile_id: @id,
         tier_id: tier_id,
-        old_tier_id: @tier_id
       })
     end
 
