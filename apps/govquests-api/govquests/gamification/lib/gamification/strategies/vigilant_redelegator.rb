@@ -24,6 +24,13 @@ module Gamification
           is_previous_delegatee_active = is_delegatee_active?(previous_delegatee_address)
           next if is_previous_delegatee_active
 
+          Gamification.command_bus.call(
+            Gamification::GameProfileDelegateeUpdated.new(
+              user_id: @user_id,
+              delegatee_address: delegatee.dig("to")
+            )
+          )
+
           true
         end
       end
