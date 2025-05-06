@@ -131,5 +131,9 @@ module Gamification
     handle "Gamification::CreateGameProfile", aggregate: GameProfile do |profile, cmd|
       profile.create
     end
+
+    handle "Gamification::UpdateGameProfileRank", aggregate: GameProfile do |profile, cmd|
+      profile.update_rank(cmd.rank)
+    end
   end
 end

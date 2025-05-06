@@ -18,6 +18,7 @@ module Gamification
       @track = nil
       @streak = 0
       @badges = []
+      @rank = 0
       @unclaimed_tokens = {} # token_address => amount
       @active_claim = nil
       @voting_power = 0
@@ -125,6 +126,14 @@ module Gamification
       })
     end
 
+    def update_rank(rank)
+      return if @rank == rank
+      apply GameProfileRankUpdated.new(data: {
+        profile_id: @id,
+        rank: rank
+      })
+    end
+
     private
 
     def can_claim?(token_address)
@@ -181,6 +190,10 @@ module Gamification
 
     on GameProfileCreated do |event|
       @tier_id = event.data[:tier_id]
+    end
+
+    on GameProfileRankUpdated do |event|
+      @rank = event.data[:rank]
     end
   end
 end

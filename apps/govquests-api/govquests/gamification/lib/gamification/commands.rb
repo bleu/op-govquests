@@ -158,4 +158,11 @@ module Gamification
 
     alias :aggregate_id :profile_id
   end
+
+  class UpdateGameProfileRank < Infra::Command
+    attribute :profile_id, Infra::Types::UUID
+    attribute :rank, Infra::Types::Integer
+
+    alias :aggregate_id :profile_id
+  end
 end
