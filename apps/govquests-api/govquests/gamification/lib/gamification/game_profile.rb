@@ -100,7 +100,7 @@ module Gamification
       return if @tier_id == tier_id
       apply TierAchieved.new(data: {
         profile_id: @id,
-        tier_id: tier_id
+        tier_id: tier_id,
       })
     end
 

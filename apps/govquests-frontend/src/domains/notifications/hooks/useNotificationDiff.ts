@@ -1,4 +1,4 @@
-import { NotificationEdge } from "../types/notificationTypes";
+import type { NotificationEdge } from "../lib/types";
 import { usePrevious } from "./usePrevious";
 
 export const useNotificationDiff = (notifications: NotificationEdge[]) => {

@@ -1,4 +1,5 @@
-import type { NotificationNode } from "../types/notificationTypes";
+import { NOTIFICATION_TITLES_MAP } from "../lib/constants";
+import type { NotificationNode } from "../lib/types";
 import type { OnNotificationHandler } from "./OnNotificationHandler";
 
 export class BadgeEarnedHandler implements OnNotificationHandler {
@@ -9,6 +10,9 @@ export class BadgeEarnedHandler implements OnNotificationHandler {
 
   handle(notification: NotificationNode) {
     this.triggerConfetti();
-    this.toast({ title: notification.content });
+    this.toast({
+      title: NOTIFICATION_TITLES_MAP[notification.notificationType],
+      description: notification.content,
+    });
   }
 }

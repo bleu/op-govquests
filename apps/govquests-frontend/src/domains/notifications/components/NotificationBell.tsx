@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { useInView } from "react-intersection-observer";
 import { useNotificationProcessor } from "../hooks/useNotificationProcessor";
 import HtmlRender from "@/components/ui/HtmlRender";
+import { NOTIFICATION_TITLES_MAP } from "../lib/constants";
 
 export const NotificationBell = () => {
   const { data: unreadCount } = useUnreadCount();
@@ -182,15 +183,20 @@ const NotificationItem = ({ notification, onClick }) => {
       type="button"
     >
       <div className="flex flex-col justify-between items-start gap-2">
-        <p className="text-sm flex-1">
-          <HtmlRender
-            content={notification.content}
-            className={cn(
-              "text-foreground font-normal",
-              notification.status === "read" && "opacity-60",
-            )}
-          />
-        </p>
+        <div className="flex flex-col">
+          <p className="text-sm font-medium">
+            {NOTIFICATION_TITLES_MAP[notification.notificationType]}
+          </p>
+          <p className="text-sm flex-1">
+            <HtmlRender
+              content={notification.content}
+              className={cn(
+                "text-foreground font-thin",
+                notification.status === "read" && "opacity-60",
+              )}
+            />
+          </p>
+        </div>
         <time className="text-xs whitespace-nowrap">
           {formatDate(notification.createdAt)}
         </time>
