@@ -6,7 +6,6 @@ module Gamification
       event_store.subscribe(OnTrackCompleted, to: [Gamification::TrackCompleted])
       event_store.subscribe(OnStreakMaintained, to: [Gamification::StreakMaintained])
       event_store.subscribe(OnBadgeEarned, to: [Gamification::BadgeEarned])
-      event_store.subscribe(OnLeaderboardUpdated, to: [Gamification::LeaderboardUpdated])
       event_store.subscribe(OnScoreUpdated, to: [Gamification::ScoreUpdated])
       event_store.subscribe(OnTokenRewardAdded, to: [Gamification::TokenRewardAdded])
       event_store.subscribe(OnTokenClaimStarted, to: [Gamification::TokenClaimStarted])
@@ -18,6 +17,7 @@ module Gamification
       event_store.subscribe(OnBadgeUpdated, to: [Gamification::BadgeUpdated])
       event_store.subscribe(OnSpecialBadgeUpdated, to: [Gamification::SpecialBadgeUpdated])
       event_store.subscribe(OnTierUpdated, to: [Gamification::TierUpdated])
+      event_store.subscribe(OnGameProfileRankUpdated, to: [Gamification::GameProfileRankUpdated])
     end
   end
 end

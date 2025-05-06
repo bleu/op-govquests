@@ -121,4 +121,9 @@ module Gamification
   class GameProfileCreated < Infra::Event
     attribute :profile_id, Infra::Types::UUID
   end
+
+  class GameProfileRankUpdated < Infra::Event
+    attribute :profile_id, Infra::Types::UUID
+    attribute :rank, Infra::Types::Integer
+  end
 end
