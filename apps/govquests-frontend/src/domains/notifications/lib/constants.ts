@@ -5,4 +5,5 @@ export const NOTIFICATION_TITLES_MAP = {
   badge_earned: "Badge Earned!",
   special_badge_earned: "Special Badge Collected!",
   badge_unlocked: "Badge Ready for You!",
+  podium_rank_up: "You’re in the Top 3!",
 };
