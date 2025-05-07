@@ -11,6 +11,27 @@ module Notifications
       class_name: "Notifications::NotificationDeliveryReadModel",
       foreign_key: "notification_id",
       primary_key: "notification_id"
+
+    def title
+      case notification_type
+      when "quest_completed"
+        "Quest Completed!"
+      when "tier_achieved"
+        "Level Up!"
+      when "tier_downgraded"
+        "Tier Update"
+      when "badge_earned"
+        "Badge Earned!"
+      when "special_badge_earned"
+        "Special Badge Collected!"
+      when "badge_unlocked"
+        "Badge Ready for You!"
+      when "podium_rank_up"
+        "You’re in the Top 3!"
+      else
+        "New Notification"
+      end
+    end
   end
 end
 

@@ -6,6 +6,7 @@ export const NotificationsQuery = graphql(`
       edges {
         node {
           id
+          title
           content
           notificationType
           status

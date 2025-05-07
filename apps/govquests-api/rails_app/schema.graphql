@@ -511,6 +511,7 @@ type Notification implements Node {
   id: ID!
   notificationType: String!
   status: String!
+  title: String!
 }
 
 """

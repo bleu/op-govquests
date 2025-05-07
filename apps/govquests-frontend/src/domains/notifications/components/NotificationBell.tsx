@@ -18,7 +18,6 @@ import { cn } from "@/lib/utils";
 import { useInView } from "react-intersection-observer";
 import { useNotificationProcessor } from "../hooks/useNotificationProcessor";
 import HtmlRender from "@/components/ui/HtmlRender";
-import { NOTIFICATION_TITLES_MAP } from "../lib/constants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NotificationSettings } from "./NotificationSettings";
 
@@ -196,9 +195,7 @@ const NotificationItem = ({ notification, onClick }) => {
     >
       <div className="flex flex-col justify-between items-start gap-2">
         <div className="flex flex-col">
-          <p className="text-sm font-medium">
-            {NOTIFICATION_TITLES_MAP[notification.notificationType]}
-          </p>
+          <p className="text-sm font-medium">{notification.title}</p>
           <p className="text-sm flex-1">
             <HtmlRender
               content={notification.content}
