@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_05_07_135054) do
+ActiveRecord::Schema[8.1].define(version: 2025_05_07_171226) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -307,6 +307,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_05_07_135054) do
     t.integer "chain_id", null: false
     t.string "telegram_chat_id"
     t.string "telegram_token"
+    t.boolean "telegram_notifications", default: false
+    t.boolean "email_notifications", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["telegram_chat_id"], name: "index_users_on_telegram_chat_id", unique: true
     t.index ["telegram_token"], name: "index_users_on_telegram_token", unique: true

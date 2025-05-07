@@ -3,7 +3,7 @@ import { GENERATE_SIWE_MESSAGE } from "../graphql/generateSiweMessage";
 import { SIGN_IN_WITH_ETHEREUM } from "../graphql/signInWithEthereum";
 import { SIGN_OUT } from "../graphql/signOut";
 import { CURRENT_USER } from "../graphql/currentUser";
-import { ResultOf, VariablesOf } from "gql.tada";
+import type { ResultOf, VariablesOf } from "gql.tada";
 import { API_URL } from "@/lib/utils";
 
 const client = new GraphQLClient(API_URL, {

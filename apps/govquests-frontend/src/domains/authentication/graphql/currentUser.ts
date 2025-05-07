@@ -6,6 +6,8 @@ export const CURRENT_USER = graphql(`
       id
       address
       chainId
+      telegramNotifications
+      emailNotifications
     }
   }
 `);

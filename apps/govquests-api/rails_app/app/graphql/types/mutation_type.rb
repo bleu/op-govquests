@@ -15,13 +15,13 @@ module Types
     field :mark_notification_as_read, mutation: Mutations::MarkNotificationAsRead, preauthorize: {with: AuthenticatedGraphqlPolicy}
     field :mark_all_notifications_as_read, mutation: Mutations::MarkAllNotificationsAsRead, preauthorize: {with: AuthenticatedGraphqlPolicy}
 
+    field :update_notification_preferences, mutation: Mutations::UpdateNotificationPreferences, preauthorize: {with: AuthenticatedGraphqlPolicy}
+    field :connect_telegram, mutation: Mutations::ConnectTelegram, preauthorize: {with: AuthenticatedGraphqlPolicy}
+
     # Special Badges
     field :collect_badge, mutation: Mutations::CollectBadge, preauthorize: {with: AuthenticatedGraphqlPolicy}
 
     # Voting Power
     field :refresh_voting_power, mutation: Mutations::RefreshVotingPower, preauthorize: {with: AuthenticatedGraphqlPolicy}
-
-    # Telegram
-    field :connect_telegram, mutation: Mutations::ConnectTelegram, preauthorize: {with: AuthenticatedGraphqlPolicy}
   end
 end
