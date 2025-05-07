@@ -27,9 +27,29 @@ class TelegramBotServer
 
       if user.present?
         user.update(telegram_chat_id: chat_id)
-        bot.api.send_message(chat_id: chat_id, text: "Successfully connected to your account!")
+
+        message_params = {
+          chat_id: chat_id,
+          text: "🎉 Welcome to GovQuests! Your Telegram account has been successfully connected. You'll now receive notifications about your quests, achievements, and rewards directly here."
+        }
+
+        if Rails.env.production?
+          message_params[:text] += " Click below to return to the app and start your journey!"
+          message_params[:reply_markup] = Telegram::Bot::Types::InlineKeyboardMarkup.new(
+            inline_keyboard: [
+              [
+                Telegram::Bot::Types::InlineKeyboardButton.new(
+                  text: "Return to GovQuests",
+                  url: "https://app.govquests.com"
+                )
+              ]
+            ]
+          )
+        end
+
+        bot.api.send_message(message_params)
       else
-        bot.api.send_message(chat_id: chat_id, text: "Invalid token")
+        bot.api.send_message(chat_id: chat_id, text: "❌ Invalid token. Please make sure you're using the correct connection link from the GovQuests app.")
       end
     end
   end

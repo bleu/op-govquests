@@ -49,7 +49,7 @@ export const NotificationSettings = () => {
                   <Tooltip>
                     <TooltipTrigger>{children}</TooltipTrigger>
                     <TooltipContent>
-                      <p>Connect wiht Telegram first to enable notifications</p>
+                      <p>Connect with Telegram first to enable notifications</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
