@@ -98,3 +98,5 @@ gem "dry-container"
 gem "dry-auto_inject"
 
 gem "appsignal", "~> 4.4.0"
+
+gem "telegram-bot-ruby"
