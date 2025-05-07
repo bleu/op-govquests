@@ -41,7 +41,8 @@ module Processes
           notification_id: SecureRandom.uuid,
           user_id: profile_id,
           content: content,
-          notification_type: notification_type
+          notification_type: notification_type,
+          delivery_methods: ["in_app", "email", "telegram"]
         )
       )
     end
