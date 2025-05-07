@@ -23,8 +23,5 @@ module Types
 
     # Voting Power
     field :refresh_voting_power, mutation: Mutations::RefreshVotingPower, preauthorize: {with: AuthenticatedGraphqlPolicy}
-
-    # Telegram
-    field :connect_telegram, mutation: Mutations::ConnectTelegram, preauthorize: {with: AuthenticatedGraphqlPolicy}
   end
 end
