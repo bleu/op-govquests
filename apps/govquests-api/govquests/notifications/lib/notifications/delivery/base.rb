@@ -72,13 +72,34 @@ module Notifications
       end
     end
 
+    class TelegramDelivery < Base
+      def deliver
+        SendTelegramMessageJob.perform_now(@notification.id)
+
+        {
+          delivery_method: "telegram",
+          delivered_at: Time.now,
+          metadata: {
+            chat_id: fetch_user_telegram_chat_id
+          }
+        }
+      end
+
+      private 
+
+      def fetch_user_telegram_chat_id
+        Authentication::UserReadModel.find_by(user_id: @notification.user_id).telegram_chat_id
+      end
+    end
+    
     class DeliveryStrategyFactory
       class UnknownDeliveryMethodError < StandardError; end
 
       STRATEGIES = {
         "in_app" => InAppDelivery,
         "email" => EmailDelivery,
-        "sms" => SmsDelivery
+        "sms" => SmsDelivery,
+        "telegram" => TelegramDelivery
       }.freeze
 
       def self.for(method, notification)
