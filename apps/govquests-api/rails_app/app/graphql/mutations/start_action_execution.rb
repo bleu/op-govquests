@@ -3,12 +3,11 @@ module Mutations
     argument :quest_id, ID, required: true
     argument :action_id, ID, required: true
     argument :action_type, String, required: true, description: "Type of the action"
-    argument :send_email_verification_input, Types::Inputs::SendEmailVerificationInput, required: false
 
     field :action_execution, Types::ActionExecutionType, null: true
     field :errors, [String], null: false
 
-    def resolve(quest_id:, action_id:, action_type:, send_email_verification_input: nil)
+    def resolve(quest_id:, action_id:, action_type:)
       action = ActionTracking::ActionReadModel.find_by(action_id: action_id)
       unless action
         return {action_execution: nil, errors: ["Action not found"]}
@@ -20,10 +19,6 @@ module Mutations
         "become_delegator"
         {
           address: current_user.address
-        }
-      when "send_email"
-        {
-          email: send_email_verification_input&.email
         }
       when "op_active_debater", "op_forum_contributor"
         {

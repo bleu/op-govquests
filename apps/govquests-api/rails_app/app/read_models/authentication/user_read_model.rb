@@ -40,22 +40,23 @@ end
 #
 # Table name: users
 #
-#  id                     :bigint           not null, primary key
-#  activity_log           :jsonb
-#  address                :string           not null
-#  email                  :string
-#  email_notifications    :boolean          default(FALSE)
-#  quests_progress        :jsonb
-#  sessions               :jsonb
-#  settings               :jsonb
-#  telegram_notifications :boolean          default(FALSE)
-#  telegram_token         :string
-#  user_type              :string           default("non_delegate"), not null
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  chain_id               :integer          not null
-#  telegram_chat_id       :string
-#  user_id                :string           not null
+#  id                       :bigint           not null, primary key
+#  activity_log             :jsonb
+#  address                  :string           not null
+#  email                    :string
+#  email_notifications      :boolean          default(FALSE)
+#  email_verification_token :string
+#  quests_progress          :jsonb
+#  sessions                 :jsonb
+#  settings                 :jsonb
+#  telegram_notifications   :boolean          default(FALSE)
+#  telegram_token           :string
+#  user_type                :string           default("non_delegate"), not null
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  chain_id                 :integer          not null
+#  telegram_chat_id         :string
+#  user_id                  :string           not null
 #
 # Indexes
 #
