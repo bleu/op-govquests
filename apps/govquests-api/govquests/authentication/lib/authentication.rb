@@ -37,5 +37,18 @@ module Authentication
         cmd.timestamp
       )
     end
+
+    handle "Authentication::UpdateUserTelegramToken", aggregate: User do |user, cmd|
+      user.update_telegram_token(
+        cmd.telegram_token
+      )
+    end
+
+    handle "Authentication::UpdateUserNotificationPreferences", aggregate: User do |user, cmd|
+      user.update_notification_preferences(
+        cmd.telegram_notifications,
+        cmd.email_notifications
+      )
+    end
   end
 end

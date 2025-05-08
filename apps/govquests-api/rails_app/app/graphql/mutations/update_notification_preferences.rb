@@ -8,11 +8,13 @@ module Mutations
     def resolve(telegram_notifications: nil, email_notifications: nil)
       user = context[:current_user]
 
-      update_params = {}
-      update_params[:telegram_notifications] = telegram_notifications if !telegram_notifications.nil?
-      update_params[:email_notifications] = email_notifications if !email_notifications.nil?
+      command = Authentication::UpdateUserNotificationPreferences.new(
+        user_id: user.user_id,
+        telegram_notifications: telegram_notifications,
+        email_notifications: email_notifications
+      )
 
-      user.update(update_params)
+      Rails.configuration.command_bus.call(command)
 
       {errors: []}
     end

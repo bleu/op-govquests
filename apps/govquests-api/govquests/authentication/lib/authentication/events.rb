@@ -12,4 +12,15 @@ module Authentication
     attribute :session_token, Infra::Types::String
     attribute :timestamp, Infra::Types::Time
   end
+
+  class UserTelegramTokenUpdated < Infra::Event
+    attribute :user_id, Infra::Types::UUID
+    attribute :telegram_token, Infra::Types::String
+  end
+
+  class UserNotificationPreferencesUpdated < Infra::Event
+    attribute :user_id, Infra::Types::UUID
+    attribute :telegram_notifications, Infra::Types::Bool.optional
+    attribute :email_notifications, Infra::Types::Bool.optional
+  end
 end

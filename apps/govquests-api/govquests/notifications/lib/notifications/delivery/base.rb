@@ -45,30 +45,7 @@ module Notifications
       private
 
       def fetch_user_email
-        # In real implementation, this would fetch from user record
-        "user@example.com"
-      end
-    end
-
-    class SmsDelivery < Base
-      def deliver
-        # In real implementation, this would use Twilio or similar
-        # For now, we'll just emit a delivery event
-        {
-          delivery_method: "sms",
-          delivered_at: Time.now,
-          metadata: {
-            to: fetch_user_phone,
-            provider: "twilio"
-          }
-        }
-      end
-
-      private
-
-      def fetch_user_phone
-        # In real implementation, this would fetch from user record
-        "+1234567890"
+        Authentication::UserReadModel.find_by(user_id: notification.user_id).email
       end
     end
 
@@ -98,7 +75,6 @@ module Notifications
       STRATEGIES = {
         "in_app" => InAppDelivery,
         "email" => EmailDelivery,
-        "sms" => SmsDelivery,
         "telegram" => TelegramDelivery
       }.freeze
 
