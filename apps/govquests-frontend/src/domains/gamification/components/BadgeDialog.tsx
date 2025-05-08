@@ -8,6 +8,7 @@ interface BadgeDialogInterface extends DialogProps {
   children: React.ReactNode;
   special?: boolean;
   className?: string;
+  defaultOpen?: boolean;
 }
 
 export const BadgeDialog = ({
@@ -15,9 +16,10 @@ export const BadgeDialog = ({
   special,
   children,
   className,
+  defaultOpen = false,
   ...props
 }: BadgeDialogInterface) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} {...props}>
