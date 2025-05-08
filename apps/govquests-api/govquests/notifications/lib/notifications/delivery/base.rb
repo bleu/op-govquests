@@ -50,28 +50,6 @@ module Notifications
       end
     end
 
-    class SmsDelivery < Base
-      def deliver
-        # In real implementation, this would use Twilio or similar
-        # For now, we'll just emit a delivery event
-        {
-          delivery_method: "sms",
-          delivered_at: Time.now,
-          metadata: {
-            to: fetch_user_phone,
-            provider: "twilio"
-          }
-        }
-      end
-
-      private
-
-      def fetch_user_phone
-        # In real implementation, this would fetch from user record
-        "+1234567890"
-      end
-    end
-
     class TelegramDelivery < Base
       def deliver
         SendTelegramMessageJob.perform_now(@notification.id)
@@ -98,7 +76,6 @@ module Notifications
       STRATEGIES = {
         "in_app" => InAppDelivery,
         "email" => EmailDelivery,
-        "sms" => SmsDelivery,
         "telegram" => TelegramDelivery
       }.freeze
 

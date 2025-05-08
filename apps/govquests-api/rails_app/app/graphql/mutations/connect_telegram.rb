@@ -11,7 +11,13 @@ module Mutations
       end
 
       telegram_token = SecureRandom.hex(16)
-      user.update(telegram_token: telegram_token)
+
+      command = Authentication::UpdateUserTelegramToken.new(
+        user_id: user.user_id,
+        telegram_token: telegram_token
+      )
+
+      Rails.configuration.command_bus.call(command)
 
       {
         link_to_chat: "https://t.me/#{Rails.application.credentials.telegram_bot.username}?start=#{telegram_token}",

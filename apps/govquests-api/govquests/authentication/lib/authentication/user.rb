@@ -18,6 +18,9 @@ module Authentication
       @quests_progress = {}
       @activity_log = []
       @claimed_rewards = []
+      @telegram_token = nil
+      @telegram_notifications = false
+      @email_notifications = false
     end
 
     def register(email, user_type, address, chain_id)
@@ -42,6 +45,21 @@ module Authentication
       })
     end
 
+    def update_telegram_token(telegram_token)
+      apply UserTelegramTokenUpdated.new(data: {
+        user_id: @id,
+        telegram_token: telegram_token
+      })
+    end
+
+    def update_notification_preferences(telegram_notifications, email_notifications)
+      apply UserNotificationPreferencesUpdated.new(data: {
+        user_id: @id,
+        telegram_notifications: telegram_notifications,
+        email_notifications: email_notifications
+      })
+    end
+
     private
 
     on UserRegistered do |event|
@@ -57,6 +75,15 @@ module Authentication
         session_token: event.data[:session_token],
         logged_in_at: event.data[:timestamp]
       }
+    end
+
+    on UserTelegramTokenUpdated do |event|
+      @telegram_token = event.data[:telegram_token]
+    end
+
+    on UserNotificationPreferencesUpdated do |event|
+      @telegram_notifications = event.data[:telegram_notifications]
+      @email_notifications = event.data[:email_notifications]
     end
   end
 end
