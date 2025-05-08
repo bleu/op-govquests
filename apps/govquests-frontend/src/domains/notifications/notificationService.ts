@@ -7,6 +7,10 @@ import {
   IsTelegramConnectedQuery,
   UpdateNotificationPreferencesMutation,
 } from "./graphql/telegram";
+import {
+  EmailVerificationStatusQuery,
+  SendEmailVerificationMutation,
+} from "./graphql/email";
 
 export const fetchNotifications = async (
   variables: VariablesOf<typeof NotificationsQuery>,
@@ -33,4 +37,12 @@ export const updateNotificationPreferences = async ({
     telegramNotifications,
     emailNotifications,
   });
+};
+
+export const sendEmailVerification = async (email: string) => {
+  return request(API_URL, SendEmailVerificationMutation, { email });
+};
+
+export const getEmailVerificationStatus = async () => {
+  return request(API_URL, EmailVerificationStatusQuery);
 };

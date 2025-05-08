@@ -310,7 +310,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_05_08_132244) do
     t.boolean "telegram_notifications", default: false
     t.boolean "email_notifications", default: false
     t.string "email_verification_token"
-    t.boolean "pending_email_verification", default: false
+    t.string "email_verification_status", default: "not_verified"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["email_verification_token"], name: "index_users_on_email_verification_token", unique: true
     t.index ["telegram_chat_id"], name: "index_users_on_telegram_chat_id", unique: true

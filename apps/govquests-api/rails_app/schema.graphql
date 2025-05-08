@@ -906,6 +906,7 @@ type User {
   chainId: Int!
   email: String
   emailNotifications: Boolean
+  emailVerificationStatus: String
   emailVerificationToken: String
   gameProfile: GameProfile
   id: ID!

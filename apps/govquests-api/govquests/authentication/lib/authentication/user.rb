@@ -21,7 +21,7 @@ module Authentication
       @telegram_token = nil
       @telegram_notifications = false
       @email_notifications = false
-      @pending_email_verification = false
+      @email_verification_status = "not_verified"
     end
 
     def register(email, user_type, address, chain_id)
@@ -67,15 +67,17 @@ module Authentication
       apply EmailVerificationSent.new(data: {
         user_id: @id,
         email: email,
-        token: token
+        token: token,
+        status: "pending"
       })
     end
 
     def verify_email
-      raise "Email not pending verification" unless @pending_email_verification
+      raise "Email not pending verification" unless @email_verification_status == "pending"
 
       apply EmailVerified.new(data: {
-        user_id: @id
+        user_id: @id,
+        status: "verified"
       })
     end
 
@@ -108,12 +110,12 @@ module Authentication
     on EmailVerificationSent do |event|
       @email = event.data[:email]
       @email_verification_token = event.data[:token]
-      @pending_email_verification = true
+      @email_verification_status = event.data[:status]
     end
 
     on EmailVerified do |event|
       @email_verification_token = nil
-      @pending_email_verification = false
+      @email_verification_status = event.data[:status]
     end
   end
 end

@@ -6,7 +6,7 @@ module Authentication
       user.update(
         email_verification_token: event.data[:token],
         email: event.data[:email],
-        pending_email_verification: true
+        email_verification_status: event.data[:status]
       )
     end
   end

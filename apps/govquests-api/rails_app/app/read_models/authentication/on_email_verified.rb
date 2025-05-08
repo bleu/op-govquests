@@ -4,7 +4,7 @@ module Authentication
       user = Authentication::UserReadModel.find_by(user_id: event.data[:user_id])
 
       user.update(
-        pending_email_verification: false
+        email_verification_status: event.data[:status]
       )
     end
   end

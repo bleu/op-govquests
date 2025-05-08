@@ -26,7 +26,7 @@ module Mutations
         token: token
       )
 
-      @command_bus.call(command)
+      Rails.configuration.command_bus.call(command)
 
       {
         success: true,

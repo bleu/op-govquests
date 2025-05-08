@@ -10,6 +10,7 @@ module Types
     field :telegram_notifications, Boolean, null: true
     field :email_notifications, Boolean, null: true
     field :email_verification_token, String, null: true
+    field :email_verification_status, String, null: true
 
     field :user_badges, [Types::UserBadgeType], null: true
     field :user_quests, [Types::UserQuestType], null: true
