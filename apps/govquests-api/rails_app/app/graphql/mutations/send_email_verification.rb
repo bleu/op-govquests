@@ -20,9 +20,13 @@ module Mutations
 
       token = SecureRandom.hex(16)
 
-      Authentication::VerifyEmailClient.send_email_async(new_email, token)
+      command = Authentication::SendEmailVerification.new(
+        user_id: user.user_id,
+        email: new_email,
+        token: token
+      )
 
-      user.update(email: nil, email_verification_token: token)
+      @command_bus.call(command)
 
       {
         success: true,

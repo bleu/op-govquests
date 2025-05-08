@@ -23,4 +23,14 @@ module Authentication
     attribute :telegram_notifications, Infra::Types::Bool.optional
     attribute :email_notifications, Infra::Types::Bool.optional
   end
+
+  class EmailVerificationSent < Infra::Event
+    attribute :user_id, Infra::Types::UUID
+    attribute :email, Infra::Types::String
+    attribute :token, Infra::Types::String
+  end
+
+  class EmailVerified < Infra::Event
+    attribute :user_id, Infra::Types::UUID
+  end
 end

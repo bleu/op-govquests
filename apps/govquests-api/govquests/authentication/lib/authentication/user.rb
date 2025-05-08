@@ -21,6 +21,7 @@ module Authentication
       @telegram_token = nil
       @telegram_notifications = false
       @email_notifications = false
+      @pending_email_verification = false
     end
 
     def register(email, user_type, address, chain_id)
@@ -60,6 +61,24 @@ module Authentication
       })
     end
 
+    def send_email_verification(email, token)
+      Authentication::VerifyEmailClient.send_email_async(email, token)
+
+      apply EmailVerificationSent.new(data: {
+        user_id: @id,
+        email: email,
+        token: token
+      })
+    end
+
+    def verify_email
+      raise "Email not pending verification" unless @pending_email_verification
+
+      apply EmailVerified.new(data: {
+        user_id: @id
+      })
+    end
+
     private
 
     on UserRegistered do |event|
@@ -84,6 +103,17 @@ module Authentication
     on UserNotificationPreferencesUpdated do |event|
       @telegram_notifications = event.data[:telegram_notifications]
       @email_notifications = event.data[:email_notifications]
+    end
+
+    on EmailVerificationSent do |event|
+      @email = event.data[:email]
+      @email_verification_token = event.data[:token]
+      @pending_email_verification = true
+    end
+
+    on EmailVerified do |event|
+      @email_verification_token = nil
+      @pending_email_verification = false
     end
   end
 end

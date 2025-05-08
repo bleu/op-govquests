@@ -12,7 +12,11 @@ class EmailVerificationsController < ApplicationController
       return render json: {error: "Invalid token"}, status: :not_found
     end
 
-    user.update(email: user.email, email_verification_token: nil)
+    command = Authentication::VerifyEmail.new(
+      user_id: user.user_id
+    )
+
+    Rails.configuration.command_bus.call(command)
 
     frontend_domain = Rails.application.credentials.dig(Rails.env.to_sym, :frontend_domain)
     redirect_to "#{frontend_domain}/?showNotificationSettings=true", allow_other_host: true
