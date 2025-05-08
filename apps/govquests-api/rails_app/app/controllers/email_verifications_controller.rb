@@ -21,6 +21,8 @@ class EmailVerificationsController < ApplicationController
     result_str = result[:error] ? "error" : "success"
     # TODO: return errors when they happen
 
+    Authentication::UserReadModel.find_by(user_id: action_execution.user_id).update(email: action_execution.start_data["email"])
+
     quest_slug = Questing::QuestReadModel.find_by(quest_id: action_execution.quest_id)&.slug
 
     frontend_domain = Rails.application.credentials.dig(Rails.env.to_sym, :frontend_domain)

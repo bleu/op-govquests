@@ -17,7 +17,8 @@ class SendTelegramMessageJob < ApplicationJob
 
     self.class.bot.api.send_message(
       chat_id: user.telegram_chat_id,
-      text: notification.content
+      text: "<b>#{notification.title}</b>\n\n#{notification.content}",
+      parse_mode: "HTML"
     )
   rescue => e
     Rails.logger.error("Failed to send Telegram message: #{e.message}")

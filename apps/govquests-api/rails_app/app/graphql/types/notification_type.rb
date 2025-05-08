@@ -11,6 +11,8 @@ module Types
 
     field :status, String, null: false
 
+    field :title, String, null: false
+
     def status
       in_app_delivery = object.deliveries.find_by(delivery_method: "in_app")
       if in_app_delivery&.read_at.present?

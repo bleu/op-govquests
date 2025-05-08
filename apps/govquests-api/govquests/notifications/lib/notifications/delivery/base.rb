@@ -30,8 +30,8 @@ module Notifications
 
     class EmailDelivery < Base
       def deliver
-        # In real implementation, this would use ActionMailer or similar
-        # For now, we'll just emit a delivery event
+        ::NotificationMailer.notify(notification.id).deliver_now
+
         {
           delivery_method: "email",
           delivered_at: Time.now,
@@ -45,14 +45,13 @@ module Notifications
       private
 
       def fetch_user_email
-        # In real implementation, this would fetch from user record
-        "user@example.com"
+        Authentication::UserReadModel.find_by(user_id: notification.user_id).email
       end
     end
 
     class TelegramDelivery < Base
       def deliver
-        SendTelegramMessageJob.perform_now(@notification.id)
+        SendTelegramMessageJob.perform_now(notification.id)
 
         {
           delivery_method: "telegram",
@@ -66,7 +65,7 @@ module Notifications
       private 
 
       def fetch_user_telegram_chat_id
-        Authentication::UserReadModel.find_by(user_id: @notification.user_id).telegram_chat_id
+        Authentication::UserReadModel.find_by(user_id: notification.user_id).telegram_chat_id
       end
     end
     
