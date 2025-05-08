@@ -53,7 +53,7 @@ module Notifications
       @deliveries.key?(method)
     end
 
-    attr_reader :user_id, :content, :type, :delivery_methods
+    attr_reader :id, :user_id, :content, :type, :delivery_methods
 
     private
 

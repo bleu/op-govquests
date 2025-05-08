@@ -19,6 +19,8 @@ import { useInView } from "react-intersection-observer";
 import { useNotificationProcessor } from "../hooks/useNotificationProcessor";
 import HtmlRender from "@/components/ui/HtmlRender";
 import { NOTIFICATION_TITLES_MAP } from "../lib/constants";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { NotificationSettings } from "./NotificationSettings";
 
 export const NotificationBell = () => {
   const { data: unreadCount } = useUnreadCount();
@@ -44,7 +46,7 @@ export const NotificationBell = () => {
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 p-0" align="end" sideOffset={5}>
+      <PopoverContent className="w-96 p-0" align="end" sideOffset={5}>
         <NotificationPanel onNotificationClick={() => setIsOpen(false)} />
       </PopoverContent>
     </Popover>
@@ -106,57 +108,67 @@ const NotificationPanel = ({ onNotificationClick }) => {
   const notifications =
     data?.pages.flatMap((page) => page.notifications.edges) ?? [];
 
-  if (!notifications.length) {
-    return (
-      <div className="py-8 text-center text-muted-foreground text-sm">
-        No notifications
-      </div>
-    );
-  }
-
   return (
     <>
-      <div className="flex items-center justify-between p-2 border-b">
-        <h4 className="text-sm font-medium px-1">Notifications</h4>
-      </div>
-      <ScrollArea className="h-[300px]">
-        <div className="flex flex-col">
-          {notifications.map(({ node }) => (
-            <NotificationItem
-              key={node.id}
-              notification={node}
-              onClick={() => {
-                onNotificationClick();
-                if (node.status === "unread") {
-                  markAsRead(node.id);
-                }
-              }}
-            />
-          ))}
-          {hasNextPage && (
-            <div ref={loadMoreRef} className="p-2 flex justify-center">
-              {isFetchingNextPage ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <span className="text-xs text-muted-foreground">Load more</span>
-              )}
+      <div className="flex items-center justify-between">
+        <Tabs defaultValue="notifications" className="w-full">
+          <TabsList className="w-full justify-start flex bg-inherit border-b rounded-none py-6">
+            <TabsTrigger value="notifications"># Notifications</TabsTrigger>
+            <TabsTrigger value="settings"># Settings</TabsTrigger>
+          </TabsList>
+          <TabsContent value="notifications" className="w-full">
+            <ScrollArea className="h-[300px] w-full">
+              <div className="flex flex-col">
+                {notifications.length === 0 ? (
+                  <div className="py-8 text-center text-muted-foreground text-sm">
+                    No notifications
+                  </div>
+                ) : (
+                  notifications.map(({ node }) => (
+                    <NotificationItem
+                      key={node.id}
+                      notification={node}
+                      onClick={() => {
+                        onNotificationClick();
+                        if (node.status === "unread") {
+                          markAsRead(node.id);
+                        }
+                      }}
+                    />
+                  ))
+                )}
+                {hasNextPage && (
+                  <div ref={loadMoreRef} className="p-2 flex justify-center">
+                    {isFetchingNextPage ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <span className="text-xs text-muted-foreground">
+                        Load more
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            </ScrollArea>
+            <div className="p-1 flex flex-row-reverse border-t">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-7 text-xs hover:bg-background hover:text-foreground"
+                onClick={handleMarkAllAsRead}
+                disabled={isMarkingAllAsRead}
+              >
+                {isMarkingAllAsRead ? (
+                  <Loader2 className="h-3 w-3 animate-spin mr-1" />
+                ) : null}
+                Mark all as read
+              </Button>
             </div>
-          )}
-        </div>
-      </ScrollArea>
-      <div className="p-1 flex flex-row-reverse border-t">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="h-7 text-xs hover:bg-background hover:text-foreground"
-          onClick={handleMarkAllAsRead}
-          disabled={isMarkingAllAsRead}
-        >
-          {isMarkingAllAsRead ? (
-            <Loader2 className="h-3 w-3 animate-spin mr-1" />
-          ) : null}
-          Mark all as read
-        </Button>
+          </TabsContent>
+          <TabsContent value="settings" className="w-full px-6 py-2.5">
+            <NotificationSettings />
+          </TabsContent>
+        </Tabs>
       </div>
     </>
   );

@@ -8,6 +8,10 @@ image: bleu/govquests-rails
 servers:
   web:
     - 157.230.83.175
+  telegram_bot:
+    hosts: 
+      - 157.230.83.175
+    cmd: bin/rails telegram:start
   # job:
   #   hosts:
   #     - 192.168.0.1

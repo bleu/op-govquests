@@ -21,7 +21,8 @@ module Processes
           notification_id: SecureRandom.uuid,
           user_id: user_id,
           content: "Congrats! You’ve met the criteria for the <a href='/achievements?badgeId=#{badge_id}'>#{badge_title}</a> badge. Celebrate your achievement and claim it now!",
-          notification_type: "badge_unlocked"
+          notification_type: "badge_unlocked",
+          delivery_methods: ["in_app", "email", "telegram"]
         )
       )
     end

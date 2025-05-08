@@ -33,6 +33,7 @@ module Processes
           user_id: profile_id,
           content: "Congrats! You’ve made it to the leaderboard’s top #{rank}. Keep up the great work and aim for the top spot!",
           notification_type: "podium_rank_up",
+          delivery_methods: ["in_app", "email", "telegram"]
         )
       )
     end

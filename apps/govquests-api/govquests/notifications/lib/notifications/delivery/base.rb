@@ -50,35 +50,33 @@ module Notifications
       end
     end
 
-    class SmsDelivery < Base
+    class TelegramDelivery < Base
       def deliver
-        # In real implementation, this would use Twilio or similar
-        # For now, we'll just emit a delivery event
+        SendTelegramMessageJob.perform_now(@notification.id)
+
         {
-          delivery_method: "sms",
+          delivery_method: "telegram",
           delivered_at: Time.now,
           metadata: {
-            to: fetch_user_phone,
-            provider: "twilio"
+            chat_id: fetch_user_telegram_chat_id
           }
         }
       end
 
-      private
+      private 
 
-      def fetch_user_phone
-        # In real implementation, this would fetch from user record
-        "+1234567890"
+      def fetch_user_telegram_chat_id
+        Authentication::UserReadModel.find_by(user_id: @notification.user_id).telegram_chat_id
       end
     end
-
+    
     class DeliveryStrategyFactory
       class UnknownDeliveryMethodError < StandardError; end
 
       STRATEGIES = {
         "in_app" => InAppDelivery,
         "email" => EmailDelivery,
-        "sms" => SmsDelivery
+        "telegram" => TelegramDelivery
       }.freeze
 
       def self.for(method, notification)
