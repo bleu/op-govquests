@@ -40,7 +40,7 @@ class TelegramBotServer
               [
                 Telegram::Bot::Types::InlineKeyboardButton.new(
                   text: "Return to GovQuests",
-                  url: "https://app.govquests.com"
+                  url: Rails.application.credentials.dig(Rails.env.to_sym, :frontend_domain)
                 )
               ]
             ]
