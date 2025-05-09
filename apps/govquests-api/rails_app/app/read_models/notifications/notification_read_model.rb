@@ -28,6 +28,10 @@ module Notifications
         "Badge Ready for You!"
       when "podium_rank_up"
         "You’re in the Top 3!"
+      when "proposal_ending_soon"
+        "Your Vote is Needed!"
+      when "proposal_created"
+        "Voting Has Started!"
       else
         "New Notification"
       end

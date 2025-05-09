@@ -5,6 +5,7 @@ require_relative "notifications/lib/notifications"
 require_relative "action_tracking/lib/action_tracking"
 require_relative "gamification/lib/gamification"
 require_relative "processes/lib/processes"
+require_relative "proposals/lib/proposals"
 
 module GovQuests
   class Configuration
@@ -27,7 +28,8 @@ module GovQuests
         Rewarding::Configuration.new,
         Notifications::Configuration.new,
         ActionTracking::Configuration.new,
-        Gamification::Configuration.new
+        Gamification::Configuration.new,
+        Proposals::Configuration.new
       ].each { |context| context.call(event_store, command_bus) }
     end
   end

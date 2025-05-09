@@ -18,3 +18,7 @@ production:
     class: VerifySpecialBadgesRequirementsJob
     schedule: "0 0 * * *" # Runs at midnight every day
     queue: default
+  update_proposals:
+    class: UpdateProposalsJob
+    schedule: "0 0 * * *" # Runs at midnight every day
+    queue: default

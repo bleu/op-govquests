@@ -35,4 +35,9 @@ module Authentication
     attribute :user_id, Infra::Types::UUID
     attribute :status, Infra::Types::String
   end
+
+  class UserTypeUpdated < Infra::Event
+    attribute :user_id, Infra::Types::UUID
+    attribute :user_type, Infra::Types::String
+  end
 end
