@@ -1,6 +1,12 @@
 class UpdateProposalsJob < ApplicationJob
+  class << self
+    def agora_api
+      @agora_api ||= AgoraApi::Client.new
+    end
+  end
+
   def perform
-    all_proposals = AgoraApi::Proposals.new.fetch_all_proposals
+    all_proposals = self.class.agora_api.fetch_all_proposals
 
     active_proposals = all_proposals.filter do |proposal|
       proposal["status"] == "active"
@@ -36,5 +42,7 @@ class UpdateProposalsJob < ApplicationJob
         )
       end
     end
+
+    Proposals::NotifyEndingProposalsService.new.call
   end
 end
