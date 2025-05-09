@@ -2,6 +2,8 @@ module Proposals
   class Proposal
     include AggregateRoot
 
+    class ProposalAlreadyCreated < StandardError; end
+
     def initialize(id)
       @id = id
       @title = nil
@@ -12,7 +14,7 @@ module Proposals
     end
 
     def create(title, description, status, start_date, end_date)
-      raise "Proposal already created" if @id
+      raise ProposalAlreadyCreated if @id
 
       apply ProposalCreated.new(data: {
         proposal_id: @id,
