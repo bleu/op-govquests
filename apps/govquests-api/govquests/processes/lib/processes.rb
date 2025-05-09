@@ -23,6 +23,8 @@ require_relative "processes/update_game_profile_on_leaderboard_updated"
 
 require_relative "processes/deliver_notification_on_created"
 
+require_relative "processes/update_user_type_on_tier_achieved"
+
 module Processes
   class Configuration
     def call(event_store, command_bus)
@@ -47,6 +49,8 @@ module Processes
       NotifyOnProposalCreated.new(event_store, command_bus).subscribe
 
       DeliverNotificationOnCreated.new(event_store, command_bus).subscribe
+
+      UpdateUserTypeOnTierAchieved.new(event_store, command_bus).subscribe
     end
   end
 end

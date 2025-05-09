@@ -45,5 +45,12 @@ module Authentication
 
     alias_method :aggregate_id, :user_id
   end
+
+  class UpdateUserType < Infra::Command
+    attribute :user_id, Infra::Types::UUID
+    attribute :user_type, Infra::Types::String
+
+    alias_method :aggregate_id, :user_id
+  end
 end
 
