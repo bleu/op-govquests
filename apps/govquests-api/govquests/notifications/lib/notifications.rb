@@ -13,7 +13,14 @@ module Notifications
 
   class CommandHandler < Infra::CommandHandlerRegistry
     handle "Notifications::CreateNotification", aggregate: Notification do |notification, cmd|
-      notification.create(cmd.user_id, cmd.content, cmd.notification_type, cmd.delivery_methods)
+      notification.create(
+        cmd.user_id,
+        cmd.content,
+        cmd.notification_type,
+        cmd.cta_text,
+        cmd.cta_url,
+        cmd.delivery_methods
+      )
     end
 
     handle "Notifications::DeliverNotification", aggregate: Notification do |notification, cmd|
