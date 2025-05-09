@@ -5,10 +5,9 @@ export const START_ACTION_EXECUTION = graphql(`
     $questId: ID!
     $actionId: ID!
     $actionType: String!
-    $sendEmailVerificationInput: SendEmailVerificationInput
   ) {
     startActionExecution(
-      input: { questId: $questId, actionId: $actionId, actionType: $actionType, sendEmailVerificationInput: $sendEmailVerificationInput }
+      input: { questId: $questId, actionId: $actionId, actionType: $actionType }
     ) {
       actionExecution {
         id
@@ -22,9 +21,6 @@ export const START_ACTION_EXECUTION = graphql(`
           }
           ... on DiscourseVerificationStartData {
             verificationUrl
-          }
-          ... on SendEmailStartData {
-            email
           }
         }
         status

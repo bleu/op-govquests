@@ -5,7 +5,6 @@ import { EnsStrategy } from "./EnsStrategy";
 import { GitcoinScoreStrategy } from "./GitcoinScoreStrategy";
 import { ReadContentInappStrategy } from "./ReadContentInappStrategy";
 import { ReadDocumentStrategy } from "./ReadDocumentStrategy";
-import { SendEmailStrategy } from "./SendEmailStrategy";
 import { VerifyAgora } from "./VerifyAgora";
 import { VerifyPositionStrategy } from "./VerifyPositionStrategy";
 
@@ -23,8 +22,6 @@ export class ActionStrategyFactory {
         return DiscourseVerificationStrategy;
       case "verify_position":
         return VerifyPositionStrategy;
-      case "send_email":
-        return SendEmailStrategy;
       case "verify_agora":
         return VerifyAgora;
       case "read_content_inapp":
