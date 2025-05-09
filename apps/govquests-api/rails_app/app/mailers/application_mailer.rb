@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "jose@bleu.studio"
+  default from: "noreply@govquests.bleu.builders"
   layout "mailer"
 end
