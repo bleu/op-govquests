@@ -3,6 +3,8 @@ module Notifications
     attribute :notification_id, Infra::Types::UUID
     attribute :user_id, Infra::Types::UUID
     attribute :content, Infra::Types::String
+    attribute :cta_text, Infra::Types::String.optional
+    attribute :cta_url, Infra::Types::String.optional
     attribute :notification_type, Infra::Types::String
     attribute :delivery_methods, Infra::Types::Array.of(Infra::Types::String).default(["in_app"].freeze)
 

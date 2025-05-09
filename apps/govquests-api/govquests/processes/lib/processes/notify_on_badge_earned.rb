@@ -34,7 +34,10 @@ module Processes
           notification_id: SecureRandom.uuid,
           user_id: user_id,
           content: content,
-          notification_type: notification_type
+          cta_text: nil,
+          cta_url: nil,
+          notification_type: notification_type,
+          delivery_methods: ["email", "telegram", "in_app"]
         )
       )
     end

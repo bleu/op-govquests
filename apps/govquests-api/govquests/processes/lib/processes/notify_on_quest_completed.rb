@@ -25,7 +25,9 @@ module Processes
           notification_id: SecureRandom.uuid,
           user_id: user_id,
           content: "Earned #{quest.points} points for completing a quest + #{multiplier}x tier bonus! Total #{(quest.points * multiplier).to_i} points!",
-          notification_type: "quest_completed"
+          notification_type: "quest_completed",
+          cta_text: nil,
+          cta_url: nil
         )
       )
     end

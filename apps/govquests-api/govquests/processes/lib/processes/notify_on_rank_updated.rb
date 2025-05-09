@@ -32,6 +32,8 @@ module Processes
           notification_id: SecureRandom.uuid,
           user_id: profile_id,
           content: "Congrats! You’ve made it to the leaderboard’s top #{rank}. Keep up the great work and aim for the top spot!",
+          cta_text: "View Leaderboard",
+          cta_url: "#{Rails.application.credentials.dig(Rails.env.to_sym, :frontend_domain)}/leaderboard?tab=my-tier&rank=#{rank}",
           notification_type: "podium_rank_up",
           delivery_methods: ["in_app", "email", "telegram"]
         )
