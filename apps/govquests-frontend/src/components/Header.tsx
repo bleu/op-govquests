@@ -9,8 +9,8 @@ import {
   ChevronDown,
   Home,
   List,
+  Loader2,
   MessageCircle,
-  Sidebar,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -24,8 +24,7 @@ import {
 } from "./ui/navigation-menu";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
-import { Button } from "./ui/Button";
+import { Suspense, useState } from "react";
 
 const headerPages = [
   { href: "/", label: "Home" },
@@ -141,7 +140,9 @@ const Header: React.FC = () => {
         )}
 
         <div className="flex items-center gap-4 justify-end">
-          <NotificationBell />
+          <Suspense fallback={<Loader2 className="size-4 animate-spin" />}>
+            <NotificationBell />
+          </Suspense>
           <SignInButton />
         </div>
       </div>

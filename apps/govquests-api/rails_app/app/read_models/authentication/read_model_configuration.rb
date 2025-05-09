@@ -5,6 +5,8 @@ module Authentication
       event_store.subscribe(OnUserLoggedIn.new, to: [Authentication::UserLoggedIn])
       event_store.subscribe(OnUserTelegramTokenUpdated.new, to: [Authentication::UserTelegramTokenUpdated])
       event_store.subscribe(OnUserNotificationPreferencesUpdated.new, to: [Authentication::UserNotificationPreferencesUpdated])
+      event_store.subscribe(OnEmailVerificationSent.new, to: [Authentication::EmailVerificationSent])
+      event_store.subscribe(OnEmailVerified.new, to: [Authentication::EmailVerified])
     end
   end
 end

@@ -79,6 +79,10 @@ const ACTIONS = {
     unstarted: { label: "Verify" },
     completed: { label: "Verified", icon: CheckSquareIcon },
   },
+  enable_notifications: {
+    unstarted: { label: "Verify" },
+    completed: { label: "Verified", icon: CheckSquareIcon },
+  },
 } as const;
 
 type ActionType = keyof typeof ACTIONS;

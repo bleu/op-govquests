@@ -31,5 +31,19 @@ module Authentication
 
     alias_method :aggregate_id, :user_id
   end
+
+  class SendEmailVerification < Infra::Command
+    attribute :user_id, Infra::Types::UUID
+    attribute :email, Infra::Types::String
+    attribute :token, Infra::Types::String
+
+    alias_method :aggregate_id, :user_id
+  end
+
+  class VerifyEmail < Infra::Command
+    attribute :user_id, Infra::Types::UUID
+
+    alias_method :aggregate_id, :user_id
+  end
 end
 

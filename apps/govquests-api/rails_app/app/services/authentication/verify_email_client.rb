@@ -1,4 +1,4 @@
-module ActionTracking
+module Authentication
   class VerifyEmailClient
     def self.send_email_async(email, token)
       # TODO: deliver_later

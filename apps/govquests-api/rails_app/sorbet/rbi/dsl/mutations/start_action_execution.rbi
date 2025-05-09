@@ -6,13 +6,6 @@
 
 
 class Mutations::StartActionExecution
-  sig do
-    params(
-      quest_id: ::String,
-      action_id: ::String,
-      action_type: ::String,
-      send_email_verification_input: T.nilable(::Types::Inputs::SendEmailVerificationInput)
-    ).returns(T.untyped)
-  end
-  def resolve(quest_id:, action_id:, action_type:, send_email_verification_input: T.unsafe(nil)); end
+  sig { params(quest_id: ::String, action_id: ::String, action_type: ::String).returns(T.untyped) }
+  def resolve(quest_id:, action_id:, action_type:); end
 end
