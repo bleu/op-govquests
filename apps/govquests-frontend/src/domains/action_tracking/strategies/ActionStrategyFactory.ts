@@ -38,6 +38,7 @@ export class ActionStrategyFactory {
       case "wallet_verification":
       case "op_active_debater":
       case "op_forum_contributor":
+      case "enable_notifications":
         return DefaultStrategy;
       default:
         throw new Error(`Unsupported action type: ${actionType}`);
