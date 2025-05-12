@@ -246,8 +246,8 @@ const SideMenu = () => {
       </div>
       <div
         className={cn(
-          "bg-background/50 w-full absolute top-0 left-0 right-0 bottom-0 opacity-0 transition-opacity duration-300 -z-10 pointer-events-none",
-          isOpen && "z-20 opacity-100 pointer-events-auto",
+          "bg-background/50 w-full fixed top-0 left-0 right-0 bottom-0 opacity-0 transition-opacity duration-300 -z-10 pointer-events-none",
+          isOpen && "z-20 opacity-100 pointer-events-auto cursor-default",
         )}
         onClick={toggleSideBar}
         onKeyUp={(e) => {
