@@ -36,8 +36,7 @@ module Processes
           content: content,
           cta_text: nil,
           cta_url: nil,
-          notification_type: notification_type,
-          delivery_methods: ["email", "telegram", "in_app"]
+          notification_type: notification_type
         )
       )
     end

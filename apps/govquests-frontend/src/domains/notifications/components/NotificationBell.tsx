@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { Bell, Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useNotificationProcessor } from "../hooks/useNotificationProcessor";
 import {
@@ -31,6 +31,12 @@ export const NotificationBell = () => {
 
   const [isOpen, setIsOpen] = useState(shouldOpenSettings);
   useNotificationProcessor();
+
+  useEffect(() => {
+    if (shouldOpenSettings) {
+      setIsOpen(true);
+    }
+  }, [shouldOpenSettings]);
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>

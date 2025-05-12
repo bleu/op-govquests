@@ -1,6 +1,7 @@
 import type { ActionStrategy } from "./ActionStrategy";
 import { DefaultStrategy } from "./DefaultStrategy";
 import { DiscourseVerificationStrategy } from "./DiscourseVerificationStrategy";
+import { EnableNotificationsStrategy } from "./EnableNotificationsStrategy";
 import { EnsStrategy } from "./EnsStrategy";
 import { GitcoinScoreStrategy } from "./GitcoinScoreStrategy";
 import { ReadContentInappStrategy } from "./ReadContentInappStrategy";
@@ -26,6 +27,8 @@ export class ActionStrategyFactory {
         return VerifyAgora;
       case "read_content_inapp":
         return ReadContentInappStrategy;
+      case "enable_notifications":
+        return EnableNotificationsStrategy;
       case "become_delegator":
       case "governance_voter_participation":
       case "holds_op":
@@ -35,7 +38,6 @@ export class ActionStrategyFactory {
       case "wallet_verification":
       case "op_active_debater":
       case "op_forum_contributor":
-      case "enable_notifications":
         return DefaultStrategy;
       default:
         throw new Error(`Unsupported action type: ${actionType}`);

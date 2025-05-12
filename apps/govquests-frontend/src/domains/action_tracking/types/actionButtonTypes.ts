@@ -16,6 +16,8 @@ export type SendEmailStatus = "unstarted" | "started" | "completed";
 
 export type VerifyWalletStatus = "unstarted" | "completed";
 
+export type EnableNotificationsStatus = "unstarted" | "started" | "completed";
+
 export type VerifyDelegateStatus = "unstarted" | "completed";
 
 export type VerifyDelegateStatementStatus = "unstarted" | "completed";

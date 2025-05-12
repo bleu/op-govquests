@@ -80,7 +80,8 @@ const ACTIONS = {
     completed: { label: "Verified", icon: CheckSquareIcon },
   },
   enable_notifications: {
-    unstarted: { label: "Verify" },
+    unstarted: { label: "Enable Notifications" },
+    started: { label: "Verify" },
     completed: { label: "Verified", icon: CheckSquareIcon },
   },
 } as const;

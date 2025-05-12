@@ -4,11 +4,15 @@ module ActionTracking
   module Strategies
     class EnableNotifications < Base
       def start_data_valid?
-        start_data[:email_notifications] && start_data[:telegram_notifications]
+        true
       end
 
       def can_complete?
-        start_data_valid?
+        false
+      end
+
+      def completion_data_valid?
+        completion_data[:email_notifications] && completion_data[:telegram_notifications]
       end
     end
   end

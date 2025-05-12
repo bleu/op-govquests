@@ -27,11 +27,6 @@ module Mutations
             action_id: ActionTracking::ActionReadModel.find_by(action_type: "discourse_verification")&.action_id
           )
         }
-      when "enable_notifications"
-        {
-          email_notifications: current_user.email_notifications,
-          telegram_notifications: current_user.telegram_notifications
-        }
       else
         {}
       end

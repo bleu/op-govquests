@@ -707,7 +707,7 @@ module QuestData
       action_type: "enable_notifications",
       display_data: {
         title: "Enable notifications",
-        description: "<em>Keep in mind that this quest will only be completed if, in the <a href='/quests/unlock-your-profile?showNotificationSettings=true'>notification setup</a>, you:</em><ul><li>Added your email address</li><li>Added your Telegram handle</li><li>Activated all notifications</li></ul>"
+        description: "<em>Keep in mind that this quest will only be completed if, in the notification setup, you:</em><ul><li>Added your email address</li><li>Added your Telegram handle</li><li>Activated all notifications</li></ul>"
       },
       action_data: {
         action_type: "enable_notifications"

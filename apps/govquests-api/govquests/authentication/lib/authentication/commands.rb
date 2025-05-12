@@ -24,6 +24,13 @@ module Authentication
     alias_method :aggregate_id, :user_id
   end
 
+  class ConnectTelegramAccount < Infra::Command
+    attribute :user_id, Infra::Types::UUID
+    attribute :chat_id, Infra::Types::Integer
+
+    alias_method :aggregate_id, :user_id
+  end
+
   class UpdateUserNotificationPreferences < Infra::Command
     attribute :user_id, Infra::Types::UUID
     attribute :telegram_notifications, Infra::Types::Bool.optional
