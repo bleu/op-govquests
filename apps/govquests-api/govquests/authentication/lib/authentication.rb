@@ -61,5 +61,11 @@ module Authentication
     handle "Authentication::VerifyEmail", aggregate: User do |user, cmd|
       user.verify_email
     end
+
+    handle "Authentication::ConnectTelegramAccount", aggregate: User do |user, cmd|
+      user.connect_telegram_account(
+        cmd.chat_id
+      )
+    end
   end
 end

@@ -8,6 +8,7 @@ module Authentication
       event_store.subscribe(OnEmailVerificationSent.new, to: [Authentication::EmailVerificationSent])
       event_store.subscribe(OnEmailVerified.new, to: [Authentication::EmailVerified])
       event_store.subscribe(OnUserTypeUpdated.new, to: [Authentication::UserTypeUpdated])
+      event_store.subscribe(OnTelegramAccountConnected.new, to: [Authentication::TelegramAccountConnected])
     end
   end
 end

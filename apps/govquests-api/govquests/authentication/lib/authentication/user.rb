@@ -53,6 +53,13 @@ module Authentication
       })
     end
 
+    def connect_telegram_account(chat_id)
+      apply TelegramAccountConnected.new(data: {
+        user_id: @id,
+        chat_id: chat_id
+      })
+    end
+
     def update_notification_preferences(telegram_notifications, email_notifications)
       apply UserNotificationPreferencesUpdated.new(data: {
         user_id: @id,
@@ -107,6 +114,10 @@ module Authentication
 
     on UserTelegramTokenUpdated do |event|
       @telegram_token = event.data[:telegram_token]
+    end
+
+    on TelegramAccountConnected do |event|
+      @telegram_chat_id = event.data[:chat_id]
     end
 
     on UserNotificationPreferencesUpdated do |event|

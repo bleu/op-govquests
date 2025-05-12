@@ -1,11 +1,11 @@
 module Authentication
-  class OnEmailVerified
+  class OnTelegramAccountConnected
     def call(event)
       user = Authentication::UserReadModel.find_by(user_id: event.data[:user_id])
 
       user.update(
-        email_verification_status: event.data[:status],
-        email_notifications: true
+        telegram_chat_id: event.data[:chat_id],
+        telegram_notifications: true
       )
     end
   end

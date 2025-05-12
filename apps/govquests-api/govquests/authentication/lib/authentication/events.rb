@@ -18,6 +18,11 @@ module Authentication
     attribute :telegram_token, Infra::Types::String
   end
 
+  class TelegramAccountConnected < Infra::Event
+    attribute :user_id, Infra::Types::UUID
+    attribute :chat_id, Infra::Types::Integer
+  end
+
   class UserNotificationPreferencesUpdated < Infra::Event
     attribute :user_id, Infra::Types::UUID
     attribute :telegram_notifications, Infra::Types::Bool.optional

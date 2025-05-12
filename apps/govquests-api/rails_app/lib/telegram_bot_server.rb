@@ -1,6 +1,7 @@
 class TelegramBotServer
   def initialize
-    @token = Rails.application.credentials.telegram_bot.token
+    @token = Rails.application.credentials.telegram_bot.dig(Rails.env.to_sym, :token)
+    @command_bus = Rails.configuration.command_bus
   end
 
   def start
@@ -26,7 +27,7 @@ class TelegramBotServer
       user = Authentication::UserReadModel.find_by(telegram_token: telegram_token)
 
       if user.present?
-        user.update(telegram_chat_id: chat_id)
+        @command_bus.call(Authentication::ConnectTelegramAccount.new(user_id: user.user_id, chat_id: chat_id))
 
         message_params = {
           chat_id: chat_id,
