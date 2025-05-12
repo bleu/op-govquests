@@ -4,6 +4,7 @@ module Gamification
   module Strategies
     class DelegateScout < Base
       include Infra::Import['services.agora']
+      include Infra::Import['services.curia_hub']
       include Shared
 
       DELEGATEE_MAXIMUM_VOTING_POWER = 5000
@@ -14,12 +15,12 @@ module Gamification
         delegatees_data = fetch_delegatees_data(address)
 
         delegatees_data.any? do |delegatee|
+          is_active = curia_hub.fetch_delegate_status(delegatee.dig("to")) == "ACTIVE"
+          
+          next unless is_active
+          
           total_delegated_raw = delegatee.dig("allowance").to_i
           delegatee_data = fetch_delegate_data(delegatee.dig("to"))
-
-          is_active = verify_delegate_active(delegatee_data)
-          next unless is_active
-
           verify_delegatee_voting_power(
             amount_delegated: total_delegated_raw,
             delegatee_data: delegatee_data,
