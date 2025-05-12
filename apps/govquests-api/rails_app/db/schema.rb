@@ -138,11 +138,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_05_12_193147) do
     t.uuid "pool_id", null: false
     t.uuid "user_id", null: false
     t.datetime "issued_at", null: false
-    t.datetime "claim_started_at"
-    t.datetime "claim_completed_at"
     t.jsonb "claim_metadata", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "completed"
+    t.datetime "confirmed_at"
     t.index ["pool_id", "user_id"], name: "index_reward_issuances_on_pool_id_and_user_id", unique: true
     t.index ["user_id"], name: "index_reward_issuances_on_user_id"
   end

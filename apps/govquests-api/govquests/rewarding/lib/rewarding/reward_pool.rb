@@ -8,12 +8,15 @@ module Rewarding
 
     class AlreadyCreated < StandardError; end
 
+    class AlreadyConfirmed < StandardError; end
+
     def initialize(id)
       @id = id
       @rewardable_id = nil
       @rewardable_type = nil
       @reward_definition = nil
       @issued_rewards_receipients = Set.new
+      @confirmed_token_transfer_receipients = Set.new
     end
 
     def create(rewardable_id:, rewardable_type:, reward_definition:)
@@ -39,6 +42,12 @@ module Rewarding
 
       if token_reward?
         raise AlreadyIssued if @issued_rewards_receipients.include?(user_id)
+
+        Rewarding::RewardTokenService.call(
+          pool_id: @id,
+          amount: @reward_definition["amount"],
+          user_id: user_id,
+        )
       end
 
       apply RewardIssued.new(data: {
@@ -46,6 +55,19 @@ module Rewarding
         user_id: user_id,
         reward_definition: @reward_definition,
         issued_at: Time.now
+      })
+    end
+
+    def confirm_token_transfer(user_id, transaction_hash)
+      raise NotIssued unless @issued_rewards_receipients.include?(user_id)
+      raise AlreadyConfirmed if @confirmed_token_transfer_receipients.include?(user_id)
+
+      apply TokenTransferConfirmed.new(data: {
+        pool_id: @id,
+        amount: @reward_definition["amount"],
+        user_id: user_id,
+        transaction_hash: transaction_hash,
+        confirmed_at: Time.now
       })
     end
 
@@ -67,6 +89,10 @@ module Rewarding
 
     on RewardIssued do |event|
       @issued_rewards_receipients.add(event.data[:user_id])
+    end
+
+    on TokenTransferConfirmed do |event|
+      @confirmed_token_transfer_receipients.add(event.data[:user_id])
     end
   end
 end

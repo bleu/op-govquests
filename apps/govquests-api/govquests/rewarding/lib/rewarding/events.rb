@@ -17,4 +17,12 @@ module Rewarding
     attribute :pool_id, Infra::Types::UUID
     attribute :reward_definition, SharedKernel::Types::RewardDefinition
   end
+
+  class TokenTransferConfirmed < Infra::Event
+    attribute :pool_id, Infra::Types::UUID
+    attribute :user_id, Infra::Types::UUID
+    attribute :amount, Infra::Types::Integer
+    attribute :transaction_hash, Infra::Types::String
+    attribute :confirmed_at, Infra::Types::Time
+  end
 end
