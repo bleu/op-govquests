@@ -13,8 +13,13 @@ import {
   useTelegramConnect,
 } from "../hooks/useTelegramConnect";
 import { useUpdateNotificationPreferences } from "../hooks/useUpdateNotificationPreferences";
-import { useCurrentUser } from "@/domains/authentication/hooks";
 import Link from "next/link";
+import { Input } from "@/components/ui/Input";
+import { useState } from "react";
+import {
+  useEmailVerificationStatus,
+  useSendEmailVerification,
+} from "../hooks/useVerifyEmail";
 
 export const NotificationSettings = () => {
   return (
@@ -95,6 +100,8 @@ const TelegramNotificationSettings = () => {
 };
 
 const EmailNotificationSettings = () => {
+  const [verificationEmail, setVerificationEmail] = useState("");
+
   const { data: notificationPreferences } = useNotificationPreferences();
   const { mutate: updateNotificationPreferences } =
     useUpdateNotificationPreferences();
@@ -105,46 +112,92 @@ const EmailNotificationSettings = () => {
     });
   };
 
-  const { data: currentUser } = useCurrentUser();
+  const { data: emailVerificationStatus } = useEmailVerificationStatus();
+  const { mutate: sendEmailVerification } = useSendEmailVerification();
 
-  const isEmailVerified = !!currentUser?.currentUser?.email;
+  const handleEmailVerification = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("handleEmailVerification", verificationEmail);
+    e.preventDefault();
+    sendEmailVerification(verificationEmail);
+  };
+
+  const isEmailVerified =
+    emailVerificationStatus?.currentUser?.emailVerificationStatus ===
+    "verified";
+
+  const isEmailPending =
+    emailVerificationStatus?.currentUser?.emailVerificationStatus === "pending";
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex justify-between items-center">
-        <p className="font-bold">Enable Email Notifications</p>
-        <ConditionalWrapper
-          condition={!isEmailVerified}
-          wrapper={(children) => (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>{children}</TooltipTrigger>
-                <TooltipContent>
-                  <p>
-                    You need to verify your email first to enable email
-                    notifications.{" "}
-                    <Link
-                      href={`${process.env.NEXT_PUBLIC_APP_URL}/quests/unlock-your-profile?actionId=c56e5d13-0fca-5b2a-9b04-12778a77a776`}
-                    >
-                      Verify your email
-                    </Link>
-                  </p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
-        >
-          <Switch
-            checked={notificationPreferences?.emailNotifications}
-            onCheckedChange={toggleEmailNotification}
-            disabled={!notificationPreferences}
-          />
-        </ConditionalWrapper>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between items-center">
+          <p className="font-bold">Enable Email Notifications</p>
+          <ConditionalWrapper
+            condition={!isEmailVerified}
+            wrapper={(children) => (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>{children}</TooltipTrigger>
+                  <TooltipContent>
+                    <p>
+                      You need to verify your email first to enable email
+                      notifications
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          >
+            <Switch
+              checked={notificationPreferences?.emailNotifications}
+              onCheckedChange={toggleEmailNotification}
+              disabled={!isEmailVerified || !notificationPreferences}
+            />
+          </ConditionalWrapper>
+        </div>
       </div>
       <span className="text-sm">
         Receive updates on votes, badges, and leaderboard rankings in your
         inbox.
       </span>
+      <div className="flex flex-col gap-2">
+        <form
+          onSubmit={handleEmailVerification}
+          className="flex flex-col gap-2"
+        >
+          <Input
+            type="email"
+            placeholder="Type your email"
+            className="bg-white/10"
+            value={
+              isEmailVerified
+                ? emailVerificationStatus?.currentUser?.email
+                : verificationEmail
+            }
+            onChange={(e) => setVerificationEmail(e.target.value)}
+            disabled={isEmailVerified}
+          />
+          <Button
+            variant="outline"
+            disabled={isEmailVerified || !verificationEmail}
+            type="submit"
+            className="w-fit"
+          >
+            Save
+          </Button>
+        </form>
+        {isEmailVerified && (
+          <span className="text-xs font-bold">
+            Email verified successfully!
+          </span>
+        )}
+        {isEmailPending && (
+          <span className="text-xs font-bold">
+            Check your email inbox for a verification link.
+          </span>
+        )}
+      </div>
     </div>
   );
 };

@@ -6,26 +6,19 @@ class EmailVerificationsController < ApplicationController
 
     token = params[:token]
 
-    action_execution = ActionTracking::ActionExecutionReadModel.where("start_data ->> 'token' = ?", token).first
+    user = Authentication::UserReadModel.find_by(email_verification_token: token)
 
-    result = ActionTracking::ActionExecutionService.complete(
-      execution_id: action_execution.execution_id,
-      nonce: action_execution.nonce,
-      user_id: action_execution.user_id,
-      completion_data: {
-        token:
-      },
-      action_type: action_execution.action_type
+    if user.nil?
+      return render json: {error: "Invalid token"}, status: :not_found
+    end
+
+    command = Authentication::VerifyEmail.new(
+      user_id: user.user_id
     )
 
-    result_str = result[:error] ? "error" : "success"
-    # TODO: return errors when they happen
-
-    Authentication::UserReadModel.find_by(user_id: action_execution.user_id).update(email: action_execution.start_data["email"])
-
-    quest_slug = Questing::QuestReadModel.find_by(quest_id: action_execution.quest_id)&.slug
+    Rails.configuration.command_bus.call(command)
 
     frontend_domain = Rails.application.credentials.dig(Rails.env.to_sym, :frontend_domain)
-    redirect_to "#{frontend_domain}/quests/#{quest_slug}?actionId=#{action_execution.action_id}&result=#{result_str}", allow_other_host: true
+    redirect_to "#{frontend_domain}/?showNotificationSettings=true", allow_other_host: true
   end
 end

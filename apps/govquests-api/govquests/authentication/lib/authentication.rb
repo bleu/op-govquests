@@ -50,5 +50,16 @@ module Authentication
         cmd.email_notifications
       )
     end
+
+    handle "Authentication::SendEmailVerification", aggregate: User do |user, cmd|
+      user.send_email_verification(
+        cmd.email,
+        cmd.token
+      )
+    end
+
+    handle "Authentication::VerifyEmail", aggregate: User do |user, cmd|
+      user.verify_email
+    end
   end
 end

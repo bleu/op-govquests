@@ -3,12 +3,11 @@ module Mutations
     argument :quest_id, ID, required: true
     argument :action_id, ID, required: true
     argument :action_type, String, required: true, description: "Type of the action"
-    argument :send_email_verification_input, Types::Inputs::SendEmailVerificationInput, required: false
 
     field :action_execution, Types::ActionExecutionType, null: true
     field :errors, [String], null: false
 
-    def resolve(quest_id:, action_id:, action_type:, send_email_verification_input: nil)
+    def resolve(quest_id:, action_id:, action_type:)
       action = ActionTracking::ActionReadModel.find_by(action_id: action_id)
       unless action
         return {action_execution: nil, errors: ["Action not found"]}
@@ -21,16 +20,17 @@ module Mutations
         {
           address: current_user.address
         }
-      when "send_email"
-        {
-          email: send_email_verification_input&.email
-        }
       when "op_active_debater", "op_forum_contributor"
         {
           discourse_verification: ActionTracking::ActionExecutionReadModel.find_by(
             user_id: context[:current_user]&.user_id,
             action_id: ActionTracking::ActionReadModel.find_by(action_type: "discourse_verification")&.action_id
           )
+        }
+      when "enable_notifications"
+        {
+          email_notifications: current_user.email_notifications,
+          telegram_notifications: current_user.telegram_notifications
         }
       else
         {}
