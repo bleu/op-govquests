@@ -13,8 +13,8 @@
       <div style="background-color: #f8f9fa; border-radius: 6px; padding: 24px; margin-bottom: 32px;">
         <div style="margin: 0; font-size: 16px;">
           <%= strip_tags(@notification.content) %>
-        </div>
-
+        </div
+          
         <% if @notification.cta_text.present? && @notification.cta_url.present? %>
           <div style="text-align: center; margin-top: 24px;">
             <a href="<%= @notification.cta_url %>" style="background-color: #007bff; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 500; display: inline-block;">
