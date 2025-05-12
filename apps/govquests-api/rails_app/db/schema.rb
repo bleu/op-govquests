@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_05_12_173134) do
+ActiveRecord::Schema[8.1].define(version: 2025_05_12_193147) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -228,12 +228,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_05_12_173134) do
 
   create_table "user_game_profiles", force: :cascade do |t|
     t.string "profile_id", null: false
-    t.integer "track", default: 0
-    t.integer "streak", default: 0
     t.integer "score", default: 0
-    t.jsonb "badges", default: []
-    t.jsonb "unclaimed_tokens", default: {}
-    t.jsonb "active_claim"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "tier_id"
