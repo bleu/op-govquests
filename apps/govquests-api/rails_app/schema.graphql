@@ -709,7 +709,6 @@ type RewardDefinition {
 }
 
 type RewardPool {
-  remainingInventory: Int
   rewardDefinition: RewardDefinition!
 }
 

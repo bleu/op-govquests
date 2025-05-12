@@ -6,7 +6,6 @@ module Rewarding
     attribute :rewardable_id, Infra::Types::UUID
     attribute :rewardable_type, Infra::Types::String
     attribute :reward_definition, SharedKernel::Types::RewardDefinition
-    attribute :initial_inventory, Infra::Types::Integer.optional
 
     alias :aggregate_id :pool_id
 

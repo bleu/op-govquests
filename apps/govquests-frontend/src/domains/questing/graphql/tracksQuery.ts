@@ -30,7 +30,6 @@ export const TracksQuery = graphql(`
             type
             amount
           }
-          remainingInventory
         }
         displayData {
           title
