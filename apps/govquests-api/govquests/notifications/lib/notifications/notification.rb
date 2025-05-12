@@ -14,14 +14,18 @@ module Notifications
       @type = nil
       @delivery_methods = []
       @deliveries = {}
+      @cta_text = nil
+      @cta_url = nil
       @read_at = nil
     end
 
-    def create(user_id, content, type, delivery_methods = ["in_app"])
+    def create(user_id, content, type, cta_text = nil, cta_url = nil, delivery_methods = ["in_app"])
       apply NotificationCreated.new(data: {
         notification_id: @id,
         user_id: user_id,
         content: content,
+        cta_text: cta_text,
+        cta_url: cta_url,
         notification_type: type,
         delivery_methods: delivery_methods
       })
@@ -62,6 +66,8 @@ module Notifications
       @content = event.data[:content]
       @type = event.data[:notification_type]
       @delivery_methods = event.data[:delivery_methods]
+      @cta_text = event.data[:cta_text]
+      @cta_url = event.data[:cta_url]
     end
 
     on NotificationDelivered do |event|

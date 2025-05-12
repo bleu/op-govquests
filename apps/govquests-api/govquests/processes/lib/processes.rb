@@ -14,6 +14,7 @@ require_relative "processes/notify_on_quest_completed"
 require_relative "processes/notify_on_badge_earned"
 require_relative "processes/notify_on_tier_achieved"
 require_relative "processes/notify_on_badge_unlocked"
+require_relative "processes/notify_on_rank_updated.rb"
 require_relative "processes/reward_badge_on_quest_or_track_completed"
 require_relative "processes/update_track_on_quest_completed"
 require_relative "processes/update_game_profile_on_leaderboard_updated"
@@ -40,6 +41,7 @@ module Processes
       NotifyOnBadgeEarned.new(event_store, command_bus).subscribe
       NotifyOnTierAchieved.new(event_store, command_bus).subscribe
       NotifyOnBadgeUnlocked.new(event_store, command_bus).subscribe
+      NotifyOnRankUpdated.new(event_store, command_bus).subscribe
 
       DeliverNotificationOnCreated.new(event_store, command_bus).subscribe
     end

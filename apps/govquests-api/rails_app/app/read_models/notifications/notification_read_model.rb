@@ -41,6 +41,8 @@ end
 #
 #  id                :bigint           not null, primary key
 #  content           :string           not null
+#  cta_text          :string
+#  cta_url           :string
 #  notification_type :string           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
