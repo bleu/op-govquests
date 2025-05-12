@@ -20,7 +20,7 @@ module Mutations
       Rails.configuration.command_bus.call(command)
 
       {
-        link_to_chat: "https://t.me/#{Rails.application.credentials.telegram_bot.username}?start=#{telegram_token}",
+        link_to_chat: "https://t.me/#{Rails.application.credentials.telegram_bot.dig(Rails.env.to_sym, :username)}?start=#{telegram_token}",
         errors: []
       }
     rescue => e

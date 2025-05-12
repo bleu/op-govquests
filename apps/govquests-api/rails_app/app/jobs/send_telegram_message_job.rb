@@ -5,7 +5,7 @@ class SendTelegramMessageJob < ApplicationJob
 
   class << self
     def bot
-      @bot ||= Telegram::Bot::Client.new(Rails.application.credentials.telegram_bot.token)
+      @bot ||= Telegram::Bot::Client.new(Rails.application.credentials.telegram_bot.dig(Rails.env.to_sym, :token))
     end
   end
 
