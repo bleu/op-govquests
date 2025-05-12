@@ -3,6 +3,7 @@ require_relative "shared"
 module Gamification
   module Strategies
     class VigilantRedelegator < Base
+      include Infra::Import['services.curia_hub']
       include Infra::Import['services.agora']
       include Shared
 
@@ -42,9 +43,7 @@ module Gamification
       end
 
       def is_delegatee_active?(address)
-        delegate_info = agora.get_delegate(address)
-
-        verify_delegate_active(delegate_info)
+        curia_hub.fetch_delegate_status(address) == "ACTIVE"
       end
 
       def user_last_delegatee(user_id)
