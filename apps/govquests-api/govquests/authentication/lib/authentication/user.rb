@@ -81,6 +81,13 @@ module Authentication
       })
     end
 
+    def update_user_type(user_type)
+      apply UserTypeUpdated.new(data: {
+        user_id: @id,
+        user_type: user_type
+      })
+    end
+
     private
 
     on UserRegistered do |event|
@@ -116,6 +123,10 @@ module Authentication
     on EmailVerified do |event|
       @email_verification_token = nil
       @email_verification_status = event.data[:status]
+    end
+
+    on UserTypeUpdated do |event|
+      @user_type = event.data[:user_type]
     end
   end
 end

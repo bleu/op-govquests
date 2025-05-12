@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_05_09_133516) do
+ActiveRecord::Schema[8.1].define(version: 2025_05_09_161516) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -111,6 +111,18 @@ ActiveRecord::Schema[8.1].define(version: 2025_05_09_133516) do
     t.string "cta_url"
     t.index ["notification_id"], name: "index_notifications_on_notification_id", unique: true
     t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "proposals", force: :cascade do |t|
+    t.string "proposal_id", null: false
+    t.string "title"
+    t.string "description"
+    t.string "status"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposal_id"], name: "index_proposals_on_proposal_id", unique: true
   end
 
   create_table "quest_actions", force: :cascade do |t|
