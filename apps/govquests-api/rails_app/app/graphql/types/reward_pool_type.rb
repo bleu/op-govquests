@@ -6,6 +6,5 @@ module Types
 
   class RewardPoolType < Types::BaseObject
     field :reward_definition, RewardDefinitionType, null: false
-    field :remaining_inventory, Integer, null: true
   end
 end

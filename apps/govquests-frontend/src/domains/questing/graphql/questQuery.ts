@@ -18,7 +18,6 @@ export const QuestQuery = graphql(`
           type
           amount
         }
-        remainingInventory
       }
       track {
         id

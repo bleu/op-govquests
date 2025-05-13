@@ -13,8 +13,7 @@ module Rewarding
         pool_id: event.data[:pool_id],
         rewardable_id: rewardable.id,
         rewardable_type: event.data[:rewardable_type],
-        reward_definition: event.data[:reward_definition],
-        remaining_inventory: event.data[:initial_inventory]
+        reward_definition: event.data[:reward_definition]
       )
     end
   end

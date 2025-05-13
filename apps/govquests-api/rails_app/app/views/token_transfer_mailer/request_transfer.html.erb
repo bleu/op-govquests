@@ -1,0 +1,38 @@
+<div class="email-container">
+  <!-- Title -->
+  <h1 class="email-title">
+    Token Transfer Request
+  </h1>
+
+  <!-- Content -->
+  <div class="email-content">
+    <div>
+      <p>
+        Please process the following token transfer request:
+      </p>
+
+      <div style="margin: 24px 0;">
+        <p style="margin: 0 0 8px 0; font-weight: 500;">Recipient Address:</p>
+        <p class="email-link-url"><%= @user_address %></p>
+      </div>
+
+      <div style="margin: 24px 0;">
+        <p style="margin: 0 0 8px 0; font-weight: 500;">Amount to Transfer:</p>
+        <p><%= @amount %> OP</p>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 24px;">
+      <a href="<%= @confirmation_url %>" class="email-button">
+        Confirm Transfer
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="email-footer">
+    <p>
+      After making the transfer, please click the button above to confirm the transaction by providing the transaction hash.
+    </p>
+  </div>
+</div>

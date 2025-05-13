@@ -16,8 +16,7 @@ module Rewarding
       pool.create(
         rewardable_id: cmd.rewardable_id,
         rewardable_type: cmd.rewardable_type,
-        reward_definition: cmd.reward_definition,
-        initial_inventory: cmd.initial_inventory
+        reward_definition: cmd.reward_definition
       )
     end
 

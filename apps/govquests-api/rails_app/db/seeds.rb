@@ -33,16 +33,13 @@ module RewardPoolCreation
     pool_unique_name = "#{rewardable_type}$#{rewardable_id}-#{reward[:type]}"
     pool_id = Digest::UUID.uuid_v5(POOL_CREATION_NAMESPACE_UUID, pool_unique_name)
 
-    reward.delete("inventory")
-
     begin
       Rails.configuration.command_bus.call(
         Rewarding::CreateRewardPool.new(
           pool_id: pool_id,
           rewardable_id: rewardable_id,
           rewardable_type: rewardable_type,
-          reward_definition: reward,
-          initial_inventory: (reward[:type] == "Token") ? reward[:inventory] : nil
+          reward_definition: reward
         )
       )
     rescue Rewarding::RewardPool::AlreadyCreated

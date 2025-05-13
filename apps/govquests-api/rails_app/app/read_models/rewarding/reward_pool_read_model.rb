@@ -21,14 +21,13 @@ end
 #
 # Table name: reward_pools
 #
-#  id                  :bigint           not null, primary key
-#  remaining_inventory :integer
-#  reward_definition   :jsonb            not null
-#  rewardable_type     :string
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  pool_id             :uuid             not null
-#  rewardable_id       :string           not null
+#  id                :bigint           not null, primary key
+#  reward_definition :jsonb            not null
+#  rewardable_type   :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  pool_id           :uuid             not null
+#  rewardable_id     :string           not null
 #
 # Indexes
 #

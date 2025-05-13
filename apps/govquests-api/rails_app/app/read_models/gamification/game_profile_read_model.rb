@@ -37,20 +37,15 @@ end
 #
 # Table name: user_game_profiles
 #
-#  id               :bigint           not null, primary key
-#  active_claim     :jsonb
-#  badges           :jsonb
-#  delegatee        :string
-#  rank             :integer
-#  score            :integer          default(0)
-#  streak           :integer          default(0)
-#  track            :integer          default(0)
-#  unclaimed_tokens :jsonb
-#  voting_power     :jsonb
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  profile_id       :string           not null
-#  tier_id          :string
+#  id           :bigint           not null, primary key
+#  delegatee    :string
+#  rank         :integer
+#  score        :integer          default(0)
+#  voting_power :jsonb
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  profile_id   :string           not null
+#  tier_id      :string
 #
 # Indexes
 #
