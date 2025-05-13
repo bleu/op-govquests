@@ -12,7 +12,7 @@ module ActionTracking
       end
 
       def completion_data_valid?
-        completion_data[:email_notifications] && completion_data[:telegram_notifications]
+        completion_data && completion_data[:email_notifications] && completion_data[:telegram_notifications]
       end
     end
   end
