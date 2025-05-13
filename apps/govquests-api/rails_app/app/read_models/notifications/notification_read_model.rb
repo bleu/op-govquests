@@ -32,6 +32,8 @@ module Notifications
         "Your Vote is Needed!"
       when "proposal_created"
         "Voting Has Started!"
+      when "token_transfer_confirmed"
+        "You've received OP tokens!"
       else
         "New Notification"
       end

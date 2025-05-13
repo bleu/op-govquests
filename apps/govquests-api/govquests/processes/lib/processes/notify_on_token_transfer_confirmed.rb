@@ -19,8 +19,10 @@ module Processes
         ::Notifications::CreateNotification.new(
           notification_id: SecureRandom.uuid,
           user_id: user_id,
-          content: "Your hard work has paid off! You've successfully earned #{event.data[:amount]} OP tokens for completing the #{badge.display_data[:title]} Badge. Check your wallet to see the reward and continue engaging in governance activities.",
-          notification_type: "token_transfer_confirmed"
+          content: "Your hard work has paid off! You've successfully earned #{event.data[:amount]} OP tokens for completing the <a href='/achievements/#{badge.badge_id}'>#{badge.display_data[:title]}</a> Badge. Check your wallet to see the reward and continue engaging in governance activities.",
+          notification_type: "token_transfer_confirmed",
+          cta_url: "https://optimistic.etherscan.io/tx/#{event.data[:transaction_hash]}",
+          cta_text: "View Transaction"
         )
       )
     end

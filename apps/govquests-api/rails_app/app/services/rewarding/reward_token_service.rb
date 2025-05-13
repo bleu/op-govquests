@@ -7,17 +7,12 @@ module Rewarding
 
       return {error: "User not found"} unless user
 
-      uuid = generate_uuid(pool_id: pool_id, user_id: user_id)
-
-      TokenTransferRequestMailer.with(
+      TokenTransferMailer.with(
         user_address: user.address,
         amount: amount,
-        uuid: uuid
-      ).request.deliver_now
-    end
-
-    def self.generate_uuid(pool_id:, user_id:)
-      Digest::UUID.uuid_v5(TOKEN_TRANSFER_REQUEST_NAMESPACE_UUID, "#{pool_id}-#{user_id}")
+        user_id: user_id,
+        pool_id: pool_id
+      ).request_transfer.deliver_now
     end
   end
 end

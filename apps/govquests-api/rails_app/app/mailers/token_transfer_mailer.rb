@@ -7,7 +7,7 @@ class TokenTransferMailer < ApplicationMailer
 
     domain_url = Rails.application.credentials.dig(Rails.env.to_sym, :frontend_domain)
 
-    @confirmation_url = "#{domain_url}/admin/token-transfers/#{params[:uuid]}"
+    @confirmation_url = "#{domain_url}/confirm-token-transfer/#{params[:pool_id]}/#{params[:user_id]}"
 
     mail(
       to: administrators,
