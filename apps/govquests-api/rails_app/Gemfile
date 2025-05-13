@@ -100,3 +100,5 @@ gem "dry-auto_inject"
 gem "appsignal", "~> 4.4.0"
 
 gem "telegram-bot-ruby"
+
+gem 'posthog-ruby'

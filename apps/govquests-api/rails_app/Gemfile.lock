@@ -329,6 +329,8 @@ GEM
       racc
     pg (1.5.9)
     pkg-config (1.5.8)
+    posthog-ruby (2.9.0)
+      concurrent-ruby (~> 1)
     postmark (1.25.1)
       json
     postmark-rails (0.22.1)
@@ -599,6 +601,7 @@ DEPENDENCIES
   mutant-minitest (= 0.12.4)!
   oj
   pg (~> 1.1)
+  posthog-ruby
   postmark-rails
   pry (~> 0.14.2)!
   pry-byebug
