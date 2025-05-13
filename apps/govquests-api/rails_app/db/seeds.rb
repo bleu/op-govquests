@@ -691,16 +691,6 @@ module QuestData
   }
   UNLOCK_PROFILE_ACTIONS = [
     {
-      action_type: "send_email",
-      display_data: {
-        title: "Inform your e-mail (optional)",
-        description: "Get notified about your achievements, new quests and more. We won't spam you :)"
-      },
-      action_data: {
-        action_type: "send_email"
-      }
-    },
-    {
       action_type: "wallet_verification",
       display_data: {
         title: "Connect your wallet",
@@ -708,6 +698,16 @@ module QuestData
       },
       action_data: {
         action_type: "wallet_verification"
+      }
+    },
+    {
+      action_type: "enable_notifications",
+      display_data: {
+        title: "Enable notifications",
+        description: "<em>Keep in mind that this quest will only be completed if, in the notification setup, you:</em><ul><li>Added your email address</li><li>Added your Telegram handle</li><li>Activated all notifications</li></ul>"
+      },
+      action_data: {
+        action_type: "enable_notifications"
       }
     }
   ]
@@ -954,7 +954,7 @@ module QuestData
     {
       display_data: {
         title: "Claim Your Identity",
-        intro: "Building a strong reputation in the Optimism Collective starts with having a <strong>Ethereum Name Service (ENS)</strong>, and also a <strong>recognizable name</strong> in the Governance Forum. A unique identity helps the community remember you and <strong>connects your ideas to a trusted name.</strong> Let’s take the first step towards establishing your presence in OP governance!",
+        intro: "Building a strong reputation in the Optimism Collective starts with having a <strong>Ethereum Name Service (ENS)</strong>, and also a <strong>recognizable name</strong> in the Governance Forum. A unique identity helps the community remember you and <strong>connects your ideas to a trusted name.</strong> Let's take the first step towards establishing your presence in OP governance!",
         image_url: "https://example.com/discourse-verification.jpg",
         requirements: "<span>To complete this quest, you need to have:</span> <ul><li>A <strong>ENS</strong> — if you don't have it, <a href='https://ens.domains/' target='_blank' rel='noopener noreferrer'>register your ENS here</a> and remember to <strong>choose a distinct username</strong> that represents you (like yourname.eth).</li> <li>A <strong>Discourse account</strong> on <strong>Optimism Governance Forum</strong> — if you also don't have it, <a href='https://gov.optimism.io/' target='_blank' rel='noopener noreferrer'>create your account here.</a> We recommend you to use your ENS as username so you can get easily recognizable.</li></ul>"
       },
@@ -1013,9 +1013,9 @@ module QuestData
     # {
     #   display_data: {
     #     title: "Top 100 Delegates",
-    #     intro: "Have you reached the Top 100 Delegates in Season 6? Let’s check your ranking and, if you’re among the top, celebrate your achievement with a reward!",
+    #     intro: "Have you reached the Top 100 Delegates in Season 6? Let's check your ranking and, if you're among the top, celebrate your achievement with a reward!",
     #     image_url: "https://example.com/advanced-governance.jpg",
-    #     requirements: "You need to be a delegate to do this quest! If you’re not one, start with Become Delegate Quest."
+    #     requirements: "You need to be a delegate to do this quest! If you're not one, start with Become Delegate Quest."
     #   },
     #   badge_display_data: {
     #     title: "Top 100 Delegates",
@@ -1028,7 +1028,7 @@ module QuestData
     {
       display_data: {
         title: "Become a Delegate",
-        intro: "Start your journey as a delegate in the Optimism community! This quest will guide you through the essential steps to become a representative within the ecosystem and share your ideas. Let’s get started!",
+        intro: "Start your journey as a delegate in the Optimism community! This quest will guide you through the essential steps to become a representative within the ecosystem and share your ideas. Let's get started!",
         image_url: "https://example.com/governance101.jpg",
         requirements: "This quest is for new delegates — those who become delegates after opening this content. If you're already a delegate, try referring new delegates to earn rewards!"
       },
@@ -1062,7 +1062,7 @@ module QuestData
         title: "First Vote Milestone",
         intro: "As a delegate, casting your first vote is an important step in shaping the future. Step up, participate, and make your mark with your first vote!",
         image_url: "https://example.com/governance101.jpg",
-        requirements: "To complete this quest, you need to <strong>be a registered delegate</strong> — if you’re not, start with Become Delegate Quest — and <strong>not have cast a vote</strong> yet."
+        requirements: "To complete this quest, you need to <strong>be a registered delegate</strong> — if you're not, start with Become Delegate Quest — and <strong>not have cast a vote</strong> yet."
       },
       badge_display_data: {
         title: "First Vote Milestone",
@@ -1091,7 +1091,7 @@ module QuestData
     {
       display_data: {
         title: "Become a Delegator",
-        intro: "Take the first step in your delegation journey within the Optimism ecosystem! This quest encourages you to delegate OP to someone. Let’s get started on empowering the community!",
+        intro: "Take the first step in your delegation journey within the Optimism ecosystem! This quest encourages you to delegate OP to someone. Let's get started on empowering the community!",
         image_url: "https://example.com/governance101.jpg",
         requirements: "To complete this quest, you have to be an OP holder. If you don't have OP in your wallet, complete the OP Holder quest first [<a href='/quests/op-holder'>link</a>]."
       },

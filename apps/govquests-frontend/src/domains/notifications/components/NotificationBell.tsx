@@ -1,30 +1,42 @@
-import { useState } from "react";
-import { Bell, Loader2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/Button";
+import HtmlRender from "@/components/ui/HtmlRender";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "@/components/ui/Button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  useNotifications,
-  useUnreadCount,
-  useMarkNotificationAsRead,
-  useMarkAllNotificationsAsRead,
-} from "../hooks/useNotifications";
-import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+import { Bell, Loader2 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useNotificationProcessor } from "../hooks/useNotificationProcessor";
-import HtmlRender from "@/components/ui/HtmlRender";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  useMarkAllNotificationsAsRead,
+  useMarkNotificationAsRead,
+  useNotifications,
+  useUnreadCount,
+} from "../hooks/useNotifications";
 import { NotificationSettings } from "./NotificationSettings";
 
 export const NotificationBell = () => {
   const { data: unreadCount } = useUnreadCount();
-  const [isOpen, setIsOpen] = useState(false);
+  const searchParams = useSearchParams();
+
+  const shouldOpenSettings =
+    searchParams.get("showNotificationSettings") === "true";
+
+  const [isOpen, setIsOpen] = useState(shouldOpenSettings);
   useNotificationProcessor();
+
+  useEffect(() => {
+    if (shouldOpenSettings) {
+      setIsOpen(true);
+    }
+  }, [shouldOpenSettings]);
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -46,13 +58,19 @@ export const NotificationBell = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-96 p-0" align="end" sideOffset={5}>
-        <NotificationPanel onNotificationClick={() => setIsOpen(false)} />
+        <NotificationPanel
+          onNotificationClick={() => setIsOpen(false)}
+          defaultTab={shouldOpenSettings ? "settings" : "notifications"}
+        />
       </PopoverContent>
     </Popover>
   );
 };
 
-const NotificationPanel = ({ onNotificationClick }) => {
+const NotificationPanel = ({
+  onNotificationClick,
+  defaultTab = "notifications",
+}) => {
   const {
     data,
     isError,
@@ -110,7 +128,7 @@ const NotificationPanel = ({ onNotificationClick }) => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <Tabs defaultValue="notifications" className="w-full">
+        <Tabs defaultValue={defaultTab} className="w-full">
           <TabsList className="w-full justify-start flex bg-inherit border-b rounded-none py-6">
             <TabsTrigger value="notifications"># Notifications</TabsTrigger>
             <TabsTrigger value="settings"># Settings</TabsTrigger>

@@ -28,6 +28,10 @@ module Notifications
         "Badge Ready for You!"
       when "podium_rank_up"
         "You’re in the Top 3!"
+      when "proposal_ending_soon"
+        "Your Vote is Needed!"
+      when "proposal_created"
+        "Voting Has Started!"
       else
         "New Notification"
       end
@@ -41,6 +45,8 @@ end
 #
 #  id                :bigint           not null, primary key
 #  content           :string           not null
+#  cta_text          :string
+#  cta_url           :string
 #  notification_type :string           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null

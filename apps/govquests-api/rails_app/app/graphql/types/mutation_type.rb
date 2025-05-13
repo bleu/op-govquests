@@ -18,6 +18,8 @@ module Types
     field :update_notification_preferences, mutation: Mutations::UpdateNotificationPreferences, preauthorize: {with: AuthenticatedGraphqlPolicy}
     field :connect_telegram, mutation: Mutations::ConnectTelegram, preauthorize: {with: AuthenticatedGraphqlPolicy}
 
+    field :send_email_verification, mutation: Mutations::SendEmailVerification
+
     # Special Badges
     field :collect_badge, mutation: Mutations::CollectBadge, preauthorize: {with: AuthenticatedGraphqlPolicy}
 

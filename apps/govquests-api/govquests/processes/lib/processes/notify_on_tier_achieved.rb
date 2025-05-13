@@ -41,6 +41,8 @@ module Processes
           notification_id: SecureRandom.uuid,
           user_id: profile_id,
           content: content,
+          cta_text: "Check Your Tier",
+          cta_url: "#{Rails.application.credentials.dig(Rails.env.to_sym, :frontend_domain)}/leaderboard?tab=all-tiers&tier=#{tier_id}",
           notification_type: notification_type,
           delivery_methods: ["in_app", "email", "telegram"]
         )

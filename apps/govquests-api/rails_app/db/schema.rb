@@ -107,8 +107,22 @@ ActiveRecord::Schema[8.1].define(version: 2025_05_12_193147) do
     t.string "notification_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "cta_text"
+    t.string "cta_url"
     t.index ["notification_id"], name: "index_notifications_on_notification_id", unique: true
     t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "proposals", force: :cascade do |t|
+    t.string "proposal_id", null: false
+    t.string "title"
+    t.string "description"
+    t.string "status"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposal_id"], name: "index_proposals_on_proposal_id", unique: true
   end
 
   create_table "quest_actions", force: :cascade do |t|
@@ -303,7 +317,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_05_12_193147) do
     t.string "telegram_token"
     t.boolean "telegram_notifications", default: false
     t.boolean "email_notifications", default: false
+    t.string "email_verification_token"
+    t.string "email_verification_status", default: "not_verified"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email_verification_token"], name: "index_users_on_email_verification_token", unique: true
     t.index ["telegram_chat_id"], name: "index_users_on_telegram_chat_id", unique: true
     t.index ["telegram_token"], name: "index_users_on_telegram_token", unique: true
     t.index ["user_id"], name: "index_users_on_user_id", unique: true

@@ -16,6 +16,11 @@ module Mutations
         gitcoin_score_completion_data&.to_h || {}
       when "discourse_verification"
         discourse_verification_completion_data&.to_h || {}
+      when "enable_notifications"
+        {
+          email_notifications: current_user.email_notifications,
+          telegram_notifications: current_user.telegram_notifications
+        }
       # including when "read_document", "ens"
       else
         {}

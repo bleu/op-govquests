@@ -40,27 +40,30 @@ end
 #
 # Table name: users
 #
-#  id                     :bigint           not null, primary key
-#  activity_log           :jsonb
-#  address                :string           not null
-#  email                  :string
-#  email_notifications    :boolean          default(FALSE)
-#  quests_progress        :jsonb
-#  sessions               :jsonb
-#  settings               :jsonb
-#  telegram_notifications :boolean          default(FALSE)
-#  telegram_token         :string
-#  user_type              :string           default("non_delegate"), not null
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  chain_id               :integer          not null
-#  telegram_chat_id       :string
-#  user_id                :string           not null
+#  id                        :bigint           not null, primary key
+#  activity_log              :jsonb
+#  address                   :string           not null
+#  email                     :string
+#  email_notifications       :boolean          default(FALSE)
+#  email_verification_status :string           default("not_verified")
+#  email_verification_token  :string
+#  quests_progress           :jsonb
+#  sessions                  :jsonb
+#  settings                  :jsonb
+#  telegram_notifications    :boolean          default(FALSE)
+#  telegram_token            :string
+#  user_type                 :string           default("non_delegate"), not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  chain_id                  :integer          not null
+#  telegram_chat_id          :string
+#  user_id                   :string           not null
 #
 # Indexes
 #
-#  index_users_on_email             (email) UNIQUE
-#  index_users_on_telegram_chat_id  (telegram_chat_id) UNIQUE
-#  index_users_on_telegram_token    (telegram_token) UNIQUE
-#  index_users_on_user_id           (user_id) UNIQUE
+#  index_users_on_email                     (email) UNIQUE
+#  index_users_on_email_verification_token  (email_verification_token) UNIQUE
+#  index_users_on_telegram_chat_id          (telegram_chat_id) UNIQUE
+#  index_users_on_telegram_token            (telegram_token) UNIQUE
+#  index_users_on_user_id                   (user_id) UNIQUE
 #

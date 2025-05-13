@@ -34,6 +34,8 @@ module Processes
           notification_id: SecureRandom.uuid,
           user_id: user_id,
           content: content,
+          cta_text: nil,
+          cta_url: nil,
           notification_type: notification_type
         )
       )

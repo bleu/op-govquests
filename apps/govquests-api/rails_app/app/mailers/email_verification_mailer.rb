@@ -1,6 +1,4 @@
-class EmailVerificationMailer < ActionMailer::Base
-  default from: "jose@bleu.studio"
-
+class EmailVerificationMailer < ApplicationMailer
   def verify_email
     @email = params[:email]
     @token = params[:token]
@@ -10,7 +8,6 @@ class EmailVerificationMailer < ActionMailer::Base
     @verification_link = "#{domain_url}/email_verifications/verify?token=#{@token}"
 
     mail(
-      from: "jose@bleu.studio",
       to: @email, subject: "GovQuests - verify your email"
     )
   end

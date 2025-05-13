@@ -5,6 +5,8 @@ module Notifications
         notification_id: event.data[:notification_id],
         user_id: event.data[:user_id],
         content: event.data[:content],
+        cta_text: event.data[:cta_text],
+        cta_url: event.data[:cta_url],
         notification_type: event.data[:notification_type]
       )
 

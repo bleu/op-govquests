@@ -50,5 +50,22 @@ module Authentication
         cmd.email_notifications
       )
     end
+
+    handle "Authentication::SendEmailVerification", aggregate: User do |user, cmd|
+      user.send_email_verification(
+        cmd.email,
+        cmd.token
+      )
+    end
+
+    handle "Authentication::VerifyEmail", aggregate: User do |user, cmd|
+      user.verify_email
+    end
+
+    handle "Authentication::ConnectTelegramAccount", aggregate: User do |user, cmd|
+      user.connect_telegram_account(
+        cmd.chat_id
+      )
+    end
   end
 end
