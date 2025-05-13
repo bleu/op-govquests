@@ -30,7 +30,7 @@ module Notifications
 
     class EmailDelivery < Base
       def deliver
-        ::NotificationMailer.notify(notification.id).deliver_now
+        ::NotificationMailer.with(notification_id: notification.id).notify.deliver_now
 
         {
           delivery_method: "email",
