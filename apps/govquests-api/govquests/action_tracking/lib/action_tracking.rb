@@ -6,7 +6,13 @@ module ActionTracking
   class << self
     def generate_execution_id(quest_id, action_id, user_id)
       name = "Quest$#{quest_id}-Action$#{action_id}-User$#{user_id}"
-      namespace_uuid = ACTION_EXECUTION_NAMESPACE_UUID
+      namespace_uuid = ACTION_TRACKING_NAMESPACE_UUID
+      Digest::UUID.uuid_v5(namespace_uuid, name)
+    end
+
+    def generate_action_id(action_data)
+      name = "Action$#{action_data[:display_data][:title]}-#{action_data[:action_type]}"
+      namespace_uuid = ACTION_TRACKING_NAMESPACE_UUID
       Digest::UUID.uuid_v5(namespace_uuid, name)
     end
 
@@ -14,7 +20,7 @@ module ActionTracking
   end
 end
 
-ACTION_EXECUTION_NAMESPACE_UUID = "061d2578-e3b3-41c0-b51d-b75b70876e71".freeze
+ACTION_TRACKING_NAMESPACE_UUID = "061d2578-e3b3-41c0-b51d-b75b70876e71".freeze
 
 require_relative "action_tracking/commands"
 require_relative "action_tracking/events"

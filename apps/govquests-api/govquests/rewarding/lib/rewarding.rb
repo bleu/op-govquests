@@ -4,7 +4,17 @@ require_relative "rewarding/events"
 
 require_relative "rewarding/reward_pool"
 
+REWARDING_NAMESPACE_UUID = "85b7f3c9-a3bc-4c16-bb5d-2c0bed8a6da7"
+
 module Rewarding
+  class << self
+    def generate_reward_pool_id(rewardable_id, rewardable_type, reward)
+      name = "#{rewardable_type}$#{rewardable_id}-#{reward[:type]}"
+      namespace_uuid = REWARDING_NAMESPACE_UUID
+      Digest::UUID.uuid_v5(namespace_uuid, name)
+    end
+  end
+
   class Configuration
     def call(event_store, command_bus)
       CommandHandler.register_commands(event_store, command_bus)

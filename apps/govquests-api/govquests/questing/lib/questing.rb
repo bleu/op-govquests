@@ -22,6 +22,16 @@ module Questing
       namespace_uuid = QUESTING_NAMESPACE_UUID
       Digest::UUID.uuid_v5(namespace_uuid, name)
     end
+
+    def generate_quest_id(quest_data)
+      unique_name = "Quest$#{quest_data[:display_data][:title]}"
+      Digest::UUID.uuid_v5(QUESTING_NAMESPACE_UUID, unique_name)
+    end
+
+    def generate_track_id(track_data)
+      unique_name = "Track$#{track_data[:display_data][:title]}"
+      Digest::UUID.uuid_v5(QUESTING_NAMESPACE_UUID, unique_name)
+    end
   end
 
   class Configuration
