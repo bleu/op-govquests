@@ -80,7 +80,7 @@ gem "jwt"
 gem "memery"
 gem "oj"
 
-gem "graphql", "~> 2.3"
+gem "graphql", "~> 2.4"
 gem "graphiql-rails"
 gem "siwe", "~> 2.0"
 gem "action_policy"
