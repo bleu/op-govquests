@@ -15,11 +15,11 @@ class UpdateProposalsJob < ApplicationJob
     active_proposals.each do |proposal|
       command = ::Proposals::CreateProposal.new(
         proposal_id: proposal["id"],
-        title: proposal["title"],
+        title: proposal["markdowntitle"],
         description: proposal["description"],
         status: proposal["status"],
-        created_at: proposal["created_at"],
-        updated_at: proposal["updated_at"]
+        start_date: proposal["startTime"].to_datetime,
+        end_date: proposal["endTime"].to_datetime
       )
 
       Rails.configuration.command_bus.call(command)

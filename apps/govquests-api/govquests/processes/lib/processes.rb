@@ -27,6 +27,7 @@ require_relative "processes/update_user_type_on_tier_achieved"
 
 require_relative "processes/trigger_posthog_on_badge_earned"
 require_relative "processes/trigger_posthog_on_badge_unlocked"
+require_relative "processes/trigger_posthog_on_proposal_created"
 require_relative "processes/trigger_posthog_on_quest_completed"
 require_relative "processes/trigger_posthog_on_rank_updated"
 require_relative "processes/trigger_posthog_on_tier_achieved"
@@ -62,6 +63,7 @@ module Processes
 
       TriggerPosthogOnBadgeEarned.new(event_store, command_bus).subscribe
       TriggerPosthogOnBadgeUnlocked.new(event_store, command_bus).subscribe
+      TriggerPosthogOnProposalCreated.new(event_store, command_bus).subscribe
       TriggerPosthogOnQuestCompleted.new(event_store, command_bus).subscribe
       TriggerPosthogOnRankUpdated.new(event_store, command_bus).subscribe
       TriggerPosthogOnTierAchieved.new(event_store, command_bus).subscribe
