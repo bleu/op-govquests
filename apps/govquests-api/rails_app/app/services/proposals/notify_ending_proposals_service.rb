@@ -7,16 +7,6 @@ module Proposals
         proposal_id = proposal.proposal_id
         proposal_title = proposal.title
 
-        begin
-          PosthogTrackingService.track_event("proposal_ending_soon", {
-            proposal_title: proposal_title,
-            proposal_id: proposal_id,
-            end_date: proposal.end_date
-          }, proposal_id)
-        rescue => e
-          # Do nothing
-        end
-
         users_to_notify = Authentication::UserReadModel.where(user_type: "delegate")
 
         users_to_notify.each do |user|
