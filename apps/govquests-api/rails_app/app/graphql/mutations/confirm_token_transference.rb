@@ -1,6 +1,7 @@
 module Mutations
   class ConfirmTokenTransference < BaseMutation
-    argument :uuid, String, required: true
+    argument :user_id, String, required: true
+    argument :pool_id, String, required: true
     argument :transaction_hash, String, required: true
 
     field :success, Boolean, null: false

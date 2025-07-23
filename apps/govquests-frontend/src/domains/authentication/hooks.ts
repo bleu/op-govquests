@@ -28,3 +28,12 @@ export const useCurrentUser = () => {
     queryFn: fetchCurrentUser,
   });
 };
+
+export const useIsAdmin = () => {
+  const { data: currentUser, isLoading, isError } = useCurrentUser();
+  return {
+    isAdmin: currentUser?.currentUser?.isAdmin,
+    isLoading,
+    isError,
+  };
+};

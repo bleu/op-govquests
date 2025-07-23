@@ -27,5 +27,9 @@ module Rewarding
     handle "Rewarding::UpdateRewardPool", aggregate: RewardPool do |pool, cmd|
       pool.update(cmd.reward_definition)
     end
+
+    handle "Rewarding::ConfirmTokenTransfer", aggregate: RewardPool do |pool, cmd|
+      pool.confirm_token_transfer(cmd.user_id, cmd.transaction_hash)
+    end
   end
 end

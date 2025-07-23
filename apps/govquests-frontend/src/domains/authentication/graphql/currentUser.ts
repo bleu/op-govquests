@@ -10,6 +10,7 @@ export const CURRENT_USER = graphql(`
       telegramNotifications
       emailNotifications
       emailVerificationToken
+      isAdmin
     }
   }
 `);
