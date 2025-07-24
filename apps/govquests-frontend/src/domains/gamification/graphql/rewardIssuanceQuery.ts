@@ -26,6 +26,9 @@ export const REWARD_ISSUANCE_QUERY = graphql(`
         id
         address
       }
+      confirmedAt
+      issuedAt
+      claimMetadata
     }
   }
 `);

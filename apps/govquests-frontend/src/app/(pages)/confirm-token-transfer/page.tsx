@@ -81,6 +81,109 @@ export default function ConfirmTokenTransferPage() {
 
   const tokenAmount = rewardDefinition?.amount || 0;
   const tokenSymbol = "OP";
+  const issuedAt = rewardIssuanceData.rewardIssuance.issuedAt as string;
+  const confirmedAt = rewardIssuanceData.rewardIssuance.confirmedAt as
+    | string
+    | null;
+  const isAlreadyConfirmed = !!confirmedAt;
+
+  if (!isAlreadyConfirmed) {
+    return (
+      <div className="container mx-auto max-w-2xl px-4 py-8">
+        <div className="space-y-6">
+          {/* Header */}
+          <div className="text-center space-y-2">
+            <h1 className="text-3xl font-bold">✅ Transfer Confirmed</h1>
+            <p className="text-muted-foreground">
+              This token transfer has already been confirmed
+            </p>
+          </div>
+
+          {/* Confirmation Details */}
+          <div className="bg-background/70 border rounded-lg p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-xl">#</span>
+              <h2 className="text-xl font-semibold">Transfer Information</h2>
+            </div>
+
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Recipient:</span>
+                <span className="font-mono break-all">
+                  {user?.address || userId}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Amount:</span>
+                <div className="flex items-center gap-1">
+                  <span className="font-bold">{tokenAmount}</span>
+                  <Badge variant="secondary">{tokenSymbol}</Badge>
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Issued:</span>
+                <span>{new Date(issuedAt).toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Confirmed:</span>
+                <span>
+                  {confirmedAt
+                    ? new Date(confirmedAt).toLocaleString()
+                    : "Not confirmed"}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Transaction Hash:</span>
+                <span className="font-mono break-all">
+                  {
+                    rewardIssuanceData.rewardIssuance.claimMetadata[
+                      "transaction_hash"
+                    ]
+                  }
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Badge Information */}
+          {rewardableData && (
+            <div className="bg-background/70 border rounded-lg p-6">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xl">#</span>
+                <h2 className="text-xl font-semibold">Badge Information</h2>
+              </div>
+              <p className="text-muted-foreground mb-4">
+                Details about the earned badge
+              </p>
+
+              <div className="space-y-3">
+                <div>
+                  <h3 className="font-semibold text-lg">
+                    {rewardableData.title}
+                  </h3>
+                  {rewardableData.description && (
+                    <p className="text-muted-foreground mt-1">
+                      {rewardableData.description}
+                    </p>
+                  )}
+                </div>
+
+                {rewardableData.imageUrl && (
+                  <div className="flex justify-center">
+                    <img
+                      src={rewardableData.imageUrl}
+                      alt={rewardableData.title}
+                      className="w-24 h-24 object-contain rounded-lg"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto max-w-2xl px-4 py-8">
@@ -95,9 +198,9 @@ export default function ConfirmTokenTransferPage() {
         </div>
 
         {/* Transfer Details Card */}
-        <div className="bg-card border rounded-lg p-6">
+        <div className="bg-background/70 border rounded-lg p-6">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-xl">💰</span>
+            <span className="text-xl">#</span>
             <h2 className="text-xl font-semibold">Transfer Details</h2>
           </div>
           <p className="text-muted-foreground mb-4">
@@ -126,6 +229,16 @@ export default function ConfirmTokenTransferPage() {
               </div>
             </div>
 
+            {/* Issued Date */}
+            <div className="flex flex-col space-y-1">
+              <label className="text-sm font-medium text-muted-foreground">
+                Issued Date
+              </label>
+              <div className="p-2 bg-muted rounded-md text-sm">
+                {new Date(issuedAt).toLocaleString()}
+              </div>
+            </div>
+
             {/* Pool ID */}
             <div className="flex flex-col space-y-1">
               <label className="text-sm font-medium text-muted-foreground">
@@ -140,13 +253,13 @@ export default function ConfirmTokenTransferPage() {
 
         {/* Badge/Reward Information */}
         {rewardableData && (
-          <div className="bg-card border rounded-lg p-6">
+          <div className="bg-background/70 border rounded-lg p-6">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-xl">🏆</span>
-              <h2 className="text-xl font-semibold">Reward Information</h2>
+              <span className="text-xl">#</span>
+              <h2 className="text-xl font-semibold">Badge Information</h2>
             </div>
             <p className="text-muted-foreground mb-4">
-              Details about the earned reward
+              Details about the earned badge
             </p>
 
             <div className="space-y-3">
@@ -175,9 +288,9 @@ export default function ConfirmTokenTransferPage() {
         )}
 
         {/* Transaction Hash Input */}
-        <div className="bg-card border rounded-lg p-6">
+        <div className="bg-background/70 border rounded-lg p-6">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-xl">🔗</span>
+            <span className="text-xl">#</span>
             <h2 className="text-xl font-semibold">Transaction Confirmation</h2>
           </div>
           <p className="text-muted-foreground mb-4">
