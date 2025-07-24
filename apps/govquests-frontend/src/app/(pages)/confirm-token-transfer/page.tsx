@@ -87,7 +87,7 @@ export default function ConfirmTokenTransferPage() {
     | null;
   const isAlreadyConfirmed = !!confirmedAt;
 
-  if (!isAlreadyConfirmed) {
+  if (isAlreadyConfirmed) {
     return (
       <div className="container mx-auto max-w-2xl px-4 py-8">
         <div className="space-y-6">
@@ -308,7 +308,7 @@ export default function ConfirmTokenTransferPage() {
                 placeholder="0x..."
                 value={transactionHash}
                 onChange={(e) => setTransactionHash(e.target.value)}
-                className="font-mono"
+                className="font-mono text-black"
               />
             </div>
 

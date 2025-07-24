@@ -747,6 +747,7 @@ type RewardDefinition {
 }
 
 type RewardIssuance {
+  claimMetadata: JSON
   confirmedAt: ISO8601DateTime
   id: ID!
   issuedAt: ISO8601DateTime!
@@ -954,7 +955,7 @@ type User {
   emailVerificationToken: String
   gameProfile: GameProfile
   id: ID!
-  isAdmin: Boolean!
+  isAdmin: Boolean
   telegramChatId: String
   telegramNotifications: Boolean
   userBadges: [UserBadge!]
