@@ -9,7 +9,15 @@ export const useConfirmTokenTransfer = (
 ) => {
   return useMutation({
     mutationFn: () => confirmTokenTransfer(userId, poolId, transactionHash),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      if (!data.confirmTokenTransfer.success) {
+        toast({
+          title: "Failed to confirm token transfer",
+          description: data.confirmTokenTransfer.errors.map((value) => value),
+        });
+        return;
+      }
+
       toast({
         title: "Token transfer confirmed",
       });

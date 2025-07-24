@@ -22,7 +22,8 @@ module Processes
           content: "Your hard work has paid off! You've successfully earned #{event.data[:amount]} OP tokens for completing the <a href='/achievements/#{badge.badge_id}'>#{badge.display_data[:title]}</a> Badge. Check your wallet to see the reward and continue engaging in governance activities.",
           notification_type: "token_transfer_confirmed",
           cta_url: "https://optimistic.etherscan.io/tx/#{event.data[:transaction_hash]}",
-          cta_text: "View Transaction"
+          cta_text: "View Transaction",
+          delivery_methods: ["in_app", "email", "telegram"]
         )
       )
     end

@@ -6,10 +6,9 @@ export const confirmTokenTransfer = async (
   userId: string,
   poolId: string,
   transactionHash: string,
-) => {
+) =>
   await request(API_URL, CONFIRM_TOKEN_TRANSFER, {
     userId,
     poolId,
     transactionHash,
   });
-};
