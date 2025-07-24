@@ -38,6 +38,8 @@ module Types
     field :current_user, resolver: Resolvers::CurrentUser, preauthorize: {with: AuthenticatedGraphqlPolicy}
     field :user, resolver: Resolvers::FetchUser
 
+    field :reward_issuance, resolver: Resolvers::FetchRewardIssuance
+
     field :notifications,
       resolver: Resolvers::FetchNotifications,
       preauthorize: {with: AuthenticatedGraphqlPolicy}

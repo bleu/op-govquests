@@ -684,6 +684,7 @@ type Query {
   ): NotificationConnection!
   quest(slug: String!): Quest
   quests: [Quest!]!
+  rewardIssuance(poolId: ID!, userId: ID!): RewardIssuance
   specialBadge(id: ID!): SpecialBadge
   specialBadges: [SpecialBadge!]
   tier(id: String!): Tier
@@ -745,9 +746,22 @@ type RewardDefinition {
   type: String!
 }
 
-type RewardPool {
-  rewardDefinition: RewardDefinition!
+type RewardIssuance {
+  confirmedAt: ISO8601DateTime
+  id: ID!
+  issuedAt: ISO8601DateTime!
+  pool: RewardPool!
+  user: User!
 }
+
+type RewardPool {
+  id: ID!
+  poolId: ID!
+  rewardDefinition: RewardDefinition!
+  rewardable: RewardableUnion!
+}
+
+union RewardableUnion = Quest | SpecialBadge
 
 """
 Start data for send email action

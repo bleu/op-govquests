@@ -1,12 +1,14 @@
 "use client";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { Badge } from "@/components/ui/badge";
 import { useConfirmTokenTransfer } from "@/domains/gamification/hooks/useConfirmTokenTransfer";
 import { useIsAdmin } from "@/domains/authentication/hooks";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { useRewardIssuance } from "@/domains/gamification/hooks/useRewardIssuance";
 
 export default function ConfirmTokenTransferPage() {
   const router = useRouter();
@@ -17,6 +19,8 @@ export default function ConfirmTokenTransferPage() {
 
   const [transactionHash, setTransactionHash] = useState("");
 
+  const { data: rewardIssuanceData } = useRewardIssuance(poolId, userId);
+
   const { mutate: confirmTokenTransfer } = useConfirmTokenTransfer(
     userId,
     poolId,
@@ -24,11 +28,22 @@ export default function ConfirmTokenTransferPage() {
   );
 
   const handleConfirm = () => {
+    if (!transactionHash.trim()) {
+      toast({
+        title: "Transaction hash is required",
+        variant: "destructive",
+      });
+      return;
+    }
     confirmTokenTransfer();
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
   }
 
   if (isError) {
@@ -37,6 +52,7 @@ export default function ConfirmTokenTransferPage() {
       variant: "destructive",
     });
     router.push("/");
+    return null;
   }
 
   if (!isAdmin && !isLoading && !isError) {
@@ -45,21 +61,154 @@ export default function ConfirmTokenTransferPage() {
       variant: "destructive",
     });
     router.push("/");
+    return null;
   }
 
+  if (!rewardIssuanceData?.rewardIssuance) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading reward issuance...</div>
+      </div>
+    );
+  }
+
+  const { pool, user } = rewardIssuanceData.rewardIssuance;
+  const rewardDefinition = pool?.rewardDefinition;
+  const rewardableData =
+    pool?.rewardable?.__typename === "SpecialBadge"
+      ? pool.rewardable.displayData
+      : null;
+
+  const tokenAmount = rewardDefinition?.amount || 0;
+  const tokenSymbol = "OP";
+
   return (
-    <div className="flex flex-col items-center justify-center gap-2 mt-10">
-      <h1>Confirm Token Transfer</h1>
-      <p>Pool ID: {poolId}</p>
-      <p>User ID: {userId}</p>
-      <Input
-        type="text"
-        placeholder="Enter transaction hash"
-        value={transactionHash}
-        onChange={(e) => setTransactionHash(e.target.value)}
-        className="max-w-sm"
-      />
-      <Button onClick={handleConfirm}>Confirm</Button>
+    <div className="container mx-auto max-w-2xl px-4 py-8">
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="text-center space-y-2">
+          <h1 className="text-3xl font-bold">Confirm Token Transfer</h1>
+          <p className="text-muted-foreground">
+            Review the transfer details and enter the transaction hash to
+            confirm
+          </p>
+        </div>
+
+        {/* Transfer Details Card */}
+        <div className="bg-card border rounded-lg p-6">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-xl">💰</span>
+            <h2 className="text-xl font-semibold">Transfer Details</h2>
+          </div>
+          <p className="text-muted-foreground mb-4">
+            Token reward transfer information
+          </p>
+
+          <div className="space-y-4">
+            {/* User Address */}
+            <div className="flex flex-col space-y-1">
+              <label className="text-sm font-medium text-muted-foreground">
+                Recipient Address
+              </label>
+              <div className="p-3 bg-muted rounded-md font-mono text-sm break-all">
+                {user?.address || userId}
+              </div>
+            </div>
+
+            {/* Token Amount */}
+            <div className="flex flex-col space-y-1">
+              <label className="text-sm font-medium text-muted-foreground">
+                Token Amount
+              </label>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl font-bold">{tokenAmount}</span>
+                <Badge variant="secondary">{tokenSymbol}</Badge>
+              </div>
+            </div>
+
+            {/* Pool ID */}
+            <div className="flex flex-col space-y-1">
+              <label className="text-sm font-medium text-muted-foreground">
+                Pool ID
+              </label>
+              <div className="p-2 bg-muted rounded-md font-mono text-xs break-all">
+                {poolId}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Badge/Reward Information */}
+        {rewardableData && (
+          <div className="bg-card border rounded-lg p-6">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-xl">🏆</span>
+              <h2 className="text-xl font-semibold">Reward Information</h2>
+            </div>
+            <p className="text-muted-foreground mb-4">
+              Details about the earned reward
+            </p>
+
+            <div className="space-y-3">
+              <div>
+                <h3 className="font-semibold text-lg">
+                  {rewardableData.title}
+                </h3>
+                {rewardableData.description && (
+                  <p className="text-muted-foreground mt-1">
+                    {rewardableData.description}
+                  </p>
+                )}
+              </div>
+
+              {rewardableData.imageUrl && (
+                <div className="flex justify-center">
+                  <img
+                    src={rewardableData.imageUrl}
+                    alt={rewardableData.title}
+                    className="w-24 h-24 object-contain rounded-lg"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Transaction Hash Input */}
+        <div className="bg-card border rounded-lg p-6">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-xl">🔗</span>
+            <h2 className="text-xl font-semibold">Transaction Confirmation</h2>
+          </div>
+          <p className="text-muted-foreground mb-4">
+            Enter the blockchain transaction hash to confirm the transfer
+          </p>
+
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <label htmlFor="txHash" className="text-sm font-medium">
+                Transaction Hash
+              </label>
+              <Input
+                id="txHash"
+                type="text"
+                placeholder="0x..."
+                value={transactionHash}
+                onChange={(e) => setTransactionHash(e.target.value)}
+                className="font-mono"
+              />
+            </div>
+
+            <Button
+              onClick={handleConfirm}
+              className="w-full"
+              disabled={!transactionHash.trim()}
+            >
+              Confirm Transfer
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
