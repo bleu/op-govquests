@@ -11,6 +11,7 @@ export const CURRENT_USER = graphql(`
       emailNotifications
       emailVerificationToken
       isAdmin
+      createdAt
     }
   }
 `);

@@ -12,6 +12,7 @@ module Types
     field :email_notifications, Boolean, null: true
     field :email_verification_token, String, null: true
     field :email_verification_status, String, null: true
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
 
     field :user_badges, [Types::UserBadgeType], null: true
     field :user_quests, [Types::UserQuestType], null: true
