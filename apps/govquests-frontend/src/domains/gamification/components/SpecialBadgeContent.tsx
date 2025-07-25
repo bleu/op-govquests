@@ -67,7 +67,7 @@ export const SpecialBadgeContent = ({
 
   return (
     data && (
-      <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col gap-4 w-full" tabIndex={0}>
         <div className="flex flex-row gap-2 w-fit self-center justify-center items-center">
           {rewards?.map((reward) => (
             <RewardIndicator key={reward.type} reward={reward} />
@@ -75,7 +75,7 @@ export const SpecialBadgeContent = ({
         </div>
         <h2 className="font-black text-lg w-full">
           {isCompleted
-            ? "Special Badge Unlocked!"
+            ? "Special Badge Collected!"
             : "This Special Badge is waiting for you!"}
         </h2>
         <span>
@@ -96,10 +96,10 @@ export const SpecialBadgeContent = ({
           <ConditionalWrapper
             condition={isPendingReward}
             wrapper={(children) => (
-              <TooltipProvider delayDuration={0}>
+              <TooltipProvider delayDuration={300}>
                 <Tooltip defaultOpen={false}>
                   <TooltipTrigger>{children}</TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="max-w-xs">
                     <p>
                       Waiting until OP rewards are successfully transferred to
                       your wallet.
