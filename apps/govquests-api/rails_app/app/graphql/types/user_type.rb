@@ -5,6 +5,7 @@ module Types
     field :user_type, String, null: false
     field :address, String, null: false
     field :chain_id, Integer, null: false
+    field :is_admin, Boolean, null: true
 
     field :telegram_chat_id, String, null: true
     field :telegram_notifications, Boolean, null: true

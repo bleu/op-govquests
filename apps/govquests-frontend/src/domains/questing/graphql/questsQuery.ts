@@ -12,7 +12,6 @@ export const QuestsQuery = graphql(`
           type
           amount
         }
-        remainingInventory
       }
       displayData {
         title

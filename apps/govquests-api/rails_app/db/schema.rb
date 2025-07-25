@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_05_09_161516) do
+ActiveRecord::Schema[8.1].define(version: 2025_07_23_212142) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -152,11 +152,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_05_09_161516) do
     t.uuid "pool_id", null: false
     t.uuid "user_id", null: false
     t.datetime "issued_at", null: false
-    t.datetime "claim_started_at"
-    t.datetime "claim_completed_at"
     t.jsonb "claim_metadata", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "completed"
+    t.datetime "confirmed_at"
     t.index ["pool_id", "user_id"], name: "index_reward_issuances_on_pool_id_and_user_id", unique: true
     t.index ["user_id"], name: "index_reward_issuances_on_user_id"
   end
@@ -165,7 +165,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_05_09_161516) do
     t.uuid "pool_id", null: false
     t.string "rewardable_id", null: false
     t.jsonb "reward_definition", null: false
-    t.integer "remaining_inventory"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "rewardable_type"
@@ -243,12 +242,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_05_09_161516) do
 
   create_table "user_game_profiles", force: :cascade do |t|
     t.string "profile_id", null: false
-    t.integer "track", default: 0
-    t.integer "streak", default: 0
     t.integer "score", default: 0
-    t.jsonb "badges", default: []
-    t.jsonb "unclaimed_tokens", default: {}
-    t.jsonb "active_claim"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "tier_id"
@@ -325,6 +319,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_05_09_161516) do
     t.boolean "email_notifications", default: false
     t.string "email_verification_token"
     t.string "email_verification_status", default: "not_verified"
+    t.boolean "is_admin"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["email_verification_token"], name: "index_users_on_email_verification_token", unique: true
     t.index ["telegram_chat_id"], name: "index_users_on_telegram_chat_id", unique: true

@@ -27,16 +27,13 @@ module RewardPoolCreation
   def self.create_pool(rewardable_id, rewardable_type, reward)
     pool_id = Rewarding.generate_reward_pool_id(rewardable_id, rewardable_type, reward)
 
-    reward.delete("inventory")
-
     begin
       Rails.configuration.command_bus.call(
         Rewarding::CreateRewardPool.new(
           pool_id: pool_id,
           rewardable_id: rewardable_id,
           rewardable_type: rewardable_type,
-          reward_definition: reward,
-          initial_inventory: (reward[:type] == "Token") ? reward[:inventory] : nil
+          reward_definition: reward
         )
       )
     rescue Rewarding::RewardPool::AlreadyCreated
@@ -560,6 +557,27 @@ module SpecialBadgeData
         {
           type: "Points",
           amount: 330
+        }
+      ]
+    },
+    {
+      display_data: {
+        title: "Test Badge",
+        description: "Test badge",
+        image_url: "/badges/SPECIAL BADGE_01_02.png"
+      },
+      badge_type: "test_badge",
+      badge_data: {
+        badge_type: "test_badge"
+      },
+      rewards: [
+        {
+          type: "Points",
+          amount: 330
+        },
+        {
+          type: "Token",
+          amount: 10
         }
       ]
     }

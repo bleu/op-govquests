@@ -1,32 +1,6 @@
 require_relative "types/claim_metadata"
 
 module Gamification
-  class TokenRewardAdded < Infra::Event
-    attribute :profile_id, Infra::Types::UUID
-    attribute :token_address, Infra::Types::String
-    attribute :amount, Infra::Types::Integer
-    attribute :pool_id, Infra::Types::UUID
-    attribute :total_unclaimed, Infra::Types::Integer
-  end
-
-  class TokenClaimStarted < Infra::Event
-    attribute :profile_id, Infra::Types::UUID
-    attribute :token_address, Infra::Types::String
-    attribute :user_address, Infra::Types::String
-    attribute :amount, Infra::Types::Integer
-    attribute :claim_metadata, Infra::Types::Hash
-    attribute :started_at, Infra::Types::Time
-  end
-
-  class TokenClaimCompleted < Infra::Event
-    attribute :profile_id, Infra::Types::UUID
-    attribute :token_address, Infra::Types::String
-    attribute :user_address, Infra::Types::String
-    attribute :amount, Infra::Types::Integer
-    attribute :claim_metadata, Infra::Types::Hash
-    attribute :completed_at, Infra::Types::Time
-  end
-
   class ScoreUpdated < Infra::Event
     attribute :profile_id, Infra::Types::UUID
     attribute :points, Infra::Types::Integer
@@ -41,16 +15,6 @@ module Gamification
   class TierAchieved < Infra::Event
     attribute :profile_id, Infra::Types::UUID
     attribute :tier_id, Infra::Types::UUID
-  end
-
-  class TrackCompleted < Infra::Event
-    attribute :profile_id, Infra::Types::UUID
-    attribute :track, Infra::Types::String
-  end
-
-  class StreakMaintained < Infra::Event
-    attribute :profile_id, Infra::Types::UUID
-    attribute :streak, Infra::Types::Integer
   end
   
   class LeaderboardUpdated < Infra::Event

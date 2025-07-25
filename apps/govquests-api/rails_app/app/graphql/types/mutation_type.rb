@@ -20,6 +20,8 @@ module Types
 
     field :send_email_verification, mutation: Mutations::SendEmailVerification
 
+    field :confirm_token_transfer, mutation: Mutations::ConfirmTokenTransference
+
     # Special Badges
     field :collect_badge, mutation: Mutations::CollectBadge, preauthorize: {with: AuthenticatedGraphqlPolicy}
 

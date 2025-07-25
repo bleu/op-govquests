@@ -35,15 +35,15 @@ end
 #
 # Table name: reward_issuances
 #
-#  id                 :bigint           not null, primary key
-#  claim_completed_at :datetime
-#  claim_metadata     :jsonb            not null
-#  claim_started_at   :datetime
-#  issued_at          :datetime         not null
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  pool_id            :uuid             not null
-#  user_id            :uuid             not null
+#  id             :bigint           not null, primary key
+#  claim_metadata :jsonb            not null
+#  confirmed_at   :datetime
+#  issued_at      :datetime         not null
+#  status         :string           default("completed")
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  pool_id        :uuid             not null
+#  user_id        :uuid             not null
 #
 # Indexes
 #

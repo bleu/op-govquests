@@ -70,37 +70,6 @@ module Gamification
       profile.achieve_tier(cmd.tier_id)
     end
 
-    handle "Gamification::CompleteTrack", aggregate: GameProfile do |profile, cmd|
-      profile.complete_track(cmd.track)
-    end
-
-    handle "Gamification::MaintainStreak", aggregate: GameProfile do |profile, cmd|
-      profile.maintain_streak(cmd.streak)
-    end
-
-    # Game Profile commands - tokens
-    handle "Gamification::AddTokenReward", aggregate: GameProfile do |profile, cmd|
-      profile.add_token_reward(
-        token_address: cmd.token_address,
-        amount: cmd.amount,
-        pool_id: cmd.pool_id
-      )
-    end
-
-    handle "Gamification::StartTokenClaim", aggregate: GameProfile do |profile, cmd|
-      profile.start_token_claim(
-        token_address: cmd.token_address,
-        user_address: cmd.user_address
-      )
-    end
-
-    handle "Gamification::CompleteTokenClaim", aggregate: GameProfile do |profile, cmd|
-      profile.complete_token_claim(
-        token_address: cmd.token_address,
-        claim_metadata: cmd.claim_metadata
-      )
-    end
-
     handle "Gamification::CreateBadge", aggregate: Badge do |badge, cmd|
       badge.create(cmd.display_data, cmd.badgeable_id, cmd.badgeable_type)
     end

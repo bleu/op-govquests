@@ -6,7 +6,6 @@ module Rewarding
     attribute :rewardable_id, Infra::Types::UUID
     attribute :rewardable_type, Infra::Types::String
     attribute :reward_definition, SharedKernel::Types::RewardDefinition
-    attribute :initial_inventory, Infra::Types::Integer.optional
 
     alias :aggregate_id :pool_id
 
@@ -26,6 +25,14 @@ module Rewarding
   class UpdateRewardPool < Infra::Command
     attribute :pool_id, Infra::Types::UUID
     attribute :reward_definition, SharedKernel::Types::RewardDefinition
+
+    alias_method :aggregate_id, :pool_id
+  end
+
+  class ConfirmTokenTransfer < Infra::Command
+    attribute :pool_id, Infra::Types::UUID
+    attribute :user_id, Infra::Types::UUID
+    attribute :transaction_hash, Infra::Types::String
 
     alias_method :aggregate_id, :pool_id
   end

@@ -26,8 +26,7 @@ module Rewarding
       pool.create(
         rewardable_id: cmd.rewardable_id,
         rewardable_type: cmd.rewardable_type,
-        reward_definition: cmd.reward_definition,
-        initial_inventory: cmd.initial_inventory
+        reward_definition: cmd.reward_definition
       )
     end
 
@@ -37,6 +36,10 @@ module Rewarding
 
     handle "Rewarding::UpdateRewardPool", aggregate: RewardPool do |pool, cmd|
       pool.update(cmd.reward_definition)
+    end
+
+    handle "Rewarding::ConfirmTokenTransfer", aggregate: RewardPool do |pool, cmd|
+      pool.confirm_token_transfer(cmd.user_id, cmd.transaction_hash)
     end
   end
 end

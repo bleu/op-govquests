@@ -47,6 +47,7 @@ end
 #  email_notifications       :boolean          default(FALSE)
 #  email_verification_status :string           default("not_verified")
 #  email_verification_token  :string
+#  is_admin                  :boolean
 #  quests_progress           :jsonb
 #  sessions                  :jsonb
 #  settings                  :jsonb

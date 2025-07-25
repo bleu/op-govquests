@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/Button";
-import { useState } from "react";
-import { useFetchSpecialBadge } from "../hooks/useFetchSpecialBadge";
-import { useCollectBadge } from "../hooks/useCollectBadge";
-import { useAccount } from "wagmi";
-import { useSIWE } from "connectkit";
-import HtmlRender from "@/components/ui/HtmlRender";
 import RewardIndicator from "@/components/RewardIndicator";
+import { Button } from "@/components/ui/Button";
+import HtmlRender from "@/components/ui/HtmlRender";
+import { useSIWE } from "connectkit";
+import { Clock } from "lucide-react";
+import { useState } from "react";
+import { useAccount } from "wagmi";
+import { useCollectBadge } from "../hooks/useCollectBadge";
+import { useFetchSpecialBadge } from "../hooks/useFetchSpecialBadge";
 
 export const SpecialBadgeContent = ({
   badgeId,
@@ -47,6 +48,11 @@ export const SpecialBadgeContent = ({
     );
   };
 
+  const isPendingReward: boolean =
+    data?.specialBadge.userBadges.length &&
+    data?.specialBadge.userBadges[0]?.rewardIssuances.some(
+      (rewardIssuance: any) => !rewardIssuance.confirmedAt,
+    );
   const rewards = data?.specialBadge.rewardPools.map((pool) => ({
     type: pool.rewardDefinition.type,
     amount: pool.rewardDefinition.amount,
@@ -55,7 +61,7 @@ export const SpecialBadgeContent = ({
 
   return (
     data && (
-      <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col gap-4 w-full" tabIndex={0}>
         <div className="flex flex-row gap-2 w-fit self-center justify-center items-center">
           {rewards?.map((reward) => (
             <RewardIndicator key={reward.type} reward={reward} />
@@ -63,7 +69,7 @@ export const SpecialBadgeContent = ({
         </div>
         <h2 className="font-black text-lg w-full">
           {isCompleted
-            ? "Special Badge Unlocked!"
+            ? "Special Badge Collected!"
             : "This Special Badge is waiting for you!"}
         </h2>
         <span>
@@ -86,8 +92,15 @@ export const SpecialBadgeContent = ({
             disabled={isCompleted || !isSignedIn || !isConnected}
             onClick={handleCollectBadge}
           >
-            Collect Badge
+            {!isPendingReward ? "Collect Badge" : "Pending Reward"}
           </Button>
+          {!!isPendingReward && (
+            <p className="text-yellow-300 font-bold text-xs text-center">
+              <Clock className="w-4 h-4 text-yellow-300 inline mr-2 align-text-top" />
+              Your OP rewards are being processed and will be sent to your
+              wallet soon.
+            </p>
+          )}
           {error && (
             <p className="text-destructive font-bold text-xs text-center">
               {error}

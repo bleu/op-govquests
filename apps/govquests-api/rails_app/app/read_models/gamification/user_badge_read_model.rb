@@ -22,6 +22,13 @@ module Gamification
     def normal?
       badge_type == "Gamification::BadgeReadModel"
     end
+
+    def reward_issuances
+      Rewarding::RewardIssuanceReadModel.where(
+        user_id: user_id,
+        pool_id: badge.reward_pools.pluck(:pool_id)
+      )
+    end
   end
 end
 
