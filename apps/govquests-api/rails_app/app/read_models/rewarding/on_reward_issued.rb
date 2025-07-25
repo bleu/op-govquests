@@ -15,7 +15,7 @@ module Rewarding
 
       if pool.reward_definition["type"] == "Points"
         pool_properties[:status] = "completed"
-        pool_properties[:confirmed_at] = event.data[:confirmed_at]
+        pool_properties[:confirmed_at] = event.data[:issued_at]
       end
 
       pool.issued_rewards.create!(pool_properties)

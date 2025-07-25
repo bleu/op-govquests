@@ -967,6 +967,7 @@ type User {
 type UserBadge {
   badge: BadgeUnion!
   earnedAt: ISO8601DateTime!
+  rewardIssuances: [RewardIssuance!]
   userId: ID!
 }
 
