@@ -6,6 +6,40 @@ import {
   DialogFooter,
   DialogTrigger,
 } from "./ui/dialog";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+import HtmlRender from "./ui/HtmlRender";
+
+const STEPS = [
+  {
+    id: 1,
+    title: "Earn OP by Participating in GovQuests",
+    description:
+      "GovQuests rewards you for contributing to Optimism’s governance.The more you can earn throughout Season 8!",
+    image: "/learn-flow/1-intro.png",
+  },
+  {
+    id: 2,
+    title: "Complete Quests, Earn OP",
+    description:
+      "Some quests include OP rewards you can earn right away. Look for the OP reward tag on quest cards — the token amount will be clearly displayed.",
+    image: "/learn-flow/2-quests.png",
+  },
+  {
+    id: 3,
+    title: "Top the Leaderboard to Win More",
+    description:
+      "At the end of Season 8, the top 1 participant in each tier will receive bonus rewards:<ul><li><b>1000 points</b>, plus:</li><ul><li>Optimistic Supporter — <b>30 OP</b></li><li>Delegation Initiate — <b>30 OP</b></li><li>Emerging Leader — <b>20 OP</b></li><li>Strategic Delegate — <b>20 OP</b></li><li>Ecosystem Guardian — <b>15 OP</b></li></ul></ul>",
+    image: "/learn-flow/3-leaderboard.png",
+  },
+  {
+    id: 4,
+    title: "How Rewards Are Distributed",
+    description:
+      "OP rewards will be sent once per month to the wallet you used in GovQuests. You’ll get a push notification when your rewards are sent.\n\n🔔 You can also opt in to receive updates via email or Telegram.",
+    image: "/learn-flow/4-reward.png",
+  },
+];
 
 export const OptimismSeasonBanner = () => {
   return (
@@ -33,34 +67,67 @@ export const OptimismSeasonBanner = () => {
             Learn How it Works
           </Button>
         </DialogTrigger>
-        <DialogContent
-          className="max-w-md rounded-4xl flex flex-col gap-6"
-          hideCloseButton
-        >
-          <Image
-            src="/learn-flow/1-intro.png"
-            alt="Optimism Season 8"
-            width={1000}
-            height={1000}
-            className="w-full h-auto"
-          />
-          <div className="px-2.5 flex flex-col gap-2">
-            <h1 className="text-xl font-bold">
-              Earn OP by Participating in GovQuests
-            </h1>
-            <p className="text-md text-muted-foreground">
-              GovQuests is a platform that allows you to earn OP by
-              participating in quests.
-            </p>
-          </div>
-          <DialogFooter className="flex items-center justify-between w-full">
-            <Button variant="secondary" className="w-full py-3 h-fit font-bold">
-              Previous
-            </Button>
-            <Button className="w-full py-3 h-fit font-bold">Next</Button>
-          </DialogFooter>
-        </DialogContent>
+        <ModalStep steps={STEPS} />
       </Dialog>
     </div>
+  );
+};
+
+export const ModalStep = ({ steps }: { steps: typeof STEPS }) => {
+  const [currentStep, setCurrentStep] = useState(steps[0]);
+
+  const handleNext = () => {
+    if (currentStep.id === steps.length) return;
+    setCurrentStep(steps.find((step) => step.id === currentStep.id + 1));
+  };
+
+  const handlePrevious = () => {
+    if (currentStep.id === 1) return;
+    setCurrentStep(steps.find((step) => step.id === currentStep.id - 1));
+  };
+
+  return (
+    <DialogContent
+      className="max-w-md sm:rounded-3xl flex flex-col gap-6 p-5"
+      hideCloseButton
+    >
+      <Image
+        src={currentStep.image}
+        alt={currentStep.title}
+        width={1000}
+        height={1000}
+        className="w-full h-auto"
+      />
+      <div className="px-2.5 flex flex-col gap-6">
+        <h1 className="text-xl font-bold">{currentStep.title}</h1>
+        <p className="text-md text-muted-foreground">
+          <HtmlRender content={currentStep.description} />
+        </p>
+      </div>
+      {/* STEP INDICATORS */}
+      <div className="flex gap-2 items-center justify-center mb-2">
+        {steps.map((step) => (
+          <div
+            key={step.id}
+            className={cn(
+              "size-2 rounded-full bg-white/20",
+              step.id === currentStep.id && "bg-white",
+            )}
+          />
+        ))}
+      </div>
+      <DialogFooter className="flex items-center justify-between w-full">
+        <Button
+          variant="secondary"
+          className="w-full py-3 h-fit font-bold"
+          onClick={handlePrevious}
+        >
+          Previous
+        </Button>
+        <Button className="w-full py-3 h-fit font-bold" onClick={handleNext}>
+          Next
+        </Button>
+      </DialogFooter>
+    </DialogContent>
   );
 };
