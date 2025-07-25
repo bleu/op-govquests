@@ -7,6 +7,7 @@ import {
 import { NormalBadgeCard, SpecialBadgeCard } from "./BadgeCard";
 import { SimpleBadgeContent } from "./SimpleBadgeContent";
 import { SpecialBadgeContent } from "./SpecialBadgeContent";
+import { cn } from "@/lib/utils";
 
 interface BadgeDetailsProps {
   badgeId: string;
@@ -25,7 +26,10 @@ export const BadgeDetails = ({
       <DialogHeader>
         <DialogDescription
           asChild
-          className="flex flex-col gap-8 items-center justify-center text-foreground"
+          className={cn(
+            "flex flex-col gap-8 items-center justify-center text-foreground",
+            special && "gap-2",
+          )}
         >
           {special ? (
             <div>
