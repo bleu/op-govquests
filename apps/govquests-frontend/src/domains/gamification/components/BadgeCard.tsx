@@ -106,7 +106,7 @@ export const BadgeCard = ({
           )}
         </div>
         {hasOpReward && !revealCard && (
-          <IndicatorPill className="absolute top-2 right-2 !bg-gradient-to-r !from-[#7D72F5DD] !to-[#B84577DD] text-xs font-thin h-5 px-3 w-fit">
+          <IndicatorPill className="absolute top-2 right-2 !bg-gradient-to-r !from-yellow-300 !via-amber-400 !to-yellow-600 !text-amber-900 !shadow-xl !border-2 !border-amber-300 text-xs font-bold h-5 px-3 w-fit">
             OP Rewards!
           </IndicatorPill>
         )}
