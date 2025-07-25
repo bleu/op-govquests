@@ -5,6 +5,7 @@ import Image from "next/image";
 import { type ComponentProps, useState } from "react";
 import { useFetchBadge } from "../hooks/useFetchBadge";
 import { useFetchSpecialBadge } from "../hooks/useFetchSpecialBadge";
+import { IndicatorPill } from "@/components/IndicatorPill";
 
 interface BadgeCardProps {
   badgeId: string;
@@ -17,6 +18,7 @@ interface BadgeCardProps {
   header?: string;
   revealIncomplete?: boolean;
   badgeableTitle?: string;
+  hasOpReward?: boolean;
 }
 
 export const NormalBadgeCard = (
@@ -38,7 +40,17 @@ export const SpecialBadgeCard = (
 ) => {
   const { data } = useFetchSpecialBadge(props.badgeId);
 
-  return <BadgeCard badge={data?.specialBadge} {...props} />;
+  const hasOpReward = data?.specialBadge?.rewardPools.some(
+    (pool) => pool.rewardDefinition.type === "Token",
+  );
+
+  return (
+    <BadgeCard
+      badge={data?.specialBadge}
+      {...props}
+      hasOpReward={hasOpReward}
+    />
+  );
 };
 
 export const BadgeCard = ({
@@ -49,6 +61,7 @@ export const BadgeCard = ({
   badgeableTitle,
   header,
   scaleDisabled = false,
+  hasOpReward,
 }: BadgeCardProps) => {
   const revealCard = badge?.earnedByCurrentUser || revealIncomplete;
 
@@ -92,6 +105,11 @@ export const BadgeCard = ({
             </span>
           )}
         </div>
+        {hasOpReward && !revealCard && (
+          <IndicatorPill className="absolute top-2 right-2 !bg-gradient-to-r !from-[#7D72F5DD] !to-[#B84577DD] text-xs font-thin h-5 px-3 w-fit">
+            OP Rewards!
+          </IndicatorPill>
+        )}
       </div>
     </div>
   );

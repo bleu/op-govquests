@@ -1,9 +1,6 @@
 module ActionCreation
-  ACTION_CREATION_NAMESPACE_UUID = "eccead2c-ac0b-45ae-9e0b-9c6847fbf47f"
-
   def self.create_action(action_data)
-    unique_name = "#{action_data[:display_data][:title]}-#{action_data[:action_type]}"
-    action_id = Digest::UUID.uuid_v5(ACTION_CREATION_NAMESPACE_UUID, unique_name)
+    action_id = ActionTracking.generate_action_id(action_data)
 
     begin
       command = ActionTracking::CreateAction.new(
@@ -27,11 +24,8 @@ module ActionCreation
 end
 
 module RewardPoolCreation
-  POOL_CREATION_NAMESPACE_UUID = "85b7f3c9-a3bc-4c16-bb5d-2c0bed8a6da7"
-
   def self.create_pool(rewardable_id, rewardable_type, reward)
-    pool_unique_name = "#{rewardable_type}$#{rewardable_id}-#{reward[:type]}"
-    pool_id = Digest::UUID.uuid_v5(POOL_CREATION_NAMESPACE_UUID, pool_unique_name)
+    pool_id = Rewarding.generate_reward_pool_id(rewardable_id, rewardable_type, reward)
 
     begin
       Rails.configuration.command_bus.call(
@@ -56,11 +50,8 @@ module RewardPoolCreation
 end
 
 module QuestCreation
-  QUEST_CREATION_NAMESPACE_UUID = "da70de27-5711-441c-a0a2-9832171492e3"
-
   def self.create_quest_with_rewards(quest_data)
-    unique_name = quest_data[:display_data][:title]
-    quest_id = Digest::UUID.uuid_v5(QUEST_CREATION_NAMESPACE_UUID, unique_name)
+    quest_id = Questing.generate_quest_id(quest_data)
 
     begin
       Rails.configuration.command_bus.call(
@@ -112,10 +103,8 @@ module QuestCreation
 end
 
 module TrackCreation
-  TRACK_CREATION_NAMESPACE_UUID = "86e60d5e-767b-4dcc-b7d3-5048e1db5b04"
-
   def self.create_track_with_quests(track_data, quest_id_map)
-    track_id = Digest::UUID.uuid_v5(TRACK_CREATION_NAMESPACE_UUID, track_data[:display_data][:title])
+    track_id = Questing.generate_track_id(track_data)
 
     begin
       Rails.configuration.command_bus.call(
@@ -153,11 +142,8 @@ module TrackCreation
 end
 
 module BadgeCreation
-  BADGE_CREATION_NAMESPACE_UUID = "04afddb4-b215-4862-a2e6-2222058e45de"
-
   def self.create_badge(badge_data, badgeable_id, badgeable_type)
-    unique_name = "#{badgeable_type}$#{badgeable_id}"
-    badge_id = Digest::UUID.uuid_v5(BADGE_CREATION_NAMESPACE_UUID, unique_name)
+    badge_id = Gamification.generate_badge_id(badgeable_type, badgeable_id)
 
     begin
       Rails.configuration.command_bus.call(
@@ -182,11 +168,8 @@ module BadgeCreation
 end
 
 module SpecialBadgeCreation
-  SPECIALBADGE_CREATION_NAMESPACE_UUID = "101cb511-2dbd-4920-938a-13a56d07a0b8"
-
   def self.create_special_badge_with_rewards(badge_data)
-    unique_name = "#{badge_data[:display_data][:title]}-#{badge_data[:badge_type]}"
-    badge_id = Digest::UUID.uuid_v5(SPECIALBADGE_CREATION_NAMESPACE_UUID, unique_name)
+    badge_id = Gamification.generate_special_badge_id(badge_data)
 
     begin
       Rails.configuration.command_bus.call(
@@ -230,11 +213,8 @@ module SpecialBadgeCreation
 end
 
 module TierCreation
-  TIER_CREATION_NAMESPACE_UUID = "9b130c84-5bb0-4b13-9cba-a96428fe2783"
-
   def self.create_tiers(tier_data)
-    unique_name = tier_data[:display_data][:title]
-    tier_id = Digest::UUID.uuid_v5(TIER_CREATION_NAMESPACE_UUID, unique_name)
+    tier_id = Gamification.generate_tier_id(tier_data)
 
     begin
       Rails.configuration.command_bus.call(

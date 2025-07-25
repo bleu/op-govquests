@@ -11,6 +11,7 @@ import { Toaster } from "./ui/toaster";
 import { useRouter } from "next/navigation";
 import { useCurrentUserInfo } from "@/domains/gamification/hooks/useUserInfo";
 import { ConfettiProvider } from "./ConfettiProvider";
+import { PostHogProvider } from "./PosthogProvider";
 
 export const queryClient = new QueryClient();
 
@@ -27,7 +28,9 @@ const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <QueryClientProvider client={queryClient}>
         <SIWEProvider {...siweConfig}>
           <ConnectKitProvider onConnect={handleHomeToQuestsRedirect}>
-            <ConfettiProvider>{children}</ConfettiProvider>
+            <PostHogProvider>
+              <ConfettiProvider>{children}</ConfettiProvider>
+            </PostHogProvider>
           </ConnectKitProvider>
         </SIWEProvider>
       </QueryClientProvider>

@@ -26,6 +26,14 @@ require_relative "processes/deliver_notification_on_created"
 
 require_relative "processes/update_user_type_on_tier_achieved"
 
+require_relative "processes/trigger_posthog_on_badge_earned"
+require_relative "processes/trigger_posthog_on_badge_unlocked"
+require_relative "processes/trigger_posthog_on_quest_completed"
+require_relative "processes/trigger_posthog_on_rank_updated"
+require_relative "processes/trigger_posthog_on_tier_achieved"
+require_relative "processes/trigger_posthog_on_track_completed"
+require_relative "processes/trigger_posthog_on_track_started"
+
 module Processes
   class Configuration
     def call(event_store, command_bus)
@@ -53,6 +61,14 @@ module Processes
       DeliverNotificationOnCreated.new(event_store, command_bus).subscribe
 
       UpdateUserTypeOnTierAchieved.new(event_store, command_bus).subscribe
+
+      TriggerPosthogOnBadgeEarned.new(event_store, command_bus).subscribe
+      TriggerPosthogOnBadgeUnlocked.new(event_store, command_bus).subscribe
+      TriggerPosthogOnQuestCompleted.new(event_store, command_bus).subscribe
+      TriggerPosthogOnRankUpdated.new(event_store, command_bus).subscribe
+      TriggerPosthogOnTierAchieved.new(event_store, command_bus).subscribe
+      TriggerPosthogOnTrackCompleted.new(event_store, command_bus).subscribe
+      TriggerPosthogOnTrackStarted.new(event_store, command_bus).subscribe
     end
   end
 end

@@ -1,17 +1,18 @@
+import RewardIndicator from "@/components/RewardIndicator";
 import { Button } from "@/components/ui/Button";
-import { useState } from "react";
-import { useFetchSpecialBadge } from "../hooks/useFetchSpecialBadge";
-import { useCollectBadge } from "../hooks/useCollectBadge";
-import { useAccount } from "wagmi";
-import { useSIWE } from "connectkit";
+import { ConditionalWrapper } from "@/components/ui/ConditionalWrapper";
 import HtmlRender from "@/components/ui/HtmlRender";
 import {
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
   TooltipProvider,
+  TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ConditionalWrapper } from "@/components/ui/ConditionalWrapper";
+import { useSIWE } from "connectkit";
+import { useState } from "react";
+import { useAccount } from "wagmi";
+import { useCollectBadge } from "../hooks/useCollectBadge";
+import { useFetchSpecialBadge } from "../hooks/useFetchSpecialBadge";
 
 export const SpecialBadgeContent = ({
   badgeId,
@@ -58,10 +59,20 @@ export const SpecialBadgeContent = ({
     data?.specialBadge.userBadges[0]?.rewardIssuances.some(
       (rewardIssuance: any) => !rewardIssuance.confirmedAt,
     );
+  const rewards = data?.specialBadge.rewardPools.map((pool) => ({
+    type: pool.rewardDefinition.type,
+    amount: pool.rewardDefinition.amount,
+  }));
+  const hasOpReward = rewards?.some((reward) => reward.type === "Token");
 
   return (
     data && (
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-row gap-2 w-fit self-center justify-center items-center">
+          {rewards?.map((reward) => (
+            <RewardIndicator key={reward.type} reward={reward} />
+          ))}
+        </div>
         <h2 className="font-black text-lg w-full">
           {isCompleted
             ? "Special Badge Unlocked!"
@@ -72,10 +83,15 @@ export const SpecialBadgeContent = ({
           <br />
           <HtmlRender content={data.specialBadge.displayData.description} />
         </span>
-        <span>
-          If you've already reached this milestone, click to collect this badge
-          now.
-        </span>
+        {!isCompleted && (
+          <span>
+            If you've already reached this milestone, click to collect this
+            badge
+            {hasOpReward
+              ? ` and earn ${rewards?.find((reward) => reward.type === "Token")?.amount} OP rewards!`
+              : " now."}
+          </span>
+        )}
         <div className="flex flex-col gap-2 justify-center items-center">
           <ConditionalWrapper
             condition={isPendingReward}

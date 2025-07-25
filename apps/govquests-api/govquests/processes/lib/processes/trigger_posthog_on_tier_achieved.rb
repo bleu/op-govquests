@@ -1,5 +1,5 @@
 module Processes
-  class NotifyOnTierAchieved
+  class TriggerPosthogOnTierAchieved
     def initialize(event_store, command_bus)
       @event_store = event_store
       @command_bus = command_bus
@@ -21,33 +21,24 @@ module Processes
       return if previous_tier_id.nil?
 
       old_tier_record = reconstruct_tier(previous_tier_id)
-      
+      old_tier_title = old_tier_record&.display_data&.dig("title") unless old_tier_record
+
       min_delegation = tier_record&.min_delegation
       old_min_delegation = old_tier_record&.min_delegation
 
-      notification_type = case min_delegation <=> old_min_delegation
-        when 1 then "tier_achieved"
-        when -1 then "tier_downgraded"
+      status = case min_delegation <=> old_min_delegation
+        when 1 then "upgraded"
+        when -1 then "downgraded"
       end
-
-      content = case notification_type
-        when "tier_achieved"
-          "You’ve reached #{tier_title}! Keep up the amazing work and keep climbing!"
-        when "tier_downgraded"
-          "You’ve been moved to #{tier_title}. Don’t worry, keep completing quests to climb back up!"
-      end
-
-      @command_bus.call(
-        ::Notifications::CreateNotification.new(
-          notification_id: SecureRandom.uuid,
-          user_id: profile_id,
-          content: content,
-          cta_text: "Check Your Tier",
-          cta_url: "#{Rails.application.credentials.dig(Rails.env.to_sym, :frontend_domain)}/leaderboard?tab=all-tiers&tier=#{tier_id}",
-          notification_type: notification_type,
-          delivery_methods: ["in_app", "email", "telegram"]
-        )
-      )
+      
+      PosthogTrackingService.track_event("tier_updated", {
+        tier_id: tier_id,
+        tier_title: tier_title,
+        previous_tier_id: previous_tier_id,
+        previous_tier_title: old_tier_title,
+        user_id: profile_id,
+        status: status
+      }, profile_id)
     end
 
     private
