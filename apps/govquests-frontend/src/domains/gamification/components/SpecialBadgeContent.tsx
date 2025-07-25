@@ -1,14 +1,8 @@
 import RewardIndicator from "@/components/RewardIndicator";
 import { Button } from "@/components/ui/Button";
-import { ConditionalWrapper } from "@/components/ui/ConditionalWrapper";
 import HtmlRender from "@/components/ui/HtmlRender";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { useSIWE } from "connectkit";
+import { Clock } from "lucide-react";
 import { useState } from "react";
 import { useAccount } from "wagmi";
 import { useCollectBadge } from "../hooks/useCollectBadge";
@@ -54,7 +48,7 @@ export const SpecialBadgeContent = ({
     );
   };
 
-  const isPendingReward =
+  const isPendingReward: boolean =
     data?.specialBadge.userBadges.length &&
     data?.specialBadge.userBadges[0]?.rewardIssuances.some(
       (rewardIssuance: any) => !rewardIssuance.confirmedAt,
@@ -93,30 +87,20 @@ export const SpecialBadgeContent = ({
           </span>
         )}
         <div className="flex flex-col gap-2 justify-center items-center">
-          <ConditionalWrapper
-            condition={isPendingReward}
-            wrapper={(children) => (
-              <TooltipProvider delayDuration={300}>
-                <Tooltip defaultOpen={false}>
-                  <TooltipTrigger>{children}</TooltipTrigger>
-                  <TooltipContent className="max-w-xs">
-                    <p>
-                      Waiting until OP rewards are successfully transferred to
-                      your wallet.
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            )}
+          <Button
+            className="px-5 w-fit self-center"
+            disabled={isCompleted || !isSignedIn || !isConnected}
+            onClick={handleCollectBadge}
           >
-            <Button
-              className="px-5 w-fit self-center"
-              disabled={isCompleted || !isSignedIn || !isConnected}
-              onClick={handleCollectBadge}
-            >
-              {!isPendingReward ? "Collect Badge" : "Pending Reward"}
-            </Button>
-          </ConditionalWrapper>
+            {!isPendingReward ? "Collect Badge" : "Pending Reward"}
+          </Button>
+          {!!isPendingReward && (
+            <p className="text-yellow-300 font-bold text-xs text-center">
+              <Clock className="w-4 h-4 text-yellow-300 inline mr-2 align-text-top" />
+              Your OP rewards are being processed and will be sent to your
+              wallet soon.
+            </p>
+          )}
           {error && (
             <p className="text-destructive font-bold text-xs text-center">
               {error}
