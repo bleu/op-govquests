@@ -10,15 +10,18 @@ import Header from "./Header";
 import { Toaster } from "./ui/toaster";
 import { useRouter } from "next/navigation";
 import { useCurrentUserInfo } from "@/domains/gamification/hooks/useUserInfo";
+import { useCurrentUser } from "@/domains/authentication/hooks";
 import { ConfettiProvider } from "./ConfettiProvider";
 import { PostHogProvider } from "./PosthogProvider";
+import { OnboardingModal } from "./OnboardingModal";
+import { useState, useEffect } from "react";
 
 export const queryClient = new QueryClient();
 
 const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const router = useRouter();
 
-  const handleHomeToQuestsRedirect = () => {
+  const handleConnect = () => {
     if (window.location.pathname !== "/") return;
     router.push("/quests");
   };
@@ -27,7 +30,7 @@ const Providers = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <SIWEProvider {...siweConfig}>
-          <ConnectKitProvider onConnect={handleHomeToQuestsRedirect}>
+          <ConnectKitProvider onConnect={handleConnect}>
             <PostHogProvider>
               <ConfettiProvider>{children}</ConfettiProvider>
             </PostHogProvider>
@@ -50,9 +53,39 @@ export default function Layout({
       <div className="flex-1 relative z-10 mx-auto w-full">{children}</div>
       <Footer />
       <Toaster />
+      <OnboardingFlow />
     </Providers>
   );
 }
+
+const OnboardingFlow = () => {
+  const { data: currentUser } = useCurrentUser();
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    if (!currentUser?.currentUser?.createdAt) return;
+
+    const createdAt = new Date(currentUser.currentUser.createdAt as string);
+    const now = new Date();
+    const timeDiff = now.getTime() - createdAt.getTime();
+    const fiveMinutesInMs = 5 * 60 * 1000;
+
+    const hasSeenOnboarding = localStorage.getItem("hasSeenOnboarding");
+
+    if (timeDiff <= fiveMinutesInMs && !hasSeenOnboarding) {
+      setShowOnboarding(true);
+    }
+  }, [currentUser]);
+
+  const handleCloseOnboarding = () => {
+    setShowOnboarding(false);
+    localStorage.setItem("hasSeenOnboarding", "true");
+  };
+
+  return (
+    <OnboardingModal isOpen={showOnboarding} onClose={handleCloseOnboarding} />
+  );
+};
 
 const BackgroundTier = () => {
   const { data, isFetched } = useCurrentUserInfo();
