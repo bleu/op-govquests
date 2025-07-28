@@ -581,6 +581,27 @@ module SpecialBadgeData
         }
       ]
     }
+    # {
+    #   display_data: {
+    #     title: "Test Badge",
+    #     description: "Test badge",
+    #     image_url: "/badges/SPECIAL BADGE_01_02.png"
+    #   },
+    #   badge_type: "test_badge",
+    #   badge_data: {
+    #     badge_type: "test_badge"
+    #   },
+    #   rewards: [
+    #     {
+    #       type: "Points",
+    #       amount: 330
+    #     },
+    #     {
+    #       type: "Token",
+    #       amount: 10
+    #     }
+    #   ]
+    # }
   ]
 end
 
