@@ -31,7 +31,7 @@ class TelegramBotServer
 
         message_params = {
           chat_id: chat_id,
-          text: "🎉 Welcome to GovQuests! Your Telegram account has been successfully connected. You'll now receive notifications about your quests, achievements, and rewards directly here."
+          text: "🎉 Welcome to GovQuests! Your Telegram account has been successfully connected. You'll receive notifications here for your key achievements and milestones."
         }
 
         if Rails.env.production?
